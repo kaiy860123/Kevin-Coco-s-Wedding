@@ -341,16 +341,29 @@
             renderAll(false); // 切換頁面不應觸發資料存檔
         }
 
+// ================= 更新版統計邏輯 =================
         function updateStatsUI() {
             const currentEventGuests = globalDatabase.filter(g => g.eventId === currentEventId && !g.id.startsWith("G_EMPTY_"));
-            const total = currentEventGuests.length;
+            const totalGuests = currentEventGuests.length;
             const checkedInCount = currentEventGuests.filter(g => g.isCheckedIn === 1).length;
-            const giftCount = currentEventGuests.filter(g => g.isGiftClaimed === 1).length;
             
-            const pctCheck = total === 0 ? 0 : Math.round((checkedInCount / total) * 100);
-            const pctGift = total === 0 ? 0 : Math.round((giftCount / total) * 100);
+            // 領餅統計邏輯：
+            // 1. 找出所有「有效」的群組單位 (包含群組為空的獨立賓客)
+            // 2. 空的群組視為獨立單位，給予一個唯一識別碼
+            const getGroupKey = (g) => (g.giftGroup && g.giftGroup !== "0") ? g.giftGroup : "INDIV_" + g.id;
             
-            const statsText = `已簽到: ${checkedInCount}/${total} (${pctCheck}%) ｜ 已領餅: ${giftCount}/${total} (${pctGift}%)`;
+            const allGroups = [...new Set(currentEventGuests.map(g => getGroupKey(g)))];
+            const totalGroups = allGroups.length;
+            
+            const claimedGroups = allGroups.filter(groupKey => {
+                // 若為群組，只要組內有人領餅即算領取；若為獨立個人(INDIV_開頭)，則看該人狀態
+                return currentEventGuests.some(g => getGroupKey(g) === groupKey && g.isGiftClaimed === 1);
+            }).length;
+            
+            const pctCheck = totalGuests === 0 ? 0 : Math.round((checkedInCount / totalGuests) * 100);
+            const pctGift = totalGroups === 0 ? 0 : Math.round((claimedGroups / totalGroups) * 100);
+            
+            const statsText = `已簽到: ${checkedInCount}/${totalGuests} (${pctCheck}%) ｜ 已領餅: ${claimedGroups}/${totalGroups} (${pctGift}%)`;
             
             if(document.getElementById('canvas-stats')) document.getElementById('canvas-stats').innerText = statsText;
             if(document.getElementById('table-stats')) document.getElementById('table-stats').innerText = statsText;
@@ -569,16 +582,15 @@
             document.getElementById('guest-modal').style.display = 'flex';
         }
 
+// ================= 更新版領餅狀態機 =================
         function toggleStatus(type) {
             const id = document.getElementById('edit-guest-id').value;
             const targetGuest = globalDatabase.find(g => g.id === id);
             
             if (targetGuest) {
-                let newStatus = 0;
-                
-                if (type === 'checkin') {
-                    newStatus = targetGuest.isCheckedIn === 1 ? 0 : 1;
+                if(type === 'checkin') {
                     const targetName = targetGuest.guestName;
+                    const newStatus = targetGuest.isCheckedIn === 1 ? 0 : 1;
                     globalDatabase.forEach(g => {
                         if (g.eventId === currentEventId && g.guestName === targetName && !g.id.startsWith("G_EMPTY_")) {
                             g.isCheckedIn = newStatus;
@@ -586,16 +598,19 @@
                     });
                 }
                 
-                if (type === 'gift') {
-                    newStatus = targetGuest.isGiftClaimed === 1 ? 0 : 1;
-                    const targetGroup = targetGuest.giftGroup || "";
-                    if (targetGroup.trim() !== "") {
+                if(type === 'gift') {
+                    const group = (targetGuest.giftGroup || "").trim();
+                    const newStatus = targetGuest.isGiftClaimed === 1 ? 0 : 1;
+                    
+                    if (group && group !== "0") {
+                        // 有群組名稱，執行群組廣播
                         globalDatabase.forEach(g => {
-                            if (g.eventId === currentEventId && (g.giftGroup || "") === targetGroup && !g.id.startsWith("G_EMPTY_")) {
+                            if (g.eventId === currentEventId && g.giftGroup === group && !g.id.startsWith("G_EMPTY_")) {
                                 g.isGiftClaimed = newStatus;
                             }
                         });
                     } else {
+                        // 無群組，僅修改該名賓客狀態
                         targetGuest.isGiftClaimed = newStatus;
                     }
                 }
