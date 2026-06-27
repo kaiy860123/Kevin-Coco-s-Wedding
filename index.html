@@ -93,6 +93,17 @@
             <div id="cloud-status" class="cloud-offline">☁️ 連線中...</div>
         </div>
     </div>
+		<div id="guest-panel" style="background: white; border-bottom: 1px solid #ccc; padding: 10px; display: none;">
+		<div class="left-header">
+			<div class="left-header-title">
+				<h2 style="cursor: pointer;" onclick="toggleUnassignedList()">待分配賓客 🔽</h2>
+				<button class="btn-primary btn-sm" onclick="openGuestModal()">➕ 新增</button>
+			</div>
+		</div>
+		<div id="guest-list-wrapper">
+			<div id="guest-list" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
+		</div>
+	</div>
 
     <div id="toolbar-canvas" class="toolbar">
         <div class="setting-item" style="background-color: rgba(255,255,255,0.1); padding: 5px 10px; border-radius: 4px; display: flex; align-items: center; gap: 5px;">
@@ -110,6 +121,10 @@
             <button id="lock-btn" class="btn-warning" onclick="toggleLock()">🔒 鎖定</button>
             <button id="toggle-view-btn" class="btn-primary" onclick="toggleGuestView()">👁️ 收起賓客</button>
         </div>
+		<button class="btn-primary" onclick="document.getElementById('guest-panel').style.display = 
+			(document.getElementById('guest-panel').style.display === 'none' ? 'block' : 'none')">
+			👥 待分配賓客
+		</button>
     </div>
 
     <div id="toolbar-table" class="toolbar" style="display: none;">
@@ -124,31 +139,16 @@
     </div>
 
     <div class="workspace">
-        <div id="view-canvas">
-            <div class="left-panel" id="unassigned-panel" ondragover="allowDrop(event)" ondrop="dropToUnassigned(event)">
-                <div class="left-header">
-                    <div class="left-header-title">
-                        <div style="display: flex; align-items: center; gap: 5px;">
-                            <h2 style="cursor: pointer;" onclick="toggleUnassignedList()">待分配賓客 <span id="collapse-icon">🔽</span></h2>
-                        </div>
-                        <button class="btn-primary btn-sm" onclick="openGuestModal()">➕ 新增</button>
-                    </div>
-                </div>
-                <div id="guest-list-wrapper">
-                    <div id="guest-list"></div>
-                </div>
-            </div>
-            
-            <div class="right-panel">
-                <div class="header-controls">
-                    <h2 id="canvas-title" style="margin:0;">場地座位區</h2>
-                    <div id="canvas-stats" class="stats-text" style="margin-right: auto;"></div>
-                </div>
-                <div id="canvas-container">
-                    <div id="canvas"></div>
-                </div>
-            </div>
-        </div>
+        <div id="view-canvas" ondragover="allowDrop(event)" ondrop="dropToUnassigned(event)">
+			<div class="right-panel" style="width:100%;"> <div class="header-controls">
+					<h2 id="canvas-title" style="margin:0;">場地座位區</h2>
+					<div id="canvas-stats" class="stats-text" style="margin-right: auto;"></div>
+				</div>
+				<div id="canvas-container">
+					<div id="canvas"></div>
+				</div>
+			</div>
+		</div>
 
         <div id="view-table">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
@@ -707,10 +707,16 @@ function openGuestModal(guestId = null) {
             event.preventDefault(); const guestId = event.dataTransfer.getData("text/plain"); const guestIndex = globalDatabase.findIndex(g => g.id === guestId);
             if (guestIndex !== -1) { globalDatabase[guestIndex].tableNo = tableNo; globalDatabase[guestIndex].tableName = tableName; } renderAll(true);
         }
-        function dropToUnassigned(event) {
-            event.preventDefault(); const guestId = event.dataTransfer.getData("text/plain"); const guestIndex = globalDatabase.findIndex(g => g.id === guestId);
-            if (guestIndex !== -1) { globalDatabase[guestIndex].tableNo = ""; globalDatabase[guestIndex].tableName = ""; } renderAll(true);
-        }
+		function dropToUnassigned(event) {
+			event.preventDefault();
+			const guestId = event.dataTransfer.getData("text/plain");
+			const guestIndex = globalDatabase.findIndex(g => g.id === guestId);
+			if (guestIndex !== -1) { 
+				globalDatabase[guestIndex].tableNo = ""; 
+				globalDatabase[guestIndex].tableName = ""; 
+				renderAll(true);
+			}
+		}
         function dropOnGuest(event, targetGuestId) {
             event.preventDefault(); event.stopPropagation(); 
             const sourceGuestId = event.dataTransfer.getData("text/plain");
