@@ -526,7 +526,7 @@
         }
 
         // ================= 互動彈窗邏輯 =================
-        function openGuestModal(guestId = null) {
+function openGuestModal(guestId = null) {
             const tableSelect = document.getElementById('edit-guest-table');
             tableSelect.innerHTML = '<option value="">(待分配)</option>';
             const tables = [...new Set(globalDatabase.filter(g => g.eventId === currentEventId && g.tableNo).map(g => g.tableNo))];
@@ -540,11 +540,13 @@
 
             if (guestId) {
                 const guest = globalDatabase.find(g => g.id === guestId);
+                const giftGroup = String(guest.giftGroup || "").trim();
+
                 document.getElementById('modal-title').innerText = "編輯賓客資料";
                 document.getElementById('edit-guest-id').value = guest.id;
                 document.getElementById('edit-guest-name').value = guest.guestName;
                 document.getElementById('edit-guest-relation').value = guest.relation;
-                document.getElementById('edit-guest-gift-group').value = guest.giftGroup || "";
+                document.getElementById('edit-guest-gift-group').value = giftGroup;
                 document.getElementById('edit-guest-diet').value = guest.diet;
                 document.getElementById('edit-guest-table').value = guest.tableNo;
                 document.getElementById('edit-guest-child').checked = guest.isChild;
@@ -552,18 +554,25 @@
                 
                 document.getElementById('delete-guest-btn').style.display = "block";
                 checkinBtn.style.display = "block";
-                giftBtn.style.display = "block";
                 
+                // 【核心修正】若領餅群組為 "0"，隱藏領餅按鈕
+                if (giftGroup === "0") {
+                    giftBtn.style.display = "none";
+                } else {
+                    giftBtn.style.display = "block";
+                    // 動態設定領餅按鈕樣式
+                    if (guest.isGiftClaimed === 1) {
+                        giftBtn.innerText = "❌ 取消領餅"; giftBtn.className = "btn-warning btn-sm";
+                    } else {
+                        giftBtn.innerText = "🎁 領餅"; giftBtn.className = "btn-info btn-sm";
+                    }
+                }
+                
+                // 簽到按鈕設定
                 if (guest.isCheckedIn === 1) {
                     checkinBtn.innerText = "❌ 取消簽到"; checkinBtn.className = "btn-warning btn-sm";
                 } else {
-                    checkinBtn.innerText = "✔️ 同行簽到"; checkinBtn.className = "btn-success btn-sm";
-                }
-                
-                if (guest.isGiftClaimed === 1) {
-                    giftBtn.innerText = "❌ 取消領餅"; giftBtn.className = "btn-warning btn-sm";
-                } else {
-                    giftBtn.innerText = "🎁 同行領餅"; giftBtn.className = "btn-info btn-sm";
+                    checkinBtn.innerText = "✔️ 簽到"; checkinBtn.className = "btn-success btn-sm";
                 }
             } else {
                 document.getElementById('modal-title').innerText = "新增賓客";
@@ -577,7 +586,8 @@
                 document.getElementById('edit-guest-note').value = ""; 
                 
                 document.getElementById('delete-guest-btn').style.display = "none";
-                checkinBtn.style.display = "none"; giftBtn.style.display = "none";
+                checkinBtn.style.display = "none"; 
+                giftBtn.style.display = "none"; 
             }
             document.getElementById('guest-modal').style.display = 'flex';
         }
