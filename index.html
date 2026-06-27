@@ -581,6 +581,43 @@
             }
             document.getElementById('guest-modal').style.display = 'flex';
         }
+// ================= 修正版統計邏輯 =================
+		function updateStatsUI() {
+			const currentEventGuests = globalDatabase.filter(g => g.eventId === currentEventId && !g.id.startsWith("G_EMPTY_"));
+			const totalGuests = currentEventGuests.length;
+			const checkedInCount = currentEventGuests.filter(g => g.isCheckedIn === 1).length;
+			
+			// 領餅統計邏輯修正：
+			// 1. 強制排除 giftGroup 為 "0" (字串) 或 0 (數值) 的賓客
+			const validGiftGuests = currentEventGuests.filter(g => String(g.giftGroup).trim() !== "0" && String(g.giftGroup).trim() !== "");
+			
+			// 2. 定義群組識別：若有填寫群組名稱(且不為0)，則使用該名稱；若為空(且不為0)，則視為獨立個體
+			const getGroupKey = (g) => {
+				const group = String(g.giftGroup || "").trim();
+				return (group && group !== "0") ? group : "INDIV_" + g.id;
+			};
+			
+			// 3. 統計所有有效的領餅單位 (過濾掉 giftGroup 為 0 的賓客)
+			const allGroups = [...new Set(currentEventGuests
+				.filter(g => String(g.giftGroup).trim() !== "0")
+				.map(g => getGroupKey(g)))];
+				
+			const totalGroups = allGroups.length;
+			
+			const claimedGroups = allGroups.filter(groupKey => {
+				// 若為群組，只要組內有人領餅即算領取；若為獨立個人，則看該人狀態
+				return currentEventGuests.some(g => getGroupKey(g) === groupKey && g.isGiftClaimed === 1);
+			}).length;
+			
+			const pctCheck = totalGuests === 0 ? 0 : Math.round((checkedInCount / totalGuests) * 100);
+			const pctGift = totalGroups === 0 ? 0 : Math.round((claimedGroups / totalGroups) * 100);
+			
+			const statsText = `已簽到: ${checkedInCount}/${totalGuests} (${pctCheck}%) ｜ 已領餅: ${claimedGroups}/${totalGroups} (${pctGift}%)`;
+			
+			if(document.getElementById('canvas-stats')) document.getElementById('canvas-stats').innerText = statsText;
+			if(document.getElementById('table-stats')) document.getElementById('table-stats').innerText = statsText;
+		}
+
 
 // ================= 更新版領餅狀態機 =================
         function toggleStatus(type) {
