@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>排座助手 Pro V8 (雲端協作旗艦版)</title>
+    <title>排座助手 Pro V9 (防護鎖與群組領餅版)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -12,9 +12,7 @@
         
         /* ================= CSS 視覺樣式 ================= */
         body { margin: 0; font-family: "Microsoft JhengHei", sans-serif; background-color: #f4f4f9; display: flex; flex-direction: column; height: 100vh; }
-        
         .wedding-title { background-color: #1a1a1a; color: #d4af37; text-align: center; font-family: 'Great Vibes', cursive; font-size: 38px; padding: 10px 0 5px 0; margin: 0; line-height: 1; letter-spacing: 2px; }
-        
         .main-nav { background-color: #1a1a1a; display: flex; padding: 0 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 100; }
         .nav-btn { padding: 10px 20px; background: none; border: none; color: #aaa; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.3s; border-bottom: 3px solid transparent; }
         .nav-btn:hover { color: white; }
@@ -33,7 +31,6 @@
         .btn-sm { padding: 4px 8px; font-size: 12px; }
 
         .workspace { flex: 1; display: flex; overflow: hidden; position: relative; }
-        
         #view-canvas { display: flex; width: 100%; height: 100%; }
         .left-panel { width: 330px; background-color: #ffffff; border-right: 1px solid #cccccc; padding: 20px; display: flex; flex-direction: column; z-index: 10; transition: 0.3s; }
         .right-panel { flex: 1; padding: 20px; display: flex; flex-direction: column; z-index: 1; overflow: hidden; }
@@ -70,11 +67,10 @@
         .badge-gray { background-color: #e2e3e5; color: #383d41; border: 1px solid #d6d8db; }
         
         .stats-text { font-size: 14px; font-weight: bold; color: #333; margin-left: 15px; background: #fff; padding: 4px 10px; border-radius: 12px; border: 1px solid #ccc; display: inline-block; }
-        
         .guests-hidden .guest-circle { display: none !important; }
         
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center; }
-        .modal-content { background: white; padding: 20px; width: 320px; border-radius: 8px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .modal-content { background: white; padding: 20px; width: 340px; border-radius: 8px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
         .modal-content label { display: flex; flex-direction: column; font-size: 14px; color: #333; font-weight: bold; }
         .modal-content input[type="text"], .modal-content select { padding: 6px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; }
         .checkbox-label { flex-direction: row !important; align-items: center; gap: 8px; cursor: pointer; font-weight: normal !important; }
@@ -110,7 +106,7 @@
         <button class="btn-success" onclick="exportLayoutExcel()">⬇️ 下載佈局</button>
         <button class="btn-info" onclick="exportCanvasImage()">📸 匯出場地圖</button>
         <div style="margin-left: auto; display: flex; gap: 10px;">
-            <div class="setting-item">單桌上限 <input type="number" id="global-max-guests" value="12" min="1" onchange="renderAll()"></div>
+            <div class="setting-item">單桌上限 <input type="number" id="global-max-guests" value="12" min="1" onchange="renderAll(true)"></div>
             <button id="lock-btn" class="btn-warning" onclick="toggleLock()">🔒 鎖定</button>
             <button id="toggle-view-btn" class="btn-primary" onclick="toggleGuestView()">👁️ 收起賓客</button>
         </div>
@@ -164,7 +160,17 @@
             </div>
             <table class="data-table">
                 <thead>
-                    <tr><th style="width: 100px;">狀態 (簽到/餅)</th><th>桌號</th><th>桌名</th><th>姓名</th><th>關係</th><th>葷素</th><th>備註</th><th style="width: 140px;">操作</th></tr>
+                    <tr>
+                        <th style="width: 100px;">狀態 (簽到/餅)</th>
+                        <th>桌號</th>
+                        <th>桌名</th>
+                        <th>姓名</th>
+                        <th>關係</th>
+                        <th>領餅群組</th>
+                        <th>葷素</th>
+                        <th>備註</th>
+                        <th style="width: 140px;">操作</th>
+                    </tr>
                 </thead>
                 <tbody id="table-body"></tbody>
             </table>
@@ -175,10 +181,15 @@
         <div class="modal-content">
             <h3 id="modal-title" style="margin:0;">編輯賓客資料</h3>
             <input type="hidden" id="edit-guest-id">
-            <label>姓名：<input type="text" id="edit-guest-name"></label>
-            <label>關係：<input type="text" id="edit-guest-relation"></label>
-            <label>葷素：<select id="edit-guest-diet"><option value="葷">葷</option><option value="素">素</option></select></label>
-            <label>安排桌號：<select id="edit-guest-table"></select></label>
+            <div style="display: flex; gap: 10px;">
+                <label style="flex:1;">姓名：<input type="text" id="edit-guest-name"></label>
+                <label style="flex:1;">關係：<input type="text" id="edit-guest-relation"></label>
+            </div>
+            <label>領餅群組：<input type="text" id="edit-guest-gift-group" placeholder="同群組只需填寫相同名稱"></label>
+            <div style="display: flex; gap: 10px;">
+                <label style="flex:1;">葷素：<select id="edit-guest-diet"><option value="葷">葷</option><option value="素">素</option></select></label>
+                <label style="flex:1;">安排桌號：<select id="edit-guest-table"></select></label>
+            </div>
             <label class="checkbox-label"><input type="checkbox" id="edit-guest-child"> 標記為兒童</label>
             <label>備註：<input type="text" id="edit-guest-note"></label>
             
@@ -210,7 +221,7 @@
     </div>
 
     <script>
-        // ================= 1. Firebase 雲端配置 =================
+        // ================= Firebase 雲端配置 =================
         const firebaseConfig = {
             apiKey: "AIzaSyAsSnOUE0WyuWhC62njgfEW8j6NyZHDhzI",
             authDomain: "weddingseating-4a476.firebaseapp.com",
@@ -237,12 +248,14 @@
         let isGuestsCollapsed = false; 
         let isLeftListCollapsed = false;
         let globalGridParams = { x: 3, y: 3 }; 
+        
         let isReceivingCloudData = false; 
+        let isCloudInitialized = false; // 雲端防護鎖：未讀取雲端前，絕對不允許上傳
 
         window.onload = function() {
             try { loadFromStorage(); } catch (e) { localStorage.clear(); }
             initCloudSync();
-            switchPage('tainan', 'canvas'); 
+            switchPage('tainan', 'canvas'); // switchPage 中會呼叫 renderAll(false)，不觸發雲端儲存
         };
 
         function saveToStorage() {
@@ -258,14 +271,17 @@
             if (savedGuests) globalDatabase = JSON.parse(savedGuests);
             if (savedPositions) globalTablePositions = JSON.parse(savedPositions);
             if (savedGrid) globalGridParams = JSON.parse(savedGrid);
+            
             globalDatabase.forEach(g => { 
                 if (g.isCheckedIn === undefined) g.isCheckedIn = 0; 
                 if (g.isGiftClaimed === undefined) g.isGiftClaimed = 0; 
+                if (g.giftGroup === undefined) g.giftGroup = "";
             });
         }
 
         function saveToCloud() {
-            if (isReceivingCloudData) return; 
+            // 防護鎖：若正在接收雲端資料，或尚未完成首次雲端同步，禁止覆蓋 Firebase
+            if (isReceivingCloudData || !isCloudInitialized) return; 
             dbRef.set({
                 guests: globalDatabase,
                 positions: globalTablePositions,
@@ -282,13 +298,13 @@
                     statusIndicator.innerText = "☁️ 雲端已連線";
                 } else {
                     statusIndicator.className = "cloud-offline";
-                    statusIndicator.innerText = "⚠️ 離線中 (本機暫存)";
+                    statusIndicator.innerText = "⚠️ 離線中";
                 }
             });
 
             dbRef.on('value', (snapshot) => {
-                const data = snapshot.val();
                 isReceivingCloudData = true; 
+                const data = snapshot.val();
                 
                 if (data) {
                     globalDatabase = data.guests || [];
@@ -298,8 +314,11 @@
                     globalDatabase.forEach(g => { 
                         if (g.isCheckedIn === undefined) g.isCheckedIn = 0; 
                         if (g.isGiftClaimed === undefined) g.isGiftClaimed = 0; 
+                        if (g.giftGroup === undefined) g.giftGroup = "";
                     });
                 }
+                
+                isCloudInitialized = true; // 標記已成功取得雲端資料，解鎖上傳權限
                 renderAll(false); 
                 isReceivingCloudData = false; 
             });
@@ -319,7 +338,7 @@
             document.getElementById('canvas-title').innerText = `${eventName} - 場地座位區`;
             document.getElementById('table-title').innerText = `${eventName} - 賓客名單總表`;
 
-            renderAll(true);
+            renderAll(false); // 切換頁面不應觸發資料存檔
         }
 
         function updateStatsUI() {
@@ -345,6 +364,7 @@
             updateStatsUI(); 
         }
 
+        // ================= 視圖渲染邏輯 =================
         function renderCanvas() {
             const unassignedContainer = document.getElementById("guest-list");
             const canvasContainer = document.getElementById("canvas");
@@ -434,6 +454,7 @@
                     <td>${guest.tableName || '-'}</td>
                     <td style="font-weight:bold;">${guest.guestName}</td>
                     <td>${guest.relation}</td>
+                    <td>${guest.giftGroup || '-'}</td>
                     <td>${guest.diet}</td>
                     <td>${guest.note}</td>
                     <td><button class="btn-primary btn-sm" onclick="openGuestModal('${guest.id}')">✏️ 編輯</button></td>
@@ -491,7 +512,133 @@
             canvas.appendChild(wrapper);
         }
 
-        // ================= 拖放與邏輯 =================
+        // ================= 互動彈窗邏輯 =================
+        function openGuestModal(guestId = null) {
+            const tableSelect = document.getElementById('edit-guest-table');
+            tableSelect.innerHTML = '<option value="">(待分配)</option>';
+            const tables = [...new Set(globalDatabase.filter(g => g.eventId === currentEventId && g.tableNo).map(g => g.tableNo))];
+            tables.forEach(tNo => {
+                const tName = globalDatabase.find(g => g.eventId === currentEventId && g.tableNo === tNo).tableName || `第 ${tNo} 桌`;
+                tableSelect.innerHTML += `<option value="${tNo}">${tNo} - ${tName}</option>`;
+            });
+
+            const checkinBtn = document.getElementById('checkin-btn');
+            const giftBtn = document.getElementById('gift-btn');
+
+            if (guestId) {
+                const guest = globalDatabase.find(g => g.id === guestId);
+                document.getElementById('modal-title').innerText = "編輯賓客資料";
+                document.getElementById('edit-guest-id').value = guest.id;
+                document.getElementById('edit-guest-name').value = guest.guestName;
+                document.getElementById('edit-guest-relation').value = guest.relation;
+                document.getElementById('edit-guest-gift-group').value = guest.giftGroup || "";
+                document.getElementById('edit-guest-diet').value = guest.diet;
+                document.getElementById('edit-guest-table').value = guest.tableNo;
+                document.getElementById('edit-guest-child').checked = guest.isChild;
+                document.getElementById('edit-guest-note').value = guest.note;
+                
+                document.getElementById('delete-guest-btn').style.display = "block";
+                checkinBtn.style.display = "block";
+                giftBtn.style.display = "block";
+                
+                if (guest.isCheckedIn === 1) {
+                    checkinBtn.innerText = "❌ 取消簽到"; checkinBtn.className = "btn-warning btn-sm";
+                } else {
+                    checkinBtn.innerText = "✔️ 同行簽到"; checkinBtn.className = "btn-success btn-sm";
+                }
+                
+                if (guest.isGiftClaimed === 1) {
+                    giftBtn.innerText = "❌ 取消領餅"; giftBtn.className = "btn-warning btn-sm";
+                } else {
+                    giftBtn.innerText = "🎁 同行領餅"; giftBtn.className = "btn-info btn-sm";
+                }
+            } else {
+                document.getElementById('modal-title').innerText = "新增賓客";
+                document.getElementById('edit-guest-id').value = ""; 
+                document.getElementById('edit-guest-name').value = "";
+                document.getElementById('edit-guest-relation').value = ""; 
+                document.getElementById('edit-guest-gift-group').value = "";
+                document.getElementById('edit-guest-diet').value = "葷";
+                document.getElementById('edit-guest-table').value = ""; 
+                document.getElementById('edit-guest-child').checked = false;
+                document.getElementById('edit-guest-note').value = ""; 
+                
+                document.getElementById('delete-guest-btn').style.display = "none";
+                checkinBtn.style.display = "none"; giftBtn.style.display = "none";
+            }
+            document.getElementById('guest-modal').style.display = 'flex';
+        }
+
+        function toggleStatus(type) {
+            const id = document.getElementById('edit-guest-id').value;
+            const targetGuest = globalDatabase.find(g => g.id === id);
+            
+            if (targetGuest) {
+                let newStatus = 0;
+                
+                if (type === 'checkin') {
+                    newStatus = targetGuest.isCheckedIn === 1 ? 0 : 1;
+                    const targetName = targetGuest.guestName;
+                    globalDatabase.forEach(g => {
+                        if (g.eventId === currentEventId && g.guestName === targetName && !g.id.startsWith("G_EMPTY_")) {
+                            g.isCheckedIn = newStatus;
+                        }
+                    });
+                }
+                
+                if (type === 'gift') {
+                    newStatus = targetGuest.isGiftClaimed === 1 ? 0 : 1;
+                    const targetGroup = targetGuest.giftGroup || "";
+                    if (targetGroup.trim() !== "") {
+                        globalDatabase.forEach(g => {
+                            if (g.eventId === currentEventId && (g.giftGroup || "") === targetGroup && !g.id.startsWith("G_EMPTY_")) {
+                                g.isGiftClaimed = newStatus;
+                            }
+                        });
+                    } else {
+                        targetGuest.isGiftClaimed = newStatus;
+                    }
+                }
+                renderAll(true);
+                closeModal('guest-modal');
+            }
+        }
+
+        function saveGuestEdit() {
+            const id = document.getElementById('edit-guest-id').value;
+            const name = document.getElementById('edit-guest-name').value.trim();
+            if (!name) return alert("請輸入姓名！");
+            const tableNo = document.getElementById('edit-guest-table').value;
+            let tableName = "";
+            if (tableNo) {
+                const existingGuest = globalDatabase.find(g => g.eventId === currentEventId && g.tableNo === tableNo);
+                tableName = existingGuest ? existingGuest.tableName : `第 ${tableNo} 桌`;
+            }
+            if (id) {
+                const idx = globalDatabase.findIndex(g => g.id === id);
+                if (idx > -1) {
+                    globalDatabase[idx].guestName = name; 
+                    globalDatabase[idx].relation = document.getElementById('edit-guest-relation').value;
+                    globalDatabase[idx].giftGroup = document.getElementById('edit-guest-gift-group').value.trim();
+                    globalDatabase[idx].diet = document.getElementById('edit-guest-diet').value; 
+                    globalDatabase[idx].tableNo = tableNo;
+                    globalDatabase[idx].tableName = tableName; 
+                    globalDatabase[idx].isChild = document.getElementById('edit-guest-child').checked;
+                    globalDatabase[idx].note = document.getElementById('edit-guest-note').value;
+                }
+            } else {
+                globalDatabase.push({
+                    id: "G_" + Date.now(), eventId: currentEventId, tableNo: tableNo, tableName: tableName,
+                    guestName: name, relation: document.getElementById('edit-guest-relation').value || "其他",
+                    giftGroup: document.getElementById('edit-guest-gift-group').value.trim(),
+                    diet: document.getElementById('edit-guest-diet').value, isChild: document.getElementById('edit-guest-child').checked,
+                    note: document.getElementById('edit-guest-note').value, isCheckedIn: 0, isGiftClaimed: 0
+                });
+            }
+            renderAll(true); closeModal('guest-modal');
+        }
+
+        // ================= 資料操作與拖曳控制保留 =================
         function dragStart(event, guestId) { event.dataTransfer.setData("text/plain", guestId); }
         function allowDrop(event) { event.preventDefault(); }
         function dropToTable(event, tableNo, tableName) {
@@ -531,87 +678,82 @@
             };
             wrapper.onclick = function(e) { if (!isDragging && e.target.closest('.dining-table')) openTableModal(tableData.tableNo, tableData.tableName); };
         }
-        function openGuestModal(guestId = null) {
-            const tableSelect = document.getElementById('edit-guest-table');
-            tableSelect.innerHTML = '<option value="">(待分配)</option>';
-            const tables = [...new Set(globalDatabase.filter(g => g.eventId === currentEventId && g.tableNo).map(g => g.tableNo))];
-            tables.forEach(tNo => {
-                const tName = globalDatabase.find(g => g.eventId === currentEventId && g.tableNo === tNo).tableName || `第 ${tNo} 桌`;
-                tableSelect.innerHTML += `<option value="${tNo}">${tNo} - ${tName}</option>`;
-            });
-
-            const checkinBtn = document.getElementById('checkin-btn');
-            const giftBtn = document.getElementById('gift-btn');
-
-            if (guestId) {
-                const guest = globalDatabase.find(g => g.id === guestId);
-                document.getElementById('modal-title').innerText = "編輯賓客資料";
-                document.getElementById('edit-guest-id').value = guest.id;
-                document.getElementById('edit-guest-name').value = guest.guestName;
-                document.getElementById('edit-guest-relation').value = guest.relation;
-                document.getElementById('edit-guest-diet').value = guest.diet;
-                document.getElementById('edit-guest-table').value = guest.tableNo;
-                document.getElementById('edit-guest-child').checked = guest.isChild;
-                document.getElementById('edit-guest-note').value = guest.note;
-                
-                document.getElementById('delete-guest-btn').style.display = "block";
-                checkinBtn.style.display = "block";
-                giftBtn.style.display = "block";
-                
-                if (guest.isCheckedIn === 1) {
-                    checkinBtn.innerText = "❌ 取消簽到"; checkinBtn.className = "btn-warning btn-sm";
-                } else {
-                    checkinBtn.innerText = "✔️ 同行簽到"; checkinBtn.className = "btn-success btn-sm";
-                }
-                
-                if (guest.isGiftClaimed === 1) {
-                    giftBtn.innerText = "❌ 取消領餅"; giftBtn.className = "btn-warning btn-sm";
-                } else {
-                    giftBtn.innerText = "🎁 同行領餅"; giftBtn.className = "btn-info btn-sm";
-                }
-            } else {
-                document.getElementById('modal-title').innerText = "新增賓客";
-                document.getElementById('edit-guest-id').value = ""; document.getElementById('edit-guest-name').value = "";
-                document.getElementById('edit-guest-relation').value = ""; document.getElementById('edit-guest-diet').value = "葷";
-                document.getElementById('edit-guest-table').value = ""; document.getElementById('edit-guest-child').checked = false;
-                document.getElementById('edit-guest-note').value = ""; 
-                document.getElementById('delete-guest-btn').style.display = "none";
-                checkinBtn.style.display = "none"; giftBtn.style.display = "none";
-            }
-            document.getElementById('guest-modal').style.display = 'flex';
+        function openTableModal(tableNo, currentName) {
+            document.getElementById('edit-table-no').value = tableNo; document.getElementById('edit-table-name').value = currentName.startsWith('自訂桌') || currentName.startsWith('第') ? '' : currentName;
+            document.getElementById('table-modal').style.display = 'flex';
         }
-        function toggleStatus(type) {
-            const id = document.getElementById('edit-guest-id').value;
-            const targetGuest = globalDatabase.find(g => g.id === id);
-            if (targetGuest) {
-                const targetName = targetGuest.guestName; let newStatus = 0;
-                if(type === 'checkin') newStatus = targetGuest.isCheckedIn === 1 ? 0 : 1;
-                if(type === 'gift') newStatus = targetGuest.isGiftClaimed === 1 ? 0 : 1;
-                globalDatabase.forEach(g => {
-                    if (g.eventId === currentEventId && g.guestName === targetName && !g.id.startsWith("G_EMPTY_")) {
-                        if(type === 'checkin') g.isCheckedIn = newStatus;
-                        if(type === 'gift') g.isGiftClaimed = newStatus;
-                    }
-                });
-                renderAll(true); closeModal('guest-modal');
-            }
+        function saveTableEdit() {
+            const tableNo = document.getElementById('edit-table-no').value; const newName = document.getElementById('edit-table-name').value.trim() || `第 ${tableNo} 桌`;
+            globalDatabase.forEach(guest => { if (guest.eventId === currentEventId && guest.tableNo === tableNo) guest.tableName = newName; }); renderAll(true); closeModal('table-modal');
         }
-        function saveGuestEdit() {
-            const id = document.getElementById('edit-guest-id').value; const name = document.getElementById('edit-guest-name').value.trim();
-            if (!name) return alert("請輸入姓名！"); const tableNo = document.getElementById('edit-guest-table').value; let tableName = "";
-            if (tableNo) { const existingGuest = globalDatabase.find(g => g.eventId === currentEventId && g.tableNo === tableNo); tableName = existingGuest ? existingGuest.tableName : `第 ${tableNo} 桌`; }
-            if (id) {
-                const idx = globalDatabase.findIndex(g => g.id === id);
-                if (idx > -1) {
-                    globalDatabase[idx].guestName = name; globalDatabase[idx].relation = document.getElementById('edit-guest-relation').value;
-                    globalDatabase[idx].diet = document.getElementById('edit-guest-diet').value; globalDatabase[idx].tableNo = tableNo;
-                    globalDatabase[idx].tableName = tableName; globalDatabase[idx].isChild = document.getElementById('edit-guest-child').checked;
-                    globalDatabase[idx].note = document.getElementById('edit-guest-note').value;
-                }
-            } else {
-                globalDatabase.push({ id: "G_" + Date.now(), eventId: currentEventId, tableNo: tableNo, tableName: tableName, guestName: name, relation: document.getElementById('edit-guest-relation').value || "其他", diet: document.getElementById('edit-guest-diet').value, isChild: document.getElementById('edit-guest-child').checked, note: document.getElementById('edit-guest-note').value, isCheckedIn: 0, isGiftClaimed: 0 });
-            }
-            renderAll(true); closeModal('guest-modal');
+        function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
+        function deleteGuest() { const id = document.getElementById('edit-guest-id').value; if (confirm("確定要刪除這位賓客嗎？")) { globalDatabase = globalDatabase.filter(g => g.id !== id); renderAll(true); closeModal('guest-modal'); } }
+        function updateGrid() { globalGridParams.x = parseInt(document.getElementById("grid-x").value) || 1; globalGridParams.y = parseInt(document.getElementById("grid-y").value) || 1; renderAll(true); }
+        function toggleGuestView() {
+            isGuestsCollapsed = !isGuestsCollapsed; const btn = document.getElementById("toggle-view-btn"); const canvas = document.getElementById("canvas-container");
+            if (isGuestsCollapsed) { btn.innerText = "👁️ 展開賓客"; btn.classList.replace("btn-primary", "btn-warning"); canvas.classList.add("guests-hidden"); } 
+            else { btn.innerText = "👁️ 收起賓客"; btn.classList.replace("btn-warning", "btn-primary"); canvas.classList.remove("guests-hidden"); }
+        }
+        function toggleLock() {
+            isTableLocked = !isTableLocked; const btn = document.getElementById("lock-btn");
+            if (isTableLocked) { btn.innerText = "🔒 鎖定"; btn.classList.replace("btn-danger", "btn-warning"); } 
+            else { btn.innerText = "🔓 可移動"; btn.classList.replace("btn-warning", "btn-danger"); }
+        }
+        function addEmptyTable() {
+            const currentEventGuests = globalDatabase.filter(g => g.eventId === currentEventId); const tableNos = currentEventGuests.filter(g => g.tableNo).map(g => parseInt(g.tableNo)).filter(n => !isNaN(n));
+            const nextNo = tableNos.length > 0 ? Math.max(...tableNos) + 1 : 1;
+            globalDatabase.push({ id: "G_EMPTY_" + Date.now(), eventId: currentEventId, tableNo: nextNo.toString(), tableName: `自訂桌 ${nextNo}`, guestName: "空位預留", relation: "無", diet: "-", isChild: false, note: "", isCheckedIn: 0, isGiftClaimed: 0, giftGroup: "" }); renderAll(true);
+        }
+        function clearAllData() { if (confirm("⚠️ 警告：確定要清空當前場次嗎？")) { globalDatabase = globalDatabase.filter(g => g.eventId !== currentEventId); Object.keys(globalTablePositions).forEach(key => { if (key.startsWith(currentEventId + "_")) delete globalTablePositions[key]; }); renderAll(true); } }
+        
+        function exportExcel() {
+            const currentEventGuests = globalDatabase.filter(g => g.eventId === currentEventId && !g.id.startsWith("G_EMPTY_"));
+            if (currentEventGuests.length === 0) return alert("目前沒有賓客資料。");
+            const exportData = currentEventGuests.map(g => ({
+                "簽到狀態": g.isCheckedIn === 1 ? "已簽到" : "未簽到", "喜餅狀態": g.isGiftClaimed === 1 ? "已領取" : "未領取",
+                "桌號": g.tableNo || "", "桌名": g.tableName || "", "來賓關係": g.relation || "",
+                "領餅群組": g.giftGroup || "", "來賓姓名": g.guestName || "", "葷素": g.diet || "葷", 
+                "是否為兒童": g.isChild ? "是" : "否", "備註": g.note || ""
+            }));
+            const ws = XLSX.utils.json_to_sheet(exportData); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "名單與狀態"); XLSX.writeFile(wb, `賓客狀態_${currentEventId}.xlsx`);
+        }
+        function handleExcelUpload(event) {
+            const file = event.target.files[0]; if (!file) return; const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = new Uint8Array(e.target.result); const workbook = XLSX.read(data, { type: 'array' }); const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
+                    jsonData.forEach(row => {
+                        globalDatabase.push({
+                            id: "G_" + Date.now() + "_" + Math.random().toString(36).substring(2, 9), eventId: currentEventId,
+                            tableNo: String(row["桌號"] || "").trim(), tableName: row["桌名"] || "", guestName: row["來賓姓名"] || "未命名", relation: row["來賓關係"] || "其他",
+                            giftGroup: String(row["領餅群組"] || "").trim(),
+                            diet: row["葷素"] || "葷", isChild: row["是否為兒童"] === "是" || row["是否為兒童"] === true, note: row["備註"] || "", 
+                            isCheckedIn: (row["簽到狀態"] === "已簽到" || row["簽到狀態"] == 1) ? 1 : 0, isGiftClaimed: (row["喜餅狀態"] === "已領取" || row["喜餅狀態"] == 1) ? 1 : 0
+                        });
+                    }); renderAll(true); alert("匯入成功！");
+                } catch (error) { alert("Excel 讀取失敗。"); } event.target.value = ''; 
+            }; reader.readAsArrayBuffer(file);
+        }
+        function handleLayoutUpload(event) {
+            const file = event.target.files[0]; if (!file) return; const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = new Uint8Array(e.target.result); const workbook = XLSX.read(data, { type: 'array' }); const gridData = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], { header: 1 });
+                    let minRow = Infinity; let minCol = Infinity; let tablesToUpdate = [];
+                    gridData.forEach((row, rIdx) => { row.forEach((cellVal, cIdx) => {
+                            if (cellVal !== undefined && cellVal !== null && String(cellVal).trim() !== "") {
+                                let cellStr = String(cellVal).trim(); const mTable = globalDatabase.find(g => g.eventId === currentEventId && g.tableNo && (g.tableNo === cellStr || g.tableName === cellStr));
+                                if (mTable) { minRow = Math.min(minRow, rIdx); minCol = Math.min(minCol, cIdx); tablesToUpdate.push({ tableNo: mTable.tableNo, r: rIdx, c: cIdx }); }
+                            }
+                        });
+                    });
+                    if (tablesToUpdate.length > 0) {
+                        let maxX = 1; let maxY = 1;
+                        tablesToUpdate.forEach(t => { let nR = t.r - minRow; let nC = t.c - minCol; globalTablePositions[`${currentEventId}_${t.tableNo}`] = { x: nC * 350 + 15, y: nR * 350 + 15 }; maxX = Math.max(maxX, nC + 1); maxY = Math.max(maxY, nR + 1); });
+                        globalGridParams.x = Math.max(globalGridParams.x, maxX); globalGridParams.y = Math.max(globalGridParams.y, maxY); renderAll(true); alert("佈局讀取成功！");
+                    } else { alert("佈局匯入失敗：未能比對到有效桌號。"); }
+                } catch (error) { alert("佈局讀取失敗。"); } event.target.value = '';
+            }; reader.readAsArrayBuffer(file);
         }
         function exportLayoutExcel() {
             const gridMatrix = Array.from({ length: globalGridParams.y }, () => Array(globalGridParams.x).fill(""));
@@ -641,80 +783,6 @@
         function toggleUnassignedList() {
             isLeftListCollapsed = !isLeftListCollapsed; const wrapper = document.getElementById('guest-list-wrapper'); const icon = document.getElementById('collapse-icon');
             if (isLeftListCollapsed) { wrapper.classList.add('collapsed'); icon.innerText = "▶️"; } else { wrapper.classList.remove('collapsed'); icon.innerText = "🔽"; }
-        }
-        function openTableModal(tableNo, currentName) {
-            document.getElementById('edit-table-no').value = tableNo; document.getElementById('edit-table-name').value = currentName.startsWith('自訂桌') || currentName.startsWith('第') ? '' : currentName;
-            document.getElementById('table-modal').style.display = 'flex';
-        }
-        function saveTableEdit() {
-            const tableNo = document.getElementById('edit-table-no').value; const newName = document.getElementById('edit-table-name').value.trim() || `第 ${tableNo} 桌`;
-            globalDatabase.forEach(guest => { if (guest.eventId === currentEventId && guest.tableNo === tableNo) guest.tableName = newName; }); renderAll(true); closeModal('table-modal');
-        }
-        function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
-        function deleteGuest() { const id = document.getElementById('edit-guest-id').value; if (confirm("確定要刪除這位賓客嗎？")) { globalDatabase = globalDatabase.filter(g => g.id !== id); renderAll(true); closeModal('guest-modal'); } }
-        function updateGrid() { globalGridParams.x = parseInt(document.getElementById("grid-x").value) || 1; globalGridParams.y = parseInt(document.getElementById("grid-y").value) || 1; renderAll(true); }
-        function toggleGuestView() {
-            isGuestsCollapsed = !isGuestsCollapsed; const btn = document.getElementById("toggle-view-btn"); const canvas = document.getElementById("canvas-container");
-            if (isGuestsCollapsed) { btn.innerText = "👁️ 展開賓客"; btn.classList.replace("btn-primary", "btn-warning"); canvas.classList.add("guests-hidden"); } 
-            else { btn.innerText = "👁️ 收起賓客"; btn.classList.replace("btn-warning", "btn-primary"); canvas.classList.remove("guests-hidden"); }
-        }
-        function toggleLock() {
-            isTableLocked = !isTableLocked; const btn = document.getElementById("lock-btn");
-            if (isTableLocked) { btn.innerText = "🔒 鎖定"; btn.classList.replace("btn-danger", "btn-warning"); } 
-            else { btn.innerText = "🔓 可移動"; btn.classList.replace("btn-warning", "btn-danger"); }
-        }
-        function addEmptyTable() {
-            const currentEventGuests = globalDatabase.filter(g => g.eventId === currentEventId); const tableNos = currentEventGuests.filter(g => g.tableNo).map(g => parseInt(g.tableNo)).filter(n => !isNaN(n));
-            const nextNo = tableNos.length > 0 ? Math.max(...tableNos) + 1 : 1;
-            globalDatabase.push({ id: "G_EMPTY_" + Date.now(), eventId: currentEventId, tableNo: nextNo.toString(), tableName: `自訂桌 ${nextNo}`, guestName: "空位預留", relation: "無", diet: "-", isChild: false, note: "", isCheckedIn: 0, isGiftClaimed: 0 }); renderAll(true);
-        }
-        function clearAllData() { if (confirm("⚠️ 警告：確定要清空當前場次嗎？")) { globalDatabase = globalDatabase.filter(g => g.eventId !== currentEventId); Object.keys(globalTablePositions).forEach(key => { if (key.startsWith(currentEventId + "_")) delete globalTablePositions[key]; }); renderAll(true); } }
-        function exportExcel() {
-            const currentEventGuests = globalDatabase.filter(g => g.eventId === currentEventId && !g.id.startsWith("G_EMPTY_"));
-            if (currentEventGuests.length === 0) return alert("目前沒有賓客資料。");
-            const exportData = currentEventGuests.map(g => ({
-                "簽到狀態": g.isCheckedIn === 1 ? "已簽到" : "未簽到", "喜餅狀態": g.isGiftClaimed === 1 ? "已領取" : "未領取",
-                "桌號": g.tableNo || "", "桌名": g.tableName || "", "來賓關係": g.relation || "",
-                "來賓姓名": g.guestName || "", "葷素": g.diet || "葷", "是否為兒童": g.isChild ? "是" : "否", "備註": g.note || ""
-            }));
-            const ws = XLSX.utils.json_to_sheet(exportData); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "名單與狀態"); XLSX.writeFile(wb, `賓客狀態_${currentEventId}.xlsx`);
-        }
-        function handleExcelUpload(event) {
-            const file = event.target.files[0]; if (!file) return; const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const data = new Uint8Array(e.target.result); const workbook = XLSX.read(data, { type: 'array' }); const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
-                    jsonData.forEach(row => {
-                        globalDatabase.push({
-                            id: "G_" + Date.now() + "_" + Math.random().toString(36).substring(2, 9), eventId: currentEventId,
-                            tableNo: String(row["桌號"] || "").trim(), tableName: row["桌名"] || "", guestName: row["來賓姓名"] || "未命名", relation: row["來賓關係"] || "其他",
-                            diet: row["葷素"] || "葷", isChild: row["是否為兒童"] === "是" || row["是否為兒童"] === true, note: row["備註"] || "", 
-                            isCheckedIn: (row["簽到狀態"] === "已簽到" || row["簽到狀態"] == 1) ? 1 : 0, isGiftClaimed: (row["喜餅狀態"] === "已領取" || row["喜餅狀態"] == 1) ? 1 : 0
-                        });
-                    }); renderAll(true); alert("匯入成功！");
-                } catch (error) { alert("Excel 讀取失敗。"); } event.target.value = ''; 
-            }; reader.readAsArrayBuffer(file);
-        }
-        function handleLayoutUpload(event) {
-            const file = event.target.files[0]; if (!file) return; const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const data = new Uint8Array(e.target.result); const workbook = XLSX.read(data, { type: 'array' }); const gridData = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], { header: 1 });
-                    let minRow = Infinity; let minCol = Infinity; let tablesToUpdate = [];
-                    gridData.forEach((row, rIdx) => { row.forEach((cellVal, cIdx) => {
-                            if (cellVal !== undefined && cellVal !== null && String(cellVal).trim() !== "") {
-                                let cellStr = String(cellVal).trim(); const mTable = globalDatabase.find(g => g.eventId === currentEventId && g.tableNo && (g.tableNo === cellStr || g.tableName === cellStr));
-                                if (mTable) { minRow = Math.min(minRow, rIdx); minCol = Math.min(minCol, cIdx); tablesToUpdate.push({ tableNo: mTable.tableNo, r: rIdx, c: cIdx }); }
-                            }
-                        });
-                    });
-                    if (tablesToUpdate.length > 0) {
-                        let maxX = 1; let maxY = 1;
-                        tablesToUpdate.forEach(t => { let nR = t.r - minRow; let nC = t.c - minCol; globalTablePositions[`${currentEventId}_${t.tableNo}`] = { x: nC * 350 + 15, y: nR * 350 + 15 }; maxX = Math.max(maxX, nC + 1); maxY = Math.max(maxY, nR + 1); });
-                        globalGridParams.x = Math.max(globalGridParams.x, maxX); globalGridParams.y = Math.max(globalGridParams.y, maxY); renderAll(true); alert("佈局讀取成功！");
-                    } else { alert("佈局匯入失敗：未能比對到有效桌號。"); }
-                } catch (error) { alert("佈局讀取失敗。"); } event.target.value = '';
-            }; reader.readAsArrayBuffer(file);
         }
     </script>
 </body>
