@@ -2,26 +2,37 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>排座助手 Pro V9 (防護鎖與群組領餅版)</title>
+    <title>排座助手 Pro V10 (全版面與模組化版)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
         
-        /* ================= CSS 視覺樣式 ================= */
-        body { margin: 0; font-family: "Microsoft JhengHei", sans-serif; background-color: #f4f4f9; display: flex; flex-direction: column; height: 100vh; }
-        .wedding-title { background-color: #1a1a1a; color: #d4af37; text-align: center; font-family: 'Great Vibes', cursive; font-size: 38px; padding: 10px 0 5px 0; margin: 0; line-height: 1; letter-spacing: 2px; }
-        .main-nav { background-color: #1a1a1a; display: flex; padding: 0 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 100; }
-        .nav-btn { padding: 10px 20px; background: none; border: none; color: #aaa; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.3s; border-bottom: 3px solid transparent; }
+        /* 基礎佈局 */
+        body { margin: 0; font-family: "Microsoft JhengHei", sans-serif; background-color: #f4f4f9; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        
+        /* 頂部導航列 (合併標題與按鈕) */
+        .top-header { background-color: #1a1a1a; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.3); z-index: 100; }
+        .wedding-title { color: #d4af37; font-family: 'Great Vibes', cursive; font-size: 32px; margin: 0; padding: 10px 0; letter-spacing: 2px; }
+        .main-nav { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+        .nav-btn { padding: 8px 15px; background: none; border: none; color: #aaa; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.3s; border-bottom: 3px solid transparent; }
         .nav-btn:hover { color: white; }
         .nav-btn.active { color: white; border-bottom: 3px solid #0078D7; background-color: #333; }
 
-        .toolbar { background-color: #333; color: white; padding: 10px 20px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap; }
-        .toolbar input[type="number"] { width: 50px; padding: 4px; border-radius: 4px; border: none; }
+        /* 懸浮賓客面板 */
+        #guest-panel { display: none; position: absolute; top: 60px; left: 20px; width: 320px; max-height: 70vh; background: white; border: 1px solid #ccc; border-radius: 8px; z-index: 200; box-shadow: 0 4px 15px rgba(0,0,0,0.3); flex-direction: column; }
+        .panel-header { padding: 10px 15px; background: #eee; display: flex; justify-content: space-between; align-items: center; border-radius: 8px 8px 0 0; font-weight: bold; border-bottom: 1px solid #ddd; }
+        #guest-list-wrapper { flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-wrap: wrap; gap: 10px; align-content: flex-start; }
+
+        /* 工具列 (可收合) */
+        .toolbar { background-color: #333; color: white; padding: 10px 20px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; z-index: 90; transition: max-height 0.3s; }
+        .toolbar input[type="number"] { width: 45px; padding: 4px; border-radius: 4px; border: none; }
         
-        button, .btn-label { padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; display: inline-block; box-sizing: border-box; text-align: center; font-size: 13px; }
+        /* 按鈕通用樣式 */
+        button, .btn-label { padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 13px; display: inline-block; box-sizing: border-box; text-align: center; }
         .btn-primary { background-color: #0078D7; color: white; }
         .btn-primary:hover { background-color: #005a9e; }
         .btn-warning { background-color: #f0ad4e; color: #333; }
@@ -30,85 +41,83 @@
         .btn-info { background-color: #17a2b8; color: white; }
         .btn-sm { padding: 4px 8px; font-size: 12px; }
 
-        .workspace { flex: 1; display: flex; overflow: hidden; position: relative; }
-        #view-canvas { display: flex; width: 100%; height: 100%; }
-        .left-panel { width: 330px; background-color: #ffffff; border-right: 1px solid #cccccc; padding: 20px; display: flex; flex-direction: column; z-index: 10; transition: 0.3s; }
-        .right-panel { flex: 1; padding: 20px; display: flex; flex-direction: column; z-index: 1; overflow: hidden; }
+        /* 工作區與視圖 */
+        .workspace { flex: 1; position: relative; overflow: hidden; padding: 10px; display: flex; flex-direction: column; }
+        .view-section { display: none; width: 100%; height: 100%; flex-direction: column; }
         
+        /* 畫布視圖 */
+        .header-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-shrink: 0; }
         #canvas-container { flex: 1; overflow: auto; background-color: #ffffff; border: 2px dashed #cccccc; border-radius: 8px; position: relative; }
         #canvas { position: relative; min-width: 100%; min-height: 100%; transform-origin: top left; }
         
-        #view-table { display: none; width: 100%; height: 100%; padding: 20px; box-sizing: border-box; overflow-y: auto; background-color: #fff; }
+        /* 表格視圖 */
+        #view-table { background-color: #fff; padding: 15px; border-radius: 8px; overflow-y: auto; }
         .data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
         .data-table th, .data-table td { border: 1px solid #ddd; padding: 8px; text-align: center; }
         .data-table th { background-color: #f0f0f0; position: sticky; top: 0; z-index: 5; }
         .data-table tr:hover { background-color: #f9f9f9; }
+        .highlight-row { background-color: #fff3cd !important; transition: 0.3s; }
 
-        .left-header { display: flex; flex-direction: column; gap: 10px; margin-bottom: 5px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .left-header-title { display: flex; justify-content: space-between; align-items: center; }
-        .left-header-title h2 { margin: 0; font-size: 18px; }
-        
-        #guest-list-wrapper { flex: 1; overflow-y: auto; transition: max-height 0.3s ease-in-out; }
-        #guest-list-wrapper.collapsed { max-height: 0 !important; overflow: hidden; border: none; }
-        .unassigned-guest { padding: 8px; background-color: #f0f0f0; border: 1px solid #ccc; border-left: 4px solid #0078D7; margin-bottom: 5px; border-radius: 4px; cursor: grab; font-size: 14px; transition: 0.2s; }
-        
+        /* 實體元素樣式 */
+        .unassigned-guest { padding: 8px; background-color: #f0f0f0; border: 1px solid #ccc; border-left: 4px solid #0078D7; border-radius: 4px; cursor: grab; font-size: 13px; width: calc(50% - 5px); box-sizing: border-box; }
         .grid-background { display: grid; z-index: 0; pointer-events: none; position: absolute; top:0; left:0; }
         .grid-cell { width: 350px; height: 350px; border-right: 2px dashed #b3b3b3; border-bottom: 2px dashed #b3b3b3; box-sizing: border-box; }
         .table-wrapper { position: absolute; width: 320px; height: 320px; cursor: default; z-index: 10; }
         .dining-table { width: 120px; height: 120px; background-color: #ffe6e6; border: 2px solid #ff9999; border-radius: 50%; position: absolute; top: 100px; left: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 13px; font-weight: bold; text-align: center; box-shadow: 2px 2px 8px rgba(0,0,0,0.1); cursor: pointer; }
+        .guest-circle { width: 50px; height: 50px; background-color: #e6f7ff; border: 2px solid #91d5ff; border-radius: 50%; position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 10px; text-align: center; cursor: grab; box-shadow: 1px 1px 4px rgba(0,0,0,0.2); user-select: none; z-index: 15; line-height: 1.2; }
         
-        .guest-circle { width: 50px; height: 50px; background-color: #e6f7ff; border: 2px solid #91d5ff; border-radius: 50%; position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 10px; text-align: center; cursor: grab; box-shadow: 1px 1px 4px rgba(0,0,0,0.2); user-select: none; z-index: 15; line-height: 1.2; transition: 0.2s; }
-        .guest-circle.checked-in { background-color: #d4edda !important; border-color: #28a745 !important; }
+        /* 狀態標記 */
+        .checked-in { background-color: #d4edda !important; border-color: #28a745 !important; }
         .unassigned-guest.checked-in { border-left-color: #28a745; background-color: #f4fff5; }
-        
         .status-badge { padding: 3px 6px; border-radius: 12px; font-size: 11px; font-weight: bold; margin: 1px; display: inline-block; }
         .badge-green { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
         .badge-pink { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
         .badge-gray { background-color: #e2e3e5; color: #383d41; border: 1px solid #d6d8db; }
-        
-        .stats-text { font-size: 14px; font-weight: bold; color: #333; margin-left: 15px; background: #fff; padding: 4px 10px; border-radius: 12px; border: 1px solid #ccc; display: inline-block; }
+        .stats-text { font-size: 14px; font-weight: bold; color: #333; background: #fff; padding: 4px 10px; border-radius: 12px; border: 1px solid #ccc; display: inline-block; }
         .guests-hidden .guest-circle { display: none !important; }
         
+        /* 彈窗與雲端指示燈 */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center; }
         .modal-content { background: white; padding: 20px; width: 340px; border-radius: 8px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
         .modal-content label { display: flex; flex-direction: column; font-size: 14px; color: #333; font-weight: bold; }
         .modal-content input[type="text"], .modal-content select { padding: 6px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; }
         .checkbox-label { flex-direction: row !important; align-items: center; gap: 8px; cursor: pointer; font-weight: normal !important; }
-        .modal-actions { display: flex; justify-content: space-between; margin-top: 10px; flex-wrap: wrap; gap: 5px; }
         
-        #cloud-status { display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: bold; padding: 4px 10px; border-radius: 12px; }
+        #cloud-status { display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: bold; padding: 4px 10px; border-radius: 12px; margin-left: 10px; }
         .cloud-online { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
         .cloud-offline { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
     </style>
 </head>
 <body>
-    <div class="wedding-title">Kevin & Coco's Wedding</div>
 
-    <div class="main-nav">
-        <button class="nav-btn active" id="nav-tainan-canvas" onclick="switchPage('tainan', 'canvas')">🗺️ 台南場地</button>
-        <button class="nav-btn" id="nav-nantou-canvas" onclick="switchPage('nantou', 'canvas')">🗺️ 南投場地</button>
-        <button class="nav-btn" id="nav-tainan-table" onclick="switchPage('tainan', 'table')">📋 台南名單</button>
-        <button class="nav-btn" id="nav-nantou-table" onclick="switchPage('nantou', 'table')">📋 南投名單</button>
-        <div style="margin-left:auto; display:flex; align-items:center;">
+    <div class="top-header">
+        <h1 class="wedding-title">Kevin & Coco's Wedding</h1>
+        <div class="main-nav">
+            <button class="nav-btn active" id="nav-tainan-canvas" onclick="switchPage('tainan', 'canvas')">🗺️ 台南場地</button>
+            <button class="nav-btn" id="nav-nantou-canvas" onclick="switchPage('nantou', 'canvas')">🗺️ 南投場地</button>
+            <button class="nav-btn" id="nav-tainan-table" onclick="switchPage('tainan', 'table')">📋 台南名單</button>
+            <button class="nav-btn" id="nav-nantou-table" onclick="switchPage('nantou', 'table')">📋 南投名單</button>
             <div id="cloud-status" class="cloud-offline">☁️ 連線中...</div>
         </div>
     </div>
-		<div id="guest-panel" style="background: white; border-bottom: 1px solid #ccc; padding: 10px; display: none;">
-		<div class="left-header">
-			<div class="left-header-title">
-				<h2 style="cursor: pointer;" onclick="toggleUnassignedList()">待分配賓客 🔽</h2>
-				<button class="btn-primary btn-sm" onclick="openGuestModal()">➕ 新增</button>
-			</div>
-		</div>
-		<div id="guest-list-wrapper">
-			<div id="guest-list" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
-		</div>
-	</div>
+
+    <div id="guest-panel">
+        <div class="panel-header">
+            <span>👥 待分配賓客</span>
+            <div style="display:flex; gap:5px;">
+                <button class="btn-primary btn-sm" onclick="openGuestModal()">➕ 新增</button>
+                <button class="btn-warning btn-sm" onclick="toggleGuestList()">✕ 關閉</button>
+            </div>
+        </div>
+        <div id="guest-list-wrapper">
+            <div id="guest-list" style="display:flex; width:100%; flex-wrap:wrap; gap:10px;"></div>
+        </div>
+    </div>
 
     <div id="toolbar-canvas" class="toolbar">
-        <div class="setting-item" style="background-color: rgba(255,255,255,0.1); padding: 5px 10px; border-radius: 4px; display: flex; align-items: center; gap: 5px;">
-            場地網格：X <input type="number" id="grid-x" value="3" min="1">
-            Y <input type="number" id="grid-y" value="3" min="1">
+        <button class="btn-primary" onclick="toggleGuestList()">👥 待分配名單</button>
+        <div style="background:rgba(255,255,255,0.1); padding:5px; border-radius:4px; display:flex; align-items:center; gap:5px;">
+            場地: X <input type="number" id="grid-x" value="3" min="1"> Y <input type="number" id="grid-y" value="3" min="1">
             <button class="btn-sm btn-primary" onclick="updateGrid()">套用</button>
         </div>
         <div style="width: 1px; height: 20px; background: #666; margin: 0 5px;"></div>
@@ -116,61 +125,54 @@
         <label class="btn-warning btn-label" style="margin: 0;">🗺️ 上傳佈局<input type="file" id="layout-upload" accept=".xlsx, .xls, .csv" style="display: none;" onchange="handleLayoutUpload(event)"></label>
         <button class="btn-success" onclick="exportLayoutExcel()">⬇️ 下載佈局</button>
         <button class="btn-info" onclick="exportCanvasImage()">📸 匯出場地圖</button>
-        <div style="margin-left: auto; display: flex; gap: 10px;">
-            <div class="setting-item">單桌上限 <input type="number" id="global-max-guests" value="12" min="1" onchange="renderAll(true)"></div>
+        <div style="margin-left: auto; display: flex; gap: 10px; align-items:center;">
+            <span>單桌上限</span> <input type="number" id="global-max-guests" value="12" min="1" onchange="renderAll(true)">
             <button id="lock-btn" class="btn-warning" onclick="toggleLock()">🔒 鎖定</button>
             <button id="toggle-view-btn" class="btn-primary" onclick="toggleGuestView()">👁️ 收起賓客</button>
         </div>
-		<button class="btn-primary" onclick="document.getElementById('guest-panel').style.display = 
-			(document.getElementById('guest-panel').style.display === 'none' ? 'block' : 'none')">
-			👥 待分配賓客
-		</button>
     </div>
 
     <div id="toolbar-table" class="toolbar" style="display: none;">
-        <div style="font-weight: bold; font-size: 16px;">資料管理與匯出入</div>
-        <div class="setting-item" style="margin-left: auto; display: flex; gap: 10px; align-items: center;">
+        <div style="font-weight: bold; font-size: 15px;">資料管理與匯出入</div>
+        <div style="margin-left: auto; display: flex; gap: 10px; align-items: center;">
             <label class="btn-warning btn-label" style="margin: 0;">⬆️ 上傳 Excel 名單
                 <input type="file" id="excel-upload" accept=".xlsx, .xls, .csv" style="display: none;" onchange="handleExcelUpload(event)">
             </label>
-            <button class="btn-success" onclick="exportExcel()">⬇️ 下載目前資料 Excel</button>
+            <button class="btn-success" onclick="exportExcel()">⬇️ 下載名單 Excel</button>
             <button class="btn-danger" onclick="clearAllData()">🗑️ 清空本場次</button>
         </div>
     </div>
 
-    <div class="workspace">
-        <div id="view-canvas" ondragover="allowDrop(event)" ondrop="dropToUnassigned(event)">
-			<div class="right-panel" style="width:100%;"> <div class="header-controls">
-					<h2 id="canvas-title" style="margin:0;">場地座位區</h2>
-					<div id="canvas-stats" class="stats-text" style="margin-right: auto;"></div>
-				</div>
-				<div id="canvas-container">
-					<div id="canvas"></div>
-				</div>
-			</div>
-		</div>
+    <div class="workspace" ondragover="allowDrop(event)" ondrop="dropToUnassigned(event)">
+        
+        <div id="view-canvas" class="view-section" style="display: flex;">
+            <div class="header-controls">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <h2 id="canvas-title" style="margin:0;">場地座位區</h2>
+                    <button class="btn-sm btn-info" onclick="toggleToolbar()">⚙️ 設定列</button>
+                    <div id="canvas-stats" class="stats-text"></div>
+                </div>
+            </div>
+            <div id="canvas-container">
+                <div id="canvas"></div>
+            </div>
+        </div>
 
-        <div id="view-table">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <div style="display: flex; align-items: center;">
+        <div id="view-table" class="view-section">
+            <div class="header-controls">
+                <div style="display:flex; align-items:center; gap:10px;">
                     <h2 id="table-title" style="margin:0;">賓客座位表</h2>
+                    <button class="btn-sm btn-info" onclick="toggleToolbar()">⚙️ 設定列</button>
                     <div id="table-stats" class="stats-text"></div>
                 </div>
-                <button class="btn-primary" onclick="openGuestModal()">➕ 新增賓客</button>
+                <div style="display:flex; gap:10px; align-items:center;">
+                    <input type="text" id="search-guest-input" placeholder="🔍 搜尋姓名或關係..." onkeyup="searchTableGuest()" style="padding:6px; border-radius:4px; border:1px solid #ccc; width: 200px;">
+                    <button class="btn-primary" onclick="openGuestModal()">➕ 新增賓客</button>
+                </div>
             </div>
             <table class="data-table">
                 <thead>
-                    <tr>
-                        <th style="width: 100px;">狀態 (簽到/餅)</th>
-                        <th>桌號</th>
-                        <th>桌名</th>
-                        <th>姓名</th>
-                        <th>關係</th>
-                        <th>領餅群組</th>
-                        <th>葷素</th>
-                        <th>備註</th>
-                        <th style="width: 140px;">操作</th>
-                    </tr>
+                    <tr><th style="width: 100px;">狀態</th><th>桌號</th><th>桌名</th><th>姓名</th><th>關係</th><th>領餅群組</th><th>葷素</th><th>備註</th><th style="width: 120px;">操作</th></tr>
                 </thead>
                 <tbody id="table-body"></tbody>
             </table>
@@ -198,7 +200,7 @@
                 <button id="gift-btn" class="btn-info btn-sm" style="flex:1;" onclick="toggleStatus('gift')">🎁 領餅</button>
             </div>
             
-            <div class="modal-actions" style="border-top: 1px solid #eee; padding-top: 10px;">
+            <div style="display: flex; justify-content: space-between; border-top: 1px solid #eee; padding-top: 10px; margin-top: 5px;">
                 <button class="btn-danger btn-sm" id="delete-guest-btn" onclick="deleteGuest()">🗑️ 刪除</button>
                 <div style="display: flex; gap: 8px;">
                     <button class="btn-primary btn-sm" onclick="saveGuestEdit()">💾 儲存</button>
@@ -209,11 +211,11 @@
     </div>
 
     <div id="table-modal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content" style="width: 280px;">
             <h3 style="margin:0;">設定桌位資訊</h3>
             <input type="hidden" id="edit-table-no">
             <label>自訂桌名：<input type="text" id="edit-table-name"></label>
-            <div class="modal-actions" style="justify-content: flex-end;">
+            <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 15px;">
                 <button class="btn-primary" onclick="saveTableEdit()">💾 儲存</button>
                 <button onclick="closeModal('table-modal')">取消</button>
             </div>
@@ -221,7 +223,9 @@
     </div>
 
     <script>
-        // ================= Firebase 雲端配置 =================
+        // ==========================================
+        // [3] Firebase 雲端配置與初始化
+        // ==========================================
         const firebaseConfig = {
             apiKey: "AIzaSyAsSnOUE0WyuWhC62njgfEW8j6NyZHDhzI",
             authDomain: "weddingseating-4a476.firebaseapp.com",
@@ -233,31 +237,58 @@
             measurementId: "G-XDE62910SE"
         };
 
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        }
+        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
         const dbRef = db.ref('weddingData');
 
-        // ================= 全域狀態與雲端同步控制器 =================
+        // ==========================================
+        // [4] 全域狀態變數
+        // ==========================================
         let globalDatabase = [];
         let globalTablePositions = {}; 
         let isTableLocked = true;      
         let currentEventId = "tainan"; 
         let currentViewMode = "canvas"; 
         let isGuestsCollapsed = false; 
-        let isLeftListCollapsed = false;
+        let isToolbarCollapsed = false; 
         let globalGridParams = { x: 3, y: 3 }; 
-        
         let isReceivingCloudData = false; 
-        let isCloudInitialized = false; // 雲端防護鎖：未讀取雲端前，絕對不允許上傳
+        let isCloudInitialized = false; 
 
+        // ==========================================
+        // [5] 生命週期與頁面路由
+        // ==========================================
         window.onload = function() {
             try { loadFromStorage(); } catch (e) { localStorage.clear(); }
             initCloudSync();
-            switchPage('tainan', 'canvas'); // switchPage 中會呼叫 renderAll(false)，不觸發雲端儲存
+            switchPage('tainan', 'canvas'); 
         };
 
+        function switchPage(eventId, viewMode) {
+            currentEventId = eventId; 
+            currentViewMode = viewMode;
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`nav-${eventId}-${viewMode}`).classList.add('active');
+
+            applyToolbarState();
+
+            document.getElementById('view-canvas').style.display = viewMode === 'canvas' ? 'flex' : 'none';
+            document.getElementById('view-table').style.display = viewMode === 'table' ? 'flex' : 'none';
+            
+            // 切換頁面時關閉懸浮名單
+            document.getElementById('guest-panel').style.display = 'none';
+
+            const eventName = eventId === 'tainan' ? '台南晶英' : '南投涵碧樓';
+            document.getElementById('canvas-title').innerText = `${eventName} - 場地座位區`;
+            document.getElementById('table-title').innerText = `${eventName} - 賓客名單總表`;
+
+            renderAll(false); 
+        }
+
+        // ==========================================
+        // [6] 資料同步與統計邏輯
+        // ==========================================
         function saveToStorage() {
             localStorage.setItem("weddingGuests", JSON.stringify(globalDatabase));
             localStorage.setItem("tablePositions", JSON.stringify(globalTablePositions));
@@ -280,18 +311,12 @@
         }
 
         function saveToCloud() {
-            // 防護鎖：若正在接收雲端資料，或尚未完成首次雲端同步，禁止覆蓋 Firebase
             if (isReceivingCloudData || !isCloudInitialized) return; 
-            dbRef.set({
-                guests: globalDatabase,
-                positions: globalTablePositions,
-                grid: globalGridParams
-            });
+            dbRef.set({ guests: globalDatabase, positions: globalTablePositions, grid: globalGridParams });
         }
 
         function initCloudSync() {
             const statusIndicator = document.getElementById('cloud-status');
-            
             db.ref('.info/connected').on('value', function(snap) {
                 if (snap.val() === true) {
                     statusIndicator.className = "cloud-online";
@@ -305,58 +330,35 @@
             dbRef.on('value', (snapshot) => {
                 isReceivingCloudData = true; 
                 const data = snapshot.val();
-                
                 if (data) {
                     globalDatabase = data.guests || [];
                     globalTablePositions = data.positions || {};
                     globalGridParams = data.grid || { x: 3, y: 3 };
-                    
                     globalDatabase.forEach(g => { 
                         if (g.isCheckedIn === undefined) g.isCheckedIn = 0; 
                         if (g.isGiftClaimed === undefined) g.isGiftClaimed = 0; 
                         if (g.giftGroup === undefined) g.giftGroup = "";
                     });
                 }
-                
-                isCloudInitialized = true; // 標記已成功取得雲端資料，解鎖上傳權限
+                isCloudInitialized = true; 
                 renderAll(false); 
                 isReceivingCloudData = false; 
             });
         }
 
-        function switchPage(eventId, viewMode) {
-            currentEventId = eventId; currentViewMode = viewMode;
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(`nav-${eventId}-${viewMode}`).classList.add('active');
-
-            document.getElementById('toolbar-canvas').style.display = viewMode === 'canvas' ? 'flex' : 'none';
-            document.getElementById('toolbar-table').style.display = viewMode === 'table' ? 'flex' : 'none';
-            document.getElementById('view-canvas').style.display = viewMode === 'canvas' ? 'flex' : 'none';
-            document.getElementById('view-table').style.display = viewMode === 'table' ? 'block' : 'none';
-
-            const eventName = eventId === 'tainan' ? '台南晶英' : '南投涵碧樓';
-            document.getElementById('canvas-title').innerText = `${eventName} - 場地座位區`;
-            document.getElementById('table-title').innerText = `${eventName} - 賓客名單總表`;
-
-            renderAll(false); // 切換頁面不應觸發資料存檔
-        }
-
-// ================= 更新版統計邏輯 =================
         function updateStatsUI() {
             const currentEventGuests = globalDatabase.filter(g => g.eventId === currentEventId && !g.id.startsWith("G_EMPTY_"));
             const totalGuests = currentEventGuests.length;
             const checkedInCount = currentEventGuests.filter(g => g.isCheckedIn === 1).length;
             
-            // 領餅統計邏輯：
-            // 1. 找出所有「有效」的群組單位 (包含群組為空的獨立賓客)
-            // 2. 空的群組視為獨立單位，給予一個唯一識別碼
-            const getGroupKey = (g) => (g.giftGroup && g.giftGroup !== "0") ? g.giftGroup : "INDIV_" + g.id;
-            
-            const allGroups = [...new Set(currentEventGuests.map(g => getGroupKey(g)))];
+            const getGroupKey = (g) => {
+                const group = String(g.giftGroup || "").trim();
+                return (group && group !== "0") ? group : "INDIV_" + g.id;
+            };
+            const allGroups = [...new Set(currentEventGuests.filter(g => String(g.giftGroup).trim() !== "0").map(g => getGroupKey(g)))];
             const totalGroups = allGroups.length;
             
             const claimedGroups = allGroups.filter(groupKey => {
-                // 若為群組，只要組內有人領餅即算領取；若為獨立個人(INDIV_開頭)，則看該人狀態
                 return currentEventGuests.some(g => getGroupKey(g) === groupKey && g.isGiftClaimed === 1);
             }).length;
             
@@ -369,15 +371,20 @@
             if(document.getElementById('table-stats')) document.getElementById('table-stats').innerText = statsText;
         }
 
+        // ==========================================
+        // [7] 核心視圖渲染 (Render)
+        // ==========================================
         function renderAll(triggerCloudSave = true) {
             saveToStorage(); 
             if (triggerCloudSave) saveToCloud();
             if (currentViewMode === 'canvas') renderCanvas();
-            if (currentViewMode === 'table') renderTable();
+            if (currentViewMode === 'table') {
+                renderTable();
+                searchTableGuest(); // 保持搜尋高亮狀態
+            }
             updateStatsUI(); 
         }
 
-        // ================= 視圖渲染邏輯 =================
         function renderCanvas() {
             const unassignedContainer = document.getElementById("guest-list");
             const canvasContainer = document.getElementById("canvas");
@@ -421,19 +428,16 @@
                 
                 let checkMark = guest.isCheckedIn === 1 ? "✅ " : "";
                 let giftMark = guest.isGiftClaimed === 1 ? "🎁 " : "";
-                let childTag = guest.isChild ? "[兒童]" : "";
+                let childTag = guest.isChild ? "[兒]" : "";
                 div.innerHTML = `${checkMark}${giftMark}${guest.relation} - <b>${guest.guestName}</b> (${guest.diet}) ${childTag}`;
                 unassignedContainer.appendChild(div);
             });
 
             const tablesMap = new Map();
             assignedGuests.forEach(guest => {
-                if (!tablesMap.has(guest.tableNo)) {
-                    tablesMap.set(guest.tableNo, { tableNo: guest.tableNo, tableName: guest.tableName || `第 ${guest.tableNo} 桌`, guests: [] });
-                }
+                if (!tablesMap.has(guest.tableNo)) tablesMap.set(guest.tableNo, { tableNo: guest.tableNo, tableName: guest.tableName || `第 ${guest.tableNo} 桌`, guests: [] });
                 tablesMap.get(guest.tableNo).guests.push(guest);
             });
-            
             currentEventGuests.filter(g => g.id.startsWith("G_EMPTY_") && g.tableNo && !tablesMap.has(g.tableNo)).forEach(emptyGuest => {
                 tablesMap.set(emptyGuest.tableNo, { tableNo: emptyGuest.tableNo, tableName: emptyGuest.tableName, guests: [] });
             });
@@ -518,15 +522,117 @@
                 
                 let checkTag = guest.isCheckedIn === 1 ? "✅" : "";
                 let giftTag = guest.isGiftClaimed === 1 ? "🎁" : "";
-                let childTag = guest.isChild ? "<br>[兒童]" : "";
+                let childTag = guest.isChild ? "<br>[兒]" : "";
                 guestCircle.innerHTML = `<b>${checkTag}${giftTag}${guest.relation}</b><br>${guest.guestName}<br>(${guest.diet})${childTag}`;
                 wrapper.appendChild(guestCircle);
             });
             canvas.appendChild(wrapper);
         }
 
-        // ================= 互動彈窗邏輯 =================
-function openGuestModal(guestId = null) {
+        // ==========================================
+        // [8] 互動與拖曳邏輯 (UI Events)
+        // ==========================================
+        function toggleToolbar() {
+            isToolbarCollapsed = !isToolbarCollapsed;
+            applyToolbarState();
+        }
+
+        function applyToolbarState() {
+            const canvasTb = document.getElementById('toolbar-canvas');
+            const tableTb = document.getElementById('toolbar-table');
+            if (isToolbarCollapsed) {
+                canvasTb.style.display = 'none';
+                tableTb.style.display = 'none';
+            } else {
+                canvasTb.style.display = currentViewMode === 'canvas' ? 'flex' : 'none';
+                tableTb.style.display = currentViewMode === 'table' ? 'flex' : 'none';
+            }
+        }
+
+        function toggleGuestList() {
+            const panel = document.getElementById('guest-panel');
+            panel.style.display = (panel.style.display === 'none' || panel.style.display === '') ? 'flex' : 'none';
+        }
+
+        function searchTableGuest() {
+            const keyword = document.getElementById("search-guest-input").value.trim().toLowerCase();
+            const rows = document.querySelectorAll("#table-body tr");
+            let isFirstFound = false;
+
+            rows.forEach(row => {
+                row.classList.remove("highlight-row");
+                if (keyword === "") return; // 清空時移除所有高亮
+                
+                const name = row.cells[3].innerText.toLowerCase();
+                const relation = row.cells[4].innerText.toLowerCase();
+                
+                if (name.includes(keyword) || relation.includes(keyword)) {
+                    row.classList.add("highlight-row");
+                    if (!isFirstFound) {
+                        row.scrollIntoView({ behavior: "smooth", block: "center" });
+                        isFirstFound = true;
+                    }
+                }
+            });
+        }
+
+        function dragStart(event, guestId) { event.dataTransfer.setData("text/plain", guestId); }
+        function allowDrop(event) { event.preventDefault(); }
+        
+        function dropToTable(event, tableNo, tableName) {
+            event.preventDefault(); const guestId = event.dataTransfer.getData("text/plain"); const guestIndex = globalDatabase.findIndex(g => g.id === guestId);
+            if (guestIndex !== -1) { globalDatabase[guestIndex].tableNo = tableNo; globalDatabase[guestIndex].tableName = tableName; } renderAll(true);
+        }
+        
+        function dropToUnassigned(event) {
+            event.preventDefault(); const guestId = event.dataTransfer.getData("text/plain"); const guestIndex = globalDatabase.findIndex(g => g.id === guestId);
+            if (guestIndex !== -1) { globalDatabase[guestIndex].tableNo = ""; globalDatabase[guestIndex].tableName = ""; } renderAll(true);
+        }
+
+        function dropOnGuest(event, targetGuestId) {
+            event.preventDefault(); event.stopPropagation(); 
+            const sourceGuestId = event.dataTransfer.getData("text/plain");
+            if (sourceGuestId === targetGuestId) return; 
+            const sourceIndex = globalDatabase.findIndex(g => g.id === sourceGuestId);
+            if (sourceIndex === -1) return;
+            const sourceGuest = globalDatabase.splice(sourceIndex, 1)[0];
+            const newTargetIndex = globalDatabase.findIndex(g => g.id === targetGuestId);
+            if (newTargetIndex === -1) { globalDatabase.push(sourceGuest); return renderAll(true); }
+            sourceGuest.tableNo = globalDatabase[newTargetIndex].tableNo; sourceGuest.tableName = globalDatabase[newTargetIndex].tableName;
+            globalDatabase.splice(newTargetIndex, 0, sourceGuest); renderAll(true);
+        }
+
+        function bindTableDragEvent(wrapper, posKey, tableData) {
+            let isDragging = false; let startX, startY;
+            wrapper.onmousedown = function(e) {
+                if (e.target.closest('.guest-circle')) return; startX = e.clientX; startY = e.clientY; isDragging = false;
+                if (isTableLocked) return; let initLeft = parseInt(wrapper.style.left || 0); let initTop = parseInt(wrapper.style.top || 0);
+                function onMouseMove(ev) {
+                    if (Math.abs(ev.clientX - startX) > 5 || Math.abs(ev.clientY - startY) > 5) isDragging = true;
+                    if (isDragging) { wrapper.style.left = `${initLeft + ev.clientX - startX}px`; wrapper.style.top = `${initTop + ev.clientY - startY}px`; }
+                }
+                function onMouseUp() {
+                    document.removeEventListener('mousemove', onMouseMove); document.removeEventListener('mouseup', onMouseUp);
+                    if (isDragging) { globalTablePositions[posKey] = { x: parseInt(wrapper.style.left), y: parseInt(wrapper.style.top) }; renderAll(true); }
+                }
+                document.addEventListener('mousemove', onMouseMove); document.addEventListener('mouseup', onMouseUp);
+            };
+            wrapper.onclick = function(e) { if (!isDragging && e.target.closest('.dining-table')) openTableModal(tableData.tableNo, tableData.tableName); };
+        }
+
+        // ==========================================
+        // [9] 彈窗邏輯與 CRUD 狀態機
+        // ==========================================
+        function openTableModal(tableNo, currentName) {
+            document.getElementById('edit-table-no').value = tableNo; document.getElementById('edit-table-name').value = currentName.startsWith('自訂桌') || currentName.startsWith('第') ? '' : currentName;
+            document.getElementById('table-modal').style.display = 'flex';
+        }
+        function saveTableEdit() {
+            const tableNo = document.getElementById('edit-table-no').value; const newName = document.getElementById('edit-table-name').value.trim() || `第 ${tableNo} 桌`;
+            globalDatabase.forEach(guest => { if (guest.eventId === currentEventId && guest.tableNo === tableNo) guest.tableName = newName; }); renderAll(true); closeModal('table-modal');
+        }
+
+        function openGuestModal(guestId = null) {
             const tableSelect = document.getElementById('edit-guest-table');
             tableSelect.innerHTML = '<option value="">(待分配)</option>';
             const tables = [...new Set(globalDatabase.filter(g => g.eventId === currentEventId && g.tableNo).map(g => g.tableNo))];
@@ -555,207 +661,58 @@ function openGuestModal(guestId = null) {
                 document.getElementById('delete-guest-btn').style.display = "block";
                 checkinBtn.style.display = "block";
                 
-                // 【核心修正】若領餅群組為 "0"，隱藏領餅按鈕
-                if (giftGroup === "0") {
-                    giftBtn.style.display = "none";
-                } else {
+                if (giftGroup === "0") { giftBtn.style.display = "none"; } else {
                     giftBtn.style.display = "block";
-                    // 動態設定領餅按鈕樣式
-                    if (guest.isGiftClaimed === 1) {
-                        giftBtn.innerText = "❌ 取消領餅"; giftBtn.className = "btn-warning btn-sm";
-                    } else {
-                        giftBtn.innerText = "🎁 領餅"; giftBtn.className = "btn-info btn-sm";
-                    }
+                    if (guest.isGiftClaimed === 1) { giftBtn.innerText = "❌ 取消領餅"; giftBtn.className = "btn-warning btn-sm"; } else { giftBtn.innerText = "🎁 領餅"; giftBtn.className = "btn-info btn-sm"; }
                 }
-                
-                // 簽到按鈕設定
-                if (guest.isCheckedIn === 1) {
-                    checkinBtn.innerText = "❌ 取消簽到"; checkinBtn.className = "btn-warning btn-sm";
-                } else {
-                    checkinBtn.innerText = "✔️ 簽到"; checkinBtn.className = "btn-success btn-sm";
-                }
+                if (guest.isCheckedIn === 1) { checkinBtn.innerText = "❌ 取消簽到"; checkinBtn.className = "btn-warning btn-sm"; } else { checkinBtn.innerText = "✔️ 簽到"; checkinBtn.className = "btn-success btn-sm"; }
             } else {
                 document.getElementById('modal-title').innerText = "新增賓客";
-                document.getElementById('edit-guest-id').value = ""; 
-                document.getElementById('edit-guest-name').value = "";
-                document.getElementById('edit-guest-relation').value = ""; 
-                document.getElementById('edit-guest-gift-group').value = "";
-                document.getElementById('edit-guest-diet').value = "葷";
-                document.getElementById('edit-guest-table').value = ""; 
-                document.getElementById('edit-guest-child').checked = false;
-                document.getElementById('edit-guest-note').value = ""; 
-                
-                document.getElementById('delete-guest-btn').style.display = "none";
-                checkinBtn.style.display = "none"; 
-                giftBtn.style.display = "none"; 
+                document.getElementById('edit-guest-id').value = ""; document.getElementById('edit-guest-name').value = ""; document.getElementById('edit-guest-relation').value = ""; 
+                document.getElementById('edit-guest-gift-group').value = ""; document.getElementById('edit-guest-diet').value = "葷"; document.getElementById('edit-guest-table').value = ""; 
+                document.getElementById('edit-guest-child').checked = false; document.getElementById('edit-guest-note').value = ""; 
+                document.getElementById('delete-guest-btn').style.display = "none"; checkinBtn.style.display = "none"; giftBtn.style.display = "none"; 
             }
             document.getElementById('guest-modal').style.display = 'flex';
         }
-// ================= 修正版統計邏輯 =================
-		function updateStatsUI() {
-			const currentEventGuests = globalDatabase.filter(g => g.eventId === currentEventId && !g.id.startsWith("G_EMPTY_"));
-			const totalGuests = currentEventGuests.length;
-			const checkedInCount = currentEventGuests.filter(g => g.isCheckedIn === 1).length;
-			
-			// 領餅統計邏輯修正：
-			// 1. 強制排除 giftGroup 為 "0" (字串) 或 0 (數值) 的賓客
-			const validGiftGuests = currentEventGuests.filter(g => String(g.giftGroup).trim() !== "0" && String(g.giftGroup).trim() !== "");
-			
-			// 2. 定義群組識別：若有填寫群組名稱(且不為0)，則使用該名稱；若為空(且不為0)，則視為獨立個體
-			const getGroupKey = (g) => {
-				const group = String(g.giftGroup || "").trim();
-				return (group && group !== "0") ? group : "INDIV_" + g.id;
-			};
-			
-			// 3. 統計所有有效的領餅單位 (過濾掉 giftGroup 為 0 的賓客)
-			const allGroups = [...new Set(currentEventGuests
-				.filter(g => String(g.giftGroup).trim() !== "0")
-				.map(g => getGroupKey(g)))];
-				
-			const totalGroups = allGroups.length;
-			
-			const claimedGroups = allGroups.filter(groupKey => {
-				// 若為群組，只要組內有人領餅即算領取；若為獨立個人，則看該人狀態
-				return currentEventGuests.some(g => getGroupKey(g) === groupKey && g.isGiftClaimed === 1);
-			}).length;
-			
-			const pctCheck = totalGuests === 0 ? 0 : Math.round((checkedInCount / totalGuests) * 100);
-			const pctGift = totalGroups === 0 ? 0 : Math.round((claimedGroups / totalGroups) * 100);
-			
-			const statsText = `已簽到: ${checkedInCount}/${totalGuests} (${pctCheck}%) ｜ 已領餅: ${claimedGroups}/${totalGroups} (${pctGift}%)`;
-			
-			if(document.getElementById('canvas-stats')) document.getElementById('canvas-stats').innerText = statsText;
-			if(document.getElementById('table-stats')) document.getElementById('table-stats').innerText = statsText;
-		}
 
-
-// ================= 更新版領餅狀態機 =================
         function toggleStatus(type) {
             const id = document.getElementById('edit-guest-id').value;
             const targetGuest = globalDatabase.find(g => g.id === id);
-            
             if (targetGuest) {
                 if(type === 'checkin') {
-                    const targetName = targetGuest.guestName;
-                    const newStatus = targetGuest.isCheckedIn === 1 ? 0 : 1;
-                    globalDatabase.forEach(g => {
-                        if (g.eventId === currentEventId && g.guestName === targetName && !g.id.startsWith("G_EMPTY_")) {
-                            g.isCheckedIn = newStatus;
-                        }
-                    });
+                    const targetName = targetGuest.guestName; const newStatus = targetGuest.isCheckedIn === 1 ? 0 : 1;
+                    globalDatabase.forEach(g => { if (g.eventId === currentEventId && g.guestName === targetName && !g.id.startsWith("G_EMPTY_")) g.isCheckedIn = newStatus; });
                 }
-                
                 if(type === 'gift') {
-                    const group = (targetGuest.giftGroup || "").trim();
-                    const newStatus = targetGuest.isGiftClaimed === 1 ? 0 : 1;
-                    
-                    if (group && group !== "0") {
-                        // 有群組名稱，執行群組廣播
-                        globalDatabase.forEach(g => {
-                            if (g.eventId === currentEventId && g.giftGroup === group && !g.id.startsWith("G_EMPTY_")) {
-                                g.isGiftClaimed = newStatus;
-                            }
-                        });
-                    } else {
-                        // 無群組，僅修改該名賓客狀態
-                        targetGuest.isGiftClaimed = newStatus;
-                    }
+                    const group = (targetGuest.giftGroup || "").trim(); const newStatus = targetGuest.isGiftClaimed === 1 ? 0 : 1;
+                    if (group && group !== "0") { globalDatabase.forEach(g => { if (g.eventId === currentEventId && g.giftGroup === group && !g.id.startsWith("G_EMPTY_")) g.isGiftClaimed = newStatus; }); } 
+                    else { targetGuest.isGiftClaimed = newStatus; }
                 }
-                renderAll(true);
-                closeModal('guest-modal');
+                renderAll(true); closeModal('guest-modal');
             }
         }
 
         function saveGuestEdit() {
-            const id = document.getElementById('edit-guest-id').value;
-            const name = document.getElementById('edit-guest-name').value.trim();
-            if (!name) return alert("請輸入姓名！");
-            const tableNo = document.getElementById('edit-guest-table').value;
-            let tableName = "";
-            if (tableNo) {
-                const existingGuest = globalDatabase.find(g => g.eventId === currentEventId && g.tableNo === tableNo);
-                tableName = existingGuest ? existingGuest.tableName : `第 ${tableNo} 桌`;
-            }
+            const id = document.getElementById('edit-guest-id').value; const name = document.getElementById('edit-guest-name').value.trim();
+            if (!name) return alert("請輸入姓名！"); const tableNo = document.getElementById('edit-guest-table').value; let tableName = "";
+            if (tableNo) { const existingGuest = globalDatabase.find(g => g.eventId === currentEventId && g.tableNo === tableNo); tableName = existingGuest ? existingGuest.tableName : `第 ${tableNo} 桌`; }
             if (id) {
                 const idx = globalDatabase.findIndex(g => g.id === id);
                 if (idx > -1) {
-                    globalDatabase[idx].guestName = name; 
-                    globalDatabase[idx].relation = document.getElementById('edit-guest-relation').value;
-                    globalDatabase[idx].giftGroup = document.getElementById('edit-guest-gift-group').value.trim();
-                    globalDatabase[idx].diet = document.getElementById('edit-guest-diet').value; 
-                    globalDatabase[idx].tableNo = tableNo;
-                    globalDatabase[idx].tableName = tableName; 
-                    globalDatabase[idx].isChild = document.getElementById('edit-guest-child').checked;
-                    globalDatabase[idx].note = document.getElementById('edit-guest-note').value;
+                    globalDatabase[idx].guestName = name; globalDatabase[idx].relation = document.getElementById('edit-guest-relation').value;
+                    globalDatabase[idx].giftGroup = document.getElementById('edit-guest-gift-group').value.trim(); globalDatabase[idx].diet = document.getElementById('edit-guest-diet').value; 
+                    globalDatabase[idx].tableNo = tableNo; globalDatabase[idx].tableName = tableName; globalDatabase[idx].isChild = document.getElementById('edit-guest-child').checked; globalDatabase[idx].note = document.getElementById('edit-guest-note').value;
                 }
             } else {
-                globalDatabase.push({
-                    id: "G_" + Date.now(), eventId: currentEventId, tableNo: tableNo, tableName: tableName,
-                    guestName: name, relation: document.getElementById('edit-guest-relation').value || "其他",
-                    giftGroup: document.getElementById('edit-guest-gift-group').value.trim(),
-                    diet: document.getElementById('edit-guest-diet').value, isChild: document.getElementById('edit-guest-child').checked,
-                    note: document.getElementById('edit-guest-note').value, isCheckedIn: 0, isGiftClaimed: 0
-                });
+                globalDatabase.push({ id: "G_" + Date.now(), eventId: currentEventId, tableNo: tableNo, tableName: tableName, guestName: name, relation: document.getElementById('edit-guest-relation').value || "其他", giftGroup: document.getElementById('edit-guest-gift-group').value.trim(), diet: document.getElementById('edit-guest-diet').value, isChild: document.getElementById('edit-guest-child').checked, note: document.getElementById('edit-guest-note').value, isCheckedIn: 0, isGiftClaimed: 0 });
             }
             renderAll(true); closeModal('guest-modal');
         }
 
-        // ================= 資料操作與拖曳控制保留 =================
-        function dragStart(event, guestId) { event.dataTransfer.setData("text/plain", guestId); }
-        function allowDrop(event) { event.preventDefault(); }
-        function dropToTable(event, tableNo, tableName) {
-            event.preventDefault(); const guestId = event.dataTransfer.getData("text/plain"); const guestIndex = globalDatabase.findIndex(g => g.id === guestId);
-            if (guestIndex !== -1) { globalDatabase[guestIndex].tableNo = tableNo; globalDatabase[guestIndex].tableName = tableName; } renderAll(true);
-        }
-		function dropToUnassigned(event) {
-			event.preventDefault();
-			const guestId = event.dataTransfer.getData("text/plain");
-			const guestIndex = globalDatabase.findIndex(g => g.id === guestId);
-			if (guestIndex !== -1) { 
-				globalDatabase[guestIndex].tableNo = ""; 
-				globalDatabase[guestIndex].tableName = ""; 
-				renderAll(true);
-			}
-		}
-        function dropOnGuest(event, targetGuestId) {
-            event.preventDefault(); event.stopPropagation(); 
-            const sourceGuestId = event.dataTransfer.getData("text/plain");
-            if (sourceGuestId === targetGuestId) return; 
-            const sourceIndex = globalDatabase.findIndex(g => g.id === sourceGuestId);
-            if (sourceIndex === -1) return;
-            const sourceGuest = globalDatabase.splice(sourceIndex, 1)[0];
-            const newTargetIndex = globalDatabase.findIndex(g => g.id === targetGuestId);
-            if (newTargetIndex === -1) { globalDatabase.push(sourceGuest); return renderAll(true); }
-            sourceGuest.tableNo = globalDatabase[newTargetIndex].tableNo; sourceGuest.tableName = globalDatabase[newTargetIndex].tableName;
-            globalDatabase.splice(newTargetIndex, 0, sourceGuest); renderAll(true);
-        }
-        function bindTableDragEvent(wrapper, posKey, tableData) {
-            let isDragging = false; let startX, startY;
-            wrapper.onmousedown = function(e) {
-                if (e.target.closest('.guest-circle')) return; startX = e.clientX; startY = e.clientY; isDragging = false;
-                if (isTableLocked) return; let initLeft = parseInt(wrapper.style.left || 0); let initTop = parseInt(wrapper.style.top || 0);
-                function onMouseMove(ev) {
-                    if (Math.abs(ev.clientX - startX) > 5 || Math.abs(ev.clientY - startY) > 5) isDragging = true;
-                    if (isDragging) { wrapper.style.left = `${initLeft + ev.clientX - startX}px`; wrapper.style.top = `${initTop + ev.clientY - startY}px`; }
-                }
-                function onMouseUp() {
-                    document.removeEventListener('mousemove', onMouseMove); document.removeEventListener('mouseup', onMouseUp);
-                    if (isDragging) { globalTablePositions[posKey] = { x: parseInt(wrapper.style.left), y: parseInt(wrapper.style.top) }; renderAll(true); }
-                }
-                document.addEventListener('mousemove', onMouseMove); document.addEventListener('mouseup', onMouseUp);
-            };
-            wrapper.onclick = function(e) { if (!isDragging && e.target.closest('.dining-table')) openTableModal(tableData.tableNo, tableData.tableName); };
-        }
-        function openTableModal(tableNo, currentName) {
-            document.getElementById('edit-table-no').value = tableNo; document.getElementById('edit-table-name').value = currentName.startsWith('自訂桌') || currentName.startsWith('第') ? '' : currentName;
-            document.getElementById('table-modal').style.display = 'flex';
-        }
-        function saveTableEdit() {
-            const tableNo = document.getElementById('edit-table-no').value; const newName = document.getElementById('edit-table-name').value.trim() || `第 ${tableNo} 桌`;
-            globalDatabase.forEach(guest => { if (guest.eventId === currentEventId && guest.tableNo === tableNo) guest.tableName = newName; }); renderAll(true); closeModal('table-modal');
-        }
-        function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
         function deleteGuest() { const id = document.getElementById('edit-guest-id').value; if (confirm("確定要刪除這位賓客嗎？")) { globalDatabase = globalDatabase.filter(g => g.id !== id); renderAll(true); closeModal('guest-modal'); } }
+        function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
+        
         function updateGrid() { globalGridParams.x = parseInt(document.getElementById("grid-x").value) || 1; globalGridParams.y = parseInt(document.getElementById("grid-y").value) || 1; renderAll(true); }
         function toggleGuestView() {
             isGuestsCollapsed = !isGuestsCollapsed; const btn = document.getElementById("toggle-view-btn"); const canvas = document.getElementById("canvas-container");
@@ -773,48 +730,35 @@ function openGuestModal(guestId = null) {
             globalDatabase.push({ id: "G_EMPTY_" + Date.now(), eventId: currentEventId, tableNo: nextNo.toString(), tableName: `自訂桌 ${nextNo}`, guestName: "空位預留", relation: "無", diet: "-", isChild: false, note: "", isCheckedIn: 0, isGiftClaimed: 0, giftGroup: "" }); renderAll(true);
         }
         function clearAllData() { if (confirm("⚠️ 警告：確定要清空當前場次嗎？")) { globalDatabase = globalDatabase.filter(g => g.eventId !== currentEventId); Object.keys(globalTablePositions).forEach(key => { if (key.startsWith(currentEventId + "_")) delete globalTablePositions[key]; }); renderAll(true); } }
-        
+
+        // ==========================================
+        // [10] 匯出/匯入與截圖功能
+        // ==========================================
         function exportExcel() {
             const currentEventGuests = globalDatabase.filter(g => g.eventId === currentEventId && !g.id.startsWith("G_EMPTY_"));
             if (currentEventGuests.length === 0) return alert("目前沒有賓客資料。");
-            const exportData = currentEventGuests.map(g => ({
-                "簽到狀態": g.isCheckedIn === 1 ? "已簽到" : "未簽到", "喜餅狀態": g.isGiftClaimed === 1 ? "已領取" : "未領取",
-                "桌號": g.tableNo || "", "桌名": g.tableName || "", "來賓關係": g.relation || "",
-                "領餅群組": g.giftGroup || "", "來賓姓名": g.guestName || "", "葷素": g.diet || "葷", 
-                "是否為兒童": g.isChild ? "是" : "否", "備註": g.note || ""
-            }));
+            const exportData = currentEventGuests.map(g => ({ "簽到狀態": g.isCheckedIn === 1 ? "已簽到" : "未簽到", "喜餅狀態": g.isGiftClaimed === 1 ? "已領取" : "未領取", "桌號": g.tableNo || "", "桌名": g.tableName || "", "來賓關係": g.relation || "", "領餅群組": g.giftGroup || "", "來賓姓名": g.guestName || "", "葷素": g.diet || "葷", "是否為兒童": g.isChild ? "是" : "否", "備註": g.note || "" }));
             const ws = XLSX.utils.json_to_sheet(exportData); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "名單與狀態"); XLSX.writeFile(wb, `賓客狀態_${currentEventId}.xlsx`);
         }
+
         function handleExcelUpload(event) {
             const file = event.target.files[0]; if (!file) return; const reader = new FileReader();
             reader.onload = function(e) {
                 try {
                     const data = new Uint8Array(e.target.result); const workbook = XLSX.read(data, { type: 'array' }); const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
-                    jsonData.forEach(row => {
-                        globalDatabase.push({
-                            id: "G_" + Date.now() + "_" + Math.random().toString(36).substring(2, 9), eventId: currentEventId,
-                            tableNo: String(row["桌號"] || "").trim(), tableName: row["桌名"] || "", guestName: row["來賓姓名"] || "未命名", relation: row["來賓關係"] || "其他",
-                            giftGroup: String(row["領餅群組"] || "").trim(),
-                            diet: row["葷素"] || "葷", isChild: row["是否為兒童"] === "是" || row["是否為兒童"] === true, note: row["備註"] || "", 
-                            isCheckedIn: (row["簽到狀態"] === "已簽到" || row["簽到狀態"] == 1) ? 1 : 0, isGiftClaimed: (row["喜餅狀態"] === "已領取" || row["喜餅狀態"] == 1) ? 1 : 0
-                        });
-                    }); renderAll(true); alert("匯入成功！");
+                    jsonData.forEach(row => { globalDatabase.push({ id: "G_" + Date.now() + "_" + Math.random().toString(36).substring(2, 9), eventId: currentEventId, tableNo: String(row["桌號"] || "").trim(), tableName: row["桌名"] || "", guestName: row["來賓姓名"] || "未命名", relation: row["來賓關係"] || "其他", giftGroup: String(row["領餅群組"] || "").trim(), diet: row["葷素"] || "葷", isChild: row["是否為兒童"] === "是" || row["是否為兒童"] === true, note: row["備註"] || "", isCheckedIn: (row["簽到狀態"] === "已簽到" || row["簽到狀態"] == 1) ? 1 : 0, isGiftClaimed: (row["喜餅狀態"] === "已領取" || row["喜餅狀態"] == 1) ? 1 : 0 }); });
+                    renderAll(true); alert("匯入成功！");
                 } catch (error) { alert("Excel 讀取失敗。"); } event.target.value = ''; 
             }; reader.readAsArrayBuffer(file);
         }
+
         function handleLayoutUpload(event) {
             const file = event.target.files[0]; if (!file) return; const reader = new FileReader();
             reader.onload = function(e) {
                 try {
                     const data = new Uint8Array(e.target.result); const workbook = XLSX.read(data, { type: 'array' }); const gridData = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], { header: 1 });
                     let minRow = Infinity; let minCol = Infinity; let tablesToUpdate = [];
-                    gridData.forEach((row, rIdx) => { row.forEach((cellVal, cIdx) => {
-                            if (cellVal !== undefined && cellVal !== null && String(cellVal).trim() !== "") {
-                                let cellStr = String(cellVal).trim(); const mTable = globalDatabase.find(g => g.eventId === currentEventId && g.tableNo && (g.tableNo === cellStr || g.tableName === cellStr));
-                                if (mTable) { minRow = Math.min(minRow, rIdx); minCol = Math.min(minCol, cIdx); tablesToUpdate.push({ tableNo: mTable.tableNo, r: rIdx, c: cIdx }); }
-                            }
-                        });
-                    });
+                    gridData.forEach((row, rIdx) => { row.forEach((cellVal, cIdx) => { if (cellVal !== undefined && cellVal !== null && String(cellVal).trim() !== "") { let cellStr = String(cellVal).trim(); const mTable = globalDatabase.find(g => g.eventId === currentEventId && g.tableNo && (g.tableNo === cellStr || g.tableName === cellStr)); if (mTable) { minRow = Math.min(minRow, rIdx); minCol = Math.min(minCol, cIdx); tablesToUpdate.push({ tableNo: mTable.tableNo, r: rIdx, c: cIdx }); } } }); });
                     if (tablesToUpdate.length > 0) {
                         let maxX = 1; let maxY = 1;
                         tablesToUpdate.forEach(t => { let nR = t.r - minRow; let nC = t.c - minCol; globalTablePositions[`${currentEventId}_${t.tableNo}`] = { x: nC * 350 + 15, y: nR * 350 + 15 }; maxX = Math.max(maxX, nC + 1); maxY = Math.max(maxY, nR + 1); });
@@ -823,20 +767,15 @@ function openGuestModal(guestId = null) {
                 } catch (error) { alert("佈局讀取失敗。"); } event.target.value = '';
             }; reader.readAsArrayBuffer(file);
         }
+
         function exportLayoutExcel() {
             const gridMatrix = Array.from({ length: globalGridParams.y }, () => Array(globalGridParams.x).fill(""));
             const currentEventGuests = globalDatabase.filter(g => g.eventId === currentEventId);
             const tables = [...new Set(currentEventGuests.filter(g=>g.tableNo).map(g=>g.tableNo))];
-            tables.forEach(tNo => {
-                const pos = globalTablePositions[`${currentEventId}_${tNo}`];
-                if(pos) {
-                    const col = Math.max(0, Math.min(globalGridParams.x - 1, Math.round((pos.x - 15) / 350)));
-                    const row = Math.max(0, Math.min(globalGridParams.y - 1, Math.round((pos.y - 15) / 350)));
-                    gridMatrix[row][col] = tNo; 
-                }
-            });
+            tables.forEach(tNo => { const pos = globalTablePositions[`${currentEventId}_${tNo}`]; if(pos) { const col = Math.max(0, Math.min(globalGridParams.x - 1, Math.round((pos.x - 15) / 350))); const row = Math.max(0, Math.min(globalGridParams.y - 1, Math.round((pos.y - 15) / 350))); gridMatrix[row][col] = tNo; } });
             const ws = XLSX.utils.aoa_to_sheet(gridMatrix); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "桌位佈局"); XLSX.writeFile(wb, `佈局備份_${currentEventId}.xlsx`);
         }
+
         function exportCanvasImage() {
             const canvasEl = document.getElementById('canvas');
             const origWidth = canvasEl.style.width; const origHeight = canvasEl.style.height;
@@ -847,10 +786,6 @@ function openGuestModal(guestId = null) {
                 const link = document.createElement('a'); link.download = `場地座位圖_${currentEventId}.png`; link.href = canvas.toDataURL("image/png"); link.click();
                 canvasEl.style.width = origWidth; canvasEl.style.height = origHeight;
             }).catch(err => { alert("截圖發生錯誤！"); canvasEl.style.width = origWidth; canvasEl.style.height = origHeight; });
-        }
-        function toggleUnassignedList() {
-            isLeftListCollapsed = !isLeftListCollapsed; const wrapper = document.getElementById('guest-list-wrapper'); const icon = document.getElementById('collapse-icon');
-            if (isLeftListCollapsed) { wrapper.classList.add('collapsed'); icon.innerText = "▶️"; } else { wrapper.classList.remove('collapsed'); icon.innerText = "🔽"; }
         }
     </script>
 </body>
