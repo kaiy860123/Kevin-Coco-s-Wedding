@@ -27,7 +27,7 @@ const weddingConfig = {
         },
         nantou: {
             title: "Kevin & Coco's Wedding - 南投場",
-            date: "2027年01月24日 (六) 12:00",
+            date: "2027年01月24日 (日) 12:00",
             countdownTarget: "2027-01-24T12:00:00",
             location: "南投涵碧樓 (南投縣魚池鄉中興路142號)",
             noticeText: "溫馨提醒：本場次謝絕禮金，您的到來就是最好的祝福！",
