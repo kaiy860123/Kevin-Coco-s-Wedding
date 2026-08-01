@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kevin & Coco's Wedding Invitation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header-section">
+            <h1 id="page-title">Kevin & Coco's Wedding</h1>
+            <p class="wedding-info">
+                📅 日期：<span id="wedding-date"></span><br>
+                📍 地點：<span id="wedding-location"></span>
+            </p>
+        </div>
+
+        <div id="notice-section" class="notice-box" style="display: none;"></div>
+
+        <form id="rsvp-form">
+            <div id="field-name" class="form-group">
+                <label>您的姓名 (必填)</label>
+                <input type="text" name="guestName" required placeholder="請輸入全名">
+            </div>
+
+            <div id="field-relation" class="form-group">
+                <label>來賓關係</label>
+                <select name="relation" required>
+                    <option value="" disabled selected>請選擇您與新人的關係</option>
+                    <option value="男方親友">男方親友</option>
+                    <option value="女方親友">女方親友</option>
+                    <option value="共同朋友">共同朋友</option>
+                </select>
+            </div>
+
+            <div id="field-phone" class="form-group">
+                <label>聯絡電話 (必填)</label>
+                <input type="tel" name="phone" required placeholder="09XX-XXX-XXX">
+            </div>
+
+            <div id="field-attend" class="form-group">
+                <label>請問您是否會出席？</label>
+                <select name="isAttending" required>
+                    <option value="yes">是，我很樂意參加</option>
+                    <option value="no">否，無法出席</option>
+                </select>
+            </div>
+
+            <div id="field-ceremony" class="form-group">
+                <label>是否出席證婚儀式？</label>
+                <select name="attendCeremony">
+                    <option value="yes">是，我會準時觀禮</option>
+                    <option value="no">否，僅參加宴客</option>
+                </select>
+            </div>
+
+            <div id="field-attend-count" class="form-group">
+                <label>包含您在內，總共出席人數？</label>
+                <input type="number" name="attendCount" min="1" max="10" value="1" required>
+            </div>
+
+            <div id="field-dietary" class="form-group">
+                <label>葷素調查</label>
+                <select name="dietaryType" required>
+                    <option value="all_meat">全葷</option>
+                    <option value="all_veg">全素</option>
+                    <option value="mixed">部分葷 / 部分素</option>
+                </select>
+            </div>
+
+            <div id="field-veg-count" class="form-group">
+                <label>素食份數 (若無請填 0)</label>
+                <input type="number" name="vegCount" min="0" value="0">
+            </div>
+
+            <div id="field-allergy" class="form-group">
+                <label>食物過敏或特殊需求 (開放式填寫)</label>
+                <input type="text" name="foodAllergy" placeholder="例如：不吃牛、對花生過敏、需要兒童座椅...">
+            </div>
+
+            <button type="submit" class="submit-btn">送出回覆</button>
+        </form>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
