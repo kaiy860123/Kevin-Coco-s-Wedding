@@ -13,14 +13,14 @@ const weddingConfig = {
             location: "台南晶英酒店 (台南市中西區和意路1號)",
             noticeText: "", // 無特殊宣告
             // ★ 請替換以下圖片網址為真實照片 ★
-            coverImage: "https://github.com/kaiy860123/Kevin-Coco-s-Wedding/blob/main/invitation/images/DJI_20250929143417_0165_D.JPG", // 首圖背景
+            coverImage: "images/DJI_20250929143417_0165_D.JPG", // 首圖背景
             galleryImages: [
-                "https://github.com/kaiy860123/Kevin-Coco-s-Wedding/blob/main/invitation/images/DJI_20250929143417_0165_D.JPG",
-                "https://github.com/kaiy860123/Kevin-Coco-s-Wedding/blob/main/invitation/images/DJI_20250929143427_0169_D.JPG",
-                "https://github.com/kaiy860123/Kevin-Coco-s-Wedding/blob/main/invitation/images/S__19112005.jpg"
+                "images/DJI_20250929143417_0165_D.JPG",
+                "images/DJI_20250929143427_0169_D.JPG",
+                "images/S__19112005.jpg"
             ],
             // ★ 請替換為 Google Maps 的「嵌入地圖」網址 ★
-            mapEmbedSrc: "<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.9815295554013!2d120.19685391161538!3d22.987706679111458!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e767c77f6350f%3A0x802cfbc73a87af85!2z5Y-w5Y2X5pm26Iux6YWS5bqXIChTaWxrcyBQbGFjZSBUYWluYW4p!5e0!3m2!1szh-TW!2stw!4v1785570947869!5m2!1szh-TW!2stw",
+            mapEmbedSrc: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.9815295554013!2d120.19685391161538!3d22.987706679111458!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e767c77f6350f%3A0x802cfbc73a87af85!2z5Y-w5Y2X5pm26Iux6YWS5bqXIChTaWxrcyBQbGFjZSBUYWluYW4p!5e0!3m2!1szh-TW!2stw!4v1785570947869!5m2!1szh-TW!2stw",
             trafficInfo: "【高鐵】搭乘至台南站，轉乘高鐵快捷公車H31至「小西門站」下車。<br>【火車】台南火車站轉乘計程車約10分鐘。",
             parkingInfo: "飯店提供地下停車場，賓客可免費停車。結帳時請向櫃台索取停車券。",
             formToggles: { showCeremony: false }
@@ -31,12 +31,12 @@ const weddingConfig = {
             countdownTarget: "2027-01-16T17:30:00",
             location: "南投涵碧樓 (南投縣魚池鄉中興路142號)",
             noticeText: "溫馨提醒：本場次謝絕禮金，您的到來就是最好的祝福！",
-            coverImage: "https://github.com/kaiy860123/Kevin-Coco-s-Wedding/blob/main/invitation/images/DJI_20250929143417_0165_D.JPG",
+            coverImage: "images/DJI_20250929143417_0165_D.JPG",
             galleryImages: [
-                "https://github.com/kaiy860123/Kevin-Coco-s-Wedding/blob/main/invitation/images/S__19112027_0.jpg",
-                "https://github.com/kaiy860123/Kevin-Coco-s-Wedding/blob/main/invitation/images/S__19112034_0.jpg",
-                "https://github.com/kaiy860123/Kevin-Coco-s-Wedding/blob/main/invitation/images/DJI_20250929143417_0165_D.JPG",
-                "https://github.com/kaiy860123/Kevin-Coco-s-Wedding/blob/main/invitation/images/DJI_20250929143417_0165_D.JPG"
+                "images/S__19112027_0.jpg",
+                "images/S__19112034_0.jpg",
+                "images/DJI_20250929143417_0165_D.JPG",
+                "images/DJI_20250929143417_0165_D.JPG"
             ],
             mapEmbedSrc: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3648.750948355145!2d120.90602371163745!3d23.862975978504466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3468d60f0d7e1f0b%3A0xa748afffa2011207!2z5pel5pyI5r2t5ra156Kn5qiT!5e0!3m2!1szh-TW!2stw!4v1785571059341!5m2!1szh-TW!2stw",
             trafficInfo: "【高鐵】搭乘至台中站，可預約飯店接駁車。<br>【自行開車】國道六號愛蘭交流道下，往日月潭方向行駛。",
