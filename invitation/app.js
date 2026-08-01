@@ -8,8 +8,8 @@ const weddingConfig = {
     events: {
         tainan: {
             title: "Kevin & Coco's Wedding - 台南場",
-            date: "2027年01月10日 (日) 12:00",
-            countdownTarget: "2027-01-10T12:00:00", // 倒數目標時間
+            date: "2027年01月17日 (日) 12:00",
+            countdownTarget: "2027-01-17T12:00:00", // 倒數目標時間
             location: "台南晶英酒店 (台南市中西區和意路1號)",
             noticeText: "", // 無特殊宣告
             // ★ 請替換以下圖片網址為真實照片 ★
@@ -27,8 +27,8 @@ const weddingConfig = {
         },
         nantou: {
             title: "Kevin & Coco's Wedding - 南投場",
-            date: "2027年01月16日 (六) 17:30",
-            countdownTarget: "2027-01-16T17:30:00",
+            date: "2027年01月24日 (六) 12:00",
+            countdownTarget: "2027-01-24T12:00:00",
             location: "南投涵碧樓 (南投縣魚池鄉中興路142號)",
             noticeText: "溫馨提醒：本場次謝絕禮金，您的到來就是最好的祝福！",
             coverImage: "images/DJI_20250929143417_0165_D.JPG",
