@@ -7,80 +7,115 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header-section">
+    <header class="hero-section" id="hero-bg">
+        <div class="hero-overlay">
             <h1 id="page-title">Kevin & Coco's Wedding</h1>
-            <p class="wedding-info">
-                📅 日期：<span id="wedding-date"></span><br>
-                📍 地點：<span id="wedding-location"></span>
-            </p>
+            <p class="hero-date" id="wedding-date"></p>
+            <p class="hero-location" id="wedding-location"></p>
+            
+            <div class="countdown-container">
+                <div class="time-box"><span id="cd-days">00</span><small>Days</small></div>
+                <div class="time-box"><span id="cd-hours">00</span><small>Hours</small></div>
+                <div class="time-box"><span id="cd-mins">00</span><small>Mins</small></div>
+                <div class="time-box"><span id="cd-secs">00</span><small>Secs</small></div>
+            </div>
         </div>
+    </header>
+
+    <div class="container">
+        <section class="gallery-section">
+            <h2 class="section-title">Our Moments</h2>
+            <div class="photo-grid" id="photo-grid">
+                </div>
+        </section>
+
+        <div id="lightbox" class="lightbox">
+            <span class="close-lightbox" id="close-lightbox">&times;</span>
+            <img class="lightbox-content" id="lightbox-img">
+        </div>
+
+        <section class="info-section">
+            <h2 class="section-title">Venue & Transportation</h2>
+            <div class="map-container">
+                <iframe id="map-iframe" src="" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div class="traffic-box">
+                <h3>🚗 交通方式</h3>
+                <p id="traffic-info"></p>
+                <h3>🅿️ 停車資訊</h3>
+                <p id="parking-info"></p>
+            </div>
+        </section>
 
         <div id="notice-section" class="notice-box" style="display: none;"></div>
 
-        <form id="rsvp-form">
-            <div id="field-name" class="form-group">
-                <label>您的姓名 (必填)</label>
-                <input type="text" name="guestName" required placeholder="請輸入全名">
-            </div>
+        <section class="form-section">
+            <h2 class="section-title">RSVP</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 20px;">期待您的蒞臨，請協助填寫以下回覆</p>
+            <form id="rsvp-form">
+                <div id="field-name" class="form-group">
+                    <label>您的姓名 (必填)</label>
+                    <input type="text" name="guestName" required placeholder="請輸入全名">
+                </div>
 
-            <div id="field-relation" class="form-group">
-                <label>來賓關係</label>
-                <select name="relation" required>
-                    <option value="" disabled selected>請選擇您與新人的關係</option>
-                    <option value="男方親友">男方親友</option>
-                    <option value="女方親友">女方親友</option>
-                    <option value="共同朋友">共同朋友</option>
-                </select>
-            </div>
+                <div id="field-relation" class="form-group">
+                    <label>來賓關係</label>
+                    <select name="relation" required>
+                        <option value="" disabled selected>請選擇您與新人的關係</option>
+                        <option value="男方親友">男方親友</option>
+                        <option value="女方親友">女方親友</option>
+                        <option value="共同朋友">共同朋友</option>
+                    </select>
+                </div>
 
-            <div id="field-phone" class="form-group">
-                <label>聯絡電話 (必填)</label>
-                <input type="tel" name="phone" required placeholder="09XX-XXX-XXX">
-            </div>
+                <div id="field-phone" class="form-group">
+                    <label>聯絡電話 (必填)</label>
+                    <input type="tel" name="phone" required placeholder="09XX-XXX-XXX">
+                </div>
 
-            <div id="field-attend" class="form-group">
-                <label>請問您是否會出席？</label>
-                <select name="isAttending" required>
-                    <option value="yes">是，我很樂意參加</option>
-                    <option value="no">否，無法出席</option>
-                </select>
-            </div>
+                <div id="field-attend" class="form-group">
+                    <label>請問您是否會出席？</label>
+                    <select name="isAttending" required>
+                        <option value="yes">是，我很樂意參加</option>
+                        <option value="no">否，無法出席</option>
+                    </select>
+                </div>
 
-            <div id="field-ceremony" class="form-group">
-                <label>是否出席證婚儀式？</label>
-                <select name="attendCeremony">
-                    <option value="yes">是，我會準時觀禮</option>
-                    <option value="no">否，僅參加宴客</option>
-                </select>
-            </div>
+                <div id="field-ceremony" class="form-group">
+                    <label>是否出席證婚儀式？</label>
+                    <select name="attendCeremony">
+                        <option value="yes">是，我會準時觀禮</option>
+                        <option value="no">否，僅參加宴客</option>
+                    </select>
+                </div>
 
-            <div id="field-attend-count" class="form-group">
-                <label>包含您在內，總共出席人數？</label>
-                <input type="number" name="attendCount" min="1" max="10" value="1" required>
-            </div>
+                <div id="field-attend-count" class="form-group">
+                    <label>包含您在內，總共出席人數？</label>
+                    <input type="number" name="attendCount" min="1" max="10" value="1" required>
+                </div>
 
-            <div id="field-dietary" class="form-group">
-                <label>葷素調查</label>
-                <select name="dietaryType" required>
-                    <option value="all_meat">全葷</option>
-                    <option value="all_veg">全素</option>
-                    <option value="mixed">部分葷 / 部分素</option>
-                </select>
-            </div>
+                <div id="field-dietary" class="form-group">
+                    <label>葷素調查</label>
+                    <select name="dietaryType" required>
+                        <option value="all_meat">全葷</option>
+                        <option value="all_veg">全素</option>
+                        <option value="mixed">部分葷 / 部分素</option>
+                    </select>
+                </div>
 
-            <div id="field-veg-count" class="form-group">
-                <label>素食份數 (若無請填 0)</label>
-                <input type="number" name="vegCount" min="0" value="0">
-            </div>
+                <div id="field-veg-count" class="form-group">
+                    <label>素食份數 (若無請填 0)</label>
+                    <input type="number" name="vegCount" min="0" value="0">
+                </div>
 
-            <div id="field-allergy" class="form-group">
-                <label>食物過敏或特殊需求 (開放式填寫)</label>
-                <input type="text" name="foodAllergy" placeholder="例如：不吃牛、對花生過敏、需要兒童座椅...">
-            </div>
+                <div id="field-allergy" class="form-group">
+                    <label>食物過敏或特殊需求 (開放式填寫)</label>
+                    <input type="text" name="foodAllergy" placeholder="例如：不吃牛、需要兒童座椅...">
+                </div>
 
-            <button type="submit" class="submit-btn">送出回覆</button>
-        </form>
+                <button type="submit" class="submit-btn">送出回覆</button>
+            </form>
+        </section>
     </div>
 
     <script src="app.js"></script>
