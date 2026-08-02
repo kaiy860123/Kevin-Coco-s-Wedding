@@ -2,122 +2,482 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <meta
+        name="description"
+        content="Kevin 與 Coco 的婚禮邀請函"
+    >
+
     <title>Kevin & Coco's Wedding Invitation</title>
-    <link rel="stylesheet" href="style.css">
+
+    <!--
+        更新 CSS 後只需要修改這裡的版本號。
+        正式分享網址不需要加 &v=xxx。
+    -->
+    <link rel="stylesheet" href="./style.css?v=20260803-01">
 </head>
+
 <body>
+    <!-- 首頁 -->
     <header class="hero-section" id="hero-bg">
         <div class="hero-overlay">
-            <h1 id="page-title">Kevin & Coco's Wedding</h1>
-            <p class="hero-date" id="wedding-date"></p>
-            <p class="hero-location" id="wedding-location"></p>
-            
-            <div class="countdown-container">
-                <div class="time-box"><span id="cd-days">00</span><small>Days</small></div>
-                <div class="time-box"><span id="cd-hours">00</span><small>Hours</small></div>
-                <div class="time-box"><span id="cd-mins">00</span><small>Mins</small></div>
-                <div class="time-box"><span id="cd-secs">00</span><small>Secs</small></div>
+            <p class="hero-subtitle">
+                WE ARE GETTING MARRIED
+            </p>
+
+            <h1 id="page-title">
+                Kevin & Coco
+            </h1>
+
+            <p
+                class="hero-date"
+                id="wedding-date"
+            >
+                婚禮日期載入中
+            </p>
+
+            <p
+                class="hero-location"
+                id="wedding-location"
+            >
+                婚禮地點載入中
+            </p>
+
+            <div
+                class="countdown-container"
+                id="countdown-container"
+                aria-label="婚禮倒數計時"
+            >
+                <div class="time-box">
+                    <span id="cd-days">00</span>
+                    <small>Days</small>
+                </div>
+
+                <div class="time-box">
+                    <span id="cd-hours">00</span>
+                    <small>Hours</small>
+                </div>
+
+                <div class="time-box">
+                    <span id="cd-mins">00</span>
+                    <small>Mins</small>
+                </div>
+
+                <div class="time-box">
+                    <span id="cd-secs">00</span>
+                    <small>Secs</small>
+                </div>
             </div>
         </div>
     </header>
 
-    <div class="container">
+    <main class="container">
+        <!-- 特別公告 -->
+        <section
+            id="notice-section"
+            class="notice-box"
+            hidden
+        ></section>
+
+        <!-- 相片 -->
         <section class="gallery-section">
-            <h2 class="section-title">Our Moments</h2>
-            <div class="photo-grid" id="photo-grid">
-                </div>
+            <h2 class="section-title">
+                Our Moments
+            </h2>
+
+            <div
+                class="photo-grid"
+                id="photo-grid"
+                aria-label="婚禮照片"
+            ></div>
         </section>
 
-        <div id="lightbox" class="lightbox">
-            <span class="close-lightbox" id="close-lightbox">&times;</span>
-            <img class="lightbox-content" id="lightbox-img">
+        <!-- 相片燈箱 -->
+        <div
+            id="lightbox"
+            class="lightbox"
+            role="dialog"
+            aria-modal="true"
+            aria-label="照片預覽"
+            hidden
+        >
+            <button
+                type="button"
+                class="close-lightbox"
+                id="close-lightbox"
+                aria-label="關閉照片預覽"
+            >
+                &times;
+            </button>
+
+            <img
+                class="lightbox-content"
+                id="lightbox-img"
+                src=""
+                alt="婚禮照片預覽"
+            >
         </div>
 
+        <!-- 地點與交通 -->
         <section class="info-section">
-            <h2 class="section-title">Venue & Transportation</h2>
-            <div class="map-container">
-                <iframe id="map-iframe" src="" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <h2 class="section-title">
+                Venue & Transportation
+            </h2>
+
+            <div class="venue-summary">
+                <h3 id="venue-name">
+                    婚禮地點
+                </h3>
+
+                <p id="venue-address"></p>
+
+                <a
+                    id="google-map-link"
+                    class="map-link-button"
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    使用 Google Maps 導航
+                </a>
             </div>
-            <div class="traffic-box">
-                <h3>🚗 交通方式</h3>
-                <p id="traffic-info"></p>
-                <h3>🅿️ 停車資訊</h3>
-                <p id="parking-info"></p>
+
+            <div class="map-container">
+                <iframe
+                    id="map-iframe"
+                    title="婚禮地點 Google Maps"
+                    src=""
+                    width="100%"
+                    height="360"
+                    style="border: 0;"
+                    allowfullscreen
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                ></iframe>
+            </div>
+
+            <div class="traffic-grid">
+                <article class="info-card">
+                    <h3>交通方式</h3>
+
+                    <div id="traffic-info">
+                        交通資訊載入中
+                    </div>
+                </article>
+
+                <article class="info-card">
+                    <h3>停車資訊</h3>
+
+                    <div id="parking-info">
+                        停車資訊載入中
+                    </div>
+                </article>
             </div>
         </section>
 
-        <div id="notice-section" class="notice-box" style="display: none;"></div>
-
+        <!-- RSVP -->
         <section class="form-section">
-            <h2 class="section-title">RSVP</h2>
-            <p style="text-align: center; color: #666; margin-bottom: 20px;">期待您的蒞臨，請協助填寫以下回覆</p>
+            <h2 class="section-title">
+                RSVP
+            </h2>
+
+            <p class="form-description">
+                期待您的蒞臨，請協助填寫以下回覆。
+            </p>
+
             <form id="rsvp-form">
-                <div id="field-name" class="form-group">
-                    <label>您的姓名 (必填)</label>
-                    <input type="text" name="guestName" required placeholder="請輸入全名">
+                <!-- 自動記錄場次 -->
+                <input
+                    type="hidden"
+                    id="form-wedding-location"
+                    name="weddingLocation"
+                >
+
+                <!-- 姓名 -->
+                <div
+                    id="field-name"
+                    class="form-group"
+                >
+                    <label for="guest-name">
+                        您的姓名
+                        <span class="required-mark">*</span>
+                    </label>
+
+                    <input
+                        id="guest-name"
+                        type="text"
+                        name="guestName"
+                        required
+                        maxlength="50"
+                        autocomplete="name"
+                        placeholder="請輸入全名"
+                    >
                 </div>
 
-                <div id="field-relation" class="form-group">
-                    <label>來賓關係</label>
-                    <select name="relation" required>
-                        <option value="" disabled selected>請選擇您與新人的關係</option>
-                        <option value="男方親友">男方親友</option>
-                        <option value="女方親友">女方親友</option>
-                        <option value="共同朋友">共同朋友</option>
+                <!-- 關係 -->
+                <div
+                    id="field-relation"
+                    class="form-group"
+                >
+                    <label for="relation">
+                        您與新人的關係
+                        <span class="required-mark">*</span>
+                    </label>
+
+                    <select
+                        id="relation"
+                        name="relation"
+                        required
+                    >
+                        <option
+                            value=""
+                            selected
+                            disabled
+                        >
+                            請選擇您與新人的關係
+                        </option>
+
+                        <option value="男方親友">
+                            男方親友
+                        </option>
+
+                        <option value="女方親友">
+                            女方親友
+                        </option>
+
+                        <option value="共同朋友">
+                            共同朋友
+                        </option>
+
+                        <option value="公司同事">
+                            公司同事
+                        </option>
+
+                        <option value="其他">
+                            其他
+                        </option>
                     </select>
                 </div>
 
-                <div id="field-phone" class="form-group">
-                    <label>聯絡電話 (必填)</label>
-                    <input type="tel" name="phone" required placeholder="09XX-XXX-XXX">
+                <!-- 聯絡電話 -->
+                <div
+                    id="field-phone"
+                    class="form-group"
+                >
+                    <label for="phone">
+                        聯絡電話
+                        <span class="required-mark">*</span>
+                    </label>
+
+                    <input
+                        id="phone"
+                        type="tel"
+                        name="phone"
+                        required
+                        maxlength="20"
+                        autocomplete="tel"
+                        inputmode="tel"
+                        placeholder="例如：0912-345-678"
+                    >
                 </div>
 
-                <div id="field-attend" class="form-group">
-                    <label>請問您是否會出席？</label>
-                    <select name="isAttending" required>
-                        <option value="yes">是，我很樂意參加</option>
-                        <option value="no">否，無法出席</option>
+                <!-- 是否出席 -->
+                <div
+                    id="field-attend"
+                    class="form-group"
+                >
+                    <label for="attendance">
+                        請問您是否會出席？
+                        <span class="required-mark">*</span>
+                    </label>
+
+                    <select
+                        id="attendance"
+                        name="isAttending"
+                        required
+                    >
+                        <option value="yes">
+                            是，我很樂意參加
+                        </option>
+
+                        <option value="no">
+                            否，無法出席
+                        </option>
                     </select>
                 </div>
 
-                <div id="field-ceremony" class="form-group">
-                    <label>是否出席證婚儀式？</label>
-                    <select name="attendCeremony">
-                        <option value="yes">是，我會準時觀禮</option>
-                        <option value="no">否，僅參加宴客</option>
-                    </select>
+                <!-- 僅出席者顯示 -->
+                <div
+                    id="attendance-detail-fields"
+                    class="conditional-fields"
+                >
+                    <!-- 南投證婚 -->
+                    <div
+                        id="field-ceremony"
+                        class="form-group"
+                    >
+                        <label for="attend-ceremony">
+                            是否出席證婚儀式？
+                        </label>
+
+                        <select
+                            id="attend-ceremony"
+                            name="attendCeremony"
+                        >
+                            <option value="yes">
+                                是，我會準時觀禮
+                            </option>
+
+                            <option value="no">
+                                否，僅參加午宴
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- 出席人數 -->
+                    <div
+                        id="field-attend-count"
+                        class="form-group"
+                    >
+                        <label for="attend-count">
+                            包含您在內，總出席人數
+                            <span class="required-mark">*</span>
+                        </label>
+
+                        <input
+                            id="attend-count"
+                            type="number"
+                            name="attendCount"
+                            min="1"
+                            max="20"
+                            step="1"
+                            value="1"
+                            required
+                        >
+                    </div>
+
+                    <!-- 葷素 -->
+                    <div
+                        id="field-dietary"
+                        class="form-group"
+                    >
+                        <label for="dietary-type">
+                            餐點需求
+                            <span class="required-mark">*</span>
+                        </label>
+
+                        <select
+                            id="dietary-type"
+                            name="dietaryType"
+                            required
+                        >
+                            <option value="all_meat">
+                                全葷
+                            </option>
+
+                            <option value="all_veg">
+                                全素
+                            </option>
+
+                            <option value="mixed">
+                                部分葷／部分素
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- 素食人數 -->
+                    <div
+                        id="field-veg-count"
+                        class="form-group"
+                    >
+                        <label for="veg-count">
+                            素食人數
+                        </label>
+
+                        <input
+                            id="veg-count"
+                            type="number"
+                            name="vegCount"
+                            min="0"
+                            max="20"
+                            step="1"
+                            value="0"
+                        >
+                    </div>
+
+                    <!-- 特殊需求 -->
+                    <div
+                        id="field-allergy"
+                        class="form-group"
+                    >
+                        <label for="food-allergy">
+                            食物過敏或其他特殊需求
+                        </label>
+
+                        <textarea
+                            id="food-allergy"
+                            name="foodAllergy"
+                            rows="3"
+                            maxlength="300"
+                            placeholder="例如：不吃牛、對花生過敏、需要兒童座椅等"
+                        ></textarea>
+                    </div>
                 </div>
 
-                <div id="field-attend-count" class="form-group">
-                    <label>包含您在內，總共出席人數？</label>
-                    <input type="number" name="attendCount" min="1" max="10" value="1" required>
+                <!-- 留言 -->
+                <div
+                    id="field-message"
+                    class="form-group"
+                >
+                    <label for="message">
+                        想對新人說的話
+                    </label>
+
+                    <textarea
+                        id="message"
+                        name="message"
+                        rows="3"
+                        maxlength="500"
+                        placeholder="歡迎留下給 Kevin 與 Coco 的祝福"
+                    ></textarea>
                 </div>
 
-                <div id="field-dietary" class="form-group">
-                    <label>葷素調查</label>
-                    <select name="dietaryType" required>
-                        <option value="all_meat">全葷</option>
-                        <option value="all_veg">全素</option>
-                        <option value="mixed">部分葷 / 部分素</option>
-                    </select>
-                </div>
+                <button
+                    type="submit"
+                    class="submit-btn"
+                    id="submit-button"
+                >
+                    送出回覆
+                </button>
 
-                <div id="field-veg-count" class="form-group">
-                    <label>素食份數 (若無請填 0)</label>
-                    <input type="number" name="vegCount" min="0" value="0">
-                </div>
-
-                <div id="field-allergy" class="form-group">
-                    <label>食物過敏或特殊需求 (開放式填寫)</label>
-                    <input type="text" name="foodAllergy" placeholder="例如：不吃牛、需要兒童座椅...">
-                </div>
-
-                <button type="submit" class="submit-btn">送出回覆</button>
+                <p
+                    id="form-status"
+                    class="form-status"
+                    role="status"
+                    aria-live="polite"
+                ></p>
             </form>
         </section>
-    </div>
+    </main>
 
-    <script src="app.js"></script>
+    <footer class="page-footer">
+        <p>Kevin & Coco</p>
+        <p>Thank you for celebrating with us.</p>
+    </footer>
+
+    <!-- Firebase Web SDK，沿用 seating 頁面的 8.10.1 版本 -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <!--
+        更新 JavaScript 後，只要修改這裡的版本號。
+        分享給賓客的網址不需要加版本參數。
+    -->
+    <script src="./app.js?v=20260803-01"></script>
 </body>
 </html>
