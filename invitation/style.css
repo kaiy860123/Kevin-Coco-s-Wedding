@@ -56,7 +56,7 @@ textarea {
 }
 
 /* =========================================================
-   首頁
+   首頁主視覺
 ========================================================= */
 
 .hero-section {
@@ -244,6 +244,13 @@ section {
     letter-spacing: 0.03em;
 }
 
+.section-description {
+    margin: -16px 0 24px;
+
+    color: var(--muted-color);
+    text-align: center;
+}
+
 /* =========================================================
    公告
 ========================================================= */
@@ -308,17 +315,54 @@ section {
     outline-offset: 3px;
 }
 
-.photo-error-message {
-    grid-column: 1 / -1;
-
+.photo-error-message,
+.image-error-message {
     margin: 0;
-    padding: 16px;
+    padding: 18px;
 
     color: var(--muted-color);
     background-color: #f5f5f5;
+
+    border: 1px dashed var(--border-color);
     border-radius: 8px;
 
     text-align: center;
+}
+
+/* =========================================================
+   婚禮時程表
+========================================================= */
+
+.timeline-section {
+    margin-bottom: 58px;
+}
+
+.timeline-image-wrapper {
+    overflow: hidden;
+
+    width: min(100%, 680px);
+    margin: 0 auto;
+
+    background-color: #faf8f5;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+}
+
+.timeline-image {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    object-fit: contain;
+    object-position: center;
+
+    background-color: #faf8f5;
+}
+
+.timeline-image[hidden],
+.image-error-message[hidden] {
+    display: none;
 }
 
 /* =========================================================
@@ -391,10 +435,37 @@ section {
     font-size: 21px;
 }
 
-.venue-summary p {
+.venue-summary > p {
     margin: 0 0 14px;
 
     color: var(--muted-color);
+}
+
+.venue-detail {
+    width: min(540px, 100%);
+    margin: 15px auto 18px;
+    padding: 14px 18px;
+
+    color: var(--primary-dark);
+    background-color: var(--primary-light);
+
+    border: 1px solid #ddd0c1;
+    border-radius: 9px;
+
+    text-align: left;
+}
+
+.venue-detail:empty {
+    display: none;
+}
+
+.venue-detail p {
+    margin: 5px 0;
+}
+
+.venue-detail strong {
+    display: inline-block;
+    min-width: 76px;
 }
 
 .map-link-button {
@@ -534,6 +605,19 @@ section {
         0 0 0 3px rgba(140, 115, 85, 0.13);
 }
 
+.field-help {
+    margin: 7px 2px 0;
+
+    color: var(--muted-color);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.important-help {
+    color: var(--primary-dark);
+    font-weight: 600;
+}
+
 .conditional-fields[hidden],
 .form-group[hidden] {
     display: none;
@@ -655,12 +739,24 @@ section {
         height: min(440px, 112vw);
     }
 
+    .timeline-image-wrapper {
+        border-radius: 9px;
+    }
+
     .traffic-grid {
         grid-template-columns: 1fr;
     }
 
     .map-container iframe {
         height: 300px;
+    }
+
+    .venue-detail {
+        padding: 13px 14px;
+    }
+
+    .venue-detail strong {
+        min-width: 70px;
     }
 
     .lightbox {

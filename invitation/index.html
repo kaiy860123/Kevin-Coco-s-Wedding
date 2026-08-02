@@ -15,16 +15,18 @@
 
     <title>Kevin & Coco's Wedding Invitation</title>
 
-    <!--
-        更新 CSS 後只需要修改這裡的版本號。
-        正式分享網址不需要加 &v=xxx。
-    -->
-    <link rel="stylesheet" href="./style.css?v=20260803-01">
+    <link
+        rel="stylesheet"
+        href="./style.css?v=20260803-02"
+    >
 </head>
 
 <body>
-    <!-- 首頁 -->
-    <header class="hero-section" id="hero-bg">
+    <!-- 首頁主視覺 -->
+    <header
+        class="hero-section"
+        id="hero-bg"
+    >
         <div class="hero-overlay">
             <p class="hero-subtitle">
                 WE ARE GETTING MARRIED
@@ -84,7 +86,7 @@
             hidden
         ></section>
 
-        <!-- 相片 -->
+        <!-- 婚禮照片 -->
         <section class="gallery-section">
             <h2 class="section-title">
                 Our Moments
@@ -95,6 +97,34 @@
                 id="photo-grid"
                 aria-label="婚禮照片"
             ></div>
+        </section>
+
+        <!-- 婚禮時程表 -->
+        <section class="timeline-section">
+            <h2 class="section-title">
+                Wedding Timeline
+            </h2>
+
+            <p class="section-description">
+                婚禮當日流程與時間
+            </p>
+
+            <div class="timeline-image-wrapper">
+                <img
+                    id="timeline-image"
+                    class="timeline-image"
+                    src=""
+                    alt="Kevin 與 Coco 婚禮時程表"
+                >
+
+                <p
+                    id="timeline-image-error"
+                    class="image-error-message"
+                    hidden
+                >
+                    婚禮時程表圖片尚未上傳。
+                </p>
+            </div>
         </section>
 
         <!-- 相片燈箱 -->
@@ -123,7 +153,7 @@
             >
         </div>
 
-        <!-- 地點與交通 -->
+        <!-- 婚禮地點及交通 -->
         <section class="info-section">
             <h2 class="section-title">
                 Venue & Transportation
@@ -135,6 +165,11 @@
                 </h3>
 
                 <p id="venue-address"></p>
+
+                <div
+                    id="venue-detail"
+                    class="venue-detail"
+                ></div>
 
                 <a
                     id="google-map-link"
@@ -191,7 +226,6 @@
             </p>
 
             <form id="rsvp-form">
-                <!-- 自動記錄場次 -->
                 <input
                     type="hidden"
                     id="form-wedding-location"
@@ -199,10 +233,7 @@
                 >
 
                 <!-- 姓名 -->
-                <div
-                    id="field-name"
-                    class="form-group"
-                >
+                <div class="form-group">
                     <label for="guest-name">
                         您的姓名
                         <span class="required-mark">*</span>
@@ -219,11 +250,8 @@
                     >
                 </div>
 
-                <!-- 關係 -->
-                <div
-                    id="field-relation"
-                    class="form-group"
-                >
+                <!-- 與新人關係 -->
+                <div class="form-group">
                     <label for="relation">
                         您與新人的關係
                         <span class="required-mark">*</span>
@@ -265,10 +293,7 @@
                 </div>
 
                 <!-- 聯絡電話 -->
-                <div
-                    id="field-phone"
-                    class="form-group"
-                >
+                <div class="form-group">
                     <label for="phone">
                         聯絡電話
                         <span class="required-mark">*</span>
@@ -287,10 +312,7 @@
                 </div>
 
                 <!-- 是否出席 -->
-                <div
-                    id="field-attend"
-                    class="form-group"
-                >
+                <div class="form-group">
                     <label for="attendance">
                         請問您是否會出席？
                         <span class="required-mark">*</span>
@@ -311,7 +333,7 @@
                     </select>
                 </div>
 
-                <!-- 僅出席者顯示 -->
+                <!-- 出席者詳細資料 -->
                 <div
                     id="attendance-detail-fields"
                     class="conditional-fields"
@@ -337,13 +359,14 @@
                                 否，僅參加午宴
                             </option>
                         </select>
+
+                        <p class="field-help">
+                            證婚地點：涵碧樓 8F 星光露台
+                        </p>
                     </div>
 
-                    <!-- 出席人數 -->
-                    <div
-                        id="field-attend-count"
-                        class="form-group"
-                    >
+                    <!-- 總出席人數 -->
+                    <div class="form-group">
                         <label for="attend-count">
                             包含您在內，總出席人數
                             <span class="required-mark">*</span>
@@ -359,13 +382,56 @@
                             value="1"
                             required
                         >
+
+                        <p class="field-help important-help">
+                            請填寫成人與兒童的總人數，總出席人數需包含兒童。
+                        </p>
                     </div>
 
-                    <!-- 葷素 -->
-                    <div
-                        id="field-dietary"
-                        class="form-group"
-                    >
+                    <!-- 兒童座椅 -->
+                    <div class="form-group">
+                        <label for="child-seat-count">
+                            需要兒童座椅數量
+                        </label>
+
+                        <input
+                            id="child-seat-count"
+                            type="number"
+                            name="childSeatCount"
+                            min="0"
+                            max="20"
+                            step="1"
+                            value="0"
+                        >
+
+                        <p class="field-help">
+                            不需要兒童座椅請填 0。
+                        </p>
+                    </div>
+
+                    <!-- 兒童餐具 -->
+                    <div class="form-group">
+                        <label for="child-tableware-count">
+                            需要兒童餐具數量
+                        </label>
+
+                        <input
+                            id="child-tableware-count"
+                            type="number"
+                            name="childTablewareCount"
+                            min="0"
+                            max="20"
+                            step="1"
+                            value="0"
+                        >
+
+                        <p class="field-help">
+                            不需要兒童餐具請填 0。
+                        </p>
+                    </div>
+
+                    <!-- 餐點需求 -->
+                    <div class="form-group">
                         <label for="dietary-type">
                             餐點需求
                             <span class="required-mark">*</span>
@@ -411,10 +477,7 @@
                     </div>
 
                     <!-- 特殊需求 -->
-                    <div
-                        id="field-allergy"
-                        class="form-group"
-                    >
+                    <div class="form-group">
                         <label for="food-allergy">
                             食物過敏或其他特殊需求
                         </label>
@@ -424,16 +487,13 @@
                             name="foodAllergy"
                             rows="3"
                             maxlength="300"
-                            placeholder="例如：不吃牛、對花生過敏、需要兒童座椅等"
+                            placeholder="例如：不吃牛、對花生過敏或其他座位需求"
                         ></textarea>
                     </div>
                 </div>
 
                 <!-- 留言 -->
-                <div
-                    id="field-message"
-                    class="form-group"
-                >
+                <div class="form-group">
                     <label for="message">
                         想對新人說的話
                     </label>
@@ -470,14 +530,10 @@
         <p>Thank you for celebrating with us.</p>
     </footer>
 
-    <!-- Firebase Web SDK，沿用 seating 頁面的 8.10.1 版本 -->
+    <!-- Firebase Web SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-    <!--
-        更新 JavaScript 後，只要修改這裡的版本號。
-        分享給賓客的網址不需要加版本參數。
-    -->
-    <script src="./app.js?v=20260803-01"></script>
+    <script src="./app.js?v=20260803-02"></script>
 </body>
 </html>

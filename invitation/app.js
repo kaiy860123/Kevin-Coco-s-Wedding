@@ -5,7 +5,8 @@
 ========================================================= */
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAsSnOUE0WyuWhC62njgfEW8j6NyZHDhzI",
+    apiKey:
+        "AIzaSyAsSnOUE0WyuWhC62njgfEW8j6NyZHDhzI",
 
     authDomain:
         "weddingseating-4a476.firebaseapp.com",
@@ -42,10 +43,13 @@ try {
     }
 
     if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
+        firebase.initializeApp(
+            firebaseConfig
+        );
     }
 
-    database = firebase.database();
+    database =
+        firebase.database();
 
     console.log(
         "Firebase Realtime Database 初始化成功。"
@@ -58,11 +62,12 @@ try {
 }
 
 /* =========================================================
-   場次設定
+   婚禮場次設定
 ========================================================= */
 
 const weddingConfig = {
-    defaultLocation: "tainan",
+    defaultLocation:
+        "tainan",
 
     getCurrentLocation() {
         const urlParams =
@@ -103,6 +108,13 @@ const weddingConfig = {
             venueAddress:
                 "台南市中西區和意路1號",
 
+            venueDetail: `
+                <p>
+                    <strong>婚宴時間：</strong>
+                    12:00
+                </p>
+            `,
+
             noticeText:
                 "",
 
@@ -114,6 +126,12 @@ const weddingConfig = {
                 "./images/DJI_20250929143427_0169_D.JPG",
                 "./images/S__19112005.jpg"
             ],
+
+            timelineImage:
+                "./images/timeline-tainan.jpg",
+
+            timelineImageAlt:
+                "Kevin 與 Coco 台南場婚禮時程表",
 
             mapEmbedSrc:
                 "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.9815295554013!2d120.19685391161538!3d22.987706679111458!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e767c77f6350f%3A0x802cfbc73a87af85!2z5Y-w5Y2X5pm26Iux6YWS5bqXIChTaWxrcyBQbGFjZSBUYWluYW4p!5e0!3m2!1szh-TW!2stw!4v1785570947869!5m2!1szh-TW!2stw",
@@ -154,7 +172,8 @@ const weddingConfig = {
             `,
 
             formToggles: {
-                showCeremony: false
+                showCeremony:
+                    false
             }
         },
 
@@ -177,6 +196,18 @@ const weddingConfig = {
             venueAddress:
                 "南投縣魚池鄉中興路142號",
 
+            venueDetail: `
+                <p>
+                    <strong>證婚地點：</strong>
+                    8F 星光露台
+                </p>
+
+                <p>
+                    <strong>用餐地點：</strong>
+                    7F 湖光軒
+                </p>
+            `,
+
             noticeText:
                 "溫馨提醒：本場次謝絕禮金，您的到來就是最好的祝福！",
 
@@ -190,6 +221,12 @@ const weddingConfig = {
                 "./images/DJI_20250929143427_0169_D.JPG"
             ],
 
+            timelineImage:
+                "./images/timeline-nantou.jpg",
+
+            timelineImageAlt:
+                "Kevin 與 Coco 南投涵碧樓婚禮時程表",
+
             mapEmbedSrc:
                 "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3648.750948355145!2d120.90602371163745!3d23.862975978504466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3468d60f0d7e1f0b%3A0xa748afffa2011207!2z5pel5pyI5r2t5ra156Kn5qiT!5e0!3m2!1szh-TW!2stw!4v1785571059341!5m2!1szh-TW!2stw",
 
@@ -198,10 +235,23 @@ const weddingConfig = {
 
             trafficInfo: `
                 <p>
-                    <strong>高鐵：</strong>
-                    搭乘高鐵至高鐵台中站，
-                    再轉乘預約接駁車、客運或計程車前往
-                    日月潭涵碧樓。
+                    <strong>南投客運：</strong>
+                    搭乘南投客運由台中干城車站發車，
+                    經台中火車站、高鐵台中烏日站、埔里至日月潭，
+                    約每小時一班車。
+                </p>
+
+                <p>
+                    詳細時刻表請聯絡南投客運埔里站：
+                    <a href="tel:0492984031">
+                        049-2984031
+                    </a>。
+                </p>
+
+                <p>
+                    抵達日月潭車站終點後
+                    （即水社遊客中心），
+                    步行約 15 分鐘即可抵達涵碧樓。
                 </p>
 
                 <p>
@@ -229,7 +279,8 @@ const weddingConfig = {
             `,
 
             formToggles: {
-                showCeremony: true
+                showCeremony:
+                    true
             }
         }
     }
@@ -252,21 +303,29 @@ function getElement(id) {
     return element;
 }
 
-function setText(id, value) {
+function setText(
+    id,
+    value
+) {
     const element =
         getElement(id);
 
     if (element) {
-        element.textContent = value;
+        element.textContent =
+            value;
     }
 }
 
-function setHtml(id, value) {
+function setHtml(
+    id,
+    value
+) {
     const element =
         getElement(id);
 
     if (element) {
-        element.innerHTML = value;
+        element.innerHTML =
+            value;
     }
 }
 
@@ -307,6 +366,11 @@ function renderBasicInformation(
     );
 
     setHtml(
+        "venue-detail",
+        config.venueDetail
+    );
+
+    setHtml(
         "traffic-info",
         config.trafficInfo
     );
@@ -338,7 +402,7 @@ function renderBasicInformation(
 }
 
 /* =========================================================
-   首頁照片
+   首頁背景照片
 ========================================================= */
 
 function renderHeroImage(config) {
@@ -405,12 +469,69 @@ function renderNotice(config) {
 }
 
 /* =========================================================
+   婚禮時程表圖片
+========================================================= */
+
+function renderTimelineImage(config) {
+    const timelineImage =
+        getElement(
+            "timeline-image"
+        );
+
+    const errorMessage =
+        getElement(
+            "timeline-image-error"
+        );
+
+    if (
+        !timelineImage ||
+        !errorMessage
+    ) {
+        return;
+    }
+
+    timelineImage.hidden =
+        false;
+
+    errorMessage.hidden =
+        true;
+
+    timelineImage.alt =
+        config.timelineImageAlt;
+
+    timelineImage.onload = () => {
+        timelineImage.hidden =
+            false;
+
+        errorMessage.hidden =
+            true;
+    };
+
+    timelineImage.onerror = () => {
+        console.error(
+            `婚禮時程表圖片載入失敗：${config.timelineImage}`
+        );
+
+        timelineImage.hidden =
+            true;
+
+        errorMessage.hidden =
+            false;
+    };
+
+    timelineImage.src =
+        config.timelineImage;
+}
+
+/* =========================================================
    Google Maps
 ========================================================= */
 
 function renderMap(config) {
     const iframe =
-        getElement("map-iframe");
+        getElement(
+            "map-iframe"
+        );
 
     if (!iframe) {
         return;
@@ -429,16 +550,24 @@ function renderMap(config) {
 
 function renderGallery(config) {
     const photoGrid =
-        getElement("photo-grid");
+        getElement(
+            "photo-grid"
+        );
 
     const lightbox =
-        getElement("lightbox");
+        getElement(
+            "lightbox"
+        );
 
     const lightboxImage =
-        getElement("lightbox-img");
+        getElement(
+            "lightbox-img"
+        );
 
     const closeButton =
-        getElement("close-lightbox");
+        getElement(
+            "close-lightbox"
+        );
 
     if (
         !photoGrid ||
@@ -449,7 +578,8 @@ function renderGallery(config) {
         return;
     }
 
-    photoGrid.innerHTML = "";
+    photoGrid.innerHTML =
+        "";
 
     function openLightbox(
         imageSource,
@@ -482,7 +612,10 @@ function renderGallery(config) {
     }
 
     config.galleryImages.forEach(
-        (imageSource, index) => {
+        (
+            imageSource,
+            index
+        ) => {
             const image =
                 document.createElement(
                     "img"
@@ -545,19 +678,19 @@ function renderGallery(config) {
                     if (
                         photoGrid.children.length === 0
                     ) {
-                        const errorMessage =
+                        const message =
                             document.createElement(
                                 "p"
                             );
 
-                        errorMessage.className =
+                        message.className =
                             "photo-error-message";
 
-                        errorMessage.textContent =
+                        message.textContent =
                             "照片目前無法載入，請稍後重新整理頁面。";
 
                         photoGrid.appendChild(
-                            errorMessage
+                            message
                         );
                     }
                 }
@@ -578,7 +711,8 @@ function renderGallery(config) {
         "click",
         (event) => {
             if (
-                event.target === lightbox
+                event.target ===
+                lightbox
             ) {
                 closeLightbox();
             }
@@ -609,16 +743,24 @@ function startCountdown(config) {
         );
 
     const daysElement =
-        getElement("cd-days");
+        getElement(
+            "cd-days"
+        );
 
     const hoursElement =
-        getElement("cd-hours");
+        getElement(
+            "cd-hours"
+        );
 
     const minutesElement =
-        getElement("cd-mins");
+        getElement(
+            "cd-mins"
+        );
 
     const secondsElement =
-        getElement("cd-secs");
+        getElement(
+            "cd-secs"
+        );
 
     if (
         !countdownContainer ||
@@ -636,7 +778,9 @@ function startCountdown(config) {
         ).getTime();
 
     if (
-        !Number.isFinite(targetTime)
+        !Number.isFinite(
+            targetTime
+        )
     ) {
         countdownContainer.innerHTML = `
             <div class="countdown-message">
@@ -651,14 +795,20 @@ function startCountdown(config) {
         return;
     }
 
-    let timerId = null;
+    let timerId =
+        null;
 
     function updateCountdown() {
         const remainingTime =
-            targetTime - Date.now();
+            targetTime -
+            Date.now();
 
-        if (remainingTime <= 0) {
-            if (timerId !== null) {
+        if (
+            remainingTime <= 0
+        ) {
+            if (
+                timerId !== null
+            ) {
                 window.clearInterval(
                     timerId
                 );
@@ -687,7 +837,8 @@ function startCountdown(config) {
 
         const days =
             Math.floor(
-                remainingTime / oneDay
+                remainingTime /
+                oneDay
             );
 
         const hours =
@@ -742,9 +893,6 @@ function startCountdown(config) {
             );
     }
 
-    /*
-     * 立即更新一次，避免畫面先停留在 00。
-     */
     updateCountdown();
 
     timerId =
@@ -755,7 +903,7 @@ function startCountdown(config) {
 }
 
 /* =========================================================
-   表單欄位顯示與隱藏
+   表單欄位控制
 ========================================================= */
 
 function setFieldVisibility(
@@ -795,10 +943,14 @@ function setFieldVisibility(
 
 function prepareFormControls(config) {
     const form =
-        getElement("rsvp-form");
+        getElement(
+            "rsvp-form"
+        );
 
     const attendanceSelect =
-        getElement("attendance");
+        getElement(
+            "attendance"
+        );
 
     const attendanceDetails =
         getElement(
@@ -837,9 +989,6 @@ function prepareFormControls(config) {
         return;
     }
 
-    /*
-     * 只在第一次載入時記錄原始 required 狀態。
-     */
     form
         .querySelectorAll(
             "input, select, textarea"
@@ -877,11 +1026,6 @@ function prepareFormControls(config) {
                     .showCeremony
             );
         }
-
-        if (!isAttending) {
-            vegetarianCountInput.value =
-                "0";
-        }
     }
 
     function updateVegetarianField() {
@@ -889,8 +1033,10 @@ function prepareFormControls(config) {
             dietarySelect.value;
 
         const shouldShow =
-            dietaryType === "all_veg" ||
-            dietaryType === "mixed";
+            dietaryType ===
+                "all_veg" ||
+            dietaryType ===
+                "mixed";
 
         setFieldVisibility(
             vegetarianCountField,
@@ -903,12 +1049,10 @@ function prepareFormControls(config) {
         }
     }
 
-    /*
-     * 避免 reset 後重複綁定事件。
-     */
     if (
         attendanceSelect.dataset
-            .listenerBound !== "true"
+            .listenerBound !==
+        "true"
     ) {
         attendanceSelect.addEventListener(
             "change",
@@ -922,7 +1066,8 @@ function prepareFormControls(config) {
 
     if (
         dietarySelect.dataset
-            .listenerBound !== "true"
+            .listenerBound !==
+        "true"
     ) {
         dietarySelect.addEventListener(
             "change",
@@ -939,7 +1084,7 @@ function prepareFormControls(config) {
 }
 
 /* =========================================================
-   整理表單資料
+   整理 RSVP 資料
 ========================================================= */
 
 function buildRsvpData(
@@ -964,6 +1109,24 @@ function buildRsvpData(
             )
             : 0;
 
+    const childSeatCount =
+        isAttending
+            ? Number(
+                formData.get(
+                    "childSeatCount"
+                ) || 0
+            )
+            : 0;
+
+    const childTablewareCount =
+        isAttending
+            ? Number(
+                formData.get(
+                    "childTablewareCount"
+                ) || 0
+            )
+            : 0;
+
     const vegetarianCount =
         isAttending
             ? Number(
@@ -973,12 +1136,6 @@ function buildRsvpData(
             )
             : 0;
 
-    /*
-     * RSVP 欄位可自由增加。
-     *
-     * Database Rules 不檢查欄位名稱，
-     * 所以未來修改這個物件時，不需要同步修改 Rules。
-     */
     return {
         weddingLocation:
             currentLocation,
@@ -1031,6 +1188,12 @@ function buildRsvpData(
         attendCount:
             attendCount,
 
+        childSeatCount:
+            childSeatCount,
+
+        childTablewareCount:
+            childTablewareCount,
+
         dietaryType:
             isAttending
                 ? String(
@@ -1059,24 +1222,21 @@ function buildRsvpData(
                 ) || ""
             ).trim(),
 
-        /*
-         * Firebase ServerValue.TIMESTAMP
-         * 寫入時會由 Firebase 伺服器轉成毫秒時間戳。
-         */
         submittedAtServer:
             firebase.database
-                .ServerValue.TIMESTAMP,
+                .ServerValue
+                .TIMESTAMP,
 
         sourcePage:
             window.location.href,
 
         formVersion:
-            "20260803-01"
+            "20260803-02"
     };
 }
 
 /* =========================================================
-   基本驗證
+   表單資料驗證
 ========================================================= */
 
 function validateRsvpData(data) {
@@ -1102,7 +1262,35 @@ function validateRsvpData(data) {
             data.attendCount > 20
         )
     ) {
-        return "出席人數需為 1 至 20 人。";
+        return "總出席人數需為 1 至 20 人，並包含兒童人數。";
+    }
+
+    if (
+        data.isAttending === "是" &&
+        (
+            !Number.isInteger(
+                data.childSeatCount
+            ) ||
+            data.childSeatCount < 0 ||
+            data.childSeatCount >
+                data.attendCount
+        )
+    ) {
+        return "兒童座椅數量不可大於總出席人數。";
+    }
+
+    if (
+        data.isAttending === "是" &&
+        (
+            !Number.isInteger(
+                data.childTablewareCount
+            ) ||
+            data.childTablewareCount < 0 ||
+            data.childTablewareCount >
+                data.attendCount
+        )
+    ) {
+        return "兒童餐具數量不可大於總出席人數。";
     }
 
     if (
@@ -1145,14 +1333,6 @@ async function submitRsvpData(data) {
         );
     }
 
-    /*
-     * push() 會自動產生唯一 ID。
-     *
-     * 寫入位置：
-     * rsvpResponses/tainan/唯一ID
-     * 或
-     * rsvpResponses/nantou/唯一ID
-     */
     const responseReference =
         database.ref(
             `rsvpResponses/${location}`
@@ -1166,7 +1346,9 @@ async function submitRsvpData(data) {
     );
 
     return {
-        success: true,
+        success:
+            true,
+
         responseId:
             newResponseReference.key
     };
@@ -1181,7 +1363,9 @@ function setupRsvpForm(
     config
 ) {
     const form =
-        getElement("rsvp-form");
+        getElement(
+            "rsvp-form"
+        );
 
     const submitButton =
         getElement(
@@ -1212,7 +1396,9 @@ function setupRsvpForm(
             statusElement.className =
                 "form-status";
 
-            if (!form.checkValidity()) {
+            if (
+                !form.checkValidity()
+            ) {
                 form.reportValidity();
                 return;
             }
@@ -1342,7 +1528,7 @@ function setupRsvpForm(
 }
 
 /* =========================================================
-   初始化
+   頁面初始化
 ========================================================= */
 
 document.addEventListener(
@@ -1376,6 +1562,10 @@ document.addEventListener(
         );
 
         renderNotice(
+            config
+        );
+
+        renderTimelineImage(
             config
         );
 
