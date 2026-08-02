@@ -33,12 +33,12 @@
 
     <link
         rel="stylesheet"
-        href="./style.css?v=20260803-03"
+        href="./style.css?v=20260803-05"
     >
 </head>
 
 <body>
-    <!-- Hero -->
+    <!-- 首頁主視覺 -->
     <header
         class="hero-section"
         id="hero-bg"
@@ -70,7 +70,7 @@
         </div>
     </header>
 
-    <!-- Countdown -->
+    <!-- 婚禮倒數 -->
     <section class="countdown-section">
         <p class="eyebrow light-eyebrow">
             Wedding Countdown · 婚禮倒數
@@ -109,7 +109,7 @@
     </section>
 
     <main>
-        <!-- Notice -->
+        <!-- 特別公告 -->
         <section
             id="notice-section"
             class="notice-section"
@@ -126,7 +126,7 @@
             ></p>
         </section>
 
-        <!-- Event details -->
+        <!-- 婚禮資訊 -->
         <section class="content-section event-section">
             <div class="section-heading">
                 <p class="eyebrow">
@@ -138,6 +138,26 @@
                 </h2>
             </div>
 
+            <!-- 各場次專屬婚禮資訊圖片 -->
+            <div class="event-image-wrapper">
+                <img
+                    id="event-image"
+                    class="event-image"
+                    src=""
+                    alt="婚禮資訊圖片 Wedding event information"
+                >
+
+                <p
+                    id="event-image-error"
+                    class="image-error-message"
+                    hidden
+                >
+                    婚禮資訊圖片尚未上傳。<br>
+                    The wedding event image is not available yet.
+                </p>
+            </div>
+
+            <!-- 日期、時間、地點文字資訊 -->
             <div class="detail-grid">
                 <article class="detail-card">
                     <div class="detail-icon">
@@ -210,7 +230,7 @@
             </div>
         </section>
 
-        <!-- Timeline -->
+        <!-- 婚禮時程 -->
         <section class="content-section timeline-section">
             <div class="section-heading">
                 <p class="eyebrow">
@@ -222,36 +242,31 @@
                 </h2>
 
                 <p class="section-note">
-                    點擊圖片可放大查看<br>
-                    Tap the image to enlarge
+                    婚禮當日流程與時間<br>
+                    Wedding day schedule
                 </p>
             </div>
 
-            <button
-                type="button"
-                id="timeline-button"
-                class="timeline-button"
-                aria-label="放大婚禮時程表 Enlarge wedding timeline"
-            >
+            <div class="timeline-image-wrapper">
                 <img
                     id="timeline-image"
                     class="timeline-image"
                     src=""
                     alt="婚禮時程表 Wedding Timeline"
                 >
-            </button>
 
-            <p
-                id="timeline-image-error"
-                class="image-error-message"
-                hidden
-            >
-                婚禮時程表圖片尚未上傳。<br>
-                Wedding timeline image is not available yet.
-            </p>
+                <p
+                    id="timeline-image-error"
+                    class="image-error-message"
+                    hidden
+                >
+                    婚禮時程表圖片尚未上傳。<br>
+                    The wedding timeline image is not available yet.
+                </p>
+            </div>
         </section>
 
-        <!-- Venue and transport -->
+        <!-- 地點與交通 -->
         <section class="content-section venue-section">
             <div class="section-heading">
                 <p class="eyebrow">
@@ -318,7 +333,7 @@
             </div>
         </section>
 
-        <!-- Moments -->
+        <!-- Our Moments -->
         <section class="moments-section">
             <div class="section-heading section-heading-light">
                 <p class="eyebrow light-eyebrow">
@@ -447,7 +462,7 @@
                             maxlength="20"
                             autocomplete="tel"
                             inputmode="tel"
-                            placeholder="0912-345-678"
+                            placeholder="0912345678"
                         >
                     </div>
 
@@ -565,10 +580,19 @@
                                     All Vegetarian · 全素
                                 </option>
 
-                                <option value="mixed">
-                                    Mixed · 部分葷／部分素
+                                <option value="other">
+                                    Other · 其他
                                 </option>
                             </select>
+
+                            <p
+                                id="dietary-other-help"
+                                class="field-help important-help"
+                                hidden
+                            >
+                                請於下方「食物過敏或特殊需求」欄位說明餐點需求。<br>
+                                Please describe your meal requirements in the dietary restrictions field below.
+                            </p>
                         </div>
 
                         <div
@@ -600,7 +624,7 @@
                                 name="foodAllergy"
                                 rows="3"
                                 maxlength="300"
-                                placeholder="Allergies or special requests · 過敏或其他特殊需求"
+                                placeholder="請註明食物過敏、特殊餐點或其他需求 · Allergies, special meals or other requests"
                             ></textarea>
                         </div>
                     </div>
@@ -660,7 +684,7 @@
         </section>
     </main>
 
-    <!-- Shared lightbox -->
+    <!-- 僅供 Our Moments 使用的燈箱 -->
     <div
         id="lightbox"
         class="lightbox"
@@ -704,6 +728,6 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-    <script src="./app.js?v=20260803-04"></script>
+    <script src="./app.js?v=20260803-05"></script>
 </body>
 </html>

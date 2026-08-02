@@ -160,9 +160,6 @@ const weddingConfig = {
 
     events: {
         tainan: {
-            title:
-                "Kevin & Coco",
-
             browserTitle:
                 "Kevin & Coco's Wedding - 台南場",
 
@@ -178,10 +175,6 @@ const weddingConfig = {
             countdownTarget:
                 "2027-01-17T12:00:00+08:00",
 
-            /*
-             * 台南場 RSVP 截止時間。
-             * 修改時請保留 +08:00 台灣時區。
-             */
             rsvpDeadline:
                 "2026-12-31T23:59:59+08:00",
 
@@ -213,6 +206,12 @@ const weddingConfig = {
 
             noticeEn:
                 "",
+
+            eventImage:
+                "./images/event-tainan.jpg",
+
+            eventImageAlt:
+                "Kevin 與 Coco 台南場婚禮資訊 Tainan Wedding Information",
 
             timelineImage:
                 "./images/timeline-tainan.jpg",
@@ -287,9 +286,6 @@ const weddingConfig = {
         },
 
         nantou: {
-            title:
-                "Kevin & Coco",
-
             browserTitle:
                 "Kevin & Coco's Wedding - 南投場",
 
@@ -305,10 +301,6 @@ const weddingConfig = {
             countdownTarget:
                 "2027-01-24T12:00:00+08:00",
 
-            /*
-             * 南投場 RSVP 截止時間。
-             * 修改時請保留 +08:00 台灣時區。
-             */
             rsvpDeadline:
                 "2026-12-31T23:59:59+08:00",
 
@@ -349,6 +341,12 @@ const weddingConfig = {
 
             noticeEn:
                 "No gifts or cash gifts, please. Your presence is the greatest blessing to us.",
+
+            eventImage:
+                "./images/event-nantou.jpg",
+
+            eventImageAlt:
+                "Kevin 與 Coco 南投場婚禮資訊 Nantou Wedding Information",
 
             timelineImage:
                 "./images/timeline-nantou.jpg",
@@ -477,7 +475,7 @@ function setHtml(
 }
 
 /* =========================================================
-   圖片燈箱
+   Our Moments 圖片燈箱
 ========================================================= */
 
 function setupLightbox() {
@@ -537,7 +535,8 @@ function setupLightbox() {
         "click",
         (event) => {
             if (
-                event.target === lightbox
+                event.target ===
+                lightbox
             ) {
                 closeImage();
             }
@@ -657,7 +656,9 @@ function renderPage(
     }
 
     const mapIframe =
-        getElement("map-iframe");
+        getElement(
+            "map-iframe"
+        );
 
     if (mapIframe) {
         mapIframe.src =
@@ -667,11 +668,16 @@ function renderPage(
             `${config.venueName} Google Maps`;
     }
 
-    renderNotice(config);
+    renderNotice(
+        config
+    );
+
+    renderEventImage(
+        config
+    );
 
     renderTimeline(
-        config,
-        lightboxController
+        config
     );
 
     renderMoments(
@@ -716,21 +722,62 @@ function renderNotice(config) {
 }
 
 /* =========================================================
+   婚禮資訊圖片
+========================================================= */
+
+function renderEventImage(config) {
+    const image =
+        getElement(
+            "event-image"
+        );
+
+    const errorMessage =
+        getElement(
+            "event-image-error"
+        );
+
+    if (
+        !image ||
+        !errorMessage
+    ) {
+        return;
+    }
+
+    image.alt =
+        config.eventImageAlt;
+
+    image.onload = () => {
+        image.hidden =
+            false;
+
+        errorMessage.hidden =
+            true;
+    };
+
+    image.onerror = () => {
+        image.hidden =
+            true;
+
+        errorMessage.hidden =
+            false;
+
+        console.error(
+            `婚禮資訊圖片載入失敗：${config.eventImage}`
+        );
+    };
+
+    image.src =
+        config.eventImage;
+}
+
+/* =========================================================
    婚禮時程圖片
 ========================================================= */
 
-function renderTimeline(
-    config,
-    lightboxController
-) {
+function renderTimeline(config) {
     const image =
         getElement(
             "timeline-image"
-        );
-
-    const button =
-        getElement(
-            "timeline-button"
         );
 
     const errorMessage =
@@ -740,7 +787,6 @@ function renderTimeline(
 
     if (
         !image ||
-        !button ||
         !errorMessage
     ) {
         return;
@@ -750,7 +796,7 @@ function renderTimeline(
         config.timelineAlt;
 
     image.onload = () => {
-        button.hidden =
+        image.hidden =
             false;
 
         errorMessage.hidden =
@@ -758,7 +804,7 @@ function renderTimeline(
     };
 
     image.onerror = () => {
-        button.hidden =
+        image.hidden =
             true;
 
         errorMessage.hidden =
@@ -771,18 +817,6 @@ function renderTimeline(
 
     image.src =
         config.timelineImage;
-
-    button.addEventListener(
-        "click",
-        () => {
-            if (lightboxController) {
-                lightboxController.openImage(
-                    image.src,
-                    image.alt
-                );
-            }
-        }
-    );
 }
 
 /* =========================================================
@@ -835,7 +869,9 @@ function renderMoments(
             image.addEventListener(
                 "click",
                 () => {
-                    if (lightboxController) {
+                    if (
+                        lightboxController
+                    ) {
                         lightboxController.openImage(
                             image.src,
                             image.alt
@@ -848,12 +884,16 @@ function renderMoments(
                 "keydown",
                 (event) => {
                     if (
-                        event.key === "Enter" ||
-                        event.key === " "
+                        event.key ===
+                            "Enter" ||
+                        event.key ===
+                            " "
                     ) {
                         event.preventDefault();
 
-                        if (lightboxController) {
+                        if (
+                            lightboxController
+                        ) {
                             lightboxController.openImage(
                                 image.src,
                                 image.alt
@@ -892,16 +932,24 @@ function startCountdown(config) {
         );
 
     const daysElement =
-        getElement("cd-days");
+        getElement(
+            "cd-days"
+        );
 
     const hoursElement =
-        getElement("cd-hours");
+        getElement(
+            "cd-hours"
+        );
 
     const minutesElement =
-        getElement("cd-mins");
+        getElement(
+            "cd-mins"
+        );
 
     const secondsElement =
-        getElement("cd-secs");
+        getElement(
+            "cd-secs"
+        );
 
     if (
         !countdownContainer ||
@@ -919,7 +967,9 @@ function startCountdown(config) {
         ).getTime();
 
     if (
-        !Number.isFinite(targetTime)
+        !Number.isFinite(
+            targetTime
+        )
     ) {
         countdownContainer.innerHTML = `
             <div class="countdown-message">
@@ -1150,10 +1200,14 @@ function setFieldVisibility(
 
 function prepareFormControls(config) {
     const form =
-        getElement("rsvp-form");
+        getElement(
+            "rsvp-form"
+        );
 
     const attendanceSelect =
-        getElement("attendance");
+        getElement(
+            "attendance"
+        );
 
     const attendanceDetails =
         getElement(
@@ -1180,6 +1234,16 @@ function prepareFormControls(config) {
             "veg-count"
         );
 
+    const dietaryOtherHelp =
+        getElement(
+            "dietary-other-help"
+        );
+
+    const foodAllergyInput =
+        getElement(
+            "food-allergy"
+        );
+
     if (
         !form ||
         !attendanceSelect ||
@@ -1187,7 +1251,9 @@ function prepareFormControls(config) {
         !ceremonyField ||
         !dietarySelect ||
         !vegetarianCountField ||
-        !vegetarianCountInput
+        !vegetarianCountInput ||
+        !dietaryOtherHelp ||
+        !foodAllergyInput
     ) {
         return;
     }
@@ -1231,19 +1297,35 @@ function prepareFormControls(config) {
         }
     }
 
-    function updateVegetarianField() {
-        const shouldShow =
-            dietarySelect.value ===
-                "all_veg" ||
-            dietarySelect.value ===
-                "mixed";
+    function updateDietaryFields() {
+        const dietaryType =
+            dietarySelect.value;
+
+        const showVegetarianCount =
+            dietaryType ===
+            "all_veg";
+
+        const showOtherHelp =
+            dietaryType ===
+            "other";
 
         setFieldVisibility(
             vegetarianCountField,
-            shouldShow
+            showVegetarianCount
         );
 
-        if (!shouldShow) {
+        dietaryOtherHelp.hidden =
+            !showOtherHelp;
+
+        /*
+         * 選擇其他時，食物過敏或特殊需求改為必填。
+         */
+        foodAllergyInput.required =
+            showOtherHelp;
+
+        if (
+            !showVegetarianCount
+        ) {
             vegetarianCountInput.value =
                 "0";
         }
@@ -1271,7 +1353,7 @@ function prepareFormControls(config) {
     ) {
         dietarySelect.addEventListener(
             "change",
-            updateVegetarianField
+            updateDietaryFields
         );
 
         dietarySelect.dataset
@@ -1280,11 +1362,11 @@ function prepareFormControls(config) {
     }
 
     updateAttendanceFields();
-    updateVegetarianField();
+    updateDietaryFields();
 }
 
 /* =========================================================
-   RSVP 資料轉換
+   餐點文字轉換
 ========================================================= */
 
 function getDietaryTypeLabel(
@@ -1297,8 +1379,8 @@ function getDietaryTypeLabel(
         all_veg:
             "全素 / All Vegetarian",
 
-        mixed:
-            "部分葷、部分素 / Mixed",
+        other:
+            "其他 / Other",
 
         not_applicable:
             "不適用 / Not Applicable"
@@ -1311,18 +1393,25 @@ function getDietaryTypeLabel(
     );
 }
 
+/* =========================================================
+   整理 RSVP 資料
+========================================================= */
+
 function buildRsvpData(
     form,
     currentLocation,
     config
 ) {
     const formData =
-        new FormData(form);
+        new FormData(
+            form
+        );
 
     const isAttending =
         formData.get(
             "isAttending"
-        ) === "yes";
+        ) ===
+        "yes";
 
     const dietaryType =
         isAttending
@@ -1376,7 +1465,8 @@ function buildRsvpData(
                 ? (
                     formData.get(
                         "attendCeremony"
-                    ) === "yes"
+                    ) ===
+                    "yes"
                         ? "是 / Attending"
                         : "否，僅參加午宴 / Luncheon Only"
                 )
@@ -1409,7 +1499,9 @@ function buildRsvpData(
             ),
 
         vegetarianCount:
-            isAttending
+            isAttending &&
+            dietaryType ===
+                "all_veg"
                 ? Number(
                     formData.get(
                         "vegCount"
@@ -1442,12 +1534,12 @@ function buildRsvpData(
             window.location.href,
 
         formVersion:
-            "20260803-04"
+            "20260803-05"
     };
 }
 
 /* =========================================================
-   RSVP 驗證
+   RSVP 資料驗證
 ========================================================= */
 
 function validateRsvpData(data) {
@@ -1469,6 +1561,22 @@ function validateRsvpData(data) {
         return (
             "請填寫聯絡電話。 " +
             "Please enter your phone number."
+        );
+    }
+
+    const phoneDigits =
+        data.phone.replace(
+            /\D/g,
+            ""
+        );
+
+    if (
+        phoneDigits.length < 8 ||
+        phoneDigits.length > 15
+    ) {
+        return (
+            "請確認聯絡電話格式，例如 0912345678。 " +
+            "Please check the phone number format."
         );
     }
 
@@ -1512,18 +1620,32 @@ function validateRsvpData(data) {
 
     if (
         isAttending &&
+        data.dietaryType ===
+            "all_veg" &&
         (
             !Number.isInteger(
                 data.vegetarianCount
             ) ||
-            data.vegetarianCount < 0 ||
+            data.vegetarianCount < 1 ||
             data.vegetarianCount >
                 data.attendCount
         )
     ) {
         return (
-            "素食人數不可大於總出席人數。 " +
-            "Vegetarian count cannot exceed total guest count."
+            "全素餐點的素食人數需為 1 人以上，且不可大於總出席人數。 " +
+            "Vegetarian count must be between 1 and the total guest count."
+        );
+    }
+
+    if (
+        isAttending &&
+        data.dietaryType ===
+            "other" &&
+        !data.foodAllergy
+    ) {
+        return (
+            "選擇其他餐點需求時，請於食物過敏或特殊需求欄位註明。 " +
+            "Please describe your meal requirements."
         );
     }
 
@@ -1645,10 +1767,6 @@ async function submitToGoogleForm(data) {
         )
     );
 
-    /*
-     * Google Sheet 顯示中英文說明，
-     * 不使用 all_meat、all_veg 等程式代碼。
-     */
     googleFormData.append(
         GOOGLE_FORM_ENTRY
             .dietaryType,
@@ -1681,14 +1799,6 @@ async function submitToGoogleForm(data) {
         data.formVersion
     );
 
-    /*
-     * no-cors 模式可讓 GitHub Pages
-     * 將資料送至 Google Form。
-     *
-     * 瀏覽器無法讀取 Google Form 回傳內容，
-     * 因此 Google Form 僅作為同步副本，
-     * Firebase 才是主要成功判定來源。
-     */
     await fetch(
         GOOGLE_FORM_URL,
         {
@@ -1715,14 +1825,10 @@ async function submitToGoogleForm(data) {
 }
 
 /* =========================================================
-   雙重寫入
+   Firebase 與 Google Form 雙重寫入
 ========================================================= */
 
 async function submitRsvpData(data) {
-    /*
-     * 先寫入 Firebase。
-     * Firebase 寫入失敗時，整次送出視為失敗。
-     */
     const firebaseResult =
         await submitToFirebase(
             data
@@ -1731,10 +1837,6 @@ async function submitRsvpData(data) {
     let googleFormSynced =
         false;
 
-    /*
-     * Firebase 成功後再同步 Google Form。
-     * Google Form 失敗不影響賓客的送出結果。
-     */
     try {
         await submitToGoogleForm(
             data
@@ -1801,10 +1903,6 @@ function setupRsvpForm(
         async (event) => {
             event.preventDefault();
 
-            /*
-             * 送出當下再次檢查截止時間，
-             * 避免頁面開啟後跨過截止時間仍可送出。
-             */
             const deadlineTimestamp =
                 new Date(
                     config.rsvpDeadline
@@ -1941,7 +2039,9 @@ function setupRsvpForm(
                 ) {
                     errorMessage =
                         "✕ 資料庫拒絕寫入，請直接與新人聯絡。 Database permission denied.";
-                } else if (!database) {
+                } else if (
+                    !database
+                ) {
                     errorMessage =
                         "✕ 資料庫尚未完成連線，請稍後再試。 Database connection is unavailable.";
                 }
