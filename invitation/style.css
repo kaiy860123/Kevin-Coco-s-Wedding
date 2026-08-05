@@ -1,17 +1,18 @@
 :root {
-    --soil: #4a3323;
-    --soil-dark: #2a1b12;
-    --bark: #6b4c35;
-    --bark-light: #8c6348;
-    --tan: #c4a882;
-    --cream: #f5efe6;
-    --warm-background: #faf6f0;
-    --moss: #6e7d5b;
-    --stone: #948578;
-    --rust: #b0673a;
-    --white: #ffffff;
-    --error: #b05040;
-    --success: #6e7d5b;
+    --background: #F5F1EA;
+    --primary: #6F7C3E;
+    --accent: #C97C7C;
+    --secondary-background: #EFE7DB;
+    --soft-pink: #D8A7A1;
+    --sage: #A3B18A;
+
+    --primary-transparent: rgba(111, 124, 62, 0.18);
+    --accent-transparent: rgba(201, 124, 124, 0.18);
+    --sage-transparent: rgba(163, 177, 138, 0.22);
+
+    --text: #565747;
+    --text-soft: #7A796D;
+    --paper-shadow: rgba(95, 88, 67, 0.12);
 }
 
 * {
@@ -23,11 +24,32 @@ html {
 }
 
 body {
+    position: relative;
+
     margin: 0;
     overflow-x: hidden;
 
-    color: var(--soil);
-    background: var(--warm-background);
+    color: var(--text);
+    background-color: var(--background);
+
+    background-image:
+        radial-gradient(
+            circle at 12% 20%,
+            rgba(163, 177, 138, 0.07),
+            transparent 24%
+        ),
+        radial-gradient(
+            circle at 88% 38%,
+            rgba(216, 167, 161, 0.08),
+            transparent 26%
+        ),
+        repeating-linear-gradient(
+            0deg,
+            rgba(111, 124, 62, 0.018) 0,
+            rgba(111, 124, 62, 0.018) 1px,
+            transparent 1px,
+            transparent 4px
+        );
 
     font-family:
         "Noto Sans TC",
@@ -35,7 +57,7 @@ body {
         Arial,
         sans-serif;
 
-    line-height: 1.75;
+    line-height: 1.8;
 }
 
 button,
@@ -54,20 +76,131 @@ img {
     display: none !important;
 }
 
+/* =========================================================
+   植物裝飾
+========================================================= */
+
+.botanical-decoration {
+    position: fixed;
+    z-index: 0;
+
+    width: 270px;
+    height: 340px;
+
+    opacity: 0.16;
+    pointer-events: none;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='360' viewBox='0 0 280 360'%3E%3Cg fill='none' stroke='%236F7C3E' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M44 330 C55 235 80 150 151 44'/%3E%3Cpath d='M78 265 C120 245 150 213 174 173'/%3E%3Cpath d='M65 232 C42 202 34 172 38 137'/%3E%3Cpath d='M105 186 C143 163 171 130 187 89'/%3E%3C/g%3E%3Cg fill='%23A3B18A' fill-opacity='.72'%3E%3Cellipse cx='62' cy='285' rx='16' ry='31' transform='rotate(-34 62 285)'/%3E%3Cellipse cx='84' cy='236' rx='16' ry='32' transform='rotate(30 84 236)'/%3E%3Cellipse cx='117' cy='214' rx='16' ry='31' transform='rotate(-49 117 214)'/%3E%3Cellipse cx='52' cy='183' rx='15' ry='29' transform='rotate(-28 52 183)'/%3E%3Cellipse cx='140' cy='157' rx='15' ry='30' transform='rotate(44 140 157)'/%3E%3Cellipse cx='175' cy='112' rx='14' ry='28' transform='rotate(35 175 112)'/%3E%3C/g%3E%3Cg fill='%23D8A7A1' fill-opacity='.72'%3E%3Ccircle cx='191' cy='78' r='11'/%3E%3Ccircle cx='205' cy='88' r='8'/%3E%3Ccircle cx='181' cy='92' r='7'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.botanical-top-left {
+    top: -70px;
+    left: -85px;
+}
+
+.botanical-top-right {
+    top: -70px;
+    right: -85px;
+    transform: scaleX(-1);
+}
+
+.botanical-bottom-left {
+    bottom: -110px;
+    left: -90px;
+    transform: scaleY(-1);
+}
+
+.botanical-bottom-right {
+    right: -90px;
+    bottom: -110px;
+    transform: scale(-1);
+}
+
+/* =========================================================
+   共用字體與標題
+========================================================= */
+
 .eyebrow {
-    margin: 0 0 8px;
+    margin: 0 0 10px;
 
-    color: var(--moss);
+    color: var(--primary);
 
-    font-family: "Nunito", sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 4px;
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 5px;
     text-transform: uppercase;
 }
 
-.light-eyebrow {
-    color: var(--tan);
+.section-heading {
+    margin-bottom: 42px;
+}
+
+.centered-heading {
+    text-align: center;
+}
+
+.section-heading h2 {
+    margin: 0;
+
+    color: var(--primary);
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
+    font-size: clamp(28px, 5vw, 38px);
+    font-weight: 500;
+    letter-spacing: 4px;
+}
+
+.section-note {
+    margin: 14px 0 0;
+
+    color: var(--text-soft);
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+.section-divider,
+.ornamental-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    width: min(280px, 76%);
+    margin: 24px auto 0;
+}
+
+.section-divider span,
+.ornamental-divider span {
+    display: block;
+    width: 90px;
+    height: 1px;
+
+    background: var(--primary);
+    opacity: 0.5;
+}
+
+.section-divider i,
+.ornamental-divider i {
+    color: var(--accent);
+    font-style: normal;
+    font-size: 15px;
 }
 
 /* =========================================================
@@ -76,84 +209,164 @@ img {
 
 .hero-section {
     position: relative;
+    z-index: 1;
 
-    min-height: 92svh;
+    min-height: 94svh;
 
-    background-color: var(--soil);
-    background-position: center 35%;
+    background-color: var(--secondary-background);
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 
-    overflow: hidden;
+    border-bottom: 1px solid var(--primary-transparent);
 }
 
-.hero-shade {
+.hero-overlay {
     position: absolute;
     inset: 0;
 
     background:
         linear-gradient(
-            to bottom,
-            rgba(30, 17, 10, 0.18) 0%,
-            rgba(30, 17, 10, 0.08) 32%,
-            rgba(30, 17, 10, 0.54) 72%,
-            rgba(30, 17, 10, 0.88) 100%
+            180deg,
+            rgba(245, 241, 234, 0.18) 0%,
+            rgba(245, 241, 234, 0.36) 45%,
+            rgba(245, 241, 234, 0.78) 100%
         );
 }
 
 .hero-content {
     position: relative;
-    z-index: 1;
+    z-index: 2;
 
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: center;
 
-    width: min(920px, 100%);
-    min-height: 92svh;
-    margin: 0 auto;
-    padding: 60px 34px 70px;
+    min-height: 94svh;
+    padding: 80px 24px;
+}
 
-    color: var(--white);
+.hero-card {
+    position: relative;
+
+    width: min(720px, 94%);
+    padding: 64px 56px;
+
+    text-align: center;
+
+    background:
+        rgba(245, 241, 234, 0.88);
+
+    border: 1px solid rgba(111, 124, 62, 0.6);
+    border-radius: 2px;
+
+    box-shadow:
+        0 18px 55px rgba(84, 79, 62, 0.15);
+
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.hero-card::before,
+.hero-card::after {
+    position: absolute;
+
+    width: 34px;
+    height: 34px;
+
+    content: "";
+
+    border-color: var(--accent);
+    border-style: solid;
+    opacity: 0.68;
+}
+
+.hero-card::before {
+    top: 13px;
+    left: 13px;
+
+    border-width: 1px 0 0 1px;
+}
+
+.hero-card::after {
+    right: 13px;
+    bottom: 13px;
+
+    border-width: 0 1px 1px 0;
 }
 
 .hero-eyebrow {
-    margin-bottom: 14px;
+    margin-bottom: 4px;
+}
+
+.hero-chinese-label {
+    margin: 0;
+
+    color: var(--text-soft);
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
+    font-size: 14px;
+    letter-spacing: 5px;
 }
 
 h1 {
-    margin: 0;
+    margin: 30px 0 24px;
 
-    color: var(--white);
+    color: var(--primary);
 
-    font-family: "Lora", serif;
-    font-size: clamp(42px, 8vw, 72px);
-    font-weight: 600;
-    line-height: 1.12;
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: clamp(46px, 9vw, 78px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: 8px;
+    text-transform: uppercase;
 }
 
 h1 em {
-    color: var(--tan);
-    font-size: 1.25em;
-    font-weight: 500;
+    color: var(--accent);
+    font-weight: 400;
+    text-transform: none;
 }
 
 .hero-date {
-    margin: 18px 0 6px;
+    margin: 0 0 8px;
 
-    color: #f1e7d9;
+    color: var(--accent);
 
-    font-family: "Nunito", sans-serif;
-    font-size: clamp(15px, 2.8vw, 19px);
-    font-weight: 600;
-    letter-spacing: 2px;
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: clamp(18px, 3vw, 23px);
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
 }
 
 .hero-location {
     margin: 0;
 
-    color: rgba(255, 255, 255, 0.72);
-    font-size: 15px;
+    color: var(--text-soft);
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.hero-floral-mark {
+    margin-top: 26px;
+
+    color: var(--sage);
+    font-size: 17px;
 }
 
 /* =========================================================
@@ -162,112 +375,90 @@ h1 em {
 
 .countdown-section {
     position: relative;
+    z-index: 1;
 
-    padding: 52px 20px 48px;
+    padding: 100px 22px;
 
-    color: var(--white);
-    background: var(--soil);
+    background: var(--secondary-background);
 
-    text-align: center;
+    border-bottom: 1px solid var(--primary-transparent);
 }
 
 .countdown-container {
     display: grid;
-    grid-template-columns: repeat(4, minmax(60px, 92px));
+    grid-template-columns: repeat(4, minmax(90px, 130px));
     justify-content: center;
-    gap: 10px;
+    gap: 18px;
 
-    margin: 28px auto 20px;
+    margin: 0 auto 26px;
 }
 
 .time-box {
-    padding: 18px 7px 14px;
+    padding: 26px 10px 22px;
 
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(196, 168, 130, 0.28);
-    border-radius: 14px;
+    text-align: center;
+
+    background: var(--background);
+
+    border: 1px solid var(--primary);
+    border-radius: 2px;
+
+    box-shadow:
+        0 7px 20px var(--paper-shadow);
 }
 
 .time-box span {
     display: block;
 
-    color: var(--white);
+    color: var(--accent);
 
-    font-family: "Lora", serif;
-    font-size: clamp(28px, 5vw, 40px);
-    font-weight: 600;
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: clamp(34px, 5vw, 48px);
+    font-weight: 400;
     line-height: 1;
 }
 
 .time-box small {
     display: block;
 
-    margin-top: 9px;
+    margin-top: 12px;
 
-    color: var(--tan);
+    color: var(--primary);
 
-    font-family: "Nunito", sans-serif;
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 1px;
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 .countdown-subtitle {
     margin: 0;
 
-    color: rgba(255, 255, 255, 0.48);
-    font-size: 13px;
-    letter-spacing: 1px;
+    color: var(--text-soft);
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
+    text-align: center;
+    font-size: 14px;
 }
 
 .countdown-message {
     grid-column: 1 / -1;
 
-    padding: 20px;
+    padding: 24px;
 
-    color: var(--tan);
-    border: 1px solid rgba(196, 168, 130, 0.3);
-    border-radius: 14px;
-}
+    color: var(--accent);
+    background: var(--background);
 
-/* =========================================================
-   共用區塊
-========================================================= */
-
-.content-section {
-    width: min(920px, calc(100% - 28px));
-    margin: 0 auto;
-    padding: 62px 26px;
-}
-
-.section-heading {
-    margin-bottom: 30px;
-}
-
-.section-heading h2 {
-    margin: 0;
-
-    color: var(--soil);
-
-    font-family: "Lora", serif;
-    font-size: clamp(28px, 5vw, 36px);
-    font-weight: 500;
-}
-
-.section-heading-light h2 {
-    color: #f2e8d8;
-}
-
-.section-note {
-    margin: 10px 0 0;
-
-    color: var(--stone);
-    font-size: 13px;
-    line-height: 1.8;
-}
-
-.section-heading-light .section-note {
-    color: rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--primary);
 }
 
 /* =========================================================
@@ -275,49 +466,116 @@ h1 em {
 ========================================================= */
 
 .notice-section {
-    padding: 26px 20px;
+    position: relative;
+    z-index: 1;
 
-    color: var(--soil);
-    background: #eadfce;
-    border-bottom: 1px solid rgba(107, 76, 53, 0.12);
+    padding: 34px 20px;
+
+    background: rgba(216, 167, 161, 0.22);
+
+    border-top: 1px solid rgba(201, 124, 124, 0.38);
+    border-bottom: 1px solid rgba(201, 124, 124, 0.38);
+}
+
+.notice-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+
+    width: min(850px, 100%);
+    margin: 0 auto;
 
     text-align: center;
 }
 
-.notice-section p {
+.notice-inner p {
     margin: 2px 0;
 }
 
 .notice-zh {
-    font-weight: 700;
+    color: var(--primary);
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
+    font-size: 16px;
+    font-weight: 600;
 }
 
 .notice-en {
-    color: var(--bark-light);
-    font-family: "Nunito", sans-serif;
-    font-size: 13px;
+    color: var(--accent);
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+
+.notice-leaf {
+    color: var(--sage);
+    font-size: 27px;
+}
+
+.notice-leaf-right {
+    transform: scaleX(-1);
 }
 
 /* =========================================================
-   婚禮資訊
+   共用內容區塊
 ========================================================= */
 
-.event-section {
-    background: var(--cream);
+.content-section {
+    position: relative;
+    z-index: 1;
+
+    width: min(1040px, calc(100% - 30px));
+    margin: 0 auto;
+    padding: 110px 30px;
 }
 
-.event-image-wrapper,
-.timeline-image-wrapper {
+.event-section,
+.venue-section {
+    background: var(--background);
+}
+
+.timeline-section {
+    background: var(--secondary-background);
+}
+
+/* =========================================================
+   圖片框
+========================================================= */
+
+.editorial-image-frame {
+    position: relative;
+
     overflow: hidden;
 
-    width: min(640px, 100%);
-    margin: 0 auto 30px;
+    width: min(720px, 100%);
+    margin: 0 auto 52px;
+    padding: 10px;
 
-    background: var(--white);
-    border: 1px solid rgba(107, 76, 53, 0.1);
-    border-radius: 14px;
+    background: var(--background);
 
-    box-shadow: 0 5px 22px rgba(74, 51, 35, 0.12);
+    border: 1px solid var(--primary);
+    border-radius: 2px;
+
+    box-shadow:
+        0 12px 30px var(--paper-shadow);
+}
+
+.editorial-image-frame::before {
+    position: absolute;
+    inset: 5px;
+
+    content: "";
+
+    border: 1px solid rgba(163, 177, 138, 0.55);
+    pointer-events: none;
 }
 
 .event-image,
@@ -329,149 +587,230 @@ h1 em {
     object-fit: contain;
     object-position: center;
 
-    background: var(--cream);
+    background: var(--secondary-background);
 }
+
+.image-error-message {
+    margin: 0;
+    padding: 35px 20px;
+
+    color: var(--text-soft);
+    background: var(--secondary-background);
+
+    text-align: center;
+}
+
+/* =========================================================
+   婚禮資訊卡片
+========================================================= */
 
 .detail-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    gap: 24px;
+
+    width: min(860px, 100%);
+    margin: 0 auto;
 }
 
 .detail-card {
-    display: flex;
-    gap: 17px;
-    align-items: flex-start;
+    position: relative;
 
-    padding: 20px;
+    padding: 38px 30px;
 
-    background: var(--white);
-    border: 1px solid rgba(107, 76, 53, 0.1);
-    border-radius: 15px;
+    text-align: center;
 
-    box-shadow: 0 3px 12px rgba(74, 51, 35, 0.06);
+    background: var(--secondary-background);
+
+    border: 1px solid var(--primary);
+    border-radius: 2px;
+
+    box-shadow:
+        0 9px 24px var(--paper-shadow);
+}
+
+.detail-card::after {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+
+    width: 36px;
+    height: 36px;
+
+    content: "";
+
+    border-right: 1px solid var(--soft-pink);
+    border-bottom: 1px solid var(--soft-pink);
 }
 
 .detail-card-wide {
     grid-column: 1 / -1;
 }
 
-.detail-icon {
-    display: flex;
-    flex: 0 0 42px;
-    align-items: center;
-    justify-content: center;
+.detail-symbol {
+    margin-bottom: 16px;
 
-    width: 42px;
-    height: 42px;
+    color: var(--sage);
 
-    background: var(--cream);
-    border-radius: 11px;
+    font-family:
+        "Cormorant Garamond",
+        serif;
 
     font-size: 20px;
 }
 
 .detail-label {
-    margin: 0 0 5px;
+    margin: 0;
 
-    color: var(--moss);
+    color: var(--accent);
 
-    font-family: "Nunito", sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 14px;
+    letter-spacing: 4px;
     text-transform: uppercase;
+}
+
+.detail-card h3 {
+    margin: 4px 0 20px;
+
+    color: var(--primary);
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 4px;
 }
 
 .detail-main {
     margin: 0;
 
-    color: var(--soil);
+    color: var(--text);
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
     font-size: 17px;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .detail-secondary {
-    margin: 5px 0 0;
+    margin: 8px 0 0;
 
-    color: var(--stone);
-    font-size: 13px;
+    color: var(--text-soft);
+
+    font-family:
+        "Cormorant Garamond",
+        "Noto Serif TC",
+        serif;
+
+    font-size: 14px;
+    letter-spacing: 1px;
 }
 
 .venue-detail {
-    margin-top: 12px;
+    margin-top: 18px;
+    padding-top: 16px;
+
+    border-top: 1px solid var(--primary-transparent);
 }
 
 .venue-detail p {
-    margin: 5px 0;
+    margin: 6px 0;
+}
+
+.venue-detail strong {
+    color: var(--primary);
 }
 
 .venue-detail .en-line {
-    color: var(--stone);
-    font-family: "Nunito", sans-serif;
-    font-size: 13px;
-}
+    color: var(--accent);
 
-/* =========================================================
-   婚禮時程
-========================================================= */
+    font-family:
+        "Cormorant Garamond",
+        serif;
 
-.timeline-section {
-    text-align: left;
-}
-
-.timeline-image-wrapper {
-    margin-bottom: 0;
-}
-
-.image-error-message {
-    width: 100%;
-    margin: 0;
-    padding: 20px;
-
-    color: var(--stone);
-    background: var(--cream);
-    border: 1px dashed var(--tan);
-    border-radius: 12px;
-
-    text-align: center;
+    font-size: 14px;
+    letter-spacing: 1px;
 }
 
 /* =========================================================
    地點與交通
 ========================================================= */
 
-.venue-section {
-    background: var(--cream);
-}
-
 .map-actions {
-    margin-bottom: 18px;
+    margin-bottom: 26px;
+    text-align: center;
 }
 
 .primary-link {
-    display: inline-block;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
 
-    padding: 11px 20px;
+    min-width: 230px;
+    padding: 14px 30px;
 
-    color: var(--white);
-    background: var(--bark);
-    border-radius: 999px;
+    color: var(--background);
+    background: var(--primary);
 
-    font-family: "Nunito", sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
+    border: 1px solid var(--primary);
+    border-radius: 2px;
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
+    font-size: 15px;
+    letter-spacing: 2px;
     text-decoration: none;
+
+    transition:
+        background-color 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.primary-link span {
+    margin-top: 2px;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.primary-link:hover {
+    color: var(--background);
+    background: var(--accent);
+    border-color: var(--accent);
+
+    transform: translateY(-2px);
 }
 
 .map-container {
     overflow: hidden;
 
-    margin-bottom: 20px;
+    width: min(900px, 100%);
+    margin: 0 auto 30px;
+    padding: 8px;
 
-    border: 1px solid rgba(107, 76, 53, 0.12);
-    border-radius: 14px;
+    background: var(--secondary-background);
+
+    border: 1px solid var(--primary);
+    border-radius: 2px;
+
+    box-shadow:
+        0 10px 28px var(--paper-shadow);
 }
 
 .map-container iframe {
@@ -482,66 +821,98 @@ h1 em {
 .information-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    gap: 24px;
+
+    width: min(900px, 100%);
+    margin: 0 auto;
 }
 
 .information-card {
-    padding: 20px;
+    position: relative;
 
-    background: var(--white);
-    border: 1px solid rgba(107, 76, 53, 0.1);
-    border-radius: 15px;
+    padding: 38px 32px;
 
-    box-shadow: 0 3px 12px rgba(74, 51, 35, 0.05);
+    background: var(--secondary-background);
+
+    border: 1px solid var(--primary);
+    border-radius: 2px;
+
+    box-shadow:
+        0 8px 22px var(--paper-shadow);
 }
 
-.information-title {
-    display: flex;
-    gap: 13px;
-    align-items: center;
+.information-card-decoration {
+    position: absolute;
+    top: 18px;
+    right: 22px;
 
-    margin-bottom: 14px;
+    color: var(--sage);
+
+    font-size: 22px;
+    opacity: 0.72;
 }
 
-.information-title > span {
-    font-size: 23px;
-}
-
-.information-title p {
+.information-en-title {
     margin: 0;
 
-    color: var(--moss);
+    color: var(--accent);
 
-    font-family: "Nunito", sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 2.5px;
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 15px;
+    letter-spacing: 4px;
     text-transform: uppercase;
 }
 
-.information-title h3 {
-    margin: 1px 0 0;
+.information-card h3 {
+    margin: 4px 0 22px;
 
-    font-size: 17px;
+    color: var(--primary);
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
+    font-size: 21px;
+    font-weight: 500;
+    letter-spacing: 2px;
 }
 
-.information-card p {
-    margin: 0 0 13px;
+.information-content p {
+    margin: 0 0 18px;
+
+    color: var(--text);
+
     font-size: 14px;
 }
 
-.information-card p:last-child {
+.information-content p:last-child {
     margin-bottom: 0;
 }
 
-.information-card .en-line {
+.information-content strong {
+    color: var(--primary);
+}
+
+.information-content a {
+    color: var(--accent);
+}
+
+.information-content .en-line {
     display: block;
 
-    margin-top: 3px;
+    margin-top: 5px;
 
-    color: var(--stone);
-    font-family: "Nunito", sans-serif;
-    font-size: 12px;
+    color: var(--text-soft);
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 /* =========================================================
@@ -549,32 +920,70 @@ h1 em {
 ========================================================= */
 
 .moments-section {
-    padding: 62px max(18px, calc((100% - 920px) / 2 + 26px));
+    position: relative;
+    z-index: 1;
 
-    background: var(--soil);
+    padding: 110px max(20px, calc((100% - 1040px) / 2 + 30px));
+
+    background:
+        linear-gradient(
+            rgba(239, 231, 219, 0.92),
+            rgba(239, 231, 219, 0.92)
+        ),
+        repeating-linear-gradient(
+            45deg,
+            rgba(111, 124, 62, 0.02) 0,
+            rgba(111, 124, 62, 0.02) 1px,
+            transparent 1px,
+            transparent 6px
+        );
+
+    border-top: 1px solid var(--primary-transparent);
+    border-bottom: 1px solid var(--primary-transparent);
 }
 
 .photo-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    gap: 18px;
+
+    width: min(980px, 100%);
+    margin: 0 auto;
 }
 
 .photo-item {
     width: 100%;
     aspect-ratio: 3 / 4;
+    padding: 7px;
 
     object-fit: cover;
 
-    border-radius: 13px;
+    background: var(--background);
+
+    border: 1px solid var(--primary);
+    border-radius: 1px;
 
     cursor: zoom-in;
 
-    transition: transform 0.45s ease;
+    box-shadow:
+        0 10px 25px var(--paper-shadow);
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.photo-item:nth-child(even) {
+    transform: translateY(18px);
 }
 
 .photo-item:hover {
-    transform: scale(1.025);
+    border-color: var(--accent);
+    transform: translateY(-4px);
+}
+
+.photo-item:nth-child(even):hover {
+    transform: translateY(10px);
 }
 
 /* =========================================================
@@ -582,39 +991,109 @@ h1 em {
 ========================================================= */
 
 .rsvp-section {
-    padding: 62px max(18px, calc((100% - 760px) / 2 + 26px));
+    position: relative;
+    z-index: 1;
 
-    color: #f2e8d8;
-    background: var(--soil-dark);
+    padding: 110px 20px;
+
+    background: var(--background);
+}
+
+.rsvp-inner {
+    position: relative;
+
+    width: min(760px, 100%);
+    margin: 0 auto;
+    padding: 64px 54px;
+
+    background: var(--secondary-background);
+
+    border: 1px solid var(--primary);
+    border-radius: 2px;
+
+    box-shadow:
+        0 15px 38px var(--paper-shadow);
+}
+
+.rsvp-inner::before,
+.rsvp-inner::after {
+    position: absolute;
+
+    width: 48px;
+    height: 48px;
+
+    content: "";
+
+    border-color: var(--soft-pink);
+    border-style: solid;
+}
+
+.rsvp-inner::before {
+    top: 16px;
+    left: 16px;
+
+    border-width: 1px 0 0 1px;
+}
+
+.rsvp-inner::after {
+    right: 16px;
+    bottom: 16px;
+
+    border-width: 0 1px 1px 0;
 }
 
 .deadline-display {
-    margin: 12px 0 0;
+    margin: 18px 0 0;
 
-    color: var(--tan);
-    font-family: "Nunito", sans-serif;
-    font-size: 12px;
+    color: var(--accent);
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
+    font-size: 13px;
+    line-height: 1.8;
 }
 
 .form-group {
-    margin-bottom: 19px;
+    margin-bottom: 28px;
 }
 
 .form-group label {
     display: block;
 
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 
-    color: var(--tan);
+    color: var(--primary);
 
-    font-family: "Nunito", sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.4px;
+    font-family:
+        "Noto Serif TC",
+        serif;
+
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 1px;
 }
 
-.required-mark {
-    color: #e39c83;
+.form-group label span {
+    display: block;
+
+    margin-bottom: 1px;
+
+    color: var(--accent);
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.form-group label b {
+    color: var(--accent);
+    font-weight: 400;
 }
 
 .form-group input,
@@ -623,133 +1102,182 @@ h1 em {
     display: block;
 
     width: 100%;
-    padding: 14px 16px;
+    padding: 12px 4px;
 
-    color: #f2e8d8;
-    background: rgba(255, 255, 255, 0.07);
+    color: var(--text);
+    background: transparent;
 
-    border: 1px solid rgba(196, 168, 130, 0.28);
-    border-radius: 12px;
+    border: 0;
+    border-bottom: 1px solid var(--primary);
+    border-radius: 0;
 
     font-size: 16px;
 
     outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease;
 }
 
 .form-group select option {
-    color: var(--soil);
-    background: var(--white);
+    color: var(--text);
+    background: var(--background);
+}
+
+.form-group textarea {
+    min-height: 92px;
+    resize: vertical;
 }
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-    color: rgba(242, 232, 216, 0.34);
+    color: rgba(86, 87, 71, 0.45);
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-    border-color: var(--tan);
-    box-shadow: 0 0 0 3px rgba(196, 168, 130, 0.1);
-}
-
-.form-group textarea {
-    min-height: 95px;
-    resize: vertical;
+    background: rgba(245, 241, 234, 0.48);
+    border-bottom-color: var(--accent);
 }
 
 .field-help {
-    margin: 7px 2px 0;
+    margin: 8px 0 0;
 
-    color: rgba(242, 232, 216, 0.52);
+    color: var(--text-soft);
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
     font-size: 12px;
     line-height: 1.7;
 }
 
-.important-help {
-    color: rgba(235, 205, 164, 0.86);
+.highlighted-help {
+    color: var(--accent);
 }
 
 .submit-btn {
-    width: 100%;
-    padding: 17px;
-    margin-top: 12px;
+    display: block;
 
-    color: var(--white);
-    background:
-        linear-gradient(
-            135deg,
-            var(--bark-light),
-            var(--bark)
-        );
+    width: min(360px, 100%);
+    margin: 42px auto 0;
+    padding: 15px 24px;
 
-    border: 0;
-    border-radius: 14px;
+    color: var(--background);
+    background: var(--primary);
 
-    font-family: "Nunito", sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
+    border: 1px solid var(--primary);
+    border-radius: 2px;
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
+    font-size: 15px;
+    letter-spacing: 3px;
 
     cursor: pointer;
 
-    box-shadow: 0 5px 22px rgba(0, 0, 0, 0.24);
+    transition:
+        background-color 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.submit-btn span {
+    display: block;
+
+    margin-bottom: 1px;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.submit-btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+
+    transform: translateY(-2px);
 }
 
 .submit-btn:disabled {
-    opacity: 0.5;
+    opacity: 0.55;
     cursor: not-allowed;
+    transform: none;
 }
 
 .form-status {
-    min-height: 26px;
-    margin: 14px 0 0;
+    min-height: 28px;
+    margin: 18px 0 0;
+
+    font-family:
+        "Noto Serif TC",
+        serif;
 
     text-align: center;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .form-status.success {
-    color: #aebe95;
+    color: var(--primary);
 }
 
 .form-status.error {
-    color: #e7a08d;
+    color: var(--accent);
 }
 
 .deadline-notice {
-    width: min(520px, 100%);
-    margin: 15px auto 0;
-    padding: 34px 24px;
+    width: min(500px, 100%);
+    margin: 20px auto 0;
+    padding: 40px 26px;
 
-    background: rgba(176, 103, 58, 0.12);
-    border: 1px dashed rgba(196, 168, 130, 0.45);
-    border-radius: 18px;
+    background: var(--background);
+
+    border: 1px solid var(--accent);
+    border-radius: 2px;
 
     text-align: center;
 }
 
 .deadline-icon {
-    margin-bottom: 12px;
-    font-size: 38px;
+    margin-bottom: 14px;
+    font-size: 34px;
 }
 
 .deadline-notice p {
-    margin: 4px 0;
+    margin: 5px 0;
 }
 
 .deadline-main {
-    color: var(--tan);
+    color: var(--accent);
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .deadline-en {
-    margin-top: 12px !important;
+    margin-top: 14px !important;
 
-    color: rgba(242, 232, 216, 0.58);
+    color: var(--primary);
 
-    font-family: "Nunito", sans-serif;
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 16px;
+    letter-spacing: 1px;
 }
 
 /* =========================================================
@@ -767,16 +1295,19 @@ h1 em {
 
     padding: 28px;
 
-    background: rgba(20, 12, 8, 0.94);
+    background: rgba(70, 72, 55, 0.92);
 }
 
 .lightbox-content {
-    max-width: min(1180px, 96vw);
-    max-height: 90vh;
+    max-width: min(1100px, 94vw);
+    max-height: 88vh;
+    padding: 8px;
 
     object-fit: contain;
 
-    border-radius: 7px;
+    background: var(--background);
+
+    border: 1px solid var(--sage);
 }
 
 .close-lightbox {
@@ -787,11 +1318,15 @@ h1 em {
     width: 48px;
     height: 48px;
 
-    color: var(--white);
+    color: var(--background);
     background: transparent;
     border: 0;
 
-    font-size: 42px;
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 44px;
     line-height: 1;
 
     cursor: pointer;
@@ -802,48 +1337,89 @@ h1 em {
 ========================================================= */
 
 .page-footer {
-    padding: 54px 24px 65px;
+    position: relative;
+    z-index: 1;
 
-    color: rgba(242, 232, 216, 0.48);
-    background: #1e110a;
+    padding: 76px 24px 86px;
+
+    color: var(--text-soft);
+    background: var(--secondary-background);
+
+    border-top: 1px solid var(--primary-transparent);
 
     text-align: center;
 }
 
+.footer-decoration {
+    color: var(--sage);
+    font-size: 24px;
+}
+
 .footer-names {
-    margin: 0;
+    margin: 14px 0 4px;
 
-    color: var(--tan);
+    color: var(--primary);
 
-    font-family: "Lora", serif;
-    font-size: 30px;
-    font-style: italic;
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 34px;
+    font-weight: 400;
+    letter-spacing: 5px;
+    text-transform: uppercase;
 }
 
 .page-footer > p {
-    margin: 7px 0;
+    margin: 8px 0;
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
+    font-size: 13px;
 }
 
 .footer-line {
-    width: 50px;
+    width: 70px;
     height: 1px;
-    margin: 23px auto;
+    margin: 24px auto;
 
-    background: rgba(196, 168, 130, 0.34);
+    background: var(--accent);
+    opacity: 0.6;
 }
 
 /* =========================================================
-   手機版
+   平板與手機
 ========================================================= */
 
-@media (max-width: 720px) {
+@media (max-width: 800px) {
+    .botanical-decoration {
+        width: 180px;
+        height: 240px;
+        opacity: 0.1;
+    }
+
     .hero-content {
-        padding: 40px 26px 52px;
+        padding: 50px 18px;
+    }
+
+    .hero-card {
+        padding: 50px 26px;
+    }
+
+    h1 {
+        letter-spacing: 5px;
+    }
+
+    .countdown-container {
+        grid-template-columns: repeat(4, minmax(64px, 100px));
+        gap: 10px;
     }
 
     .content-section {
         width: 100%;
-        padding: 52px 20px;
+        padding: 88px 20px;
     }
 
     .detail-grid,
@@ -855,50 +1431,148 @@ h1 em {
         grid-column: auto;
     }
 
-    .photo-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-    }
-
     .moments-section,
     .rsvp-section {
-        padding: 52px 18px;
+        padding-top: 88px;
+        padding-bottom: 88px;
+    }
+
+    .photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+
+    .photo-item:nth-child(even) {
+        transform: none;
+    }
+
+    .photo-item:nth-child(even):hover {
+        transform: translateY(-4px);
+    }
+
+    .rsvp-inner {
+        padding: 54px 28px;
     }
 
     .map-container iframe {
-        height: 300px;
-    }
-
-    .event-image-wrapper,
-    .timeline-image-wrapper {
-        width: min(560px, 100%);
+        height: 310px;
     }
 }
 
-@media (max-width: 460px) {
+@media (max-width: 500px) {
+    .botanical-top-right,
+    .botanical-bottom-left {
+        display: none;
+    }
+
+    .botanical-decoration {
+        width: 140px;
+        height: 190px;
+        opacity: 0.08;
+    }
+
+    .hero-section,
+    .hero-content {
+        min-height: 88svh;
+    }
+
+    .hero-card {
+        width: 100%;
+        padding: 42px 18px;
+    }
+
+    .hero-card::before,
+    .hero-card::after {
+        width: 26px;
+        height: 26px;
+    }
+
+    .eyebrow {
+        font-size: 12px;
+        letter-spacing: 4px;
+    }
+
+    h1 {
+        font-size: 43px;
+        letter-spacing: 4px;
+    }
+
+    .hero-date {
+        font-size: 17px;
+        letter-spacing: 2px;
+    }
+
     .countdown-section {
-        padding-right: 12px;
-        padding-left: 12px;
+        padding: 78px 10px;
     }
 
     .countdown-container {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 6px;
     }
 
     .time-box {
-        padding: 16px 3px 13px;
+        padding: 20px 2px 17px;
+    }
+
+    .time-box span {
+        font-size: 29px;
     }
 
     .time-box small {
         font-size: 8px;
+        letter-spacing: 0.6px;
     }
 
-    .detail-card {
-        padding: 17px;
+    .section-heading {
+        margin-bottom: 34px;
     }
 
-    .event-image,
-    .timeline-image {
-        aspect-ratio: 3 / 2;
+    .section-heading h2 {
+        font-size: 28px;
+        letter-spacing: 3px;
+    }
+
+    .content-section {
+        padding: 76px 16px;
+    }
+
+    .editorial-image-frame {
+        margin-bottom: 38px;
+        padding: 6px;
+    }
+
+    .detail-card,
+    .information-card {
+        padding: 30px 22px;
+    }
+
+    .moments-section,
+    .rsvp-section {
+        padding: 76px 14px;
+    }
+
+    .photo-grid {
+        gap: 8px;
+    }
+
+    .photo-item {
+        padding: 4px;
+    }
+
+    .rsvp-inner {
+        padding: 48px 18px;
+    }
+
+    .submit-btn {
+        width: 100%;
+    }
+
+    .notice-inner {
+        gap: 10px;
+    }
+
+    .notice-leaf {
+        font-size: 20px;
     }
 }

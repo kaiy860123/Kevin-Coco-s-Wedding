@@ -27,54 +27,97 @@
     >
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500;1,600&family=Noto+Sans+TC:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@400;500;600;700&display=swap"
         rel="stylesheet"
     >
 
     <link
         rel="stylesheet"
-        href="./style.css?v=20260803-05"
+        href="./style.css?v=20260805-01"
     >
 </head>
 
 <body>
+    <!-- 植物裝飾 -->
+    <div
+        class="botanical-decoration botanical-top-left"
+        aria-hidden="true"
+    ></div>
+
+    <div
+        class="botanical-decoration botanical-top-right"
+        aria-hidden="true"
+    ></div>
+
+    <div
+        class="botanical-decoration botanical-bottom-left"
+        aria-hidden="true"
+    ></div>
+
+    <div
+        class="botanical-decoration botanical-bottom-right"
+        aria-hidden="true"
+    ></div>
+
     <!-- 首頁主視覺 -->
     <header
         class="hero-section"
         id="hero-bg"
     >
-        <div class="hero-shade"></div>
+        <div class="hero-overlay"></div>
 
         <div class="hero-content">
-            <p class="eyebrow hero-eyebrow">
-                Wedding Invitation · 婚禮邀請函
-            </p>
+            <div class="hero-card">
+                <p class="eyebrow hero-eyebrow">
+                    Wedding Invitation
+                </p>
 
-            <h1 id="page-title">
-                Kevin <em>&amp;</em> Coco
-            </h1>
+                <p class="hero-chinese-label">
+                    婚禮邀請函
+                </p>
 
-            <p
-                class="hero-date"
-                id="wedding-date"
-            >
-                Wedding date loading · 婚禮日期載入中
-            </p>
+                <div class="ornamental-divider">
+                    <span></span>
+                    <i>❦</i>
+                    <span></span>
+                </div>
 
-            <p
-                class="hero-location"
-                id="wedding-location"
-            >
-                Wedding venue loading · 婚禮地點載入中
-            </p>
+                <h1 id="page-title">
+                    Kevin <em>&amp;</em> Coco
+                </h1>
+
+                <p
+                    class="hero-date"
+                    id="wedding-date"
+                >
+                    Wedding date loading
+                </p>
+
+                <p
+                    class="hero-location"
+                    id="wedding-location"
+                >
+                    Wedding venue loading
+                </p>
+
+                <div class="hero-floral-mark">
+                    ✦
+                </div>
+            </div>
         </div>
     </header>
 
     <!-- 婚禮倒數 -->
     <section class="countdown-section">
-        <p class="eyebrow light-eyebrow">
-            Wedding Countdown · 婚禮倒數
-        </p>
+        <div class="section-heading centered-heading">
+            <p class="eyebrow">
+                Wedding Countdown
+            </p>
+
+            <h2>
+                婚禮倒數
+            </h2>
+        </div>
 
         <div
             class="countdown-container"
@@ -83,22 +126,22 @@
         >
             <div class="time-box">
                 <span id="cd-days">00</span>
-                <small>天 Days</small>
+                <small>Days · 天</small>
             </div>
 
             <div class="time-box">
                 <span id="cd-hours">00</span>
-                <small>時 Hours</small>
+                <small>Hours · 時</small>
             </div>
 
             <div class="time-box">
                 <span id="cd-mins">00</span>
-                <small>分 Mins</small>
+                <small>Mins · 分</small>
             </div>
 
             <div class="time-box">
                 <span id="cd-secs">00</span>
-                <small>秒 Secs</small>
+                <small>Secs · 秒</small>
             </div>
         </div>
 
@@ -115,20 +158,32 @@
             class="notice-section"
             hidden
         >
-            <p
-                id="notice-zh"
-                class="notice-zh"
-            ></p>
+            <div class="notice-inner">
+                <span class="notice-leaf">
+                    ❧
+                </span>
 
-            <p
-                id="notice-en"
-                class="notice-en"
-            ></p>
+                <div>
+                    <p
+                        id="notice-zh"
+                        class="notice-zh"
+                    ></p>
+
+                    <p
+                        id="notice-en"
+                        class="notice-en"
+                    ></p>
+                </div>
+
+                <span class="notice-leaf notice-leaf-right">
+                    ❧
+                </span>
+            </div>
         </section>
 
         <!-- 婚禮資訊 -->
         <section class="content-section event-section">
-            <div class="section-heading">
+            <div class="section-heading centered-heading">
                 <p class="eyebrow">
                     Event Details
                 </p>
@@ -136,10 +191,16 @@
                 <h2>
                     婚禮資訊
                 </h2>
+
+                <div class="section-divider">
+                    <span></span>
+                    <i>✦</i>
+                    <span></span>
+                </div>
             </div>
 
             <!-- 各場次專屬婚禮資訊圖片 -->
-            <div class="event-image-wrapper">
+            <div class="editorial-image-frame">
                 <img
                     id="event-image"
                     class="event-image"
@@ -160,79 +221,85 @@
             <!-- 日期、時間、地點文字資訊 -->
             <div class="detail-grid">
                 <article class="detail-card">
-                    <div class="detail-icon">
-                        📅
+                    <div class="detail-symbol">
+                        Ⅰ
                     </div>
 
-                    <div>
-                        <p class="detail-label">
-                            Date · 日期
-                        </p>
+                    <p class="detail-label">
+                        Date
+                    </p>
 
-                        <p
-                            id="event-date"
-                            class="detail-main"
-                        ></p>
+                    <h3>
+                        日期
+                    </h3>
 
-                        <p
-                            id="event-date-en"
-                            class="detail-secondary"
-                        ></p>
-                    </div>
+                    <p
+                        id="event-date"
+                        class="detail-main"
+                    ></p>
+
+                    <p
+                        id="event-date-en"
+                        class="detail-secondary"
+                    ></p>
                 </article>
 
                 <article class="detail-card">
-                    <div class="detail-icon">
-                        🕛
+                    <div class="detail-symbol">
+                        Ⅱ
                     </div>
 
-                    <div>
-                        <p class="detail-label">
-                            Time · 時間
-                        </p>
+                    <p class="detail-label">
+                        Time
+                    </p>
 
-                        <p class="detail-main">
-                            12:00
-                        </p>
+                    <h3>
+                        時間
+                    </h3>
 
-                        <p class="detail-secondary">
-                            Wedding Luncheon · 婚宴午宴
-                        </p>
-                    </div>
+                    <p class="detail-main">
+                        12:00
+                    </p>
+
+                    <p class="detail-secondary">
+                        Wedding Luncheon · 婚宴午宴
+                    </p>
                 </article>
 
                 <article class="detail-card detail-card-wide">
-                    <div class="detail-icon">
-                        📍
+                    <div class="detail-symbol">
+                        Ⅲ
                     </div>
 
-                    <div>
-                        <p class="detail-label">
-                            Venue · 地點
-                        </p>
+                    <p class="detail-label">
+                        Venue
+                    </p>
 
-                        <p
-                            id="venue-name"
-                            class="detail-main"
-                        ></p>
+                    <h3>
+                        地點
+                    </h3>
 
-                        <p
-                            id="venue-address"
-                            class="detail-secondary"
-                        ></p>
+                    <p
+                        id="venue-name"
+                        class="detail-main"
+                    ></p>
 
-                        <div
-                            id="venue-detail"
-                            class="venue-detail"
-                        ></div>
-                    </div>
+                    <p
+                        id="venue-address"
+                        class="detail-secondary"
+                    ></p>
+
+                    <div
+                        id="venue-detail"
+                        class="venue-detail"
+                    ></div>
                 </article>
             </div>
         </section>
 
         <!-- 婚禮時程 -->
         <section class="content-section timeline-section">
-            <div class="section-heading">
+            <div class="section-heading centered-heading">
                 <p class="eyebrow">
                     Wedding Timeline
                 </p>
@@ -243,11 +310,17 @@
 
                 <p class="section-note">
                     婚禮當日流程與時間<br>
-                    Wedding day schedule
+                    Wedding Day Schedule
                 </p>
+
+                <div class="section-divider">
+                    <span></span>
+                    <i>❦</i>
+                    <span></span>
+                </div>
             </div>
 
-            <div class="timeline-image-wrapper">
+            <div class="editorial-image-frame">
                 <img
                     id="timeline-image"
                     class="timeline-image"
@@ -268,7 +341,7 @@
 
         <!-- 地點與交通 -->
         <section class="content-section venue-section">
-            <div class="section-heading">
+            <div class="section-heading centered-heading">
                 <p class="eyebrow">
                     Venue & Transportation
                 </p>
@@ -276,6 +349,12 @@
                 <h2>
                     地點與交通資訊
                 </h2>
+
+                <div class="section-divider">
+                    <span></span>
+                    <i>✦</i>
+                    <span></span>
+                </div>
             </div>
 
             <div class="map-actions">
@@ -286,7 +365,8 @@
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    Google Maps 導航 · Directions
+                    Google Maps 導航
+                    <span>Directions</span>
                 </a>
             </div>
 
@@ -306,37 +386,49 @@
 
             <div class="information-grid">
                 <article class="information-card">
-                    <div class="information-title">
-                        <span>🚌</span>
-
-                        <div>
-                            <p>Transit</p>
-                            <h3>大眾運輸與交通</h3>
-                        </div>
+                    <div class="information-card-decoration">
+                        ❧
                     </div>
 
-                    <div id="traffic-info"></div>
+                    <p class="information-en-title">
+                        Transit
+                    </p>
+
+                    <h3>
+                        大眾運輸與交通
+                    </h3>
+
+                    <div
+                        class="information-content"
+                        id="traffic-info"
+                    ></div>
                 </article>
 
                 <article class="information-card">
-                    <div class="information-title">
-                        <span>🚗</span>
-
-                        <div>
-                            <p>Parking</p>
-                            <h3>停車資訊</h3>
-                        </div>
+                    <div class="information-card-decoration">
+                        ❧
                     </div>
 
-                    <div id="parking-info"></div>
+                    <p class="information-en-title">
+                        Parking
+                    </p>
+
+                    <h3>
+                        停車資訊
+                    </h3>
+
+                    <div
+                        class="information-content"
+                        id="parking-info"
+                    ></div>
                 </article>
             </div>
         </section>
 
         <!-- Our Moments -->
         <section class="moments-section">
-            <div class="section-heading section-heading-light">
-                <p class="eyebrow light-eyebrow">
+            <div class="section-heading centered-heading">
+                <p class="eyebrow">
                     Our Moments
                 </p>
 
@@ -345,9 +437,15 @@
                 </h2>
 
                 <p class="section-note">
-                    Moments we cherish together<br>
+                    Moments We Cherish Together<br>
                     我們珍藏的每一個瞬間
                 </p>
+
+                <div class="section-divider">
+                    <span></span>
+                    <i>❦</i>
+                    <span></span>
+                </div>
             </div>
 
             <div
@@ -362,329 +460,353 @@
             class="rsvp-section"
             id="rsvp-section"
         >
-            <div class="section-heading section-heading-light">
-                <p class="eyebrow light-eyebrow">
-                    RSVP
-                </p>
+            <div class="rsvp-inner">
+                <div class="section-heading centered-heading">
+                    <p class="eyebrow">
+                        Répondez S'il Vous Plaît
+                    </p>
 
-                <h2>
-                    賓客回覆
-                </h2>
+                    <h2>
+                        賓客回覆
+                    </h2>
 
-                <p class="section-note">
-                    敬請於截止日前完成回覆<br>
-                    Kindly respond before the deadline
-                </p>
+                    <p class="section-note">
+                        敬請於截止日前完成回覆<br>
+                        Kindly Respond Before the Deadline
+                    </p>
 
-                <p
-                    id="rsvp-deadline-display"
-                    class="deadline-display"
-                ></p>
-            </div>
-
-            <div id="rsvp-form-wrapper">
-                <form id="rsvp-form">
-                    <input
-                        type="hidden"
-                        id="form-wedding-location"
-                        name="weddingLocation"
-                    >
-
-                    <div class="form-group">
-                        <label for="guest-name">
-                            Your Name · 姓名
-                            <span class="required-mark">*</span>
-                        </label>
-
-                        <input
-                            id="guest-name"
-                            type="text"
-                            name="guestName"
-                            required
-                            maxlength="50"
-                            autocomplete="name"
-                            placeholder="Name · 您的姓名"
-                        >
+                    <div class="section-divider">
+                        <span></span>
+                        <i>✦</i>
+                        <span></span>
                     </div>
 
-                    <div class="form-group">
-                        <label for="relation">
-                            Relationship · 與新人的關係
-                            <span class="required-mark">*</span>
-                        </label>
+                    <p
+                        id="rsvp-deadline-display"
+                        class="deadline-display"
+                    ></p>
+                </div>
 
-                        <select
-                            id="relation"
-                            name="relation"
-                            required
+                <div id="rsvp-form-wrapper">
+                    <form id="rsvp-form">
+                        <input
+                            type="hidden"
+                            id="form-wedding-location"
+                            name="weddingLocation"
                         >
-                            <option
-                                value=""
-                                selected
-                                disabled
+
+                        <div class="form-group">
+                            <label for="guest-name">
+                                <span>Your Name</span>
+                                姓名
+                                <b>*</b>
+                            </label>
+
+                            <input
+                                id="guest-name"
+                                type="text"
+                                name="guestName"
+                                required
+                                maxlength="50"
+                                autocomplete="name"
+                                placeholder="請輸入您的姓名"
                             >
-                                Select · 請選擇
-                            </option>
+                        </div>
 
-                            <option value="男方親友">
-                                Groom's Guest · 男方親友
-                            </option>
-
-                            <option value="女方親友">
-                                Bride's Guest · 女方親友
-                            </option>
-
-                            <option value="共同朋友">
-                                Mutual Friend · 共同朋友
-                            </option>
-
-                            <option value="公司同事">
-                                Colleague · 公司同事
-                            </option>
-
-                            <option value="其他">
-                                Other · 其他
-                            </option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phone">
-                            Phone Number · 聯絡電話
-                            <span class="required-mark">*</span>
-                        </label>
-
-                        <input
-                            id="phone"
-                            type="tel"
-                            name="phone"
-                            required
-                            maxlength="20"
-                            autocomplete="tel"
-                            inputmode="tel"
-                            placeholder="0912345678"
-                        >
-                    </div>
-
-                    <div class="form-group">
-                        <label for="attendance">
-                            Attendance · 是否出席
-                            <span class="required-mark">*</span>
-                        </label>
-
-                        <select
-                            id="attendance"
-                            name="isAttending"
-                            required
-                        >
-                            <option value="yes">
-                                Attending · 出席
-                            </option>
-
-                            <option value="no">
-                                Not Attending · 不出席
-                            </option>
-                        </select>
-                    </div>
-
-                    <div
-                        id="attendance-detail-fields"
-                        class="conditional-fields"
-                    >
-                        <div
-                            id="field-ceremony"
-                            class="form-group"
-                        >
-                            <label for="attend-ceremony">
-                                Ceremony Attendance · 是否出席證婚
+                        <div class="form-group">
+                            <label for="relation">
+                                <span>Relationship</span>
+                                與新人的關係
+                                <b>*</b>
                             </label>
 
                             <select
-                                id="attend-ceremony"
-                                name="attendCeremony"
+                                id="relation"
+                                name="relation"
+                                required
+                            >
+                                <option
+                                    value=""
+                                    selected
+                                    disabled
+                                >
+                                    請選擇 Select
+                                </option>
+
+                                <option value="男方親友">
+                                    男方親友 · Groom's Guest
+                                </option>
+
+                                <option value="女方親友">
+                                    女方親友 · Bride's Guest
+                                </option>
+
+                                <option value="共同朋友">
+                                    共同朋友 · Mutual Friend
+                                </option>
+
+                                <option value="公司同事">
+                                    公司同事 · Colleague
+                                </option>
+
+                                <option value="其他">
+                                    其他 · Other
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">
+                                <span>Phone Number</span>
+                                聯絡電話
+                                <b>*</b>
+                            </label>
+
+                            <input
+                                id="phone"
+                                type="tel"
+                                name="phone"
+                                required
+                                maxlength="20"
+                                autocomplete="tel"
+                                inputmode="tel"
+                                placeholder="0912345678"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="attendance">
+                                <span>Attendance</span>
+                                是否出席
+                                <b>*</b>
+                            </label>
+
+                            <select
+                                id="attendance"
+                                name="isAttending"
+                                required
                             >
                                 <option value="yes">
-                                    Yes, attending · 是，會出席證婚
+                                    出席 · Attending
                                 </option>
 
                                 <option value="no">
-                                    Luncheon only · 否，僅參加午宴
+                                    不出席 · Not Attending
                                 </option>
                             </select>
-
-                            <p class="field-help">
-                                8F Starlight Terrace · 涵碧樓 8F 星光露台
-                            </p>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="attend-count">
-                                Guest Count · 總出席人數
-                                <span class="required-mark">*</span>
-                            </label>
-
-                            <input
-                                id="attend-count"
-                                type="number"
-                                name="attendCount"
-                                min="1"
-                                max="20"
-                                step="1"
-                                value="1"
-                                required
-                            >
-
-                            <p class="field-help important-help">
-                                請包含您本人、其他成人與所有兒童。<br>
-                                Please include yourself, all adults and all children.
-                            </p>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="child-set-count">
-                                Child Seat & Tableware Sets · 兒童座椅及餐具組數量
-                            </label>
-
-                            <input
-                                id="child-set-count"
-                                type="number"
-                                name="childSetCount"
-                                min="0"
-                                max="20"
-                                step="1"
-                                value="0"
-                            >
-
-                            <p class="field-help">
-                                每組包含一張兒童座椅及一組兒童餐具，不需要請填 0。<br>
-                                Each set includes one child seat and one child tableware set. Enter 0 if not required.
-                            </p>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="dietary-type">
-                                Meal Preference · 餐點需求
-                                <span class="required-mark">*</span>
-                            </label>
-
-                            <select
-                                id="dietary-type"
-                                name="dietaryType"
-                                required
-                            >
-                                <option value="all_meat">
-                                    Regular Meals · 全葷
-                                </option>
-
-                                <option value="all_veg">
-                                    All Vegetarian · 全素
-                                </option>
-
-                                <option value="other">
-                                    Other · 其他
-                                </option>
-                            </select>
-
-                            <p
-                                id="dietary-other-help"
-                                class="field-help important-help"
-                                hidden
-                            >
-                                請於下方「食物過敏或特殊需求」欄位說明餐點需求。<br>
-                                Please describe your meal requirements in the dietary restrictions field below.
-                            </p>
                         </div>
 
                         <div
-                            id="field-veg-count"
-                            class="form-group"
+                            id="attendance-detail-fields"
+                            class="conditional-fields"
                         >
-                            <label for="veg-count">
-                                Vegetarian Guest Count · 素食人數
-                            </label>
-
-                            <input
-                                id="veg-count"
-                                type="number"
-                                name="vegCount"
-                                min="0"
-                                max="20"
-                                step="1"
-                                value="0"
+                            <div
+                                id="field-ceremony"
+                                class="form-group"
                             >
+                                <label for="attend-ceremony">
+                                    <span>Ceremony Attendance</span>
+                                    是否出席證婚
+                                </label>
+
+                                <select
+                                    id="attend-ceremony"
+                                    name="attendCeremony"
+                                >
+                                    <option value="yes">
+                                        是，會出席證婚 · Attending
+                                    </option>
+
+                                    <option value="no">
+                                        否，僅參加午宴 · Luncheon Only
+                                    </option>
+                                </select>
+
+                                <p class="field-help">
+                                    涵碧樓 8F 星光露台<br>
+                                    8F Starlight Terrace
+                                </p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="attend-count">
+                                    <span>Total Guest Count</span>
+                                    總出席人數
+                                    <b>*</b>
+                                </label>
+
+                                <input
+                                    id="attend-count"
+                                    type="number"
+                                    name="attendCount"
+                                    min="1"
+                                    max="20"
+                                    step="1"
+                                    value="1"
+                                    required
+                                >
+
+                                <p class="field-help highlighted-help">
+                                    請包含您本人、其他成人與所有兒童。<br>
+                                    Please include yourself, all adults and all children.
+                                </p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="child-set-count">
+                                    <span>Child Seat & Tableware Sets</span>
+                                    兒童座椅及餐具組數量
+                                </label>
+
+                                <input
+                                    id="child-set-count"
+                                    type="number"
+                                    name="childSetCount"
+                                    min="0"
+                                    max="20"
+                                    step="1"
+                                    value="0"
+                                >
+
+                                <p class="field-help">
+                                    每組包含一張兒童座椅及一組兒童餐具，不需要請填 0。<br>
+                                    Each set includes one child seat and one child tableware set.
+                                </p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dietary-type">
+                                    <span>Meal Preference</span>
+                                    餐點需求
+                                    <b>*</b>
+                                </label>
+
+                                <select
+                                    id="dietary-type"
+                                    name="dietaryType"
+                                    required
+                                >
+                                    <option value="all_meat">
+                                        全葷 · Regular Meals
+                                    </option>
+
+                                    <option value="all_veg">
+                                        全素 · All Vegetarian
+                                    </option>
+
+                                    <option value="other">
+                                        其他 · Other
+                                    </option>
+                                </select>
+
+                                <p
+                                    id="dietary-other-help"
+                                    class="field-help highlighted-help"
+                                    hidden
+                                >
+                                    請於下方「食物過敏或特殊需求」欄位說明餐點需求。<br>
+                                    Please describe your meal requirements below.
+                                </p>
+                            </div>
+
+                            <div
+                                id="field-veg-count"
+                                class="form-group"
+                            >
+                                <label for="veg-count">
+                                    <span>Vegetarian Guest Count</span>
+                                    素食人數
+                                </label>
+
+                                <input
+                                    id="veg-count"
+                                    type="number"
+                                    name="vegCount"
+                                    min="0"
+                                    max="20"
+                                    step="1"
+                                    value="0"
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="food-allergy">
+                                    <span>Dietary Restrictions</span>
+                                    食物過敏或特殊需求
+                                </label>
+
+                                <textarea
+                                    id="food-allergy"
+                                    name="foodAllergy"
+                                    rows="3"
+                                    maxlength="300"
+                                    placeholder="請註明食物過敏、特殊餐點或其他需求"
+                                ></textarea>
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="food-allergy">
-                                Dietary Restrictions · 食物過敏或特殊需求
+                            <label for="message">
+                                <span>Message for the Couple</span>
+                                想對新人說的話
                             </label>
 
                             <textarea
-                                id="food-allergy"
-                                name="foodAllergy"
+                                id="message"
+                                name="message"
                                 rows="3"
-                                maxlength="300"
-                                placeholder="請註明食物過敏、特殊餐點或其他需求 · Allergies, special meals or other requests"
+                                maxlength="500"
+                                placeholder="留下給 Kevin 與 Coco 的祝福"
                             ></textarea>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="message">
-                            Message for the Couple · 想對新人說的話
-                        </label>
+                        <button
+                            type="submit"
+                            class="submit-btn"
+                            id="submit-button"
+                        >
+                            <span>
+                                Submit RSVP
+                            </span>
 
-                        <textarea
-                            id="message"
-                            name="message"
-                            rows="3"
-                            maxlength="500"
-                            placeholder="Your message · 給 Kevin 與 Coco 的祝福"
-                        ></textarea>
-                    </div>
+                            送出回覆
+                        </button>
 
-                    <button
-                        type="submit"
-                        class="submit-btn"
-                        id="submit-button"
-                    >
-                        送出回覆 · Submit RSVP
-                    </button>
-
-                    <p
-                        id="form-status"
-                        class="form-status"
-                        role="status"
-                        aria-live="polite"
-                    ></p>
-                </form>
-            </div>
-
-            <div
-                id="deadline-notice"
-                class="deadline-notice"
-                hidden
-            >
-                <div class="deadline-icon">
-                    ⏰
+                        <p
+                            id="form-status"
+                            class="form-status"
+                            role="status"
+                            aria-live="polite"
+                        ></p>
+                    </form>
                 </div>
 
-                <p class="deadline-main">
-                    截止日期已過。
-                </p>
+                <div
+                    id="deadline-notice"
+                    class="deadline-notice"
+                    hidden
+                >
+                    <div class="deadline-icon">
+                        ⏰
+                    </div>
 
-                <p>
-                    如需異動，請直接與我們聯絡。
-                </p>
+                    <p class="deadline-main">
+                        截止日期已過。
+                    </p>
 
-                <p class="deadline-en">
-                    The RSVP deadline has passed.
-                </p>
+                    <p>
+                        如需異動，請直接與我們聯絡。
+                    </p>
+
+                    <p class="deadline-en">
+                        The RSVP deadline has passed.
+                    </p>
+                </div>
             </div>
         </section>
     </main>
 
-    <!-- 僅供 Our Moments 使用的燈箱 -->
+    <!-- 僅供 Our Moments 使用 -->
     <div
         id="lightbox"
         class="lightbox"
@@ -711,6 +833,10 @@
     </div>
 
     <footer class="page-footer">
+        <div class="footer-decoration">
+            ❦
+        </div>
+
         <p class="footer-names">
             Kevin &amp; Coco
         </p>
@@ -721,13 +847,13 @@
 
         <p>
             感謝您與我們一同分享這份喜悅。<br>
-            Thank you for celebrating with us.
+            Thank You for Celebrating with Us.
         </p>
     </footer>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-    <script src="./app.js?v=20260803-05"></script>
+    <script src="./app.js?v=20260805-01"></script>
 </body>
 </html>

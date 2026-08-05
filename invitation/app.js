@@ -1317,9 +1317,6 @@ function prepareFormControls(config) {
         dietaryOtherHelp.hidden =
             !showOtherHelp;
 
-        /*
-         * 選擇其他時，食物過敏或特殊需求改為必填。
-         */
         foodAllergyInput.required =
             showOtherHelp;
 
@@ -1534,7 +1531,7 @@ function buildRsvpData(
             window.location.href,
 
         formVersion:
-            "20260803-05"
+            "20260805-01"
     };
 }
 
@@ -1958,16 +1955,13 @@ function setupRsvpForm(
                 return;
             }
 
-            console.log(
-                "準備送出的 RSVP 資料：",
-                data
-            );
-
             submitButton.disabled =
                 true;
 
-            submitButton.textContent =
-                "送出中 · Submitting...";
+            submitButton.innerHTML = `
+                <span>Submitting</span>
+                送出中
+            `;
 
             try {
                 const result =
@@ -2055,8 +2049,10 @@ function setupRsvpForm(
                 submitButton.disabled =
                     false;
 
-                submitButton.textContent =
-                    "送出回覆 · Submit RSVP";
+                submitButton.innerHTML = `
+                    <span>Submit RSVP</span>
+                    送出回覆
+                `;
             }
         }
     );
