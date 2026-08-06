@@ -23,6 +23,11 @@ html {
     scroll-behavior: smooth;
 }
 
+html.show-invitation-gate,
+html.show-invitation-gate body {
+    overflow: hidden;
+}
+
 body {
     position: relative;
 
@@ -77,7 +82,629 @@ img {
 }
 
 /* =========================================================
-   植物裝飾
+   信封入口
+========================================================= */
+
+.invitation-gate {
+    position: fixed;
+    z-index: 20000;
+    inset: 0;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    color: var(--text);
+    background-color: var(--background);
+
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            rgba(111, 124, 62, 0.018) 0,
+            rgba(111, 124, 62, 0.018) 1px,
+            transparent 1px,
+            transparent 4px
+        ),
+        radial-gradient(
+            circle at 50% 42%,
+            rgba(239, 231, 219, 0.38),
+            transparent 48%
+        );
+
+    opacity: 1;
+    visibility: visible;
+
+    transition:
+        opacity 0.55s ease,
+        visibility 0.55s ease;
+}
+
+html.show-invitation-gate .invitation-gate {
+    display: flex;
+}
+
+.invitation-gate.is-leaving {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.gate-content {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: min(820px, 100%);
+    min-height: 100svh;
+    padding:
+        max(30px, env(safe-area-inset-top))
+        20px
+        max(30px, env(safe-area-inset-bottom));
+
+    text-align: center;
+}
+
+.gate-title {
+    margin: 0 0 clamp(13px, 2.5vh, 25px);
+
+    color: var(--primary);
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
+    font-size: clamp(14px, 2vw, 17px);
+    font-weight: 400;
+    letter-spacing: 0.55em;
+}
+
+.gate-monogram-row {
+    display: grid;
+    grid-template-columns: 1fr 58px 1fr;
+    align-items: center;
+    gap: clamp(13px, 3vw, 28px);
+
+    width: min(580px, 100%);
+    margin-bottom: clamp(18px, 3vh, 28px);
+}
+
+.gate-monogram-row p {
+    margin: 0;
+
+    color: var(--sage);
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
+    font-size: clamp(11px, 1.8vw, 14px);
+    font-weight: 400;
+    letter-spacing: 0.38em;
+    white-space: nowrap;
+}
+
+.monogram-logo {
+    position: relative;
+
+    width: 58px;
+    height: 58px;
+
+    color: var(--primary);
+
+    border: 1px solid var(--primary);
+    border-radius: 50%;
+}
+
+.monogram-logo::before {
+    position: absolute;
+    inset: 5px;
+
+    content: "";
+
+    border: 1px solid rgba(111, 124, 62, 0.4);
+    border-radius: 50%;
+}
+
+.monogram-k,
+.monogram-c {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    font-family:
+        "Allura",
+        cursive;
+
+    font-weight: 400;
+    line-height: 1;
+}
+
+.monogram-k {
+    transform: translate(-67%, -53%) rotate(-7deg);
+
+    font-size: 34px;
+}
+
+.monogram-c {
+    transform: translate(-28%, -47%) rotate(6deg);
+
+    color: var(--accent);
+    font-size: 32px;
+}
+
+.gate-main-invitation {
+    margin: 0 0 7px;
+
+    color: var(--primary);
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
+    font-size: clamp(12px, 2vw, 16px);
+    font-weight: 400;
+    letter-spacing: clamp(0.18em, 1vw, 0.42em);
+}
+
+.gate-english-invitation {
+    margin: 0;
+
+    color: var(--sage);
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: clamp(11px, 1.7vw, 14px);
+    font-weight: 500;
+    letter-spacing: 0.32em;
+}
+
+.gate-couple-names {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: clamp(12px, 2.6vh, 25px) 0
+        clamp(15px, 3.4vh, 32px);
+
+    color: var(--primary);
+
+    font-family:
+        "Allura",
+        cursive;
+
+    line-height: 0.75;
+}
+
+.gate-name-kevin {
+    margin-right: 50px;
+
+    font-size: clamp(38px, 7vw, 60px);
+}
+
+.gate-name-coco {
+    margin-top: 8px;
+    margin-left: 60px;
+
+    color: var(--accent);
+    font-size: clamp(48px, 8.5vw, 74px);
+}
+
+.envelope-button {
+    display: block;
+
+    width: min(420px, 78vw);
+    padding: 0;
+
+    background: transparent;
+    border: 0;
+
+    cursor: pointer;
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+.envelope-button:focus-visible {
+    outline: 1px solid var(--accent);
+    outline-offset: 12px;
+}
+
+.envelope-button:disabled {
+    cursor: default;
+}
+
+.envelope {
+    position: relative;
+
+    display: block;
+
+    width: 100%;
+    aspect-ratio: 1.55 / 1;
+
+    perspective: 900px;
+    transform-style: preserve-3d;
+}
+
+.envelope-back {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            #A8B38B 0%,
+            var(--sage) 100%
+        );
+
+    border: 1px solid rgba(111, 124, 62, 0.62);
+}
+
+.envelope-back::after {
+    position: absolute;
+    inset: 0;
+
+    content: "";
+
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            rgba(245, 241, 234, 0.035) 0,
+            rgba(245, 241, 234, 0.035) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+}
+
+.envelope-card {
+    position: absolute;
+    z-index: 2;
+    left: 8%;
+    bottom: 7%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 84%;
+    height: 75%;
+    padding: 12px;
+
+    color: var(--primary);
+    background-color: var(--background);
+
+    border: 1px solid rgba(111, 124, 62, 0.48);
+
+    transform: translateY(4%);
+    transform-origin: center bottom;
+
+    transition:
+        transform 0.95s cubic-bezier(0.2, 0.72, 0.22, 1);
+}
+
+.envelope-card::before {
+    position: absolute;
+    inset: 6px;
+
+    content: "";
+
+    border: 1px solid rgba(163, 177, 138, 0.43);
+}
+
+.envelope-card-monogram {
+    position: relative;
+
+    display: block;
+
+    width: 40px;
+    height: 40px;
+    margin-bottom: 4px;
+
+    border: 1px solid var(--primary);
+    border-radius: 50%;
+}
+
+.envelope-card-monogram span {
+    position: absolute;
+
+    font-family:
+        "Allura",
+        cursive;
+
+    font-size: 24px;
+    line-height: 1;
+}
+
+.envelope-card-monogram span:first-child {
+    top: 8px;
+    left: 7px;
+}
+
+.envelope-card-monogram span:last-child {
+    top: 9px;
+    right: 7px;
+
+    color: var(--accent);
+}
+
+.envelope-card-name {
+    position: relative;
+    z-index: 1;
+
+    font-family:
+        "Allura",
+        cursive;
+
+    font-size: clamp(24px, 5vw, 38px);
+}
+
+.envelope-card-text {
+    position: relative;
+    z-index: 1;
+
+    margin-top: 2px;
+
+    color: var(--sage);
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+}
+
+.envelope-front-left,
+.envelope-front-right,
+.envelope-front-bottom {
+    position: absolute;
+    z-index: 4;
+    inset: 0;
+
+    pointer-events: none;
+}
+
+.envelope-front-left {
+    background: #9EAA7B;
+
+    clip-path:
+        polygon(
+            0 0,
+            56% 57%,
+            0 100%
+        );
+}
+
+.envelope-front-right {
+    background: #A8B38B;
+
+    clip-path:
+        polygon(
+            100% 0,
+            44% 57%,
+            100% 100%
+        );
+}
+
+.envelope-front-bottom {
+    background: var(--sage);
+
+    clip-path:
+        polygon(
+            0 100%,
+            50% 45%,
+            100% 100%
+        );
+
+    border-bottom: 1px solid rgba(111, 124, 62, 0.62);
+}
+
+.envelope-flap {
+    position: absolute;
+    z-index: 6;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 60%;
+
+    background: #98A674;
+
+    border-top: 1px solid rgba(111, 124, 62, 0.62);
+
+    clip-path:
+        polygon(
+            0 0,
+            100% 0,
+            50% 100%
+        );
+
+    transform: rotateX(0deg);
+    transform-origin: top center;
+    backface-visibility: hidden;
+
+    transition:
+        transform 0.72s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.envelope-seal {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+
+    width: 50px;
+    height: 50px;
+
+    color: var(--background);
+    background: rgba(111, 124, 62, 0.9);
+
+    border: 1px solid rgba(245, 241, 234, 0.75);
+    border-radius: 50%;
+
+    transform: translate(-50%, -50%);
+}
+
+.envelope-seal::before {
+    position: absolute;
+    inset: 5px;
+
+    content: "";
+
+    border: 1px solid rgba(245, 241, 234, 0.52);
+    border-radius: 50%;
+}
+
+.seal-k,
+.seal-c {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    font-family:
+        "Allura",
+        cursive;
+
+    font-size: 29px;
+    line-height: 1;
+}
+
+.seal-k {
+    transform: translate(-69%, -52%);
+}
+
+.seal-c {
+    transform: translate(-25%, -47%);
+}
+
+.gate-instruction {
+    margin-top: clamp(14px, 2.8vh, 28px);
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+}
+
+.gate-instruction p {
+    margin: 0;
+
+    color: var(--primary);
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.42em;
+}
+
+.gate-instruction span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: var(--sage);
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
+    font-size: 11px;
+    letter-spacing: 0.3em;
+}
+
+.invitation-gate:not(.is-opening) .envelope-button {
+    animation:
+        envelopeFloat 3.2s ease-in-out infinite;
+}
+
+.invitation-gate.is-opening .envelope-flap {
+    z-index: 1;
+
+    transform: rotateX(180deg);
+}
+
+.invitation-gate.is-opening .envelope-card {
+    transform: translateY(-67%);
+}
+
+.invitation-gate.is-opening .gate-instruction {
+    opacity: 0;
+    transform: translateY(8px);
+}
+
+.invitation-gate.is-opening .gate-title,
+.invitation-gate.is-opening .gate-monogram-row,
+.invitation-gate.is-opening .gate-main-invitation,
+.invitation-gate.is-opening .gate-english-invitation,
+.invitation-gate.is-opening .gate-couple-names {
+    transition:
+        opacity 0.5s ease,
+        transform 0.5s ease;
+
+    opacity: 0.32;
+    transform: translateY(-4px);
+}
+
+@keyframes envelopeFloat {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+}
+
+.gate-botanical {
+    position: absolute;
+    z-index: 1;
+
+    width: 260px;
+    height: 330px;
+
+    opacity: 0.12;
+    pointer-events: none;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='360' viewBox='0 0 280 360'%3E%3Cg fill='none' stroke='%236F7C3E' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M44 330 C55 235 80 150 151 44'/%3E%3Cpath d='M78 265 C120 245 150 213 174 173'/%3E%3Cpath d='M65 232 C42 202 34 172 38 137'/%3E%3Cpath d='M105 186 C143 163 171 130 187 89'/%3E%3C/g%3E%3Cg fill='%23A3B18A' fill-opacity='.72'%3E%3Cellipse cx='62' cy='285' rx='16' ry='31' transform='rotate(-34 62 285)'/%3E%3Cellipse cx='84' cy='236' rx='16' ry='32' transform='rotate(30 84 236)'/%3E%3Cellipse cx='117' cy='214' rx='16' ry='31' transform='rotate(-49 117 214)'/%3E%3Cellipse cx='52' cy='183' rx='15' ry='29' transform='rotate(-28 52 183)'/%3E%3Cellipse cx='140' cy='157' rx='15' ry='30' transform='rotate(44 140 157)'/%3E%3Cellipse cx='175' cy='112' rx='14' ry='28' transform='rotate(35 175 112)'/%3E%3C/g%3E%3Cg fill='%23D8A7A1' fill-opacity='.72'%3E%3Ccircle cx='191' cy='78' r='11'/%3E%3Ccircle cx='205' cy='88' r='8'/%3E%3Ccircle cx='181' cy='92' r='7'/%3E%3C/g%3E%3C/svg%3E");
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.gate-botanical-left {
+    bottom: -80px;
+    left: -60px;
+
+    transform: rotate(-8deg);
+}
+
+.gate-botanical-right {
+    top: -80px;
+    right: -65px;
+
+    transform: scale(-1) rotate(-8deg);
+}
+
+/* =========================================================
+   頁面植物裝飾
 ========================================================= */
 
 .botanical-decoration {
@@ -106,23 +733,26 @@ img {
 .botanical-top-right {
     top: -70px;
     right: -85px;
+
     transform: scaleX(-1);
 }
 
 .botanical-bottom-left {
     bottom: -110px;
     left: -90px;
+
     transform: scaleY(-1);
 }
 
 .botanical-bottom-right {
     right: -90px;
     bottom: -110px;
+
     transform: scale(-1);
 }
 
 /* =========================================================
-   共用字體與標題
+   共用標題
 ========================================================= */
 
 .eyebrow {
@@ -189,6 +819,7 @@ img {
 .section-divider span,
 .ornamental-divider span {
     display: block;
+
     width: 90px;
     height: 1px;
 
@@ -199,6 +830,7 @@ img {
 .section-divider i,
 .ornamental-divider i {
     color: var(--accent);
+
     font-style: normal;
     font-size: 15px;
 }
@@ -254,8 +886,7 @@ img {
 
     text-align: center;
 
-    background:
-        rgba(245, 241, 234, 0.88);
+    background: rgba(245, 241, 234, 0.88);
 
     border: 1px solid rgba(111, 124, 62, 0.6);
     border-radius: 2px;
@@ -330,6 +961,7 @@ h1 {
 
 h1 em {
     color: var(--accent);
+
     font-weight: 400;
     text-transform: none;
 }
@@ -517,6 +1149,7 @@ h1 em {
 
 .notice-leaf {
     color: var(--sage);
+
     font-size: 27px;
 }
 
@@ -568,13 +1201,19 @@ h1 em {
         0 12px 30px var(--paper-shadow);
 }
 
+.timeline-frame {
+    margin-bottom: 0;
+}
+
 .editorial-image-frame::before {
     position: absolute;
+    z-index: 2;
     inset: 5px;
 
     content: "";
 
     border: 1px solid rgba(163, 177, 138, 0.55);
+
     pointer-events: none;
 }
 
@@ -584,6 +1223,7 @@ h1 em {
     height: auto;
 
     aspect-ratio: 3 / 2;
+
     object-fit: contain;
     object-position: center;
 
@@ -746,6 +1386,7 @@ h1 em {
 
 .map-actions {
     margin-bottom: 26px;
+
     text-align: center;
 }
 
@@ -923,7 +1564,9 @@ h1 em {
     position: relative;
     z-index: 1;
 
-    padding: 110px max(20px, calc((100% - 1040px) / 2 + 30px));
+    padding:
+        110px
+        max(20px, calc((100% - 1040px) / 2 + 30px));
 
     background:
         linear-gradient(
@@ -979,6 +1622,7 @@ h1 em {
 
 .photo-item:hover {
     border-color: var(--accent);
+
     transform: translateY(-4px);
 }
 
@@ -1093,6 +1737,7 @@ h1 em {
 
 .form-group label b {
     color: var(--accent);
+
     font-weight: 400;
 }
 
@@ -1127,6 +1772,7 @@ h1 em {
 
 .form-group textarea {
     min-height: 92px;
+
     resize: vertical;
 }
 
@@ -1139,6 +1785,7 @@ h1 em {
 .form-group select:focus,
 .form-group textarea:focus {
     background: rgba(245, 241, 234, 0.48);
+
     border-bottom-color: var(--accent);
 }
 
@@ -1210,6 +1857,7 @@ h1 em {
 
 .submit-btn:disabled {
     opacity: 0.55;
+
     cursor: not-allowed;
     transform: none;
 }
@@ -1249,6 +1897,7 @@ h1 em {
 
 .deadline-icon {
     margin-bottom: 14px;
+
     font-size: 34px;
 }
 
@@ -1352,6 +2001,7 @@ h1 em {
 
 .footer-decoration {
     color: var(--sage);
+
     font-size: 24px;
 }
 
@@ -1390,13 +2040,14 @@ h1 em {
 }
 
 /* =========================================================
-   平板與手機
+   平板
 ========================================================= */
 
 @media (max-width: 800px) {
     .botanical-decoration {
         width: 180px;
         height: 240px;
+
         opacity: 0.1;
     }
 
@@ -1413,7 +2064,9 @@ h1 em {
     }
 
     .countdown-container {
-        grid-template-columns: repeat(4, minmax(64px, 100px));
+        grid-template-columns:
+            repeat(4, minmax(64px, 100px));
+
         gap: 10px;
     }
 
@@ -1459,7 +2112,90 @@ h1 em {
     }
 }
 
+/* =========================================================
+   手機
+========================================================= */
+
 @media (max-width: 500px) {
+    .gate-content {
+        justify-content: center;
+
+        padding:
+            max(18px, env(safe-area-inset-top))
+            13px
+            max(18px, env(safe-area-inset-bottom));
+    }
+
+    .gate-monogram-row {
+        grid-template-columns: 1fr 49px 1fr;
+        gap: 8px;
+    }
+
+    .gate-monogram-row p {
+        font-size: 10px;
+        letter-spacing: 0.2em;
+    }
+
+    .monogram-logo {
+        width: 49px;
+        height: 49px;
+    }
+
+    .monogram-k {
+        font-size: 29px;
+    }
+
+    .monogram-c {
+        font-size: 27px;
+    }
+
+    .gate-main-invitation {
+        font-size: 11px;
+        letter-spacing: 0.13em;
+    }
+
+    .gate-english-invitation {
+        font-size: 10px;
+        letter-spacing: 0.22em;
+    }
+
+    .gate-name-kevin {
+        margin-right: 35px;
+
+        font-size: 38px;
+    }
+
+    .gate-name-coco {
+        margin-left: 44px;
+
+        font-size: 48px;
+    }
+
+    .envelope-button {
+        width: min(310px, 80vw);
+    }
+
+    .envelope-seal {
+        width: 42px;
+        height: 42px;
+    }
+
+    .seal-k,
+    .seal-c {
+        font-size: 24px;
+    }
+
+    .gate-botanical {
+        width: 150px;
+        height: 200px;
+
+        opacity: 0.08;
+    }
+
+    .gate-botanical-right {
+        display: none;
+    }
+
     .botanical-top-right,
     .botanical-bottom-left {
         display: none;
@@ -1468,6 +2204,7 @@ h1 em {
     .botanical-decoration {
         width: 140px;
         height: 190px;
+
         opacity: 0.08;
     }
 
@@ -1507,7 +2244,9 @@ h1 em {
     }
 
     .countdown-container {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+
         gap: 6px;
     }
 
@@ -1542,6 +2281,10 @@ h1 em {
         padding: 6px;
     }
 
+    .timeline-frame {
+        margin-bottom: 0;
+    }
+
     .detail-card,
     .information-card {
         padding: 30px 22px;
@@ -1574,5 +2317,57 @@ h1 em {
 
     .notice-leaf {
         font-size: 20px;
+    }
+}
+
+/* =========================================================
+   低高度手機
+========================================================= */
+
+@media (max-height: 720px) and (max-width: 500px) {
+    .gate-title {
+        margin-bottom: 10px;
+    }
+
+    .gate-monogram-row {
+        margin-bottom: 12px;
+    }
+
+    .gate-couple-names {
+        margin-top: 8px;
+        margin-bottom: 13px;
+    }
+
+    .gate-name-kevin {
+        font-size: 34px;
+    }
+
+    .gate-name-coco {
+        font-size: 43px;
+    }
+
+    .envelope-button {
+        width: min(270px, 72vw);
+    }
+
+    .gate-instruction {
+        margin-top: 10px;
+    }
+}
+
+/* =========================================================
+   減少動畫
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+
+        transition-duration: 0.01ms !important;
     }
 }

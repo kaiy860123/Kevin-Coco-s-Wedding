@@ -1,7 +1,7 @@
 "use strict";
 
 /* =========================================================
-   Firebase 設定
+   Firebase
 ========================================================= */
 
 const firebaseConfig = {
@@ -62,7 +62,7 @@ try {
 }
 
 /* =========================================================
-   Google Form 設定
+   Google Form
 ========================================================= */
 
 const GOOGLE_FORM_URL =
@@ -132,7 +132,7 @@ const sharedImages = {
 };
 
 /* =========================================================
-   婚禮場次設定
+   婚禮場次
 ========================================================= */
 
 const weddingConfig = {
@@ -140,13 +140,13 @@ const weddingConfig = {
         "tainan",
 
     getCurrentLocation() {
-        const urlParams =
+        const params =
             new URLSearchParams(
                 window.location.search
             );
 
         const requestedLocation =
-            urlParams.get("loc");
+            params.get("loc");
 
         if (
             requestedLocation &&
@@ -441,17 +441,14 @@ const weddingConfig = {
 };
 
 /* =========================================================
-   DOM 輔助函式
+   DOM 輔助
 ========================================================= */
 
 function getElement(id) {
     return document.getElementById(id);
 }
 
-function setText(
-    id,
-    value
-) {
+function setText(id, value) {
     const element =
         getElement(id);
 
@@ -461,10 +458,7 @@ function setText(
     }
 }
 
-function setHtml(
-    id,
-    value
-) {
+function setHtml(id, value) {
     const element =
         getElement(id);
 
@@ -472,6 +466,164 @@ function setHtml(
         element.innerHTML =
             value;
     }
+}
+
+/* =========================================================
+   信封入口
+========================================================= */
+
+function setupInvitationGate(currentLocation) {
+    const gate =
+        getElement("invitation-gate");
+
+    const envelopeButton =
+        getElement("envelope-button");
+
+    if (
+        !gate ||
+        !envelopeButton
+    ) {
+        document.documentElement.classList.remove(
+            "show-invitation-gate"
+        );
+
+        return;
+    }
+
+    const shouldShow =
+        document.documentElement.classList.contains(
+            "show-invitation-gate"
+        );
+
+    if (!shouldShow) {
+        gate.hidden =
+            true;
+
+        gate.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        return;
+    }
+
+    gate.hidden =
+        false;
+
+    gate.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+    const sessionKey =
+        `weddingInvitationOpened:${currentLocation}`;
+
+    const reducedMotion =
+        window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+    let isOpening =
+        false;
+
+    function finishOpening() {
+        document.documentElement.classList.remove(
+            "show-invitation-gate"
+        );
+
+        gate.hidden =
+            true;
+
+        gate.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        document.body.style.overflow =
+            "";
+
+        const weddingContent =
+            getElement(
+                "wedding-content"
+            );
+
+        if (weddingContent) {
+            weddingContent.focus({
+                preventScroll: true
+            });
+        }
+
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "auto"
+        });
+    }
+
+    function openInvitation() {
+        if (isOpening) {
+            return;
+        }
+
+        isOpening =
+            true;
+
+        envelopeButton.disabled =
+            true;
+
+        try {
+            window.sessionStorage.setItem(
+                sessionKey,
+                "true"
+            );
+        } catch (error) {
+            console.warn(
+                "無法使用 sessionStorage：",
+                error
+            );
+        }
+
+        gate.classList.add(
+            "is-opening"
+        );
+
+        if (reducedMotion) {
+            window.setTimeout(
+                () => {
+                    gate.classList.add(
+                        "is-leaving"
+                    );
+                },
+                80
+            );
+
+            window.setTimeout(
+                finishOpening,
+                180
+            );
+
+            return;
+        }
+
+        window.setTimeout(
+            () => {
+                gate.classList.add(
+                    "is-leaving"
+                );
+            },
+            1550
+        );
+
+        window.setTimeout(
+            finishOpening,
+            2150
+        );
+    }
+
+    envelopeButton.addEventListener(
+        "click",
+        openInvitation
+    );
 }
 
 /* =========================================================
@@ -1278,6 +1430,41 @@ function prepareFormControls(config) {
             }
         );
 
+    function updateDietaryFields() {
+        const isAttending =
+            attendanceSelect.value ===
+            "yes";
+
+        const dietaryType =
+            dietarySelect.value;
+
+        const showVegetarianCount =
+            isAttending &&
+            dietaryType ===
+            "all_veg";
+
+        const showOtherHelp =
+            isAttending &&
+            dietaryType ===
+            "other";
+
+        setFieldVisibility(
+            vegetarianCountField,
+            showVegetarianCount
+        );
+
+        dietaryOtherHelp.hidden =
+            !showOtherHelp;
+
+        foodAllergyInput.required =
+            showOtherHelp;
+
+        if (!showVegetarianCount) {
+            vegetarianCountInput.value =
+                "0";
+        }
+    }
+
     function updateAttendanceFields() {
         const isAttending =
             attendanceSelect.value ===
@@ -1295,37 +1482,8 @@ function prepareFormControls(config) {
                     .showCeremony
             );
         }
-    }
 
-    function updateDietaryFields() {
-        const dietaryType =
-            dietarySelect.value;
-
-        const showVegetarianCount =
-            dietaryType ===
-            "all_veg";
-
-        const showOtherHelp =
-            dietaryType ===
-            "other";
-
-        setFieldVisibility(
-            vegetarianCountField,
-            showVegetarianCount
-        );
-
-        dietaryOtherHelp.hidden =
-            !showOtherHelp;
-
-        foodAllergyInput.required =
-            showOtherHelp;
-
-        if (
-            !showVegetarianCount
-        ) {
-            vegetarianCountInput.value =
-                "0";
-        }
+        updateDietaryFields();
     }
 
     if (
@@ -1359,11 +1517,10 @@ function prepareFormControls(config) {
     }
 
     updateAttendanceFields();
-    updateDietaryFields();
 }
 
 /* =========================================================
-   餐點文字轉換
+   餐點文字
 ========================================================= */
 
 function getDietaryTypeLabel(
@@ -1391,7 +1548,7 @@ function getDietaryTypeLabel(
 }
 
 /* =========================================================
-   整理 RSVP 資料
+   整理 RSVP
 ========================================================= */
 
 function buildRsvpData(
@@ -1531,12 +1688,12 @@ function buildRsvpData(
             window.location.href,
 
         formVersion:
-            "20260805-01"
+            "20260805-02"
     };
 }
 
 /* =========================================================
-   RSVP 資料驗證
+   RSVP 驗證
 ========================================================= */
 
 function validateRsvpData(data) {
@@ -1650,7 +1807,7 @@ function validateRsvpData(data) {
 }
 
 /* =========================================================
-   寫入 Firebase
+   Firebase 寫入
 ========================================================= */
 
 async function submitToFirebase(data) {
@@ -1693,7 +1850,7 @@ async function submitToFirebase(data) {
 }
 
 /* =========================================================
-   同步至 Google Form / Google Sheet
+   Google Form 寫入
 ========================================================= */
 
 async function submitToGoogleForm(data) {
@@ -1865,7 +2022,7 @@ async function submitRsvpData(data) {
 }
 
 /* =========================================================
-   RSVP 表單送出
+   RSVP 送出
 ========================================================= */
 
 function setupRsvpForm(
@@ -2059,7 +2216,7 @@ function setupRsvpForm(
 }
 
 /* =========================================================
-   頁面初始化
+   初始化
 ========================================================= */
 
 document.addEventListener(
@@ -2082,6 +2239,10 @@ document.addEventListener(
 
             return;
         }
+
+        setupInvitationGate(
+            currentLocation
+        );
 
         const lightboxController =
             setupLightbox();

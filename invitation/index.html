@@ -27,18 +27,181 @@
     >
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@400;500;600;700&display=swap"
         rel="stylesheet"
     >
 
+    <!--
+        在頁面內容顯示前，先判斷此分頁是否已開啟過信封。
+        台南場與南投場分開記錄，但入口畫面內容完全相同。
+    -->
+    <script>
+        (function () {
+            const params = new URLSearchParams(window.location.search);
+            const locationKey =
+                params.get("loc") === "nantou"
+                    ? "nantou"
+                    : "tainan";
+
+            const sessionKey =
+                "weddingInvitationOpened:" + locationKey;
+
+            try {
+                if (
+                    window.sessionStorage.getItem(sessionKey) !==
+                    "true"
+                ) {
+                    document.documentElement.classList.add(
+                        "show-invitation-gate"
+                    );
+                }
+            } catch (error) {
+                document.documentElement.classList.add(
+                    "show-invitation-gate"
+                );
+            }
+        })();
+    </script>
+
     <link
         rel="stylesheet"
-        href="./style.css?v=20260805-01"
+        href="./style.css?v=20260805-02"
     >
 </head>
 
 <body>
-    <!-- 植物裝飾 -->
+    <!-- =====================================================
+         信封開啟入口
+    ====================================================== -->
+
+    <div
+        id="invitation-gate"
+        class="invitation-gate"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="gate-title"
+        aria-describedby="gate-instruction"
+    >
+        <div
+            class="gate-botanical gate-botanical-left"
+            aria-hidden="true"
+        ></div>
+
+        <div
+            class="gate-botanical gate-botanical-right"
+            aria-hidden="true"
+        ></div>
+
+        <div class="gate-content">
+            <p
+                id="gate-title"
+                class="gate-title"
+            >
+                邀 請 函
+            </p>
+
+            <div class="gate-monogram-row">
+                <p>
+                    誠 摯 邀 請
+                </p>
+
+                <div
+                    class="monogram-logo"
+                    aria-label="Kevin and Coco monogram"
+                >
+                    <span class="monogram-k">
+                        K
+                    </span>
+
+                    <span class="monogram-c">
+                        C
+                    </span>
+                </div>
+
+                <p>
+                    蒞 臨 喜 宴
+                </p>
+            </div>
+
+            <p class="gate-main-invitation">
+                誠 摯 邀 您 參 與 我 們 的 婚 禮
+            </p>
+
+            <p class="gate-english-invitation">
+                A HEARTFELT INVITATION FROM
+            </p>
+
+            <div class="gate-couple-names">
+                <span class="gate-name-kevin">
+                    Kevin &amp;
+                </span>
+
+                <span class="gate-name-coco">
+                    Coco
+                </span>
+            </div>
+
+            <button
+                type="button"
+                id="envelope-button"
+                class="envelope-button"
+                aria-label="開啟 Kevin 與 Coco 的婚禮邀請函"
+            >
+                <span class="envelope">
+                    <span class="envelope-back"></span>
+
+                    <span class="envelope-card">
+                        <span class="envelope-card-monogram">
+                            <span>K</span>
+                            <span>C</span>
+                        </span>
+
+                        <span class="envelope-card-name">
+                            Kevin &amp; Coco
+                        </span>
+
+                        <span class="envelope-card-text">
+                            OPEN INVITATION
+                        </span>
+                    </span>
+
+                    <span class="envelope-front-left"></span>
+                    <span class="envelope-front-right"></span>
+                    <span class="envelope-front-bottom"></span>
+
+                    <span class="envelope-flap">
+                        <span class="envelope-seal">
+                            <span class="seal-k">
+                                K
+                            </span>
+
+                            <span class="seal-c">
+                                C
+                            </span>
+                        </span>
+                    </span>
+                </span>
+            </button>
+
+            <div
+                id="gate-instruction"
+                class="gate-instruction"
+            >
+                <p>
+                    TAP TO OPEN
+                </p>
+
+                <span>
+                    輕觸開啟
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================
+         頁面植物裝飾
+    ====================================================== -->
+
     <div
         class="botanical-decoration botanical-top-left"
         aria-hidden="true"
@@ -59,7 +222,10 @@
         aria-hidden="true"
     ></div>
 
-    <!-- 首頁主視覺 -->
+    <!-- =====================================================
+         首頁主視覺
+    ====================================================== -->
+
     <header
         class="hero-section"
         id="hero-bg"
@@ -107,7 +273,10 @@
         </div>
     </header>
 
-    <!-- 婚禮倒數 -->
+    <!-- =====================================================
+         婚禮倒數
+    ====================================================== -->
+
     <section class="countdown-section">
         <div class="section-heading centered-heading">
             <p class="eyebrow">
@@ -151,7 +320,10 @@
         </p>
     </section>
 
-    <main>
+    <main
+        id="wedding-content"
+        tabindex="-1"
+    >
         <!-- 特別公告 -->
         <section
             id="notice-section"
@@ -159,7 +331,10 @@
             hidden
         >
             <div class="notice-inner">
-                <span class="notice-leaf">
+                <span
+                    class="notice-leaf"
+                    aria-hidden="true"
+                >
                     ❧
                 </span>
 
@@ -175,7 +350,10 @@
                     ></p>
                 </div>
 
-                <span class="notice-leaf notice-leaf-right">
+                <span
+                    class="notice-leaf notice-leaf-right"
+                    aria-hidden="true"
+                >
                     ❧
                 </span>
             </div>
@@ -199,7 +377,6 @@
                 </div>
             </div>
 
-            <!-- 各場次專屬婚禮資訊圖片 -->
             <div class="editorial-image-frame">
                 <img
                     id="event-image"
@@ -218,7 +395,6 @@
                 </p>
             </div>
 
-            <!-- 日期、時間、地點文字資訊 -->
             <div class="detail-grid">
                 <article class="detail-card">
                     <div class="detail-symbol">
@@ -320,7 +496,7 @@
                 </div>
             </div>
 
-            <div class="editorial-image-frame">
+            <div class="editorial-image-frame timeline-frame">
                 <img
                     id="timeline-image"
                     class="timeline-image"
@@ -386,7 +562,10 @@
 
             <div class="information-grid">
                 <article class="information-card">
-                    <div class="information-card-decoration">
+                    <div
+                        class="information-card-decoration"
+                        aria-hidden="true"
+                    >
                         ❧
                     </div>
 
@@ -405,7 +584,10 @@
                 </article>
 
                 <article class="information-card">
-                    <div class="information-card-decoration">
+                    <div
+                        class="information-card-decoration"
+                        aria-hidden="true"
+                    >
                         ❧
                     </div>
 
@@ -806,7 +988,7 @@
         </section>
     </main>
 
-    <!-- 僅供 Our Moments 使用 -->
+    <!-- Our Moments 圖片燈箱 -->
     <div
         id="lightbox"
         class="lightbox"
@@ -854,6 +1036,6 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-    <script src="./app.js?v=20260805-01"></script>
+    <script src="./app.js?v=20260805-02"></script>
 </body>
 </html>
