@@ -169,11 +169,17 @@ const weddingConfig = {
             dateEn:
                 "Sunday, January 17, 2027",
 
-            heroDate:
-                "January 17 · 2027 · Tainan",
+            heroDateLine1:
+                "JANUARY 17 2027",
 
-            countdownTarget:
-                "2027-01-17T12:00:00+08:00",
+            heroDateLine2:
+                "TAINAN",
+
+            countdownImage:
+                "./images/countdown-tainan.jpg",
+
+            countdownImageAlt:
+                "台南場婚禮倒數圖片 Tainan wedding countdown image",
 
             rsvpDeadline:
                 "2026-12-31T23:59:59+08:00",
@@ -213,11 +219,28 @@ const weddingConfig = {
             eventImageAlt:
                 "Kevin 與 Coco 台南場婚禮資訊 Tainan Wedding Information",
 
-            timelineImage:
-                "./images/timeline-tainan.jpg",
-
-            timelineAlt:
-                "Kevin 與 Coco 台南場婚禮時程表 Tainan Wedding Timeline",
+            timelineItems: [
+                {
+                    time: "11:30",
+                    icon: "🌸",
+                    titleZh:
+                        "賓客入場、迎賓簽到",
+                    titleEn:
+                        "Guest Arrival",
+                    note:
+                        ""
+                },
+                {
+                    time: "12:00",
+                    icon: "🥂",
+                    titleZh:
+                        "婚宴午宴開始",
+                    titleEn:
+                        "Wedding Luncheon Begins",
+                    note:
+                        ""
+                }
+            ],
 
             googleMapUrl:
                 "https://www.google.com/maps/search/?api=1&query=%E5%8F%B0%E5%8D%97%E6%99%B6%E8%8B%B1%E9%85%92%E5%BA%97",
@@ -295,11 +318,17 @@ const weddingConfig = {
             dateEn:
                 "Sunday, January 24, 2027",
 
-            heroDate:
-                "January 24 · 2027 · Sun Moon Lake",
+            heroDateLine1:
+                "JANUARY 24 2027",
 
-            countdownTarget:
-                "2027-01-24T12:00:00+08:00",
+            heroDateLine2:
+                "SUN MOON LAKE",
+
+            countdownImage:
+                "./images/countdown-nantou.jpg",
+
+            countdownImageAlt:
+                "南投場婚禮倒數圖片 Nantou wedding countdown image",
 
             rsvpDeadline:
                 "2026-12-31T23:59:59+08:00",
@@ -348,11 +377,38 @@ const weddingConfig = {
             eventImageAlt:
                 "Kevin 與 Coco 南投場婚禮資訊 Nantou Wedding Information",
 
-            timelineImage:
-                "./images/timeline-nantou.jpg",
-
-            timelineAlt:
-                "Kevin 與 Coco 南投涵碧樓婚禮時程表 Nantou Wedding Timeline",
+            timelineItems: [
+                {
+                    time: "10:30",
+                    icon: "💍",
+                    titleZh:
+                        "證婚儀式",
+                    titleEn:
+                        "Wedding Ceremony",
+                    note:
+                        "8F 星光露台 · 8F Starlight Terrace"
+                },
+                {
+                    time: "11:30",
+                    icon: "🌿",
+                    titleZh:
+                        "午宴入席",
+                    titleEn:
+                        "Seating for Luncheon",
+                    note:
+                        "7F 湖光軒 · 7F Lakeview Pavilion"
+                },
+                {
+                    time: "12:15",
+                    icon: "🥂",
+                    titleZh:
+                        "婚宴開席",
+                    titleEn:
+                        "Wedding Luncheon Begins",
+                    note:
+                        "7F 湖光軒 · 7F Lakeview Pavilion"
+                }
+            ],
 
             googleMapUrl:
                 "https://www.google.com/maps/search/?api=1&query=%E6%97%A5%E6%9C%88%E6%BD%AD%E6%B6%B5%E7%A2%A7%E6%A8%93",
@@ -469,10 +525,96 @@ function setHtml(id, value) {
 }
 
 /* =========================================================
+   背景音樂
+========================================================= */
+
+function setupBackgroundMusic() {
+    const audio =
+        getElement("bg-music");
+
+    const toggleButton =
+        getElement("music-toggle");
+
+    if (!audio || !toggleButton) {
+        return {
+            play() {},
+            pause() {}
+        };
+    }
+
+    audio.volume =
+        0.45;
+
+    function syncButtonState() {
+        if (audio.paused) {
+            toggleButton.classList.remove(
+                "is-playing"
+            );
+            toggleButton.textContent =
+                "♫ Music";
+        } else {
+            toggleButton.classList.add(
+                "is-playing"
+            );
+            toggleButton.textContent =
+                "❚❚ Pause";
+        }
+    }
+
+    async function playMusic() {
+        try {
+            await audio.play();
+        } catch (error) {
+            console.warn(
+                "背景音樂播放失敗：",
+                error
+            );
+        }
+        syncButtonState();
+    }
+
+    function pauseMusic() {
+        audio.pause();
+        syncButtonState();
+    }
+
+    toggleButton.addEventListener(
+        "click",
+        async () => {
+            if (audio.paused) {
+                await playMusic();
+            } else {
+                pauseMusic();
+            }
+        }
+    );
+
+    audio.addEventListener(
+        "play",
+        syncButtonState
+    );
+
+    audio.addEventListener(
+        "pause",
+        syncButtonState
+    );
+
+    syncButtonState();
+
+    return {
+        play: playMusic,
+        pause: pauseMusic
+    };
+}
+
+/* =========================================================
    信封入口
 ========================================================= */
 
-function setupInvitationGate(currentLocation) {
+function setupInvitationGate(
+    currentLocation,
+    musicController
+) {
     const gate =
         getElement("invitation-gate");
 
@@ -503,6 +645,14 @@ function setupInvitationGate(currentLocation) {
             "aria-hidden",
             "true"
         );
+
+        if (
+            musicController &&
+            typeof musicController.play ===
+                "function"
+        ) {
+            musicController.play();
+        }
 
         return;
     }
@@ -560,7 +710,7 @@ function setupInvitationGate(currentLocation) {
         });
     }
 
-    function openInvitation() {
+    async function openInvitation() {
         if (isOpening) {
             return;
         }
@@ -581,6 +731,14 @@ function setupInvitationGate(currentLocation) {
                 "無法使用 sessionStorage：",
                 error
             );
+        }
+
+        if (
+            musicController &&
+            typeof musicController.play ===
+                "function"
+        ) {
+            await musicController.play();
         }
 
         gate.classList.add(
@@ -730,8 +888,13 @@ function renderPage(
     );
 
     setText(
-        "wedding-date",
-        config.heroDate
+        "wedding-date-line1",
+        config.heroDateLine1
+    );
+
+    setText(
+        "wedding-date-line2",
+        config.heroDateLine2
     );
 
     setText(
@@ -824,11 +987,15 @@ function renderPage(
         config
     );
 
+    renderCountdownImage(
+        config
+    );
+
     renderEventImage(
         config
     );
 
-    renderTimeline(
+    renderTimelineItems(
         config
     );
 
@@ -871,6 +1038,55 @@ function renderNotice(config) {
         noticeSection.hidden =
             true;
     }
+}
+
+/* =========================================================
+   婚禮倒數圖片
+========================================================= */
+
+function renderCountdownImage(
+    config
+) {
+    const image =
+        getElement(
+            "countdown-image"
+        );
+
+    const errorMessage =
+        getElement(
+            "countdown-image-error"
+        );
+
+    if (
+        !image ||
+        !errorMessage
+    ) {
+        return;
+    }
+
+    image.alt =
+        config.countdownImageAlt;
+
+    image.onload = () => {
+        image.hidden =
+            false;
+        errorMessage.hidden =
+            true;
+    };
+
+    image.onerror = () => {
+        image.hidden =
+            true;
+        errorMessage.hidden =
+            false;
+
+        console.error(
+            `婚禮倒數圖片載入失敗：${config.countdownImage}`
+        );
+    };
+
+    image.src =
+        config.countdownImage;
 }
 
 /* =========================================================
@@ -923,52 +1139,68 @@ function renderEventImage(config) {
 }
 
 /* =========================================================
-   婚禮時程圖片
+   婚禮時程文字版
 ========================================================= */
 
-function renderTimeline(config) {
-    const image =
+function renderTimelineItems(
+    config
+) {
+    const timelineList =
         getElement(
-            "timeline-image"
+            "timeline-list"
         );
 
-    const errorMessage =
-        getElement(
-            "timeline-image-error"
-        );
-
-    if (
-        !image ||
-        !errorMessage
-    ) {
+    if (!timelineList) {
         return;
     }
 
-    image.alt =
-        config.timelineAlt;
+    timelineList.innerHTML =
+        "";
 
-    image.onload = () => {
-        image.hidden =
-            false;
+    (config.timelineItems || []).forEach(
+        (item) => {
+            const timelineItem =
+                document.createElement(
+                    "div"
+                );
 
-        errorMessage.hidden =
-            true;
-    };
+            timelineItem.className =
+                "timeline-item";
 
-    image.onerror = () => {
-        image.hidden =
-            true;
+            timelineItem.innerHTML = `
+                <div class="timeline-marker">
+                    <div class="timeline-dot">
+                        ${item.icon || "✦"}
+                    </div>
+                    <div class="timeline-line"></div>
+                </div>
 
-        errorMessage.hidden =
-            false;
+                <div class="timeline-content-box">
+                    <p class="timeline-time">
+                        ${item.time || ""}
+                    </p>
 
-        console.error(
-            `婚禮時程圖片載入失敗：${config.timelineImage}`
-        );
-    };
+                    <p class="timeline-title">
+                        ${item.titleZh || ""}
+                    </p>
 
-    image.src =
-        config.timelineImage;
+                    <p class="timeline-subtitle">
+                        ${item.titleEn || ""}
+                    </p>
+
+                    ${
+                        item.note
+                            ? `<p class="timeline-note">${item.note}</p>`
+                            : ``
+                    }
+                </div>
+            `;
+
+            timelineList.appendChild(
+                timelineItem
+            );
+        }
+    );
 }
 
 /* =========================================================
@@ -1071,170 +1303,6 @@ function renderMoments(
             );
         }
     );
-}
-
-/* =========================================================
-   婚禮倒數
-========================================================= */
-
-function startCountdown(config) {
-    const countdownContainer =
-        getElement(
-            "countdown-container"
-        );
-
-    const daysElement =
-        getElement(
-            "cd-days"
-        );
-
-    const hoursElement =
-        getElement(
-            "cd-hours"
-        );
-
-    const minutesElement =
-        getElement(
-            "cd-mins"
-        );
-
-    const secondsElement =
-        getElement(
-            "cd-secs"
-        );
-
-    if (
-        !countdownContainer ||
-        !daysElement ||
-        !hoursElement ||
-        !minutesElement ||
-        !secondsElement
-    ) {
-        return;
-    }
-
-    const targetTime =
-        new Date(
-            config.countdownTarget
-        ).getTime();
-
-    if (
-        !Number.isFinite(
-            targetTime
-        )
-    ) {
-        countdownContainer.innerHTML = `
-            <div class="countdown-message">
-                婚禮日期設定錯誤<br>
-                Invalid wedding date
-            </div>
-        `;
-
-        return;
-    }
-
-    let timerId =
-        null;
-
-    function updateCountdown() {
-        const remainingTime =
-            targetTime -
-            Date.now();
-
-        if (
-            remainingTime <= 0
-        ) {
-            if (
-                timerId !== null
-            ) {
-                window.clearInterval(
-                    timerId
-                );
-            }
-
-            countdownContainer.innerHTML = `
-                <div class="countdown-message">
-                    婚禮已經開始囉！<br>
-                    The celebration has begun!
-                </div>
-            `;
-
-            return;
-        }
-
-        const oneSecond =
-            1000;
-
-        const oneMinute =
-            oneSecond * 60;
-
-        const oneHour =
-            oneMinute * 60;
-
-        const oneDay =
-            oneHour * 24;
-
-        daysElement.textContent =
-            String(
-                Math.floor(
-                    remainingTime /
-                    oneDay
-                )
-            ).padStart(
-                2,
-                "0"
-            );
-
-        hoursElement.textContent =
-            String(
-                Math.floor(
-                    (
-                        remainingTime %
-                        oneDay
-                    ) /
-                    oneHour
-                )
-            ).padStart(
-                2,
-                "0"
-            );
-
-        minutesElement.textContent =
-            String(
-                Math.floor(
-                    (
-                        remainingTime %
-                        oneHour
-                    ) /
-                    oneMinute
-                )
-            ).padStart(
-                2,
-                "0"
-            );
-
-        secondsElement.textContent =
-            String(
-                Math.floor(
-                    (
-                        remainingTime %
-                        oneMinute
-                    ) /
-                    oneSecond
-                )
-            ).padStart(
-                2,
-                "0"
-            );
-    }
-
-    updateCountdown();
-
-    timerId =
-        window.setInterval(
-            updateCountdown,
-            1000
-        );
 }
 
 /* =========================================================
@@ -1345,6 +1413,15 @@ function setFieldVisibility(
                 } else {
                     control.required =
                         false;
+                    if (
+                        control.type !==
+                            "hidden" &&
+                        control.tagName !==
+                            "SELECT"
+                    ) {
+                        control.value =
+                            control.defaultValue || "";
+                    }
                 }
             }
         );
@@ -1688,7 +1765,7 @@ function buildRsvpData(
             window.location.href,
 
         formVersion:
-            "20260805-02"
+            "20260806-03"
     };
 }
 
@@ -2240,21 +2317,21 @@ document.addEventListener(
             return;
         }
 
-        setupInvitationGate(
-            currentLocation
-        );
+        const musicController =
+            setupBackgroundMusic();
 
         const lightboxController =
             setupLightbox();
+
+        setupInvitationGate(
+            currentLocation,
+            musicController
+        );
 
         renderPage(
             config,
             currentLocation,
             lightboxController
-        );
-
-        startCountdown(
-            config
         );
 
         const deadlinePassed =
@@ -2274,4 +2351,3 @@ document.addEventListener(
         }
     }
 );
-

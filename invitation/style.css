@@ -82,6 +82,50 @@ img {
 }
 
 /* =========================================================
+   音樂按鈕
+========================================================= */
+
+.music-toggle {
+    position: fixed;
+    z-index: 15000;
+    right: 18px;
+    bottom: 18px;
+
+    padding: 10px 14px;
+
+    color: var(--background);
+    background: rgba(111, 124, 62, 0.92);
+
+    border: 1px solid rgba(245, 241, 234, 0.5);
+    border-radius: 999px;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 14px;
+    letter-spacing: 1.5px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 18px rgba(95, 88, 67, 0.18);
+
+    transition:
+        background-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.music-toggle:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+}
+
+.music-toggle.is-playing {
+    background: var(--accent);
+}
+
+/* =========================================================
    信封入口
 ========================================================= */
 
@@ -167,11 +211,11 @@ html.show-invitation-gate .invitation-gate {
 
 .gate-monogram-row {
     display: grid;
-    grid-template-columns: 1fr 58px 1fr;
+    grid-template-columns: 1fr 74px 1fr;
     align-items: center;
     gap: clamp(13px, 3vw, 28px);
 
-    width: min(580px, 100%);
+    width: min(620px, 100%);
     margin-bottom: clamp(18px, 3vh, 28px);
 }
 
@@ -191,52 +235,19 @@ html.show-invitation-gate .invitation-gate {
 }
 
 .monogram-logo {
-    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    width: 58px;
-    height: 58px;
-
-    color: var(--primary);
-
-    border: 1px solid var(--primary);
-    border-radius: 50%;
+    width: 74px;
+    height: 74px;
+    margin: 0 auto;
 }
 
-.monogram-logo::before {
-    position: absolute;
-    inset: 5px;
-
-    content: "";
-
-    border: 1px solid rgba(111, 124, 62, 0.4);
-    border-radius: 50%;
-}
-
-.monogram-k,
-.monogram-c {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-
-    font-family:
-        "Allura",
-        cursive;
-
-    font-weight: 400;
-    line-height: 1;
-}
-
-.monogram-k {
-    transform: translate(-67%, -53%) rotate(-7deg);
-
-    font-size: 34px;
-}
-
-.monogram-c {
-    transform: translate(-28%, -47%) rotate(6deg);
-
-    color: var(--accent);
-    font-size: 32px;
+.monogram-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .gate-main-invitation {
@@ -401,39 +412,19 @@ html.show-invitation-gate .invitation-gate {
 }
 
 .envelope-card-monogram {
-    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    display: block;
-
-    width: 40px;
-    height: 40px;
-    margin-bottom: 4px;
-
-    border: 1px solid var(--primary);
-    border-radius: 50%;
+    width: 54px;
+    height: 54px;
+    margin-bottom: 6px;
 }
 
-.envelope-card-monogram span {
-    position: absolute;
-
-    font-family:
-        "Allura",
-        cursive;
-
-    font-size: 24px;
-    line-height: 1;
-}
-
-.envelope-card-monogram span:first-child {
-    top: 8px;
-    left: 7px;
-}
-
-.envelope-card-monogram span:last-child {
-    top: 9px;
-    right: 7px;
-
-    color: var(--accent);
+.envelope-card-monogram img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .envelope-card-name {
@@ -543,51 +534,28 @@ html.show-invitation-gate .invitation-gate {
 
 .envelope-seal {
     position: absolute;
-    top: 45%;
+    top: 43%;
     left: 50%;
 
-    width: 50px;
-    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    color: var(--background);
-    background: rgba(111, 124, 62, 0.9);
+    width: 60px;
+    height: 60px;
 
-    border: 1px solid rgba(245, 241, 234, 0.75);
+    background: rgba(245, 241, 234, 0.88);
+
+    border: 1px solid rgba(111, 124, 62, 0.5);
     border-radius: 50%;
 
     transform: translate(-50%, -50%);
 }
 
-.envelope-seal::before {
-    position: absolute;
-    inset: 5px;
-
-    content: "";
-
-    border: 1px solid rgba(245, 241, 234, 0.52);
-    border-radius: 50%;
-}
-
-.seal-k,
-.seal-c {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-
-    font-family:
-        "Allura",
-        cursive;
-
-    font-size: 29px;
-    line-height: 1;
-}
-
-.seal-k {
-    transform: translate(-69%, -52%);
-}
-
-.seal-c {
-    transform: translate(-25%, -47%);
+.envelope-seal img {
+    width: 78%;
+    height: 78%;
+    object-fit: contain;
 }
 
 .gate-instruction {
@@ -966,8 +934,16 @@ h1 em {
     text-transform: none;
 }
 
+.hero-date-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    margin-bottom: 8px;
+}
+
 .hero-date {
-    margin: 0 0 8px;
+    margin: 0;
 
     color: var(--accent);
 
@@ -979,6 +955,11 @@ h1 em {
     font-weight: 500;
     letter-spacing: 4px;
     text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.hero-date-line2 {
+    color: var(--primary);
 }
 
 .hero-location {
@@ -1002,7 +983,7 @@ h1 em {
 }
 
 /* =========================================================
-   Countdown
+   婚禮倒數圖片
 ========================================================= */
 
 .countdown-section {
@@ -1016,19 +997,14 @@ h1 em {
     border-bottom: 1px solid var(--primary-transparent);
 }
 
-.countdown-container {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(90px, 130px));
-    justify-content: center;
-    gap: 18px;
+.editorial-image-frame {
+    position: relative;
 
-    margin: 0 auto 26px;
-}
+    overflow: hidden;
 
-.time-box {
-    padding: 26px 10px 22px;
-
-    text-align: center;
+    width: min(720px, 100%);
+    margin: 0 auto 52px;
+    padding: 10px;
 
     background: var(--background);
 
@@ -1036,61 +1012,46 @@ h1 em {
     border-radius: 2px;
 
     box-shadow:
-        0 7px 20px var(--paper-shadow);
+        0 12px 30px var(--paper-shadow);
 }
 
-.time-box span {
-    display: block;
+.editorial-image-frame::before {
+    position: absolute;
+    z-index: 2;
+    inset: 5px;
 
-    color: var(--accent);
+    content: "";
 
-    font-family:
-        "Cormorant Garamond",
-        serif;
+    border: 1px solid rgba(163, 177, 138, 0.55);
 
-    font-size: clamp(34px, 5vw, 48px);
-    font-weight: 400;
-    line-height: 1;
+    pointer-events: none;
 }
 
-.time-box small {
-    display: block;
-
-    margin-top: 12px;
-
-    color: var(--primary);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+.countdown-frame {
+    margin-bottom: 0;
 }
 
-.countdown-subtitle {
+.countdown-image,
+.event-image {
+    width: 100%;
+    height: auto;
+
+    aspect-ratio: 3 / 2;
+
+    object-fit: contain;
+    object-position: center;
+
+    background: var(--secondary-background);
+}
+
+.image-error-message {
     margin: 0;
+    padding: 35px 20px;
 
     color: var(--text-soft);
-
-    font-family:
-        "Noto Serif TC",
-        serif;
+    background: var(--secondary-background);
 
     text-align: center;
-    font-size: 14px;
-}
-
-.countdown-message {
-    grid-column: 1 / -1;
-
-    padding: 24px;
-
-    color: var(--accent);
-    background: var(--background);
-
-    border: 1px solid var(--primary);
 }
 
 /* =========================================================
@@ -1177,67 +1138,6 @@ h1 em {
 
 .timeline-section {
     background: var(--secondary-background);
-}
-
-/* =========================================================
-   圖片框
-========================================================= */
-
-.editorial-image-frame {
-    position: relative;
-
-    overflow: hidden;
-
-    width: min(720px, 100%);
-    margin: 0 auto 52px;
-    padding: 10px;
-
-    background: var(--background);
-
-    border: 1px solid var(--primary);
-    border-radius: 2px;
-
-    box-shadow:
-        0 12px 30px var(--paper-shadow);
-}
-
-.timeline-frame {
-    margin-bottom: 0;
-}
-
-.editorial-image-frame::before {
-    position: absolute;
-    z-index: 2;
-    inset: 5px;
-
-    content: "";
-
-    border: 1px solid rgba(163, 177, 138, 0.55);
-
-    pointer-events: none;
-}
-
-.event-image,
-.timeline-image {
-    width: 100%;
-    height: auto;
-
-    aspect-ratio: 3 / 2;
-
-    object-fit: contain;
-    object-position: center;
-
-    background: var(--secondary-background);
-}
-
-.image-error-message {
-    margin: 0;
-    padding: 35px 20px;
-
-    color: var(--text-soft);
-    background: var(--secondary-background);
-
-    text-align: center;
 }
 
 /* =========================================================
@@ -1378,6 +1278,194 @@ h1 em {
 
     font-size: 14px;
     letter-spacing: 1px;
+}
+
+/* =========================================================
+   婚禮時程文字版
+========================================================= */
+
+.timeline-text-board {
+    width: min(760px, 100%);
+    margin: 0 auto;
+    padding: 26px 24px 18px;
+
+    background: rgba(255, 255, 255, 0.52);
+
+    border: 1px solid rgba(111, 124, 62, 0.26);
+    border-radius: 28px;
+
+    box-shadow:
+        0 12px 30px var(--paper-shadow);
+}
+
+.timeline-board-title {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    margin-bottom: 20px;
+}
+
+.timeline-board-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 68px;
+    height: 58px;
+
+    color: var(--primary);
+    background: rgba(239, 231, 219, 0.95);
+
+    border-radius: 16px;
+
+    font-size: 28px;
+}
+
+.timeline-board-heading span {
+    display: block;
+
+    color: var(--primary);
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+}
+
+.timeline-board-heading h3 {
+    margin: 0;
+
+    color: var(--primary);
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: 6px;
+}
+
+.timeline-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.timeline-item {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: 16px;
+
+    position: relative;
+
+    padding: 10px 0 14px;
+}
+
+.timeline-marker {
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+}
+
+.timeline-line {
+    position: absolute;
+    top: 54px;
+    bottom: -14px;
+    left: 50%;
+
+    width: 2px;
+
+    background: rgba(197, 164, 114, 0.72);
+
+    transform: translateX(-50%);
+}
+
+.timeline-item:last-child .timeline-line {
+    display: none;
+}
+
+.timeline-dot {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 58px;
+    height: 58px;
+
+    color: var(--sage);
+    background: #F8F6F2;
+
+    border: 3px solid rgba(197, 164, 114, 0.85);
+    border-radius: 50%;
+
+    font-size: 25px;
+}
+
+.timeline-content-box {
+    padding-top: 4px;
+}
+
+.timeline-time {
+    margin: 0 0 2px;
+
+    color: var(--primary);
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.timeline-title {
+    margin: 0;
+
+    color: var(--text);
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.timeline-subtitle {
+    margin: 3px 0 0;
+
+    color: #C1A173;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.timeline-note {
+    margin: 4px 0 0;
+
+    color: var(--text-soft);
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
+    font-size: 12px;
+    line-height: 1.6;
 }
 
 /* =========================================================
@@ -2063,13 +2151,6 @@ h1 em {
         letter-spacing: 5px;
     }
 
-    .countdown-container {
-        grid-template-columns:
-            repeat(4, minmax(64px, 100px));
-
-        gap: 10px;
-    }
-
     .content-section {
         width: 100%;
         padding: 88px 20px;
@@ -2112,11 +2193,14 @@ h1 em {
     }
 }
 
-/* =========================================================
-   手機
-========================================================= */
-
 @media (max-width: 500px) {
+    .music-toggle {
+        right: 12px;
+        bottom: 12px;
+        padding: 9px 12px;
+        font-size: 13px;
+    }
+
     .gate-content {
         justify-content: center;
 
@@ -2127,7 +2211,7 @@ h1 em {
     }
 
     .gate-monogram-row {
-        grid-template-columns: 1fr 49px 1fr;
+        grid-template-columns: 1fr 56px 1fr;
         gap: 8px;
     }
 
@@ -2137,16 +2221,8 @@ h1 em {
     }
 
     .monogram-logo {
-        width: 49px;
-        height: 49px;
-    }
-
-    .monogram-k {
-        font-size: 29px;
-    }
-
-    .monogram-c {
-        font-size: 27px;
+        width: 56px;
+        height: 56px;
     }
 
     .gate-main-invitation {
@@ -2176,13 +2252,8 @@ h1 em {
     }
 
     .envelope-seal {
-        width: 42px;
-        height: 42px;
-    }
-
-    .seal-k,
-    .seal-c {
-        font-size: 24px;
+        width: 48px;
+        height: 48px;
     }
 
     .gate-botanical {
@@ -2239,28 +2310,12 @@ h1 em {
         letter-spacing: 2px;
     }
 
+    .hero-location {
+        font-size: 13px;
+    }
+
     .countdown-section {
         padding: 78px 10px;
-    }
-
-    .countdown-container {
-        grid-template-columns:
-            repeat(4, minmax(0, 1fr));
-
-        gap: 6px;
-    }
-
-    .time-box {
-        padding: 20px 2px 17px;
-    }
-
-    .time-box span {
-        font-size: 29px;
-    }
-
-    .time-box small {
-        font-size: 8px;
-        letter-spacing: 0.6px;
     }
 
     .section-heading {
@@ -2281,13 +2336,65 @@ h1 em {
         padding: 6px;
     }
 
-    .timeline-frame {
-        margin-bottom: 0;
-    }
-
     .detail-card,
     .information-card {
         padding: 30px 22px;
+    }
+
+    .timeline-text-board {
+        padding: 18px 14px 10px;
+        border-radius: 22px;
+    }
+
+    .timeline-board-title {
+        gap: 12px;
+        margin-bottom: 14px;
+    }
+
+    .timeline-board-icon {
+        width: 52px;
+        height: 46px;
+        font-size: 22px;
+        border-radius: 14px;
+    }
+
+    .timeline-board-heading span {
+        font-size: 16px;
+        letter-spacing: 4px;
+    }
+
+    .timeline-board-heading h3 {
+        font-size: 24px;
+        letter-spacing: 4px;
+    }
+
+    .timeline-item {
+        grid-template-columns: 62px 1fr;
+        gap: 12px;
+        padding: 8px 0 12px;
+    }
+
+    .timeline-dot {
+        width: 46px;
+        height: 46px;
+        font-size: 20px;
+    }
+
+    .timeline-line {
+        top: 42px;
+        bottom: -12px;
+    }
+
+    .timeline-time {
+        font-size: 17px;
+    }
+
+    .timeline-title {
+        font-size: 16px;
+    }
+
+    .timeline-subtitle {
+        font-size: 14px;
     }
 
     .moments-section,
@@ -2320,10 +2427,6 @@ h1 em {
     }
 }
 
-/* =========================================================
-   低高度手機
-========================================================= */
-
 @media (max-height: 720px) and (max-width: 500px) {
     .gate-title {
         margin-bottom: 10px;
@@ -2354,10 +2457,6 @@ h1 em {
         margin-top: 10px;
     }
 }
-
-/* =========================================================
-   減少動畫
-========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
     *,

@@ -31,10 +31,6 @@
         rel="stylesheet"
     >
 
-    <!--
-        在頁面內容顯示前，先判斷此分頁是否已開啟過信封。
-        台南場與南投場分開記錄，但入口畫面內容完全相同。
-    -->
     <script>
         (function () {
             const params = new URLSearchParams(window.location.search);
@@ -65,11 +61,32 @@
 
     <link
         rel="stylesheet"
-        href="./style.css?v=20260805-02"
+        href="./style.css?v=20260806-03"
     >
 </head>
 
 <body>
+    <!-- 背景音樂 -->
+    <audio
+        id="bg-music"
+        loop
+        preload="auto"
+    >
+        <source
+            src="./InvitationMusic.mp3"
+            type="audio/mpeg"
+        >
+    </audio>
+
+    <button
+        type="button"
+        id="music-toggle"
+        class="music-toggle"
+        aria-label="播放或暫停背景音樂"
+    >
+        ♫ Music
+    </button>
+
     <!-- =====================================================
          信封開啟入口
     ====================================================== -->
@@ -109,13 +126,10 @@
                     class="monogram-logo"
                     aria-label="Kevin and Coco monogram"
                 >
-                    <span class="monogram-k">
-                        K
-                    </span>
-
-                    <span class="monogram-c">
-                        C
-                    </span>
+                    <img
+                        src="./images/monogram-kc-black.png"
+                        alt="KC Monogram Logo"
+                    >
                 </div>
 
                 <p>
@@ -152,8 +166,10 @@
 
                     <span class="envelope-card">
                         <span class="envelope-card-monogram">
-                            <span>K</span>
-                            <span>C</span>
+                            <img
+                                src="./images/monogram-kc-black.png"
+                                alt="KC Monogram Logo"
+                            >
                         </span>
 
                         <span class="envelope-card-name">
@@ -171,13 +187,10 @@
 
                     <span class="envelope-flap">
                         <span class="envelope-seal">
-                            <span class="seal-k">
-                                K
-                            </span>
-
-                            <span class="seal-c">
-                                C
-                            </span>
+                            <img
+                                src="./images/monogram-kc-black.png"
+                                alt="KC Monogram Logo"
+                            >
                         </span>
                     </span>
                 </span>
@@ -252,12 +265,21 @@
                     Kevin <em>&amp;</em> Coco
                 </h1>
 
-                <p
-                    class="hero-date"
-                    id="wedding-date"
-                >
-                    Wedding date loading
-                </p>
+                <div class="hero-date-wrap">
+                    <p
+                        class="hero-date hero-date-line1"
+                        id="wedding-date-line1"
+                    >
+                        JANUARY 17 2027
+                    </p>
+
+                    <p
+                        class="hero-date hero-date-line2"
+                        id="wedding-date-line2"
+                    >
+                        TAINAN
+                    </p>
+                </div>
 
                 <p
                     class="hero-location"
@@ -274,7 +296,7 @@
     </header>
 
     <!-- =====================================================
-         婚禮倒數
+         婚禮倒數（圖片）
     ====================================================== -->
 
     <section class="countdown-section">
@@ -288,36 +310,23 @@
             </h2>
         </div>
 
-        <div
-            class="countdown-container"
-            id="countdown-container"
-            aria-label="婚禮倒數計時 Wedding countdown"
-        >
-            <div class="time-box">
-                <span id="cd-days">00</span>
-                <small>Days · 天</small>
-            </div>
+        <div class="editorial-image-frame countdown-frame">
+            <img
+                id="countdown-image"
+                class="countdown-image"
+                src=""
+                alt="婚禮倒數圖片 Wedding countdown image"
+            >
 
-            <div class="time-box">
-                <span id="cd-hours">00</span>
-                <small>Hours · 時</small>
-            </div>
-
-            <div class="time-box">
-                <span id="cd-mins">00</span>
-                <small>Mins · 分</small>
-            </div>
-
-            <div class="time-box">
-                <span id="cd-secs">00</span>
-                <small>Secs · 秒</small>
-            </div>
+            <p
+                id="countdown-image-error"
+                class="image-error-message"
+                hidden
+            >
+                婚禮倒數圖片尚未上傳。<br>
+                The wedding countdown image is not available yet.
+            </p>
         </div>
-
-        <p class="countdown-subtitle">
-            距離那個美好的日子<br>
-            Countdown to the Big Day
-        </p>
     </section>
 
     <main
@@ -433,11 +442,17 @@
                         時間
                     </h3>
 
-                    <p class="detail-main">
+                    <p
+                        id="event-time"
+                        class="detail-main"
+                    >
                         12:00
                     </p>
 
-                    <p class="detail-secondary">
+                    <p
+                        id="event-time-en"
+                        class="detail-secondary"
+                    >
                         Wedding Luncheon · 婚宴午宴
                     </p>
                 </article>
@@ -473,7 +488,7 @@
             </div>
         </section>
 
-        <!-- 婚禮時程 -->
+        <!-- 婚禮時程（文字版） -->
         <section class="content-section timeline-section">
             <div class="section-heading centered-heading">
                 <p class="eyebrow">
@@ -496,22 +511,26 @@
                 </div>
             </div>
 
-            <div class="editorial-image-frame timeline-frame">
-                <img
-                    id="timeline-image"
-                    class="timeline-image"
-                    src=""
-                    alt="婚禮時程表 Wedding Timeline"
-                >
+            <div class="timeline-text-board">
+                <div class="timeline-board-title">
+                    <div class="timeline-board-icon">
+                        ⏱
+                    </div>
 
-                <p
-                    id="timeline-image-error"
-                    class="image-error-message"
-                    hidden
-                >
-                    婚禮時程表圖片尚未上傳。<br>
-                    The wedding timeline image is not available yet.
-                </p>
+                    <div class="timeline-board-heading">
+                        <span>
+                            Time
+                        </span>
+                        <h3>
+                            時間
+                        </h3>
+                    </div>
+                </div>
+
+                <div
+                    id="timeline-list"
+                    class="timeline-list"
+                ></div>
             </div>
         </section>
 
@@ -1036,6 +1055,6 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-    <script src="./app.js?v=20260805-02"></script>
+    <script src="./app.js?v=20260806-03"></script>
 </body>
 </html>
