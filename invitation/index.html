@@ -10,7 +10,7 @@
 
     <meta
         name="description"
-        content="周愷元 Kevin 與陳佳惠 Coco 的婚禮邀請函"
+        content="周愷元與陳佳惠的婚禮邀請函"
     >
 
     <title>Kevin & Coco's Wedding Invitation</title>
@@ -67,7 +67,7 @@
 
     <link
         rel="stylesheet"
-        href="./style.css?v=20260808-01"
+        href="./style.css?v=20260808-02"
     >
 </head>
 
@@ -112,6 +112,7 @@
             aria-hidden="true"
         ></div>
 
+
         <div class="gate-content">
 
             <p
@@ -121,6 +122,7 @@
                 邀 請 函
             </p>
 
+
             <div class="gate-monogram-row">
 
                 <p>
@@ -128,10 +130,12 @@
                 </p>
 
                 <div class="monogram-logo">
+
                     <img
                         src="./images/monogram-kc-black.png"
                         alt="KC Logo"
                     >
+
                 </div>
 
                 <p>
@@ -140,13 +144,16 @@
 
             </div>
 
+
             <p class="gate-main-invitation">
                 誠 摯 邀 您 參 與 我 們 的 婚 禮
             </p>
 
+
             <p class="gate-english-invitation">
                 A HEARTFELT INVITATION FROM
             </p>
+
 
             <div class="gate-couple-names">
 
@@ -160,69 +167,70 @@
 
             </div>
 
-            <p class="gate-couple-chinese">
-                周愷元
-                <span>(Kevin)</span>
-                <i>×</i>
-                陳佳惠
-                <span>(Coco)</span>
-            </p>
 
-
-            <!-- 信封 -->
+            <!-- =================================================
+                 信封
+            ================================================== -->
 
             <button
                 type="button"
                 id="envelope-button"
                 class="envelope-button"
-                aria-label="開啟 Kevin 與 Coco 的婚禮邀請函"
+                aria-label="開啟婚禮邀請函"
             >
 
                 <span class="envelope">
 
+                    <!-- 信封底 -->
                     <span class="envelope-back"></span>
 
-                    <!-- 開封後升起的邀請卡 -->
+
+                    <!-- 升起的邀請卡 -->
                     <span class="envelope-card">
+
+                        <span class="envelope-card-decoration">
+                            ❦
+                        </span>
 
                         <span class="envelope-card-name">
                             Kevin &amp; Coco
                         </span>
 
                         <span class="envelope-card-text">
-                            OPEN INVITATION
+                            WEDDING INVITATION
                         </span>
 
-                        <!-- Logo 改到底部 -->
-                        <span class="envelope-card-monogram">
-                            <img
-                                src="./images/monogram-kc-black.png"
-                                alt="KC Logo"
-                            >
+                        <span class="envelope-card-line"></span>
+
+                        <span class="envelope-card-open">
+                            OPEN INVITATION
                         </span>
 
                     </span>
 
+
+                    <!-- 信封左右及下半部 -->
                     <span class="envelope-front-left"></span>
 
                     <span class="envelope-front-right"></span>
 
                     <span class="envelope-front-bottom"></span>
 
-                    <span class="envelope-flap">
 
-                        <!--
-                            Logo 往封蓋下方移動，
-                            底色與信封相同
-                        -->
-                        <span class="envelope-seal">
+                    <!-- 封蓋，不再放 Logo -->
+                    <span class="envelope-flap"></span>
 
-                            <img
-                                src="./images/monogram-kc-black.png"
-                                alt="KC Logo"
-                            >
 
-                        </span>
+                    <!--
+                        KC Logo 改為信封正面元素，
+                        不屬於封蓋，因此開封不會翻轉
+                    -->
+                    <span class="envelope-front-logo">
+
+                        <img
+                            src="./images/monogram-kc-black.png"
+                            alt="KC Logo"
+                        >
 
                     </span>
 
@@ -252,7 +260,7 @@
 
 
     <!-- =====================================================
-         頁面植物裝飾
+         背景植物
     ====================================================== -->
 
     <div
@@ -277,7 +285,7 @@
 
 
     <!-- =====================================================
-         首頁
+         首頁主視覺
     ====================================================== -->
 
     <header
@@ -287,6 +295,7 @@
 
         <div class="hero-overlay"></div>
 
+
         <div class="hero-content">
 
             <div class="hero-card">
@@ -295,31 +304,38 @@
                     Wedding Invitation
                 </p>
 
+
                 <p class="hero-chinese-label">
                     婚禮邀請函
                 </p>
 
+
                 <div class="ornamental-divider">
+
                     <span></span>
+
                     <i>❦</i>
+
                     <span></span>
+
                 </div>
 
-                <h1 id="page-title">
-                    Kevin
+
+                <!--
+                    首頁姓名改成純中文
+                -->
+
+                <h1
+                    id="page-title"
+                    class="hero-couple-title"
+                >
+                    周愷元
                     <em>&amp;</em>
-                    Coco
+                    陳佳惠
                 </h1>
 
-                <p class="hero-couple-chinese">
-                    周愷元
-                    <span>Kevin</span>
 
-                    <i>×</i>
-
-                    陳佳惠
-                    <span>Coco</span>
-                </p>
+                <!-- 日期與場次仍維持兩行 -->
 
                 <div class="hero-date-wrap">
 
@@ -339,10 +355,28 @@
 
                 </div>
 
-                <p
-                    class="hero-location"
-                    id="wedding-location"
-                ></p>
+
+                <!--
+                    原本地點資訊刪除，
+                    改為邀請文案
+                -->
+
+                <div class="hero-invitation-copy">
+
+                    <p class="hero-invitation-zh">
+                        誠摯邀請您與我們一同見證這份幸福，
+                        <br class="desktop-break">
+                        分享屬於我們的重要時刻。
+                    </p>
+
+                    <p class="hero-invitation-en">
+                        We warmly invite you to celebrate this special moment with us
+                        <br class="desktop-break">
+                        and share in the joy of our wedding day.
+                    </p>
+
+                </div>
+
 
                 <div class="hero-floral-mark">
                     ✦
@@ -356,7 +390,7 @@
 
 
     <!-- =====================================================
-         婚禮倒數圖片
+         婚禮倒數
     ====================================================== -->
 
     <section class="countdown-section">
@@ -372,6 +406,7 @@
             </h2>
 
         </div>
+
 
         <div class="editorial-image-frame countdown-frame">
 
@@ -463,13 +498,19 @@
                 </h2>
 
                 <div class="section-divider">
+
                     <span></span>
+
                     <i>✦</i>
+
                     <span></span>
+
                 </div>
 
             </div>
 
+
+            <!-- 各場婚禮資訊圖片 -->
 
             <div class="editorial-image-frame">
 
@@ -490,6 +531,8 @@
 
             </div>
 
+
+            <!-- 日期時間地點 -->
 
             <div class="detail-grid">
 
@@ -566,6 +609,134 @@
 
             </div>
 
+
+            <!-- =================================================
+                 Dress Code
+            ================================================== -->
+
+            <div class="dress-code-section">
+
+                <div class="dress-code-heading">
+
+                    <p class="eyebrow">
+                        Dress Code
+                    </p>
+
+                    <h3>
+                        婚禮穿搭
+                    </h3>
+
+                    <p class="dress-code-introduction">
+                        歡迎以自然、柔和的大地色系盛裝出席，
+                        一同融入我們婚禮的色彩。
+                    </p>
+
+                    <p class="dress-code-introduction-en">
+                        We would love for you to join us
+                        in these soft, natural and earthy tones.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="dress-code-palette"
+                    aria-label="婚禮 Dress Code 色系"
+                >
+
+                    <div class="dress-color-item">
+
+                        <div
+                            class="dress-color-circle"
+                            style="background-color: #6F7C5B;"
+                        ></div>
+
+                        <p>
+                            深綠
+                        </p>
+
+                        <span>
+                            #6F7C5B
+                        </span>
+
+                    </div>
+
+
+                    <div class="dress-color-item">
+
+                        <div
+                            class="dress-color-circle"
+                            style="background-color: #8FA78E;"
+                        ></div>
+
+                        <p>
+                            灰綠
+                        </p>
+
+                        <span>
+                            #8FA78E
+                        </span>
+
+                    </div>
+
+
+                    <div class="dress-color-item">
+
+                        <div
+                            class="dress-color-circle"
+                            style="background-color: #D8A7A1;"
+                        ></div>
+
+                        <p>
+                            灰粉
+                        </p>
+
+                        <span>
+                            #D8A7A1
+                        </span>
+
+                    </div>
+
+
+                    <div class="dress-color-item">
+
+                        <div
+                            class="dress-color-circle"
+                            style="background-color: #B8A79A;"
+                        ></div>
+
+                        <p>
+                            裸棕
+                        </p>
+
+                        <span>
+                            #B8A79A
+                        </span>
+
+                    </div>
+
+
+                    <div class="dress-color-item">
+
+                        <div
+                            class="dress-color-circle dress-color-light"
+                            style="background-color: #F5F1EA;"
+                        ></div>
+
+                        <p>
+                            米白
+                        </p>
+
+                        <span>
+                            #F5F1EA
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </section>
 
 
@@ -591,9 +762,13 @@
                 </p>
 
                 <div class="section-divider">
+
                     <span></span>
+
                     <i>❦</i>
+
                     <span></span>
+
                 </div>
 
             </div>
@@ -649,9 +824,13 @@
                 </h2>
 
                 <div class="section-divider">
+
                     <span></span>
+
                     <i>✦</i>
+
                     <span></span>
+
                 </div>
 
             </div>
@@ -757,9 +936,13 @@
                 </p>
 
                 <div class="section-divider">
+
                     <span></span>
+
                     <i>❦</i>
+
                     <span></span>
+
                 </div>
 
             </div>
@@ -794,8 +977,9 @@
                         賓客回覆
                     </h2>
 
+
                     <!--
-                        與信封入口相同 Allura 字體
+                        保留前一版的手寫英文識別
                     -->
 
                     <div class="rsvp-couple-signature">
@@ -810,10 +994,15 @@
 
                     </div>
 
+
+                    <!--
+                        中文姓名不再附英文名稱
+                    -->
+
                     <p class="rsvp-couple-chinese">
-                        周愷元 (Kevin)
+                        周愷元
                         <i>×</i>
-                        陳佳惠 (Coco)
+                        陳佳惠
                     </p>
 
 
@@ -822,11 +1011,17 @@
                         Kindly Respond Before the Deadline
                     </p>
 
+
                     <div class="section-divider">
+
                         <span></span>
+
                         <i>✦</i>
+
                         <span></span>
+
                     </div>
+
 
                     <p
                         id="rsvp-deadline-display"
@@ -992,7 +1187,6 @@
                             id="attendance-detail-fields"
                             class="conditional-fields"
                         >
-
 
                             <div
                                 id="field-ceremony"
@@ -1212,7 +1406,7 @@
                                 name="message"
                                 rows="3"
                                 maxlength="500"
-                                placeholder="留下給 Kevin 與 Coco 的祝福"
+                                placeholder="留下給我們的祝福"
                             ></textarea>
 
                         </div>
@@ -1270,7 +1464,7 @@
                 </div>
 
 
-                <!-- 回到信封入口 -->
+                <!-- 返回邀請函 -->
 
                 <div class="back-invitation-wrap">
 
@@ -1279,11 +1473,13 @@
                         id="back-to-invitation"
                         class="back-invitation-button"
                     >
+
                         <span>
                             Back to Invitation
                         </span>
 
                         返回邀請函
+
                     </button>
 
                 </div>
@@ -1296,7 +1492,7 @@
 
 
     <!-- =====================================================
-         Our Moments 燈箱
+         照片 Lightbox
     ====================================================== -->
 
     <div
@@ -1312,6 +1508,7 @@
             type="button"
             class="close-lightbox"
             id="close-lightbox"
+            aria-label="關閉照片"
         >
             &times;
         </button>
@@ -1336,6 +1533,7 @@
             ❦
         </div>
 
+
         <div class="footer-signature">
 
             <span>
@@ -1348,15 +1546,21 @@
 
         </div>
 
+
+        <!-- 只留中文姓名 -->
+
         <p class="footer-chinese-names">
-            周愷元 (Kevin)
+            周愷元
             <i>×</i>
-            陳佳惠 (Coco)
+            陳佳惠
         </p>
+
 
         <p id="footer-date"></p>
 
+
         <div class="footer-line"></div>
+
 
         <p>
             感謝您與我們一同分享這份喜悅。<br>
@@ -1370,7 +1574,7 @@
 
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-    <script src="./app.js?v=20260808-01"></script>
+    <script src="./app.js?v=20260808-02"></script>
 
 </body>
 </html>
