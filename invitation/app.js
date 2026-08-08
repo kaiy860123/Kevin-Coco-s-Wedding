@@ -1,5 +1,6 @@
 "use strict";
 
+
 /* =========================================================
    Firebase
 ========================================================= */
@@ -30,36 +31,52 @@ const firebaseConfig = {
         "G-XDE62910SE"
 };
 
+
 let database = null;
 
+
 try {
+
     if (
         typeof firebase === "undefined" ||
-        typeof firebase.initializeApp !== "function"
+        typeof firebase.initializeApp !==
+            "function"
     ) {
+
         throw new Error(
             "Firebase SDK 尚未正確載入。"
         );
+
     }
 
+
     if (!firebase.apps.length) {
+
         firebase.initializeApp(
             firebaseConfig
         );
+
     }
+
 
     database =
         firebase.database();
 
+
     console.log(
         "Firebase Realtime Database 初始化成功。"
     );
-} catch (error) {
+
+}
+catch (error) {
+
     console.error(
         "Firebase 初始化失敗：",
         error
     );
+
 }
+
 
 /* =========================================================
    Google Form
@@ -68,7 +85,9 @@ try {
 const GOOGLE_FORM_URL =
     "https://docs.google.com/forms/d/e/1FAIpQLSc08XmBI8W6_rmTZzwnLS3qi8GjLOADrR1Kwx_82zTKs2z1kw/formResponse";
 
+
 const GOOGLE_FORM_ENTRY = {
+
     weddingLocation:
         "entry.1643825659",
 
@@ -113,13 +132,16 @@ const GOOGLE_FORM_ENTRY = {
 
     formVersion:
         "entry.365524471"
+
 };
+
 
 /* =========================================================
    共用圖片
 ========================================================= */
 
 const sharedImages = {
+
     hero:
         "./images/hero-cover.jpg",
 
@@ -129,72 +151,104 @@ const sharedImages = {
         "./images/moment-03.jpg",
         "./images/moment-04.jpg"
     ]
+
 };
 
+
 /* =========================================================
-   婚禮場次
+   婚禮資料
 ========================================================= */
 
 const weddingConfig = {
+
     defaultLocation:
         "tainan",
 
+
     getCurrentLocation() {
+
         const params =
             new URLSearchParams(
                 window.location.search
             );
 
+
         const requestedLocation =
             params.get("loc");
 
+
         if (
             requestedLocation &&
-            this.events[requestedLocation]
+            this.events[
+                requestedLocation
+            ]
         ) {
+
             return requestedLocation;
+
         }
 
+
         return this.defaultLocation;
+
     },
 
+
     events: {
+
+        /* =================================================
+           台南
+        ================================================= */
+
         tainan: {
+
             browserTitle:
                 "Kevin & Coco's Wedding - 台南場",
+
 
             dateZh:
                 "2027 年 1 月 17 日（星期日）",
 
+
             dateEn:
                 "Sunday, January 17, 2027",
+
 
             heroDateLine1:
                 "JANUARY 17 2027",
 
+
             heroDateLine2:
                 "TAINAN",
+
 
             countdownImage:
                 "./images/countdown-tainan.jpg",
 
+
             countdownImageAlt:
-                "台南場婚禮倒數圖片 Tainan wedding countdown image",
+                "台南場婚禮倒數 Wedding Countdown",
+
 
             rsvpDeadline:
                 "2026-12-31T23:59:59+08:00",
 
+
             rsvpDeadlineZh:
                 "2026 年 12 月 31 日 23:59",
+
 
             rsvpDeadlineEn:
                 "December 31, 2026 at 11:59 PM",
 
+
             venueName:
                 "台南晶英酒店",
 
+
             venueAddress:
                 "台南市中西區和意路 1 號",
+
 
             venueDetail: `
                 <p>
@@ -203,147 +257,210 @@ const weddingConfig = {
                 </p>
 
                 <p class="en-line">
-                    Ballroom: 2F Minglun & Rende Ballroom
+                    Ballroom:
+                    2F Minglun & Rende Ballroom
                 </p>
             `,
+
 
             noticeZh:
                 "",
 
+
             noticeEn:
                 "",
+
 
             eventImage:
                 "./images/event-tainan.jpg",
 
+
             eventImageAlt:
-                "Kevin 與 Coco 台南場婚禮資訊 Tainan Wedding Information",
+                "Kevin 與 Coco 台南婚禮資訊",
+
 
             timelineItems: [
+
                 {
-                    time: "11:30",
-                    icon: "🌸",
+                    time:
+                        "11:30",
+
+                    icon:
+                        "❀",
+
                     titleZh:
                         "賓客入場、迎賓簽到",
+
                     titleEn:
                         "Guest Arrival",
+
                     note:
                         ""
                 },
+
                 {
-                    time: "12:00",
-                    icon: "🥂",
+                    time:
+                        "12:00",
+
+                    icon:
+                        "♢",
+
                     titleZh:
                         "婚宴午宴開始",
+
                     titleEn:
                         "Wedding Luncheon Begins",
+
                     note:
-                        ""
+                        "2F 明倫＋仁德廳"
                 }
+
             ],
+
 
             googleMapUrl:
                 "https://www.google.com/maps/search/?api=1&query=%E5%8F%B0%E5%8D%97%E6%99%B6%E8%8B%B1%E9%85%92%E5%BA%97",
 
+
             mapEmbedSrc:
                 "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.9815295554013!2d120.19685391161538!3d22.987706679111458!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e767c77f6350f%3A0x802cfbc73a87af85!2z5Y-w5Y2X5pm26Iux6YWS5bqXIChTaWxrcyBQbGFjZSBUYWluYW4p!5e0!3m2!1szh-TW!2stw!4v1785570947869!5m2!1szh-TW!2stw",
+
 
             trafficInfo: `
                 <p>
                     <strong>高鐵：</strong>
-                    搭乘高鐵至高鐵台南站，可轉乘高鐵快捷公車 H31，
+                    搭乘高鐵至高鐵台南站，
+                    可轉乘高鐵快捷公車 H31，
                     於「小西門站」下車。
 
                     <span class="en-line">
-                        HSR: Take the H31 shuttle bus from Tainan HSR Station
-                        and get off at Xiaoximen Station.
+                        HSR:
+                        Take the H31 shuttle bus
+                        from Tainan HSR Station
+                        and get off at
+                        Xiaoximen Station.
                     </span>
                 </p>
 
                 <p>
                     <strong>台鐵：</strong>
-                    抵達台南火車站後，可轉乘計程車前往，
+                    抵達台南火車站後，
+                    可轉乘計程車前往，
                     車程約 10 分鐘。
 
                     <span class="en-line">
-                        TRA: A taxi ride from Tainan Railway Station
-                        takes approximately 10 minutes.
+                        TRA:
+                        A taxi ride from
+                        Tainan Railway Station
+                        takes approximately
+                        10 minutes.
                     </span>
                 </p>
 
                 <p>
                     <strong>自行開車：</strong>
-                    可使用上方 Google Maps 導航至台南晶英酒店。
+                    可使用上方 Google Maps
+                    導航至台南晶英酒店。
 
                     <span class="en-line">
-                        Driving: Use the Google Maps link above
-                        for directions to Silks Place Tainan.
+                        Driving:
+                        Use Google Maps
+                        for directions to
+                        Silks Place Tainan.
                     </span>
                 </p>
             `,
+
 
             parkingInfo: `
                 <p>
-                    餐會提供每台車至多 4 小時停車折抵。
+                    餐會提供每台車
+                    至多 4 小時停車折抵。
 
                     <span class="en-line">
-                        Wedding guests may receive up to four hours
-                        of parking validation per vehicle.
+                        Wedding guests may receive
+                        up to four hours
+                        of parking validation
+                        per vehicle.
                     </span>
                 </p>
 
                 <p>
-                    請於離場前依飯店現場指示辦理停車折抵。
+                    請於離場前依飯店
+                    現場指示辦理停車折抵。
 
                     <span class="en-line">
-                        Please follow the hotel's on-site instructions
-                        to validate parking before departure.
+                        Please follow the hotel's
+                        on-site instructions
+                        before departure.
                     </span>
                 </p>
             `,
 
+
             formToggles: {
+
                 showCeremony:
                     false
+
             }
+
         },
 
+
+        /* =================================================
+           南投
+        ================================================= */
+
         nantou: {
+
             browserTitle:
                 "Kevin & Coco's Wedding - 南投場",
+
 
             dateZh:
                 "2027 年 1 月 24 日（星期日）",
 
+
             dateEn:
                 "Sunday, January 24, 2027",
+
 
             heroDateLine1:
                 "JANUARY 24 2027",
 
+
             heroDateLine2:
                 "SUN MOON LAKE",
+
 
             countdownImage:
                 "./images/countdown-nantou.jpg",
 
+
             countdownImageAlt:
-                "南投場婚禮倒數圖片 Nantou wedding countdown image",
+                "南投場婚禮倒數 Wedding Countdown",
+
 
             rsvpDeadline:
                 "2026-12-31T23:59:59+08:00",
 
+
             rsvpDeadlineZh:
                 "2026 年 12 月 31 日 23:59",
+
 
             rsvpDeadlineEn:
                 "December 31, 2026 at 11:59 PM",
 
+
             venueName:
                 "日月潭涵碧樓",
 
+
             venueAddress:
                 "南投縣魚池鄉中興路 142 號",
+
 
             venueDetail: `
                 <p>
@@ -352,7 +469,8 @@ const weddingConfig = {
                 </p>
 
                 <p class="en-line">
-                    Ceremony: 8F Starlight Terrace
+                    Ceremony:
+                    8F Starlight Terrace
                 </p>
 
                 <p>
@@ -361,517 +479,867 @@ const weddingConfig = {
                 </p>
 
                 <p class="en-line">
-                    Luncheon: 7F Lakeview Pavilion
+                    Luncheon:
+                    7F Lakeview Pavilion
                 </p>
             `,
+
 
             noticeZh:
                 "溫馨提醒：本場次謝絕禮金，您的到來就是最好的祝福！",
 
+
             noticeEn:
                 "No gifts or cash gifts, please. Your presence is the greatest blessing to us.",
+
 
             eventImage:
                 "./images/event-nantou.jpg",
 
+
             eventImageAlt:
-                "Kevin 與 Coco 南投場婚禮資訊 Nantou Wedding Information",
+                "Kevin 與 Coco 南投婚禮資訊",
+
 
             timelineItems: [
+
                 {
-                    time: "10:30",
-                    icon: "💍",
+                    time:
+                        "10:30",
+
+                    icon:
+                        "♡",
+
                     titleZh:
                         "證婚儀式",
+
                     titleEn:
                         "Wedding Ceremony",
+
                     note:
-                        "8F 星光露台 · 8F Starlight Terrace"
+                        "8F 星光露台 · Starlight Terrace"
                 },
+
                 {
-                    time: "11:30",
-                    icon: "🌿",
+                    time:
+                        "11:30",
+
+                    icon:
+                        "❀",
+
                     titleZh:
                         "午宴入席",
+
                     titleEn:
-                        "Seating for Luncheon",
+                        "Guest Seating",
+
                     note:
-                        "7F 湖光軒 · 7F Lakeview Pavilion"
+                        "7F 湖光軒 · Lakeview Pavilion"
                 },
+
                 {
-                    time: "12:15",
-                    icon: "🥂",
+                    time:
+                        "12:15",
+
+                    icon:
+                        "♢",
+
                     titleZh:
                         "婚宴開席",
+
                     titleEn:
                         "Wedding Luncheon Begins",
+
                     note:
-                        "7F 湖光軒 · 7F Lakeview Pavilion"
+                        "7F 湖光軒 · Lakeview Pavilion"
                 }
+
             ],
+
 
             googleMapUrl:
                 "https://www.google.com/maps/search/?api=1&query=%E6%97%A5%E6%9C%88%E6%BD%AD%E6%B6%B5%E7%A2%A7%E6%A8%93",
 
+
             mapEmbedSrc:
                 "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3648.750948355145!2d120.90602371163745!3d23.862975978504466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3468d60f0d7e1f0b%3A0xa748afffa2011207!2z5pel5pyI5r2t5ra156Kn5qiT!5e0!3m2!1szh-TW!2stw!4v1785571059341!5m2!1szh-TW!2stw",
+
 
             trafficInfo: `
                 <p>
                     <strong>南投客運：</strong>
                     搭乘南投客運由台中干城車站發車，
-                    經台中火車站、高鐵台中烏日站、埔里至日月潭，
+                    經台中火車站、高鐵台中烏日站、
+                    埔里至日月潭，
                     約每小時一班車。
 
                     <span class="en-line">
-                        Nantou Bus departs from Taichung Gancheng Station
-                        and travels via Taichung Railway Station,
-                        Taichung HSR Station and Puli to Sun Moon Lake.
-                        Service is approximately once per hour.
+                        Nantou Bus departs from
+                        Taichung Gancheng Station
+                        via Taichung Railway Station,
+                        Taichung HSR Station
+                        and Puli to Sun Moon Lake.
                     </span>
                 </p>
 
                 <p>
-                    詳細時刻表請聯絡南投客運埔里站：
+                    詳細時刻表請聯絡
+                    南投客運埔里站：
                     <a href="tel:0492984031">
                         049-2984031
                     </a>。
 
                     <span class="en-line">
                         For the detailed timetable,
-                        contact Nantou Bus Puli Station at 049-2984031.
+                        contact Nantou Bus
+                        Puli Station.
                     </span>
                 </p>
 
                 <p>
-                    抵達日月潭車站終點後（即水社遊客中心），
-                    步行約 15 分鐘即可抵達涵碧樓。
+                    抵達日月潭車站終點後
+                    （即水社遊客中心），
+                    步行約 15 分鐘
+                    即可抵達涵碧樓。
 
                     <span class="en-line">
-                        From the Sun Moon Lake terminal at Shuishe Visitor Center,
-                        The Lalu is approximately a 15-minute walk.
-                    </span>
-                </p>
-
-                <p>
-                    <strong>自行開車：</strong>
-                    行駛國道六號，由愛蘭交流道下交流道後，
-                    沿台 21 線往日月潭方向行駛。
-
-                    <span class="en-line">
-                        Driving: Take National Freeway 6,
-                        exit at Ailan Interchange and follow Provincial Highway 21
-                        toward Sun Moon Lake.
+                        From Shuishe Visitor Center,
+                        The Lalu is approximately
+                        a 15-minute walk.
                     </span>
                 </p>
             `,
 
+
             parkingInfo: `
                 <p>
                     抵達涵碧樓飯店入口後，
-                    請依現場服務人員指示辦理停車或代客泊車。
+                    請依現場服務人員指示
+                    辦理停車或代客泊車。
 
                     <span class="en-line">
-                        Upon arrival, please follow staff instructions
+                        Upon arrival,
+                        please follow staff instructions
                         for parking or valet service.
                     </span>
                 </p>
 
                 <p>
                     婚宴賓客的停車安排及費用，
-                    請以婚宴當日飯店現場公告為準。
+                    請以婚宴當日
+                    飯店現場公告為準。
 
                     <span class="en-line">
-                        Parking arrangements and fees are subject
-                        to the hotel's event-day instructions.
+                        Parking arrangements and fees
+                        are subject to
+                        event-day instructions.
                     </span>
                 </p>
             `,
 
+
             formToggles: {
+
                 showCeremony:
                     true
+
             }
+
         }
+
     }
+
 };
 
+
 /* =========================================================
-   DOM 輔助
+   DOM
 ========================================================= */
 
 function getElement(id) {
-    return document.getElementById(id);
+
+    return document.getElementById(
+        id
+    );
+
 }
 
-function setText(id, value) {
+
+function setText(
+    id,
+    value
+) {
+
     const element =
         getElement(id);
 
+
     if (element) {
+
         element.textContent =
             value;
+
     }
+
 }
 
-function setHtml(id, value) {
+
+function setHtml(
+    id,
+    value
+) {
+
     const element =
         getElement(id);
 
+
     if (element) {
+
         element.innerHTML =
             value;
+
     }
+
 }
 
+
 /* =========================================================
-   背景音樂
+   音樂
 ========================================================= */
 
 function setupBackgroundMusic() {
+
     const audio =
-        getElement("bg-music");
+        getElement(
+            "bg-music"
+        );
 
-    const toggleButton =
-        getElement("music-toggle");
 
-    if (!audio || !toggleButton) {
+    if (!audio) {
+
         return {
+
             play() {},
+
             pause() {}
+
         };
+
     }
+
 
     audio.volume =
-        0.45;
+        0.42;
 
-    function syncButtonState() {
-        if (audio.paused) {
-            toggleButton.classList.remove(
-                "is-playing"
-            );
-            toggleButton.textContent =
-                "♫ Music";
-        } else {
-            toggleButton.classList.add(
-                "is-playing"
-            );
-            toggleButton.textContent =
-                "❚❚ Pause";
-        }
-    }
 
     async function playMusic() {
+
         try {
+
             await audio.play();
-        } catch (error) {
-            console.warn(
-                "背景音樂播放失敗：",
-                error
-            );
+
+            return true;
+
         }
-        syncButtonState();
+        catch (error) {
+
+            console.log(
+                "瀏覽器暫時阻擋背景音樂播放。"
+            );
+
+            return false;
+
+        }
+
     }
+
 
     function pauseMusic() {
+
         audio.pause();
-        syncButtonState();
+
     }
 
-    toggleButton.addEventListener(
-        "click",
-        async () => {
-            if (audio.paused) {
-                await playMusic();
-            } else {
-                pauseMusic();
-            }
+
+    /*
+        若頁面已經跳過信封入口，
+        先嘗試自動播放。
+
+        若瀏覽器阻擋，
+        第一次使用者操作時再播放。
+    */
+
+    async function tryAutoPlay() {
+
+        const success =
+            await playMusic();
+
+
+        if (success) {
+
+            return;
+
         }
-    );
 
-    audio.addEventListener(
-        "play",
-        syncButtonState
-    );
 
-    audio.addEventListener(
-        "pause",
-        syncButtonState
-    );
+        const startOnInteraction =
+            async () => {
 
-    syncButtonState();
+                const played =
+                    await playMusic();
+
+
+                if (played) {
+
+                    document.removeEventListener(
+                        "pointerdown",
+                        startOnInteraction
+                    );
+
+                    document.removeEventListener(
+                        "keydown",
+                        startOnInteraction
+                    );
+
+                }
+
+            };
+
+
+        document.addEventListener(
+            "pointerdown",
+            startOnInteraction
+        );
+
+
+        document.addEventListener(
+            "keydown",
+            startOnInteraction
+        );
+
+    }
+
 
     return {
-        play: playMusic,
-        pause: pauseMusic
+
+        play:
+            playMusic,
+
+        pause:
+            pauseMusic,
+
+        tryAutoPlay:
+            tryAutoPlay
+
     };
+
 }
 
+
 /* =========================================================
-   信封入口
+   信封入口 Controller
 ========================================================= */
 
 function setupInvitationGate(
     currentLocation,
     musicController
 ) {
+
     const gate =
-        getElement("invitation-gate");
+        getElement(
+            "invitation-gate"
+        );
+
 
     const envelopeButton =
-        getElement("envelope-button");
+        getElement(
+            "envelope-button"
+        );
+
 
     if (
         !gate ||
         !envelopeButton
     ) {
+
         document.documentElement.classList.remove(
             "show-invitation-gate"
         );
 
-        return;
+
+        return null;
+
     }
 
-    const shouldShow =
-        document.documentElement.classList.contains(
-            "show-invitation-gate"
-        );
-
-    if (!shouldShow) {
-        gate.hidden =
-            true;
-
-        gate.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-        if (
-            musicController &&
-            typeof musicController.play ===
-                "function"
-        ) {
-            musicController.play();
-        }
-
-        return;
-    }
-
-    gate.hidden =
-        false;
-
-    gate.setAttribute(
-        "aria-hidden",
-        "false"
-    );
 
     const sessionKey =
         `weddingInvitationOpened:${currentLocation}`;
+
+
+    let isOpening =
+        false;
+
 
     const reducedMotion =
         window.matchMedia(
             "(prefers-reduced-motion: reduce)"
         ).matches;
 
-    let isOpening =
-        false;
+
+    function resetGateVisual() {
+
+        isOpening =
+            false;
+
+
+        gate.classList.remove(
+            "is-opening"
+        );
+
+
+        gate.classList.remove(
+            "is-leaving"
+        );
+
+
+        envelopeButton.disabled =
+            false;
+
+    }
+
 
     function finishOpening() {
+
         document.documentElement.classList.remove(
             "show-invitation-gate"
         );
 
+
         gate.hidden =
             true;
+
 
         gate.setAttribute(
             "aria-hidden",
             "true"
         );
 
+
         document.body.style.overflow =
             "";
 
-        const weddingContent =
-            getElement(
-                "wedding-content"
-            );
-
-        if (weddingContent) {
-            weddingContent.focus({
-                preventScroll: true
-            });
-        }
 
         window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: "auto"
+            top:
+                0,
+
+            left:
+                0,
+
+            behavior:
+                "auto"
         });
+
     }
 
+
     async function openInvitation() {
+
         if (isOpening) {
+
             return;
+
         }
+
 
         isOpening =
             true;
 
+
         envelopeButton.disabled =
             true;
 
+
         try {
+
             window.sessionStorage.setItem(
                 sessionKey,
                 "true"
             );
-        } catch (error) {
+
+        }
+        catch (error) {
+
             console.warn(
-                "無法使用 sessionStorage：",
+                "sessionStorage 無法寫入。",
                 error
             );
+
         }
+
+
+        /*
+            點信封本身屬於使用者操作，
+            最適合在此啟動音樂。
+        */
 
         if (
             musicController &&
             typeof musicController.play ===
                 "function"
         ) {
-            await musicController.play();
+
+            musicController.play();
+
         }
+
 
         gate.classList.add(
             "is-opening"
         );
 
+
+        /*
+            Reduced Motion
+        */
+
         if (reducedMotion) {
+
             window.setTimeout(
                 () => {
+
                     gate.classList.add(
                         "is-leaving"
                     );
+
                 },
-                80
+                250
             );
+
 
             window.setTimeout(
                 finishOpening,
-                180
+                650
             );
 
+
             return;
+
         }
+
+
+        /*
+            正常動畫：
+
+            0s       開封
+            約 1s    卡片完成升起
+            約 1~4.8s 停留
+            4.8s     淡出
+            5.5s     顯示主頁
+        */
 
         window.setTimeout(
             () => {
+
                 gate.classList.add(
                     "is-leaving"
                 );
+
             },
-            1550
+            4800
         );
+
 
         window.setTimeout(
             finishOpening,
-            2150
+            5500
         );
+
     }
+
+
+    function showInvitation() {
+
+        resetGateVisual();
+
+
+        gate.hidden =
+            false;
+
+
+        gate.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+
+        document.documentElement.classList.add(
+            "show-invitation-gate"
+        );
+
+
+        window.scrollTo({
+            top:
+                0,
+
+            left:
+                0,
+
+            behavior:
+                "auto"
+        });
+
+
+        /*
+            明確返回入口時，
+            把本次 session 紀錄移除。
+
+            再次點開信封時會重新寫入。
+        */
+
+        try {
+
+            window.sessionStorage.removeItem(
+                sessionKey
+            );
+
+        }
+        catch (error) {
+
+            console.warn(
+                error
+            );
+
+        }
+
+    }
+
 
     envelopeButton.addEventListener(
         "click",
         openInvitation
     );
+
+
+    const shouldShow =
+        document.documentElement.classList.contains(
+            "show-invitation-gate"
+        );
+
+
+    if (shouldShow) {
+
+        gate.hidden =
+            false;
+
+
+        gate.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+    }
+    else {
+
+        gate.hidden =
+            true;
+
+
+        gate.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+
+        /*
+            已開過信封：
+            直接嘗試播放。
+        */
+
+        if (
+            musicController &&
+            typeof musicController.tryAutoPlay ===
+                "function"
+        ) {
+
+            musicController.tryAutoPlay();
+
+        }
+
+    }
+
+
+    return {
+
+        showInvitation
+
+    };
+
 }
 
+
 /* =========================================================
-   Our Moments 圖片燈箱
+   RSVP 回邀請函
+========================================================= */
+
+function setupBackToInvitation(
+    invitationGateController
+) {
+
+    const button =
+        getElement(
+            "back-to-invitation"
+        );
+
+
+    if (
+        !button ||
+        !invitationGateController
+    ) {
+
+        return;
+
+    }
+
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            invitationGateController
+                .showInvitation();
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   Our Moments Lightbox
 ========================================================= */
 
 function setupLightbox() {
-    const lightbox =
-        getElement("lightbox");
 
-    const lightboxImage =
-        getElement("lightbox-img");
+    const lightbox =
+        getElement(
+            "lightbox"
+        );
+
+
+    const image =
+        getElement(
+            "lightbox-img"
+        );
+
 
     const closeButton =
-        getElement("close-lightbox");
+        getElement(
+            "close-lightbox"
+        );
+
 
     if (
         !lightbox ||
-        !lightboxImage ||
+        !image ||
         !closeButton
     ) {
+
         return null;
+
     }
+
 
     function openImage(
         source,
-        alternativeText
+        alt
     ) {
-        lightboxImage.src =
+
+        image.src =
             source;
 
-        lightboxImage.alt =
-            alternativeText;
+
+        image.alt =
+            alt;
+
 
         lightbox.hidden =
             false;
 
+
         document.body.style.overflow =
             "hidden";
 
-        closeButton.focus();
     }
 
+
     function closeImage() {
+
         lightbox.hidden =
             true;
 
-        lightboxImage.src =
+
+        image.src =
             "";
+
 
         document.body.style.overflow =
             "";
+
     }
+
 
     closeButton.addEventListener(
         "click",
         closeImage
     );
 
+
     lightbox.addEventListener(
         "click",
-        (event) => {
+        event => {
+
             if (
                 event.target ===
                 lightbox
             ) {
+
                 closeImage();
+
             }
+
         }
     );
 
+
     document.addEventListener(
         "keydown",
-        (event) => {
+        event => {
+
             if (
                 event.key === "Escape" &&
                 !lightbox.hidden
             ) {
+
                 closeImage();
+
             }
+
         }
     );
 
+
     return {
+
         openImage
+
     };
+
 }
 
+
 /* =========================================================
-   頁面顯示
+   Render
 ========================================================= */
 
 function renderPage(
@@ -879,731 +1347,885 @@ function renderPage(
     currentLocation,
     lightboxController
 ) {
+
     document.title =
         config.browserTitle;
 
-    setHtml(
-        "page-title",
-        "Kevin <em>&amp;</em> Coco"
-    );
 
     setText(
         "wedding-date-line1",
         config.heroDateLine1
     );
 
+
     setText(
         "wedding-date-line2",
         config.heroDateLine2
     );
+
 
     setText(
         "wedding-location",
         `${config.venueName} · ${config.venueAddress}`
     );
 
+
     setText(
         "event-date",
         config.dateZh
     );
+
 
     setText(
         "event-date-en",
         config.dateEn
     );
 
+
     setText(
         "venue-name",
         config.venueName
     );
+
 
     setText(
         "venue-address",
         config.venueAddress
     );
 
+
     setHtml(
         "venue-detail",
         config.venueDetail
     );
+
 
     setHtml(
         "traffic-info",
         config.trafficInfo
     );
 
+
     setHtml(
         "parking-info",
         config.parkingInfo
     );
+
 
     setText(
         "footer-date",
         config.dateEn
     );
 
+
     const hero =
-        getElement("hero-bg");
+        getElement(
+            "hero-bg"
+        );
+
 
     if (hero) {
+
         hero.style.backgroundImage =
             `url("${sharedImages.hero}")`;
+
     }
+
 
     const locationInput =
         getElement(
             "form-wedding-location"
         );
 
+
     if (locationInput) {
+
         locationInput.value =
             currentLocation;
+
     }
+
 
     const mapLink =
         getElement(
             "google-map-link"
         );
 
+
     if (mapLink) {
+
         mapLink.href =
             config.googleMapUrl;
+
     }
+
 
     const mapIframe =
         getElement(
             "map-iframe"
         );
 
+
     if (mapIframe) {
+
         mapIframe.src =
             config.mapEmbedSrc;
 
-        mapIframe.title =
-            `${config.venueName} Google Maps`;
     }
+
 
     renderNotice(
         config
     );
 
+
     renderCountdownImage(
         config
     );
+
 
     renderEventImage(
         config
     );
 
+
     renderTimelineItems(
         config
     );
 
+
     renderMoments(
         lightboxController
     );
+
 }
+
 
 /* =========================================================
    公告
 ========================================================= */
 
 function renderNotice(config) {
-    const noticeSection =
+
+    const section =
         getElement(
             "notice-section"
         );
 
-    if (!noticeSection) {
+
+    if (!section) {
+
         return;
+
     }
+
 
     if (
         config.noticeZh ||
         config.noticeEn
     ) {
+
         setText(
             "notice-zh",
             config.noticeZh
         );
+
 
         setText(
             "notice-en",
             config.noticeEn
         );
 
-        noticeSection.hidden =
+
+        section.hidden =
             false;
-    } else {
-        noticeSection.hidden =
-            true;
+
     }
+    else {
+
+        section.hidden =
+            true;
+
+    }
+
 }
 
+
 /* =========================================================
-   婚禮倒數圖片
+   Countdown Image
 ========================================================= */
 
 function renderCountdownImage(
     config
 ) {
+
     const image =
         getElement(
             "countdown-image"
         );
 
-    const errorMessage =
+
+    const error =
         getElement(
             "countdown-image-error"
         );
 
+
     if (
         !image ||
-        !errorMessage
+        !error
     ) {
+
         return;
+
     }
+
 
     image.alt =
         config.countdownImageAlt;
 
-    image.onload = () => {
-        image.hidden =
-            false;
-        errorMessage.hidden =
-            true;
-    };
 
-    image.onerror = () => {
-        image.hidden =
-            true;
-        errorMessage.hidden =
-            false;
+    image.onload =
+        () => {
 
-        console.error(
-            `婚禮倒數圖片載入失敗：${config.countdownImage}`
-        );
-    };
+            image.hidden =
+                false;
+
+
+            error.hidden =
+                true;
+
+        };
+
+
+    image.onerror =
+        () => {
+
+            image.hidden =
+                true;
+
+
+            error.hidden =
+                false;
+
+        };
+
 
     image.src =
         config.countdownImage;
+
 }
 
+
 /* =========================================================
-   婚禮資訊圖片
+   Event Image
 ========================================================= */
 
-function renderEventImage(config) {
+function renderEventImage(
+    config
+) {
+
     const image =
         getElement(
             "event-image"
         );
 
-    const errorMessage =
+
+    const error =
         getElement(
             "event-image-error"
         );
 
+
     if (
         !image ||
-        !errorMessage
+        !error
     ) {
+
         return;
+
     }
+
 
     image.alt =
         config.eventImageAlt;
 
-    image.onload = () => {
-        image.hidden =
-            false;
 
-        errorMessage.hidden =
-            true;
-    };
+    image.onload =
+        () => {
 
-    image.onerror = () => {
-        image.hidden =
-            true;
+            image.hidden =
+                false;
 
-        errorMessage.hidden =
-            false;
 
-        console.error(
-            `婚禮資訊圖片載入失敗：${config.eventImage}`
-        );
-    };
+            error.hidden =
+                true;
+
+        };
+
+
+    image.onerror =
+        () => {
+
+            image.hidden =
+                true;
+
+
+            error.hidden =
+                false;
+
+        };
+
 
     image.src =
         config.eventImage;
+
 }
 
+
 /* =========================================================
-   婚禮時程文字版
+   Timeline
 ========================================================= */
 
 function renderTimelineItems(
     config
 ) {
-    const timelineList =
+
+    const list =
         getElement(
             "timeline-list"
         );
 
-    if (!timelineList) {
+
+    if (!list) {
+
         return;
+
     }
 
-    timelineList.innerHTML =
+
+    list.innerHTML =
         "";
 
-    (config.timelineItems || []).forEach(
-        (item) => {
-            const timelineItem =
+
+    config.timelineItems.forEach(
+        item => {
+
+            const element =
                 document.createElement(
                     "div"
                 );
 
-            timelineItem.className =
+
+            element.className =
                 "timeline-item";
 
-            timelineItem.innerHTML = `
+
+            element.innerHTML = `
+
                 <div class="timeline-marker">
+
                     <div class="timeline-dot">
-                        ${item.icon || "✦"}
+                        ${item.icon}
                     </div>
+
                     <div class="timeline-line"></div>
+
                 </div>
 
                 <div class="timeline-content-box">
+
                     <p class="timeline-time">
-                        ${item.time || ""}
+                        ${item.time}
                     </p>
 
                     <p class="timeline-title">
-                        ${item.titleZh || ""}
+                        ${item.titleZh}
                     </p>
 
                     <p class="timeline-subtitle">
-                        ${item.titleEn || ""}
+                        ${item.titleEn}
                     </p>
 
                     ${
                         item.note
-                            ? `<p class="timeline-note">${item.note}</p>`
-                            : ``
+                            ?
+                            `
+                            <p class="timeline-note">
+                                ${item.note}
+                            </p>
+                            `
+                            :
+                            ""
                     }
+
                 </div>
             `;
 
-            timelineList.appendChild(
-                timelineItem
+
+            list.appendChild(
+                element
             );
+
         }
     );
+
 }
 
+
 /* =========================================================
-   Our Moments
+   Moments
 ========================================================= */
 
 function renderMoments(
     lightboxController
 ) {
-    const photoGrid =
+
+    const grid =
         getElement(
             "photo-grid"
         );
 
-    if (!photoGrid) {
+
+    if (!grid) {
+
         return;
+
     }
 
-    photoGrid.innerHTML =
+
+    grid.innerHTML =
         "";
+
 
     sharedImages.moments.forEach(
         (
-            imageSource,
+            source,
             index
         ) => {
+
             const image =
                 document.createElement(
                     "img"
                 );
 
+
             image.src =
-                imageSource;
+                source;
+
 
             image.alt =
-                `Kevin and Coco moment ${index + 1} · 拾光片刻 ${index + 1}`;
+                `Kevin and Coco Moment ${index + 1}`;
+
 
             image.className =
                 "photo-item";
 
+
             image.loading =
                 "lazy";
 
-            image.decoding =
-                "async";
-
-            image.tabIndex =
-                0;
 
             image.addEventListener(
                 "click",
                 () => {
+
                     if (
                         lightboxController
                     ) {
-                        lightboxController.openImage(
-                            image.src,
-                            image.alt
-                        );
-                    }
-                }
-            );
 
-            image.addEventListener(
-                "keydown",
-                (event) => {
-                    if (
-                        event.key ===
-                            "Enter" ||
-                        event.key ===
-                            " "
-                    ) {
-                        event.preventDefault();
-
-                        if (
-                            lightboxController
-                        ) {
-                            lightboxController.openImage(
+                        lightboxController
+                            .openImage(
                                 image.src,
                                 image.alt
                             );
-                        }
+
                     }
+
                 }
             );
 
-            image.addEventListener(
-                "error",
-                () => {
-                    console.error(
-                        `照片載入失敗：${imageSource}`
-                    );
 
-                    image.remove();
-                }
-            );
-
-            photoGrid.appendChild(
+            grid.appendChild(
                 image
             );
+
         }
     );
+
 }
 
+
 /* =========================================================
-   RSVP 截止時間
+   RSVP Deadline
 ========================================================= */
 
-function setupRsvpDeadline(config) {
-    const formWrapper =
+function setupRsvpDeadline(
+    config
+) {
+
+    const wrapper =
         getElement(
             "rsvp-form-wrapper"
         );
 
-    const deadlineNotice =
+
+    const notice =
         getElement(
             "deadline-notice"
         );
 
-    const deadlineDisplay =
+
+    const display =
         getElement(
             "rsvp-deadline-display"
         );
 
-    const deadlineTimestamp =
+
+    const timestamp =
         new Date(
             config.rsvpDeadline
         ).getTime();
 
-    if (deadlineDisplay) {
-        deadlineDisplay.innerHTML = `
-            回覆截止：${config.rsvpDeadlineZh}<br>
-            RSVP Deadline: ${config.rsvpDeadlineEn}
+
+    if (display) {
+
+        display.innerHTML = `
+
+            回覆截止：
+            ${config.rsvpDeadlineZh}
+
+            <br>
+
+            RSVP Deadline:
+            ${config.rsvpDeadlineEn}
+
         `;
+
     }
+
 
     if (
         !Number.isFinite(
-            deadlineTimestamp
+            timestamp
         )
     ) {
-        console.error(
-            `無效的 RSVP 截止時間：${config.rsvpDeadline}`
-        );
 
         return false;
+
     }
 
-    const deadlinePassed =
+
+    const expired =
         Date.now() >
-        deadlineTimestamp;
+        timestamp;
 
-    if (deadlinePassed) {
-        if (formWrapper) {
-            formWrapper.hidden =
-                true;
-        }
 
-        if (deadlineNotice) {
-            deadlineNotice.hidden =
-                false;
-        }
+    if (wrapper) {
 
-        return true;
+        wrapper.hidden =
+            expired;
+
     }
 
-    if (formWrapper) {
-        formWrapper.hidden =
-            false;
+
+    if (notice) {
+
+        notice.hidden =
+            !expired;
+
     }
 
-    if (deadlineNotice) {
-        deadlineNotice.hidden =
-            true;
-    }
 
-    return false;
+    return expired;
+
 }
 
+
 /* =========================================================
-   動態表單欄位
+   Form Dynamic
 ========================================================= */
 
 function setFieldVisibility(
     element,
     visible
 ) {
+
     if (!element) {
+
         return;
+
     }
+
 
     element.hidden =
         !visible;
+
 
     element
         .querySelectorAll(
             "input, select, textarea"
         )
         .forEach(
-            (control) => {
+            control => {
+
                 if (visible) {
+
                     if (
                         control.dataset
                             .originallyRequired ===
                         "true"
                     ) {
+
                         control.required =
                             true;
+
                     }
-                } else {
+
+                }
+                else {
+
                     control.required =
                         false;
-                    if (
-                        control.type !==
-                            "hidden" &&
-                        control.tagName !==
-                            "SELECT"
-                    ) {
-                        control.value =
-                            control.defaultValue || "";
-                    }
+
                 }
+
             }
         );
+
 }
 
-function prepareFormControls(config) {
+
+function prepareFormControls(
+    config
+) {
+
     const form =
         getElement(
             "rsvp-form"
         );
 
-    const attendanceSelect =
+
+    const attendance =
         getElement(
             "attendance"
         );
 
-    const attendanceDetails =
+
+    const details =
         getElement(
             "attendance-detail-fields"
         );
 
-    const ceremonyField =
+
+    const ceremony =
         getElement(
             "field-ceremony"
         );
 
-    const dietarySelect =
+
+    const dietary =
         getElement(
             "dietary-type"
         );
 
-    const vegetarianCountField =
+
+    const vegField =
         getElement(
             "field-veg-count"
         );
 
-    const vegetarianCountInput =
+
+    const vegCount =
         getElement(
             "veg-count"
         );
 
-    const dietaryOtherHelp =
+
+    const otherHelp =
         getElement(
             "dietary-other-help"
         );
 
-    const foodAllergyInput =
+
+    const allergy =
         getElement(
             "food-allergy"
         );
 
+
     if (
         !form ||
-        !attendanceSelect ||
-        !attendanceDetails ||
-        !ceremonyField ||
-        !dietarySelect ||
-        !vegetarianCountField ||
-        !vegetarianCountInput ||
-        !dietaryOtherHelp ||
-        !foodAllergyInput
+        !attendance ||
+        !details ||
+        !ceremony ||
+        !dietary ||
+        !vegField ||
+        !vegCount ||
+        !otherHelp ||
+        !allergy
     ) {
+
         return;
+
     }
+
 
     form
         .querySelectorAll(
             "input, select, textarea"
         )
         .forEach(
-            (control) => {
+            control => {
+
                 if (
                     control.dataset
                         .originallyRequired ===
                     undefined
                 ) {
+
                     control.dataset
                         .originallyRequired =
                         String(
                             control.required
                         );
+
                 }
+
             }
         );
 
-    function updateDietaryFields() {
-        const isAttending =
-            attendanceSelect.value ===
+
+    function updateDietary() {
+
+        const attending =
+            attendance.value ===
             "yes";
 
-        const dietaryType =
-            dietarySelect.value;
 
-        const showVegetarianCount =
-            isAttending &&
-            dietaryType ===
-            "all_veg";
+        const type =
+            dietary.value;
 
-        const showOtherHelp =
-            isAttending &&
-            dietaryType ===
-            "other";
+
+        const showVeg =
+            attending &&
+            type ===
+                "all_veg";
+
+
+        const showOther =
+            attending &&
+            type ===
+                "other";
+
 
         setFieldVisibility(
-            vegetarianCountField,
-            showVegetarianCount
+            vegField,
+            showVeg
         );
 
-        dietaryOtherHelp.hidden =
-            !showOtherHelp;
 
-        foodAllergyInput.required =
-            showOtherHelp;
+        otherHelp.hidden =
+            !showOther;
 
-        if (!showVegetarianCount) {
-            vegetarianCountInput.value =
+
+        allergy.required =
+            showOther;
+
+
+        if (!showVeg) {
+
+            vegCount.value =
                 "0";
+
         }
+
     }
 
-    function updateAttendanceFields() {
-        const isAttending =
-            attendanceSelect.value ===
+
+    function updateAttendance() {
+
+        const attending =
+            attendance.value ===
             "yes";
 
+
         setFieldVisibility(
-            attendanceDetails,
-            isAttending
+            details,
+            attending
         );
 
-        if (isAttending) {
+
+        if (attending) {
+
             setFieldVisibility(
-                ceremonyField,
-                config.formToggles
+                ceremony,
+                config
+                    .formToggles
                     .showCeremony
             );
+
         }
 
-        updateDietaryFields();
+
+        updateDietary();
+
     }
 
+
     if (
-        attendanceSelect.dataset
+        attendance.dataset
             .listenerBound !==
         "true"
     ) {
-        attendanceSelect.addEventListener(
+
+        attendance.addEventListener(
             "change",
-            updateAttendanceFields
+            updateAttendance
         );
 
-        attendanceSelect.dataset
+
+        attendance.dataset
             .listenerBound =
             "true";
+
     }
 
+
     if (
-        dietarySelect.dataset
+        dietary.dataset
             .listenerBound !==
         "true"
     ) {
-        dietarySelect.addEventListener(
+
+        dietary.addEventListener(
             "change",
-            updateDietaryFields
+            updateDietary
         );
 
-        dietarySelect.dataset
+
+        dietary.dataset
             .listenerBound =
             "true";
+
     }
 
-    updateAttendanceFields();
+
+    updateAttendance();
+
 }
 
+
 /* =========================================================
-   餐點文字
+   Dietary Label
 ========================================================= */
 
 function getDietaryTypeLabel(
-    dietaryType
+    type
 ) {
+
     const labels = {
+
         all_meat:
             "全葷 / Regular Meals",
 
@@ -1615,17 +2237,19 @@ function getDietaryTypeLabel(
 
         not_applicable:
             "不適用 / Not Applicable"
+
     };
 
-    return (
-        labels[dietaryType] ||
-        dietaryType ||
-        ""
-    );
+
+    return labels[type] ||
+        type ||
+        "";
+
 }
 
+
 /* =========================================================
-   整理 RSVP
+   Build RSVP
 ========================================================= */
 
 function buildRsvpData(
@@ -1633,35 +2257,44 @@ function buildRsvpData(
     currentLocation,
     config
 ) {
+
     const formData =
         new FormData(
             form
         );
 
-    const isAttending =
+
+    const attending =
         formData.get(
             "isAttending"
-        ) ===
-        "yes";
+        ) === "yes";
+
 
     const dietaryType =
-        isAttending
-            ? String(
+        attending
+            ?
+            String(
                 formData.get(
                     "dietaryType"
                 ) || ""
             )
-            : "not_applicable";
+            :
+            "not_applicable";
+
 
     return {
+
         weddingLocation:
             currentLocation,
+
 
         weddingVenue:
             config.venueName,
 
+
         weddingDate:
             config.dateZh,
+
 
         guestName:
             String(
@@ -1670,12 +2303,14 @@ function buildRsvpData(
                 ) || ""
             ).trim(),
 
+
         relation:
             String(
                 formData.get(
                     "relation"
                 ) || ""
             ).trim(),
+
 
         phone:
             String(
@@ -1684,70 +2319,93 @@ function buildRsvpData(
                 ) || ""
             ).trim(),
 
+
         isAttending:
-            isAttending
-                ? "是 / Attending"
-                : "否 / Not Attending",
+            attending
+                ?
+                "是 / Attending"
+                :
+                "否 / Not Attending",
+
 
         attendCeremony:
-            isAttending &&
-            config.formToggles
+            attending &&
+            config
+                .formToggles
                 .showCeremony
-                ? (
+                ?
+                (
                     formData.get(
                         "attendCeremony"
-                    ) ===
-                    "yes"
-                        ? "是 / Attending"
-                        : "否，僅參加午宴 / Luncheon Only"
+                    ) === "yes"
+                        ?
+                        "是 / Attending"
+                        :
+                        "否，僅參加午宴 / Luncheon Only"
                 )
-                : "不適用 / Not Applicable",
+                :
+                "不適用 / Not Applicable",
+
 
         attendCount:
-            isAttending
-                ? Number(
+            attending
+                ?
+                Number(
                     formData.get(
                         "attendCount"
                     ) || 0
                 )
-                : 0,
+                :
+                0,
+
 
         childSetCount:
-            isAttending
-                ? Number(
+            attending
+                ?
+                Number(
                     formData.get(
                         "childSetCount"
                     ) || 0
                 )
-                : 0,
+                :
+                0,
+
 
         dietaryType:
             dietaryType,
+
 
         dietaryTypeLabel:
             getDietaryTypeLabel(
                 dietaryType
             ),
 
+
         vegetarianCount:
-            isAttending &&
+            attending &&
             dietaryType ===
                 "all_veg"
-                ? Number(
+                ?
+                Number(
                     formData.get(
                         "vegCount"
                     ) || 0
                 )
-                : 0,
+                :
+                0,
+
 
         foodAllergy:
-            isAttending
-                ? String(
+            attending
+                ?
+                String(
                     formData.get(
                         "foodAllergy"
                     ) || ""
                 ).trim()
-                : "",
+                :
+                "",
+
 
         message:
             String(
@@ -1756,68 +2414,90 @@ function buildRsvpData(
                 ) || ""
             ).trim(),
 
+
         submittedAtServer:
             firebase.database
                 .ServerValue
                 .TIMESTAMP,
 
+
         sourcePage:
             window.location.href,
 
+
         formVersion:
-            "20260806-03"
+            "20260808-01"
+
     };
+
 }
 
+
 /* =========================================================
-   RSVP 驗證
+   Validate
 ========================================================= */
 
-function validateRsvpData(data) {
+function validateRsvpData(
+    data
+) {
+
     if (!data.guestName) {
+
         return (
             "請填寫姓名。 " +
             "Please enter your name."
         );
+
     }
 
+
     if (!data.relation) {
+
         return (
             "請選擇與新人的關係。 " +
             "Please select your relationship."
         );
+
     }
 
+
     if (!data.phone) {
+
         return (
             "請填寫聯絡電話。 " +
             "Please enter your phone number."
         );
+
     }
 
-    const phoneDigits =
+
+    const digits =
         data.phone.replace(
             /\D/g,
             ""
         );
 
+
     if (
-        phoneDigits.length < 8 ||
-        phoneDigits.length > 15
+        digits.length < 8 ||
+        digits.length > 15
     ) {
+
         return (
-            "請確認聯絡電話格式，例如 0912345678。 " +
-            "Please check the phone number format."
+            "請確認聯絡電話格式，例如 0912345678。"
         );
+
     }
 
-    const isAttending =
+
+    const attending =
         data.isAttending.startsWith(
             "是"
         );
 
+
     if (
-        isAttending &&
+        attending &&
         (
             !Number.isInteger(
                 data.attendCount
@@ -1826,163 +2506,179 @@ function validateRsvpData(data) {
             data.attendCount > 20
         )
     ) {
+
         return (
-            "總出席人數需為 1 至 20 人，並包含所有兒童。 " +
-            "Guest count must include all adults and children."
+            "總出席人數需為 1 至 20 人，並包含所有兒童。"
         );
+
     }
 
+
     if (
-        isAttending &&
-        (
-            !Number.isInteger(
-                data.childSetCount
-            ) ||
-            data.childSetCount < 0 ||
-            data.childSetCount >
-                data.attendCount
-        )
+        attending &&
+        data.childSetCount >
+            data.attendCount
     ) {
+
         return (
-            "兒童座椅及餐具組數量不可大於總出席人數。 " +
-            "Child set count cannot exceed total guest count."
+            "兒童座椅及餐具組數量不可大於總出席人數。"
         );
+
     }
 
+
     if (
-        isAttending &&
+        attending &&
         data.dietaryType ===
             "all_veg" &&
         (
-            !Number.isInteger(
-                data.vegetarianCount
-            ) ||
             data.vegetarianCount < 1 ||
             data.vegetarianCount >
                 data.attendCount
         )
     ) {
+
         return (
-            "全素餐點的素食人數需為 1 人以上，且不可大於總出席人數。 " +
-            "Vegetarian count must be between 1 and the total guest count."
+            "素食人數不可大於總出席人數。"
         );
+
     }
 
+
     if (
-        isAttending &&
+        attending &&
         data.dietaryType ===
             "other" &&
         !data.foodAllergy
     ) {
+
         return (
-            "選擇其他餐點需求時，請於食物過敏或特殊需求欄位註明。 " +
-            "Please describe your meal requirements."
+            "選擇其他餐點需求時，請於食物過敏或特殊需求欄位註明。"
         );
+
     }
+
 
     return "";
+
 }
 
+
 /* =========================================================
-   Firebase 寫入
+   Firebase
 ========================================================= */
 
-async function submitToFirebase(data) {
+async function submitToFirebase(
+    data
+) {
+
     if (!database) {
+
         throw new Error(
-            "Firebase Realtime Database 尚未初始化。"
+            "Firebase 尚未初始化。"
         );
+
     }
 
-    if (
-        data.weddingLocation !==
-            "tainan" &&
-        data.weddingLocation !==
-            "nantou"
-    ) {
-        throw new Error(
-            "無效的婚禮場次。"
-        );
-    }
 
-    const responseReference =
+    const reference =
         database.ref(
             `rsvpResponses/${data.weddingLocation}`
         );
 
-    const newResponseReference =
-        responseReference.push();
 
-    await newResponseReference.set(
+    const newReference =
+        reference.push();
+
+
+    await newReference.set(
         data
     );
 
+
     return {
+
         success:
             true,
 
+
         responseId:
-            newResponseReference.key
+            newReference.key
+
     };
+
 }
 
+
 /* =========================================================
-   Google Form 寫入
+   Google Form
 ========================================================= */
 
-async function submitToGoogleForm(data) {
-    const googleFormData =
+async function submitToGoogleForm(
+    data
+) {
+
+    const params =
         new URLSearchParams();
 
-    googleFormData.append(
+
+    params.append(
         GOOGLE_FORM_ENTRY
             .weddingLocation,
         data.weddingLocation
     );
 
-    googleFormData.append(
+
+    params.append(
         GOOGLE_FORM_ENTRY
             .weddingVenue,
         data.weddingVenue
     );
 
-    googleFormData.append(
+
+    params.append(
         GOOGLE_FORM_ENTRY
             .weddingDate,
         data.weddingDate
     );
 
-    googleFormData.append(
+
+    params.append(
         GOOGLE_FORM_ENTRY
             .guestName,
         data.guestName
     );
 
-    googleFormData.append(
+
+    params.append(
         GOOGLE_FORM_ENTRY
             .relation,
         data.relation
     );
 
-    googleFormData.append(
+
+    params.append(
         GOOGLE_FORM_ENTRY
             .phone,
         data.phone
     );
 
-    googleFormData.append(
+
+    params.append(
         GOOGLE_FORM_ENTRY
             .isAttending,
         data.isAttending
     );
 
-    googleFormData.append(
+
+    params.append(
         GOOGLE_FORM_ENTRY
             .attendCeremony,
         data.attendCeremony
     );
 
-    googleFormData.append(
+
+    params.append(
         GOOGLE_FORM_ENTRY
             .attendCount,
         String(
@@ -1990,7 +2686,8 @@ async function submitToGoogleForm(data) {
         )
     );
 
-    googleFormData.append(
+
+    params.append(
         GOOGLE_FORM_ENTRY
             .childSetCount,
         String(
@@ -1998,13 +2695,15 @@ async function submitToGoogleForm(data) {
         )
     );
 
-    googleFormData.append(
+
+    params.append(
         GOOGLE_FORM_ENTRY
             .dietaryType,
         data.dietaryTypeLabel
     );
 
-    googleFormData.append(
+
+    params.append(
         GOOGLE_FORM_ENTRY
             .vegetarianCount,
         String(
@@ -2012,27 +2711,32 @@ async function submitToGoogleForm(data) {
         )
     );
 
-    googleFormData.append(
+
+    params.append(
         GOOGLE_FORM_ENTRY
             .foodAllergy,
         data.foodAllergy
     );
 
-    googleFormData.append(
+
+    params.append(
         GOOGLE_FORM_ENTRY
             .message,
         data.message
     );
 
-    googleFormData.append(
+
+    params.append(
         GOOGLE_FORM_ENTRY
             .formVersion,
         data.formVersion
     );
 
+
     await fetch(
         GOOGLE_FORM_URL,
         {
+
             method:
                 "POST",
 
@@ -2040,132 +2744,151 @@ async function submitToGoogleForm(data) {
                 "no-cors",
 
             headers: {
+
                 "Content-Type":
                     "application/x-www-form-urlencoded;charset=UTF-8"
+
             },
 
             body:
-                googleFormData.toString()
+                params.toString()
+
         }
     );
 
+
     return {
+
         success:
             true
+
     };
+
 }
 
+
 /* =========================================================
-   Firebase 與 Google Form 雙重寫入
+   Submit Both
 ========================================================= */
 
-async function submitRsvpData(data) {
+async function submitRsvpData(
+    data
+) {
+
     const firebaseResult =
         await submitToFirebase(
             data
         );
 
-    let googleFormSynced =
-        false;
 
     try {
+
         await submitToGoogleForm(
             data
         );
 
-        googleFormSynced =
-            true;
+    }
+    catch (error) {
 
-        console.log(
-            "Google Form / Google Sheet 同步請求已送出。"
-        );
-    } catch (error) {
         console.error(
-            "Google Form / Google Sheet 同步失敗：",
+            "Google Form 同步失敗：",
             error
         );
+
     }
 
+
     return {
+
         success:
             true,
 
-        firebaseResponseId:
-            firebaseResult.responseId,
 
-        googleFormSynced:
-            googleFormSynced
+        firebaseResponseId:
+            firebaseResult.responseId
+
     };
+
 }
 
+
 /* =========================================================
-   RSVP 送出
+   RSVP Form
 ========================================================= */
 
 function setupRsvpForm(
     currentLocation,
     config
 ) {
+
     const form =
         getElement(
             "rsvp-form"
         );
 
-    const submitButton =
+
+    const button =
         getElement(
             "submit-button"
         );
 
-    const statusElement =
+
+    const status =
         getElement(
             "form-status"
         );
 
+
     if (
         !form ||
-        !submitButton ||
-        !statusElement
+        !button ||
+        !status
     ) {
+
         return;
+
     }
+
 
     form.addEventListener(
         "submit",
-        async (event) => {
+        async event => {
+
             event.preventDefault();
 
-            const deadlineTimestamp =
+
+            const deadline =
                 new Date(
                     config.rsvpDeadline
                 ).getTime();
 
+
             if (
-                Number.isFinite(
-                    deadlineTimestamp
-                ) &&
                 Date.now() >
-                    deadlineTimestamp
+                deadline
             ) {
+
                 setupRsvpDeadline(
                     config
                 );
 
+
                 return;
+
             }
 
-            statusElement.textContent =
-                "";
-
-            statusElement.className =
-                "form-status";
 
             if (
                 !form.checkValidity()
             ) {
+
                 form.reportValidity();
 
+
                 return;
+
             }
+
 
             const data =
                 buildRsvpData(
@@ -2174,134 +2897,131 @@ function setupRsvpForm(
                     config
                 );
 
-            const validationError =
+
+            const errorMessage =
                 validateRsvpData(
                     data
                 );
 
-            if (validationError) {
-                statusElement.textContent =
-                    validationError;
 
-                statusElement.className =
+            if (errorMessage) {
+
+                status.textContent =
+                    errorMessage;
+
+
+                status.className =
                     "form-status error";
 
+
                 return;
+
             }
 
-            submitButton.disabled =
+
+            button.disabled =
                 true;
 
-            submitButton.innerHTML = `
-                <span>Submitting</span>
+
+            button.innerHTML = `
+
+                <span>
+                    Submitting
+                </span>
+
                 送出中
+
             `;
 
-            try {
-                const result =
-                    await submitRsvpData(
-                        data
-                    );
 
-                console.log(
-                    "RSVP 寫入結果：",
-                    result
+            try {
+
+                await submitRsvpData(
+                    data
                 );
 
-                statusElement.textContent =
+
+                status.textContent =
                     "✓ 回覆已成功送出 · RSVP submitted successfully";
 
-                statusElement.className =
+
+                status.className =
                     "form-status success";
 
+
                 form.reset();
+
 
                 const locationInput =
                     getElement(
                         "form-wedding-location"
                     );
 
+
                 if (locationInput) {
+
                     locationInput.value =
                         currentLocation;
+
                 }
+
 
                 prepareFormControls(
                     config
                 );
-            } catch (error) {
+
+            }
+            catch (error) {
+
                 console.error(
-                    "RSVP 送出失敗：",
                     error
                 );
 
-                let errorMessage =
-                    "✕ 資料送出失敗，請稍後再試。 Submission failed. Please try again.";
 
-                const errorCode =
-                    String(
-                        error &&
-                        error.code
-                            ? error.code
-                            : ""
-                    ).toLowerCase();
+                status.textContent =
+                    "✕ 資料送出失敗，請稍後再試。";
 
-                const errorText =
-                    String(
-                        error &&
-                        error.message
-                            ? error.message
-                            : ""
-                    ).toLowerCase();
 
-                if (
-                    errorCode.includes(
-                        "permission"
-                    ) ||
-                    errorText.includes(
-                        "permission_denied"
-                    ) ||
-                    errorText.includes(
-                        "permission denied"
-                    )
-                ) {
-                    errorMessage =
-                        "✕ 資料庫拒絕寫入，請直接與新人聯絡。 Database permission denied.";
-                } else if (
-                    !database
-                ) {
-                    errorMessage =
-                        "✕ 資料庫尚未完成連線，請稍後再試。 Database connection is unavailable.";
-                }
-
-                statusElement.textContent =
-                    errorMessage;
-
-                statusElement.className =
+                status.className =
                     "form-status error";
-            } finally {
-                submitButton.disabled =
+
+            }
+            finally {
+
+                button.disabled =
                     false;
 
-                submitButton.innerHTML = `
-                    <span>Submit RSVP</span>
+
+                button.innerHTML = `
+
+                    <span>
+                        Submit RSVP
+                    </span>
+
                     送出回覆
+
                 `;
+
             }
+
         }
     );
+
 }
 
+
 /* =========================================================
-   初始化
+   Initialize
 ========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
     () => {
+
         const currentLocation =
             weddingConfig
                 .getCurrentLocation();
+
 
         const config =
             weddingConfig
@@ -2309,24 +3029,26 @@ document.addEventListener(
                     currentLocation
                 ];
 
-        if (!config) {
-            window.location.replace(
-                `?loc=${weddingConfig.defaultLocation}`
-            );
-
-            return;
-        }
 
         const musicController =
             setupBackgroundMusic();
 
+
+        const invitationGateController =
+            setupInvitationGate(
+                currentLocation,
+                musicController
+            );
+
+
+        setupBackToInvitation(
+            invitationGateController
+        );
+
+
         const lightboxController =
             setupLightbox();
 
-        setupInvitationGate(
-            currentLocation,
-            musicController
-        );
 
         renderPage(
             config,
@@ -2334,20 +3056,26 @@ document.addEventListener(
             lightboxController
         );
 
-        const deadlinePassed =
+
+        const expired =
             setupRsvpDeadline(
                 config
             );
 
-        if (!deadlinePassed) {
+
+        if (!expired) {
+
             prepareFormControls(
                 config
             );
+
 
             setupRsvpForm(
                 currentLocation,
                 config
             );
+
         }
+
     }
 );

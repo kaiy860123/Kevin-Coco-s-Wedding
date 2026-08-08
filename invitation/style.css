@@ -6,27 +6,35 @@
     --soft-pink: #D8A7A1;
     --sage: #A3B18A;
 
-    --primary-transparent: rgba(111, 124, 62, 0.18);
-    --accent-transparent: rgba(201, 124, 124, 0.18);
-    --sage-transparent: rgba(163, 177, 138, 0.22);
-
     --text: #565747;
     --text-soft: #7A796D;
-    --paper-shadow: rgba(95, 88, 67, 0.12);
+
+    --primary-light:
+        rgba(111, 124, 62, 0.22);
+
+    --accent-light:
+        rgba(201, 124, 124, 0.18);
+
+    --sage-light:
+        rgba(163, 177, 138, 0.18);
 }
+
 
 * {
     box-sizing: border-box;
 }
 
+
 html {
     scroll-behavior: smooth;
 }
+
 
 html.show-invitation-gate,
 html.show-invitation-gate body {
     overflow: hidden;
 }
+
 
 body {
     position: relative;
@@ -35,35 +43,24 @@ body {
     overflow-x: hidden;
 
     color: var(--text);
-    background-color: var(--background);
+    background: var(--background);
 
     background-image:
-        radial-gradient(
-            circle at 12% 20%,
-            rgba(163, 177, 138, 0.07),
-            transparent 24%
-        ),
-        radial-gradient(
-            circle at 88% 38%,
-            rgba(216, 167, 161, 0.08),
-            transparent 26%
-        ),
         repeating-linear-gradient(
             0deg,
-            rgba(111, 124, 62, 0.018) 0,
-            rgba(111, 124, 62, 0.018) 1px,
+            rgba(111, 124, 62, 0.014) 0,
+            rgba(111, 124, 62, 0.014) 1px,
             transparent 1px,
-            transparent 4px
+            transparent 5px
         );
 
     font-family:
         "Noto Sans TC",
-        "Helvetica Neue",
-        Arial,
         sans-serif;
 
     line-height: 1.8;
 }
+
 
 button,
 input,
@@ -72,58 +69,17 @@ textarea {
     font: inherit;
 }
 
+
 img {
     display: block;
     max-width: 100%;
 }
 
+
 [hidden] {
     display: none !important;
 }
 
-/* =========================================================
-   音樂按鈕
-========================================================= */
-
-.music-toggle {
-    position: fixed;
-    z-index: 15000;
-    right: 18px;
-    bottom: 18px;
-
-    padding: 10px 14px;
-
-    color: var(--background);
-    background: rgba(111, 124, 62, 0.92);
-
-    border: 1px solid rgba(245, 241, 234, 0.5);
-    border-radius: 999px;
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size: 14px;
-    letter-spacing: 1.5px;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 10px 18px rgba(95, 88, 67, 0.18);
-
-    transition:
-        background-color 0.25s ease,
-        transform 0.25s ease;
-}
-
-.music-toggle:hover {
-    background: var(--accent);
-    transform: translateY(-2px);
-}
-
-.music-toggle.is-playing {
-    background: var(--accent);
-}
 
 /* =========================================================
    信封入口
@@ -132,49 +88,49 @@ img {
 .invitation-gate {
     position: fixed;
     z-index: 20000;
+
     inset: 0;
 
     display: none;
     align-items: center;
     justify-content: center;
 
-    overflow-x: hidden;
     overflow-y: auto;
+    overflow-x: hidden;
 
     color: var(--text);
-    background-color: var(--background);
 
-    background-image:
+    background:
         repeating-linear-gradient(
             0deg,
-            rgba(111, 124, 62, 0.018) 0,
-            rgba(111, 124, 62, 0.018) 1px,
+            rgba(111, 124, 62, 0.014) 0,
+            rgba(111, 124, 62, 0.014) 1px,
             transparent 1px,
-            transparent 4px
+            transparent 5px
         ),
-        radial-gradient(
-            circle at 50% 42%,
-            rgba(239, 231, 219, 0.38),
-            transparent 48%
-        );
+        var(--background);
 
     opacity: 1;
-    visibility: visible;
 
     transition:
-        opacity 0.55s ease,
-        visibility 0.55s ease;
+        opacity 0.7s ease,
+        visibility 0.7s ease;
 }
 
-html.show-invitation-gate .invitation-gate {
+
+html.show-invitation-gate
+.invitation-gate {
     display: flex;
 }
+
 
 .invitation-gate.is-leaving {
     opacity: 0;
     visibility: hidden;
+
     pointer-events: none;
 }
+
 
 .gate-content {
     position: relative;
@@ -187,6 +143,7 @@ html.show-invitation-gate .invitation-gate {
 
     width: min(820px, 100%);
     min-height: 100svh;
+
     padding:
         max(30px, env(safe-area-inset-top))
         20px
@@ -195,8 +152,12 @@ html.show-invitation-gate .invitation-gate {
     text-align: center;
 }
 
+
 .gate-title {
-    margin: 0 0 clamp(13px, 2.5vh, 25px);
+    margin:
+        0
+        0
+        clamp(15px, 2.5vh, 26px);
 
     color: var(--primary);
 
@@ -204,20 +165,38 @@ html.show-invitation-gate .invitation-gate {
         "Noto Serif TC",
         serif;
 
-    font-size: clamp(14px, 2vw, 17px);
+    font-size:
+        clamp(15px, 2vw, 18px);
+
     font-weight: 400;
+
     letter-spacing: 0.55em;
 }
 
+
+/* =========================================================
+   入口 Logo
+========================================================= */
+
 .gate-monogram-row {
     display: grid;
-    grid-template-columns: 1fr 74px 1fr;
+
+    grid-template-columns:
+        1fr
+        78px
+        1fr;
+
     align-items: center;
-    gap: clamp(13px, 3vw, 28px);
+
+    gap:
+        clamp(12px, 3vw, 28px);
 
     width: min(620px, 100%);
-    margin-bottom: clamp(18px, 3vh, 28px);
+
+    margin-bottom:
+        clamp(18px, 3vh, 28px);
 }
+
 
 .gate-monogram-row p {
     margin: 0;
@@ -228,27 +207,41 @@ html.show-invitation-gate .invitation-gate {
         "Noto Serif TC",
         serif;
 
-    font-size: clamp(11px, 1.8vw, 14px);
+    font-size:
+        clamp(11px, 1.8vw, 14px);
+
     font-weight: 400;
-    letter-spacing: 0.38em;
+
+    letter-spacing: 0.34em;
+
     white-space: nowrap;
 }
 
+
 .monogram-logo {
     display: flex;
+
     align-items: center;
     justify-content: center;
 
-    width: 74px;
-    height: 74px;
+    width: 78px;
+    height: 78px;
+
     margin: 0 auto;
 }
+
 
 .monogram-logo img {
     width: 100%;
     height: 100%;
+
     object-fit: contain;
 }
+
+
+/* =========================================================
+   入口文字
+========================================================= */
 
 .gate-main-invitation {
     margin: 0 0 7px;
@@ -259,10 +252,13 @@ html.show-invitation-gate .invitation-gate {
         "Noto Serif TC",
         serif;
 
-    font-size: clamp(12px, 2vw, 16px);
-    font-weight: 400;
-    letter-spacing: clamp(0.18em, 1vw, 0.42em);
+    font-size:
+        clamp(12px, 2vw, 16px);
+
+    letter-spacing:
+        clamp(0.16em, 1vw, 0.4em);
 }
+
 
 .gate-english-invitation {
     margin: 0;
@@ -273,64 +269,130 @@ html.show-invitation-gate .invitation-gate {
         "Cormorant Garamond",
         serif;
 
-    font-size: clamp(11px, 1.7vw, 14px);
+    font-size:
+        clamp(11px, 1.7vw, 14px);
+
     font-weight: 500;
+
     letter-spacing: 0.32em;
 }
 
+
 .gate-couple-names {
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
 
-    margin: clamp(12px, 2.6vh, 25px) 0
-        clamp(15px, 3.4vh, 32px);
-
-    color: var(--primary);
+    margin:
+        clamp(12px, 2.6vh, 24px)
+        0
+        8px;
 
     font-family:
         "Allura",
         cursive;
 
-    line-height: 0.75;
+    line-height: 0.74;
 }
+
 
 .gate-name-kevin {
-    margin-right: 50px;
+    margin-right: 48px;
 
-    font-size: clamp(38px, 7vw, 60px);
+    color: var(--primary);
+
+    font-size:
+        clamp(40px, 7vw, 62px);
 }
+
 
 .gate-name-coco {
-    margin-top: 8px;
-    margin-left: 60px;
+    margin-top: 9px;
+    margin-left: 58px;
 
     color: var(--accent);
-    font-size: clamp(48px, 8.5vw, 74px);
+
+    font-size:
+        clamp(50px, 8.5vw, 76px);
 }
+
+
+.gate-couple-chinese {
+    margin:
+        8px
+        0
+        clamp(18px, 3vh, 30px);
+
+    color: var(--text-soft);
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
+    font-size: 12px;
+
+    letter-spacing: 0.12em;
+}
+
+
+.gate-couple-chinese span {
+    color: var(--sage);
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    letter-spacing: 0.08em;
+}
+
+
+.gate-couple-chinese i {
+    margin: 0 8px;
+
+    color: var(--accent);
+
+    font-style: normal;
+}
+
+
+/* =========================================================
+   信封
+========================================================= */
 
 .envelope-button {
     display: block;
 
     width: min(420px, 78vw);
+
     padding: 0;
 
     background: transparent;
+
     border: 0;
 
     cursor: pointer;
 
-    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color:
+        transparent;
 }
 
+
 .envelope-button:focus-visible {
-    outline: 1px solid var(--accent);
+    outline:
+        1px
+        solid
+        var(--accent);
+
     outline-offset: 12px;
 }
+
 
 .envelope-button:disabled {
     cursor: default;
 }
+
 
 .envelope {
     position: relative;
@@ -338,15 +400,22 @@ html.show-invitation-gate .invitation-gate {
     display: block;
 
     width: 100%;
-    aspect-ratio: 1.55 / 1;
 
-    perspective: 900px;
-    transform-style: preserve-3d;
+    aspect-ratio:
+        1.55 / 1;
+
+    perspective: 1000px;
+
+    transform-style:
+        preserve-3d;
 }
+
 
 .envelope-back {
     position: absolute;
+
     z-index: 1;
+
     inset: 0;
 
     background:
@@ -356,93 +425,85 @@ html.show-invitation-gate .invitation-gate {
             var(--sage) 100%
         );
 
-    border: 1px solid rgba(111, 124, 62, 0.62);
+    border:
+        1px
+        solid
+        rgba(111, 124, 62, 0.48);
 }
 
-.envelope-back::after {
-    position: absolute;
-    inset: 0;
 
-    content: "";
-
-    background-image:
-        repeating-linear-gradient(
-            0deg,
-            rgba(245, 241, 234, 0.035) 0,
-            rgba(245, 241, 234, 0.035) 1px,
-            transparent 1px,
-            transparent 4px
-        );
-}
+/* =========================================================
+   信封內邀請卡
+========================================================= */
 
 .envelope-card {
     position: absolute;
+
     z-index: 2;
+
     left: 8%;
     bottom: 7%;
 
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
     justify-content: center;
 
     width: 84%;
     height: 75%;
-    padding: 12px;
+
+    padding: 14px;
 
     color: var(--primary);
-    background-color: var(--background);
 
-    border: 1px solid rgba(111, 124, 62, 0.48);
+    background:
+        var(--background);
 
-    transform: translateY(4%);
-    transform-origin: center bottom;
+    border:
+        1px
+        solid
+        rgba(111, 124, 62, 0.4);
+
+    transform:
+        translateY(4%);
+
+    transform-origin:
+        center bottom;
 
     transition:
-        transform 0.95s cubic-bezier(0.2, 0.72, 0.22, 1);
+        transform
+        1.05s
+        cubic-bezier(
+            0.2,
+            0.72,
+            0.22,
+            1
+        );
 }
 
-.envelope-card::before {
-    position: absolute;
-    inset: 6px;
-
-    content: "";
-
-    border: 1px solid rgba(163, 177, 138, 0.43);
-}
-
-.envelope-card-monogram {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 54px;
-    height: 54px;
-    margin-bottom: 6px;
-}
-
-.envelope-card-monogram img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
 
 .envelope-card-name {
     position: relative;
+
     z-index: 1;
 
     font-family:
         "Allura",
         cursive;
 
-    font-size: clamp(24px, 5vw, 38px);
+    font-size:
+        clamp(26px, 5vw, 40px);
 }
+
 
 .envelope-card-text {
     position: relative;
+
     z-index: 1;
 
-    margin-top: 2px;
+    margin-top: 0;
 
     color: var(--sage);
 
@@ -451,19 +512,57 @@ html.show-invitation-gate .invitation-gate {
         serif;
 
     font-size: 9px;
-    font-weight: 500;
+
     letter-spacing: 0.3em;
 }
+
+
+/*
+   卡片 Logo 改至較下方
+*/
+
+.envelope-card-monogram {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 50px;
+    height: 50px;
+
+    margin-top: 10px;
+
+    background:
+        var(--sage);
+
+    border-radius: 50%;
+}
+
+
+.envelope-card-monogram img {
+    width: 86%;
+    height: 86%;
+
+    object-fit: contain;
+}
+
+
+/* =========================================================
+   信封正面
+========================================================= */
 
 .envelope-front-left,
 .envelope-front-right,
 .envelope-front-bottom {
     position: absolute;
+
     z-index: 4;
+
     inset: 0;
 
     pointer-events: none;
 }
+
 
 .envelope-front-left {
     background: #9EAA7B;
@@ -476,6 +575,7 @@ html.show-invitation-gate .invitation-gate {
         );
 }
 
+
 .envelope-front-right {
     background: #A8B38B;
 
@@ -487,8 +587,10 @@ html.show-invitation-gate .invitation-gate {
         );
 }
 
+
 .envelope-front-bottom {
-    background: var(--sage);
+    background:
+        var(--sage);
 
     clip-path:
         polygon(
@@ -496,26 +598,25 @@ html.show-invitation-gate .invitation-gate {
             50% 45%,
             100% 100%
         );
-
-    border-bottom: 1px solid rgba(111, 124, 62, 0.62);
 }
+
+
+/* =========================================================
+   信封封蓋
+========================================================= */
 
 .envelope-flap {
     position: absolute;
+
     z-index: 6;
+
     top: 0;
     left: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
 
     width: 100%;
     height: 60%;
 
     background: #98A674;
-
-    border-top: 1px solid rgba(111, 124, 62, 0.62);
 
     clip-path:
         polygon(
@@ -524,47 +625,82 @@ html.show-invitation-gate .invitation-gate {
             50% 100%
         );
 
-    transform: rotateX(0deg);
-    transform-origin: top center;
-    backface-visibility: hidden;
+    transform:
+        rotateX(0deg);
+
+    transform-origin:
+        top center;
+
+    backface-visibility:
+        hidden;
 
     transition:
-        transform 0.72s cubic-bezier(0.4, 0, 0.2, 1);
+        transform
+        0.8s
+        cubic-bezier(
+            0.4,
+            0,
+            0.2,
+            1
+        );
 }
+
+
+/*
+   封蓋 Logo 往下移
+   同時取消原本白色圓底
+*/
 
 .envelope-seal {
     position: absolute;
-    top: 43%;
+
+    top: 72%;
     left: 50%;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
-    width: 60px;
-    height: 60px;
+    width: 62px;
+    height: 62px;
 
-    background: rgba(245, 241, 234, 0.88);
+    background:
+        #98A674;
 
-    border: 1px solid rgba(111, 124, 62, 0.5);
+    border: 0;
+
     border-radius: 50%;
 
-    transform: translate(-50%, -50%);
+    transform:
+        translate(
+            -50%,
+            -50%
+        );
 }
 
+
 .envelope-seal img {
-    width: 78%;
-    height: 78%;
+    width: 92%;
+    height: 92%;
+
     object-fit: contain;
 }
 
+
+/* =========================================================
+   信封提示
+========================================================= */
+
 .gate-instruction {
-    margin-top: clamp(14px, 2.8vh, 28px);
+    margin-top:
+        clamp(16px, 2.8vh, 30px);
 
     transition:
-        opacity 0.25s ease,
-        transform 0.25s ease;
+        opacity 0.3s ease,
+        transform 0.3s ease;
 }
+
 
 .gate-instruction p {
     margin: 0;
@@ -575,10 +711,13 @@ html.show-invitation-gate .invitation-gate {
         "Cormorant Garamond",
         serif;
 
-    font-size: 13px;
+    font-size: 14px;
+
     font-weight: 500;
+
     letter-spacing: 0.42em;
 }
+
 
 .gate-instruction span {
     display: block;
@@ -592,132 +731,136 @@ html.show-invitation-gate .invitation-gate {
         serif;
 
     font-size: 11px;
+
     letter-spacing: 0.3em;
 }
 
-.invitation-gate:not(.is-opening) .envelope-button {
+
+/* =========================================================
+   信封動畫
+========================================================= */
+
+.invitation-gate:not(.is-opening)
+.envelope-button {
     animation:
-        envelopeFloat 3.2s ease-in-out infinite;
+        envelopeFloat
+        3.2s
+        ease-in-out
+        infinite;
 }
 
-.invitation-gate.is-opening .envelope-flap {
+
+.invitation-gate.is-opening
+.envelope-flap {
     z-index: 1;
 
-    transform: rotateX(180deg);
+    transform:
+        rotateX(180deg);
 }
 
-.invitation-gate.is-opening .envelope-card {
-    transform: translateY(-67%);
+
+.invitation-gate.is-opening
+.envelope-card {
+    transform:
+        translateY(-68%);
 }
 
-.invitation-gate.is-opening .gate-instruction {
+
+.invitation-gate.is-opening
+.gate-instruction {
     opacity: 0;
-    transform: translateY(8px);
+
+    transform:
+        translateY(8px);
 }
 
-.invitation-gate.is-opening .gate-title,
-.invitation-gate.is-opening .gate-monogram-row,
-.invitation-gate.is-opening .gate-main-invitation,
-.invitation-gate.is-opening .gate-english-invitation,
-.invitation-gate.is-opening .gate-couple-names {
+
+.invitation-gate.is-opening
+.gate-title,
+.invitation-gate.is-opening
+.gate-monogram-row,
+.invitation-gate.is-opening
+.gate-main-invitation,
+.invitation-gate.is-opening
+.gate-english-invitation,
+.invitation-gate.is-opening
+.gate-couple-names,
+.invitation-gate.is-opening
+.gate-couple-chinese {
     transition:
-        opacity 0.5s ease,
-        transform 0.5s ease;
+        opacity 0.7s ease;
 
-    opacity: 0.32;
-    transform: translateY(-4px);
+    opacity: 0.48;
 }
+
 
 @keyframes envelopeFloat {
+
     0%,
     100% {
-        transform: translateY(0);
+        transform:
+            translateY(0);
     }
 
     50% {
-        transform: translateY(-7px);
+        transform:
+            translateY(-7px);
     }
 }
 
-.gate-botanical {
-    position: absolute;
-    z-index: 1;
-
-    width: 260px;
-    height: 330px;
-
-    opacity: 0.12;
-    pointer-events: none;
-
-    background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='360' viewBox='0 0 280 360'%3E%3Cg fill='none' stroke='%236F7C3E' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M44 330 C55 235 80 150 151 44'/%3E%3Cpath d='M78 265 C120 245 150 213 174 173'/%3E%3Cpath d='M65 232 C42 202 34 172 38 137'/%3E%3Cpath d='M105 186 C143 163 171 130 187 89'/%3E%3C/g%3E%3Cg fill='%23A3B18A' fill-opacity='.72'%3E%3Cellipse cx='62' cy='285' rx='16' ry='31' transform='rotate(-34 62 285)'/%3E%3Cellipse cx='84' cy='236' rx='16' ry='32' transform='rotate(30 84 236)'/%3E%3Cellipse cx='117' cy='214' rx='16' ry='31' transform='rotate(-49 117 214)'/%3E%3Cellipse cx='52' cy='183' rx='15' ry='29' transform='rotate(-28 52 183)'/%3E%3Cellipse cx='140' cy='157' rx='15' ry='30' transform='rotate(44 140 157)'/%3E%3Cellipse cx='175' cy='112' rx='14' ry='28' transform='rotate(35 175 112)'/%3E%3C/g%3E%3Cg fill='%23D8A7A1' fill-opacity='.72'%3E%3Ccircle cx='191' cy='78' r='11'/%3E%3Ccircle cx='205' cy='88' r='8'/%3E%3Ccircle cx='181' cy='92' r='7'/%3E%3C/g%3E%3C/svg%3E");
-
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-}
-
-.gate-botanical-left {
-    bottom: -80px;
-    left: -60px;
-
-    transform: rotate(-8deg);
-}
-
-.gate-botanical-right {
-    top: -80px;
-    right: -65px;
-
-    transform: scale(-1) rotate(-8deg);
-}
 
 /* =========================================================
-   頁面植物裝飾
+   植物裝飾
 ========================================================= */
 
+.gate-botanical,
 .botanical-decoration {
     position: fixed;
+
     z-index: 0;
 
-    width: 270px;
-    height: 340px;
+    width: 250px;
+    height: 330px;
 
-    opacity: 0.16;
+    opacity: 0.08;
+
     pointer-events: none;
 
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-
-    background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='360' viewBox='0 0 280 360'%3E%3Cg fill='none' stroke='%236F7C3E' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M44 330 C55 235 80 150 151 44'/%3E%3Cpath d='M78 265 C120 245 150 213 174 173'/%3E%3Cpath d='M65 232 C42 202 34 172 38 137'/%3E%3Cpath d='M105 186 C143 163 171 130 187 89'/%3E%3C/g%3E%3Cg fill='%23A3B18A' fill-opacity='.72'%3E%3Cellipse cx='62' cy='285' rx='16' ry='31' transform='rotate(-34 62 285)'/%3E%3Cellipse cx='84' cy='236' rx='16' ry='32' transform='rotate(30 84 236)'/%3E%3Cellipse cx='117' cy='214' rx='16' ry='31' transform='rotate(-49 117 214)'/%3E%3Cellipse cx='52' cy='183' rx='15' ry='29' transform='rotate(-28 52 183)'/%3E%3Cellipse cx='140' cy='157' rx='15' ry='30' transform='rotate(44 140 157)'/%3E%3Cellipse cx='175' cy='112' rx='14' ry='28' transform='rotate(35 175 112)'/%3E%3C/g%3E%3Cg fill='%23D8A7A1' fill-opacity='.72'%3E%3Ccircle cx='191' cy='78' r='11'/%3E%3Ccircle cx='205' cy='88' r='8'/%3E%3Ccircle cx='181' cy='92' r='7'/%3E%3C/g%3E%3C/svg%3E");
+    background:
+        radial-gradient(
+            ellipse
+            at 40% 30%,
+            rgba(163, 177, 138, 0.32),
+            transparent 50%
+        );
 }
 
+
+.gate-botanical-left,
 .botanical-top-left {
-    top: -70px;
-    left: -85px;
+    left: -80px;
+    bottom: -80px;
 }
 
+
+.gate-botanical-right,
 .botanical-top-right {
-    top: -70px;
-    right: -85px;
-
-    transform: scaleX(-1);
+    top: -80px;
+    right: -80px;
 }
+
 
 .botanical-bottom-left {
-    bottom: -110px;
+    bottom: -90px;
     left: -90px;
-
-    transform: scaleY(-1);
 }
+
 
 .botanical-bottom-right {
     right: -90px;
-    bottom: -110px;
-
-    transform: scale(-1);
+    bottom: -90px;
 }
+
 
 /* =========================================================
    共用標題
@@ -733,18 +876,24 @@ html.show-invitation-gate .invitation-gate {
         serif;
 
     font-size: 14px;
+
     font-weight: 500;
+
     letter-spacing: 5px;
+
     text-transform: uppercase;
 }
 
+
 .section-heading {
-    margin-bottom: 42px;
+    margin-bottom: 44px;
 }
+
 
 .centered-heading {
     text-align: center;
 }
+
 
 .section-heading h2 {
     margin: 0;
@@ -755,10 +904,14 @@ html.show-invitation-gate .invitation-gate {
         "Noto Serif TC",
         serif;
 
-    font-size: clamp(28px, 5vw, 38px);
+    font-size:
+        clamp(28px, 5vw, 38px);
+
     font-weight: 500;
+
     letter-spacing: 4px;
 }
+
 
 .section-note {
     margin: 14px 0 0;
@@ -770,19 +923,25 @@ html.show-invitation-gate .invitation-gate {
         serif;
 
     font-size: 14px;
-    line-height: 1.9;
 }
+
 
 .section-divider,
 .ornamental-divider {
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     gap: 12px;
 
-    width: min(280px, 76%);
-    margin: 24px auto 0;
+    width:
+        min(280px, 76%);
+
+    margin:
+        24px auto 0;
 }
+
 
 .section-divider span,
 .ornamental-divider span {
@@ -791,17 +950,20 @@ html.show-invitation-gate .invitation-gate {
     width: 90px;
     height: 1px;
 
-    background: var(--primary);
-    opacity: 0.5;
+    background:
+        var(--primary);
+
+    opacity: 0.45;
 }
+
 
 .section-divider i,
 .ornamental-divider i {
     color: var(--accent);
 
     font-style: normal;
-    font-size: 15px;
 }
+
 
 /* =========================================================
    Hero
@@ -809,94 +971,69 @@ html.show-invitation-gate .invitation-gate {
 
 .hero-section {
     position: relative;
+
     z-index: 1;
 
     min-height: 94svh;
 
-    background-color: var(--secondary-background);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-color:
+        var(--secondary-background);
 
-    border-bottom: 1px solid var(--primary-transparent);
+    background-position: center;
+
+    background-repeat: no-repeat;
+
+    background-size: cover;
 }
+
 
 .hero-overlay {
     position: absolute;
+
     inset: 0;
 
     background:
         linear-gradient(
             180deg,
-            rgba(245, 241, 234, 0.18) 0%,
-            rgba(245, 241, 234, 0.36) 45%,
-            rgba(245, 241, 234, 0.78) 100%
+            rgba(245, 241, 234, 0.15),
+            rgba(245, 241, 234, 0.4),
+            rgba(245, 241, 234, 0.82)
         );
 }
 
+
 .hero-content {
     position: relative;
+
     z-index: 2;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
     min-height: 94svh;
+
     padding: 80px 24px;
 }
 
-.hero-card {
-    position: relative;
 
-    width: min(720px, 94%);
-    padding: 64px 56px;
+/*
+   Hero 不再有卡片框
+*/
+
+.hero-card {
+    width:
+        min(720px, 94%);
+
+    padding: 52px 20px;
 
     text-align: center;
 
-    background: rgba(245, 241, 234, 0.88);
-
-    border: 1px solid rgba(111, 124, 62, 0.6);
-    border-radius: 2px;
-
-    box-shadow:
-        0 18px 55px rgba(84, 79, 62, 0.15);
-
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    background:
+        rgba(245, 241, 234, 0.6);
 }
 
-.hero-card::before,
-.hero-card::after {
-    position: absolute;
-
-    width: 34px;
-    height: 34px;
-
-    content: "";
-
-    border-color: var(--accent);
-    border-style: solid;
-    opacity: 0.68;
-}
-
-.hero-card::before {
-    top: 13px;
-    left: 13px;
-
-    border-width: 1px 0 0 1px;
-}
-
-.hero-card::after {
-    right: 13px;
-    bottom: 13px;
-
-    border-width: 0 1px 1px 0;
-}
-
-.hero-eyebrow {
-    margin-bottom: 4px;
-}
 
 .hero-chinese-label {
     margin: 0;
@@ -908,11 +1045,16 @@ html.show-invitation-gate .invitation-gate {
         serif;
 
     font-size: 14px;
+
     letter-spacing: 5px;
 }
 
+
 h1 {
-    margin: 30px 0 24px;
+    margin:
+        30px
+        0
+        10px;
 
     color: var(--primary);
 
@@ -920,27 +1062,76 @@ h1 {
         "Cormorant Garamond",
         serif;
 
-    font-size: clamp(46px, 9vw, 78px);
+    font-size:
+        clamp(46px, 9vw, 78px);
+
     font-weight: 400;
+
     line-height: 1.05;
-    letter-spacing: 8px;
+
+    letter-spacing: 7px;
+
     text-transform: uppercase;
 }
+
 
 h1 em {
     color: var(--accent);
 
     font-weight: 400;
+
     text-transform: none;
 }
 
+
+.hero-couple-chinese {
+    margin:
+        0
+        0
+        26px;
+
+    color: var(--text);
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
+    font-size: 13px;
+
+    letter-spacing: 0.13em;
+}
+
+
+.hero-couple-chinese span {
+    margin-left: 3px;
+
+    color: var(--sage);
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+}
+
+
+.hero-couple-chinese i {
+    margin: 0 9px;
+
+    color: var(--accent);
+
+    font-style: normal;
+}
+
+
 .hero-date-wrap {
     display: flex;
-    flex-direction: column;
-    gap: 2px;
 
-    margin-bottom: 8px;
+    flex-direction: column;
+
+    gap: 0;
+
+    margin-bottom: 10px;
 }
+
 
 .hero-date {
     margin: 0;
@@ -951,16 +1142,25 @@ h1 em {
         "Cormorant Garamond",
         serif;
 
-    font-size: clamp(18px, 3vw, 23px);
+    font-size:
+        clamp(18px, 3vw, 23px);
+
     font-weight: 500;
+
     letter-spacing: 4px;
+
+    line-height: 1.35;
+
     text-transform: uppercase;
+
     white-space: nowrap;
 }
+
 
 .hero-date-line2 {
     color: var(--primary);
 }
+
 
 .hero-location {
     margin: 0;
@@ -972,232 +1172,181 @@ h1 em {
         serif;
 
     font-size: 14px;
-    letter-spacing: 1px;
 }
+
 
 .hero-floral-mark {
     margin-top: 26px;
 
     color: var(--sage);
-    font-size: 17px;
 }
+
 
 /* =========================================================
-   婚禮倒數圖片
+   區塊
 ========================================================= */
 
-.countdown-section {
+.countdown-section,
+.content-section,
+.moments-section,
+.rsvp-section {
     position: relative;
+
     z-index: 1;
 
-    padding: 100px 22px;
+    padding-top: 105px;
 
-    background: var(--secondary-background);
-
-    border-bottom: 1px solid var(--primary-transparent);
+    padding-bottom: 105px;
 }
+
+
+.countdown-section {
+    padding-left: 20px;
+    padding-right: 20px;
+
+    background:
+        rgba(239, 231, 219, 0.45);
+}
+
+
+.content-section {
+    width:
+        min(1000px, calc(100% - 30px));
+
+    margin: 0 auto;
+
+    padding-left: 30px;
+    padding-right: 30px;
+
+    background: transparent;
+}
+
+
+.timeline-section {
+    background: transparent;
+}
+
+
+.venue-section {
+    background: transparent;
+}
+
+
+/* =========================================================
+   圖片
+========================================================= */
+
+/*
+   圖片框也不再做卡片效果
+*/
 
 .editorial-image-frame {
-    position: relative;
+    width:
+        min(720px, 100%);
 
-    overflow: hidden;
+    margin:
+        0 auto 60px;
 
-    width: min(720px, 100%);
-    margin: 0 auto 52px;
-    padding: 10px;
+    padding: 0;
 
-    background: var(--background);
+    background: transparent;
 
-    border: 1px solid var(--primary);
-    border-radius: 2px;
+    border: 0;
 
-    box-shadow:
-        0 12px 30px var(--paper-shadow);
+    box-shadow: none;
 }
 
-.editorial-image-frame::before {
-    position: absolute;
-    z-index: 2;
-    inset: 5px;
-
-    content: "";
-
-    border: 1px solid rgba(163, 177, 138, 0.55);
-
-    pointer-events: none;
-}
 
 .countdown-frame {
     margin-bottom: 0;
 }
 
+
 .countdown-image,
 .event-image {
     width: 100%;
+
     height: auto;
 
-    aspect-ratio: 3 / 2;
+    aspect-ratio:
+        3 / 2;
 
     object-fit: contain;
-    object-position: center;
 
-    background: var(--secondary-background);
+    background: transparent;
 }
+
 
 .image-error-message {
-    margin: 0;
-    padding: 35px 20px;
+    padding: 30px;
 
     color: var(--text-soft);
-    background: var(--secondary-background);
 
     text-align: center;
 }
 
-/* =========================================================
-   公告
-========================================================= */
-
-.notice-section {
-    position: relative;
-    z-index: 1;
-
-    padding: 34px 20px;
-
-    background: rgba(216, 167, 161, 0.22);
-
-    border-top: 1px solid rgba(201, 124, 124, 0.38);
-    border-bottom: 1px solid rgba(201, 124, 124, 0.38);
-}
-
-.notice-inner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
-
-    width: min(850px, 100%);
-    margin: 0 auto;
-
-    text-align: center;
-}
-
-.notice-inner p {
-    margin: 2px 0;
-}
-
-.notice-zh {
-    color: var(--primary);
-
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.notice-en {
-    color: var(--accent);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size: 15px;
-    letter-spacing: 1px;
-}
-
-.notice-leaf {
-    color: var(--sage);
-
-    font-size: 27px;
-}
-
-.notice-leaf-right {
-    transform: scaleX(-1);
-}
 
 /* =========================================================
-   共用內容區塊
-========================================================= */
-
-.content-section {
-    position: relative;
-    z-index: 1;
-
-    width: min(1040px, calc(100% - 30px));
-    margin: 0 auto;
-    padding: 110px 30px;
-}
-
-.event-section,
-.venue-section {
-    background: var(--background);
-}
-
-.timeline-section {
-    background: var(--secondary-background);
-}
-
-/* =========================================================
-   婚禮資訊卡片
+   婚禮資訊
 ========================================================= */
 
 .detail-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
 
-    width: min(860px, 100%);
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap:
+        0
+        50px;
+
+    width:
+        min(820px, 100%);
+
     margin: 0 auto;
 }
 
-.detail-card {
+
+/*
+   不再是一格一格的 Card
+*/
+
+.detail-item {
     position: relative;
 
-    padding: 38px 30px;
+    padding:
+        26px
+        10px
+        34px;
 
     text-align: center;
-
-    background: var(--secondary-background);
-
-    border: 1px solid var(--primary);
-    border-radius: 2px;
-
-    box-shadow:
-        0 9px 24px var(--paper-shadow);
 }
 
-.detail-card::after {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
 
-    width: 36px;
-    height: 36px;
+.detail-item::after {
+    position: absolute;
+
+    bottom: 0;
+    left: 15%;
+
+    width: 70%;
+    height: 1px;
 
     content: "";
 
-    border-right: 1px solid var(--soft-pink);
-    border-bottom: 1px solid var(--soft-pink);
+    background:
+        rgba(111, 124, 62, 0.24);
 }
 
-.detail-card-wide {
-    grid-column: 1 / -1;
+
+.detail-item-wide {
+    grid-column:
+        1 / -1;
+
+    padding-top: 42px;
 }
 
-.detail-symbol {
-    margin-bottom: 16px;
-
-    color: var(--sage);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size: 20px;
-}
 
 .detail-label {
     margin: 0;
@@ -1209,12 +1358,18 @@ h1 em {
         serif;
 
     font-size: 14px;
+
     letter-spacing: 4px;
+
     text-transform: uppercase;
 }
 
-.detail-card h3 {
-    margin: 4px 0 20px;
+
+.detail-item h3 {
+    margin:
+        4px
+        0
+        18px;
 
     color: var(--primary);
 
@@ -1222,10 +1377,13 @@ h1 em {
         "Noto Serif TC",
         serif;
 
-    font-size: 22px;
+    font-size: 21px;
+
     font-weight: 500;
+
     letter-spacing: 4px;
 }
+
 
 .detail-main {
     margin: 0;
@@ -1237,11 +1395,14 @@ h1 em {
         serif;
 
     font-size: 17px;
-    font-weight: 500;
 }
 
+
 .detail-secondary {
-    margin: 8px 0 0;
+    margin:
+        7px
+        0
+        0;
 
     color: var(--text-soft);
 
@@ -1251,23 +1412,23 @@ h1 em {
         serif;
 
     font-size: 14px;
-    letter-spacing: 1px;
 }
+
 
 .venue-detail {
-    margin-top: 18px;
-    padding-top: 16px;
-
-    border-top: 1px solid var(--primary-transparent);
+    margin-top: 16px;
 }
+
 
 .venue-detail p {
-    margin: 6px 0;
+    margin: 5px 0;
 }
+
 
 .venue-detail strong {
     color: var(--primary);
 }
+
 
 .venue-detail .en-line {
     color: var(--accent);
@@ -1277,54 +1438,71 @@ h1 em {
         serif;
 
     font-size: 14px;
-    letter-spacing: 1px;
 }
 
+
 /* =========================================================
-   婚禮時程文字版
+   婚禮時程
 ========================================================= */
 
 .timeline-text-board {
-    width: min(760px, 100%);
+    width:
+        min(720px, 100%);
+
     margin: 0 auto;
-    padding: 26px 24px 18px;
 
-    background: rgba(255, 255, 255, 0.52);
+    padding: 0;
 
-    border: 1px solid rgba(111, 124, 62, 0.26);
-    border-radius: 28px;
+    background: transparent;
 
-    box-shadow:
-        0 12px 30px var(--paper-shadow);
+    border: 0;
+
+    box-shadow: none;
 }
+
 
 .timeline-board-title {
     display: flex;
-    align-items: center;
-    gap: 18px;
 
-    margin-bottom: 20px;
+    align-items: center;
+
+    gap: 17px;
+
+    margin-bottom: 26px;
+
+    padding-bottom: 18px;
+
+    border-bottom:
+        1px solid
+        rgba(111, 124, 62, 0.25);
 }
+
 
 .timeline-board-icon {
     display: flex;
+
     align-items: center;
     justify-content: center;
 
-    width: 68px;
-    height: 58px;
+    width: 54px;
+    height: 54px;
 
     color: var(--primary);
-    background: rgba(239, 231, 219, 0.95);
-
-    border-radius: 16px;
 
     font-size: 28px;
 }
 
-.timeline-board-heading span {
-    display: block;
 
+.timeline-board-heading {
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 18px;
+}
+
+
+.timeline-board-heading span {
     color: var(--primary);
 
     font-family:
@@ -1332,10 +1510,14 @@ h1 em {
         serif;
 
     font-size: 18px;
+
     font-weight: 600;
+
     letter-spacing: 5px;
+
     text-transform: uppercase;
 }
+
 
 .timeline-board-heading h3 {
     margin: 0;
@@ -1346,76 +1528,94 @@ h1 em {
         "Noto Serif TC",
         serif;
 
-    font-size: 30px;
-    font-weight: 600;
-    letter-spacing: 6px;
+    font-size: 24px;
+
+    font-weight: 500;
+
+    letter-spacing: 5px;
 }
 
-.timeline-list {
-    display: flex;
-    flex-direction: column;
-}
 
 .timeline-item {
     display: grid;
-    grid-template-columns: 84px 1fr;
-    gap: 16px;
+
+    grid-template-columns:
+        75px
+        1fr;
+
+    gap: 18px;
 
     position: relative;
 
-    padding: 10px 0 14px;
+    padding:
+        12px
+        0
+        24px;
 }
+
 
 .timeline-marker {
     position: relative;
 
     display: flex;
+
     justify-content: center;
 }
 
-.timeline-line {
-    position: absolute;
-    top: 54px;
-    bottom: -14px;
-    left: 50%;
-
-    width: 2px;
-
-    background: rgba(197, 164, 114, 0.72);
-
-    transform: translateX(-50%);
-}
-
-.timeline-item:last-child .timeline-line {
-    display: none;
-}
 
 .timeline-dot {
     position: relative;
+
     z-index: 1;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
-    width: 58px;
-    height: 58px;
+    width: 48px;
+    height: 48px;
 
-    color: var(--sage);
-    background: #F8F6F2;
+    color: var(--primary);
 
-    border: 3px solid rgba(197, 164, 114, 0.85);
+    background:
+        var(--background);
+
+    border:
+        1px solid
+        var(--sage);
+
     border-radius: 50%;
 
-    font-size: 25px;
+    font-size: 20px;
 }
 
-.timeline-content-box {
-    padding-top: 4px;
+
+.timeline-line {
+    position: absolute;
+
+    top: 48px;
+    bottom: -24px;
+    left: 50%;
+
+    width: 1px;
+
+    background:
+        var(--sage);
+
+    transform:
+        translateX(-50%);
 }
+
+
+.timeline-item:last-child
+.timeline-line {
+    display: none;
+}
+
 
 .timeline-time {
-    margin: 0 0 2px;
+    margin: 0;
 
     color: var(--primary);
 
@@ -1424,12 +1624,15 @@ h1 em {
         serif;
 
     font-size: 18px;
-    font-weight: 700;
+
+    font-weight: 600;
+
     letter-spacing: 2px;
 }
 
+
 .timeline-title {
-    margin: 0;
+    margin: 2px 0 0;
 
     color: var(--text);
 
@@ -1438,148 +1641,155 @@ h1 em {
         serif;
 
     font-size: 17px;
-    font-weight: 500;
-    line-height: 1.5;
 }
 
-.timeline-subtitle {
-    margin: 3px 0 0;
 
-    color: #C1A173;
+.timeline-subtitle {
+    margin: 1px 0 0;
+
+    color: var(--accent);
 
     font-family:
         "Cormorant Garamond",
         serif;
 
     font-size: 15px;
-    line-height: 1.5;
 }
+
 
 .timeline-note {
     margin: 4px 0 0;
 
     color: var(--text-soft);
 
-    font-family:
-        "Noto Serif TC",
-        serif;
-
     font-size: 12px;
-    line-height: 1.6;
 }
 
+
 /* =========================================================
-   地點與交通
+   Google Maps
 ========================================================= */
 
 .map-actions {
-    margin-bottom: 26px;
+    margin-bottom: 30px;
 
     text-align: center;
 }
 
+
 .primary-link {
     display: inline-flex;
+
     flex-direction: column;
+
     align-items: center;
 
     min-width: 230px;
-    padding: 14px 30px;
+
+    padding:
+        13px
+        28px;
 
     color: var(--background);
+
     background: var(--primary);
 
-    border: 1px solid var(--primary);
-    border-radius: 2px;
+    border: 0;
 
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size: 15px;
-    letter-spacing: 2px;
     text-decoration: none;
 
     transition:
-        background-color 0.25s ease,
-        border-color 0.25s ease,
-        transform 0.25s ease;
+        background-color 0.25s ease;
 }
 
-.primary-link span {
-    margin-top: 2px;
 
+.primary-link:hover {
+    background: var(--accent);
+}
+
+
+.primary-link span {
     font-family:
         "Cormorant Garamond",
         serif;
 
     font-size: 12px;
+
     letter-spacing: 3px;
-    text-transform: uppercase;
 }
 
-.primary-link:hover {
-    color: var(--background);
-    background: var(--accent);
-    border-color: var(--accent);
-
-    transform: translateY(-2px);
-}
 
 .map-container {
     overflow: hidden;
 
-    width: min(900px, 100%);
-    margin: 0 auto 30px;
-    padding: 8px;
+    width:
+        min(900px, 100%);
 
-    background: var(--secondary-background);
+    margin:
+        0 auto
+        60px;
 
-    border: 1px solid var(--primary);
-    border-radius: 2px;
+    background: transparent;
 
-    box-shadow:
-        0 10px 28px var(--paper-shadow);
+    border: 0;
+
+    box-shadow: none;
 }
+
 
 .map-container iframe {
     display: block;
+
     width: 100%;
+
+    border: 0;
 }
+
+
+/* =========================================================
+   交通與停車
+========================================================= */
 
 .information-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
 
-    width: min(900px, 100%);
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap: 60px;
+
+    width:
+        min(900px, 100%);
+
     margin: 0 auto;
 }
 
-.information-card {
+
+.information-item {
     position: relative;
 
-    padding: 38px 32px;
-
-    background: var(--secondary-background);
-
-    border: 1px solid var(--primary);
-    border-radius: 2px;
-
-    box-shadow:
-        0 8px 22px var(--paper-shadow);
+    padding:
+        10px
+        0;
 }
 
-.information-card-decoration {
+
+.information-item:first-child::after {
     position: absolute;
-    top: 18px;
-    right: 22px;
 
-    color: var(--sage);
+    top: 5%;
+    right: -30px;
 
-    font-size: 22px;
-    opacity: 0.72;
+    width: 1px;
+    height: 90%;
+
+    content: "";
+
+    background:
+        rgba(111, 124, 62, 0.2);
 }
+
 
 .information-en-title {
     margin: 0;
@@ -1591,12 +1801,18 @@ h1 em {
         serif;
 
     font-size: 15px;
+
     letter-spacing: 4px;
+
     text-transform: uppercase;
 }
 
-.information-card h3 {
-    margin: 4px 0 22px;
+
+.information-item h3 {
+    margin:
+        4px
+        0
+        20px;
 
     color: var(--primary);
 
@@ -1604,35 +1820,36 @@ h1 em {
         "Noto Serif TC",
         serif;
 
-    font-size: 21px;
+    font-size: 20px;
+
     font-weight: 500;
-    letter-spacing: 2px;
 }
 
-.information-content p {
-    margin: 0 0 18px;
 
-    color: var(--text);
+.information-content p {
+    margin:
+        0
+        0
+        18px;
 
     font-size: 14px;
 }
 
-.information-content p:last-child {
-    margin-bottom: 0;
-}
 
 .information-content strong {
     color: var(--primary);
 }
 
+
 .information-content a {
     color: var(--accent);
 }
 
+
 .information-content .en-line {
     display: block;
 
-    margin-top: 5px;
+    margin-top: 3px;
 
     color: var(--text-soft);
 
@@ -1641,141 +1858,186 @@ h1 em {
         serif;
 
     font-size: 14px;
-    line-height: 1.5;
 }
+
 
 /* =========================================================
    Our Moments
 ========================================================= */
 
 .moments-section {
-    position: relative;
-    z-index: 1;
-
-    padding:
-        110px
-        max(20px, calc((100% - 1040px) / 2 + 30px));
-
-    background:
-        linear-gradient(
-            rgba(239, 231, 219, 0.92),
-            rgba(239, 231, 219, 0.92)
-        ),
-        repeating-linear-gradient(
-            45deg,
-            rgba(111, 124, 62, 0.02) 0,
-            rgba(111, 124, 62, 0.02) 1px,
-            transparent 1px,
-            transparent 6px
+    padding-left:
+        max(
+            20px,
+            calc(
+                (100% - 1040px) / 2
+                + 30px
+            )
         );
 
-    border-top: 1px solid var(--primary-transparent);
-    border-bottom: 1px solid var(--primary-transparent);
+    padding-right:
+        max(
+            20px,
+            calc(
+                (100% - 1040px) / 2
+                + 30px
+            )
+        );
+
+    background:
+        rgba(239, 231, 219, 0.42);
 }
+
 
 .photo-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
     gap: 18px;
 
-    width: min(980px, 100%);
+    width:
+        min(980px, 100%);
+
     margin: 0 auto;
 }
 
+
 .photo-item {
     width: 100%;
-    aspect-ratio: 3 / 4;
-    padding: 7px;
+
+    aspect-ratio:
+        3 / 4;
 
     object-fit: cover;
 
-    background: var(--background);
-
-    border: 1px solid var(--primary);
-    border-radius: 1px;
-
     cursor: zoom-in;
 
-    box-shadow:
-        0 10px 25px var(--paper-shadow);
-
     transition:
-        transform 0.3s ease,
-        border-color 0.3s ease;
+        transform 0.3s ease;
 }
+
 
 .photo-item:nth-child(even) {
-    transform: translateY(18px);
+    transform:
+        translateY(16px);
 }
+
 
 .photo-item:hover {
-    border-color: var(--accent);
-
-    transform: translateY(-4px);
+    transform:
+        translateY(-4px);
 }
 
-.photo-item:nth-child(even):hover {
-    transform: translateY(10px);
-}
 
 /* =========================================================
    RSVP
 ========================================================= */
 
 .rsvp-section {
-    position: relative;
-    z-index: 1;
+    padding-left: 20px;
+    padding-right: 20px;
 
-    padding: 110px 20px;
-
-    background: var(--background);
+    background: transparent;
 }
+
+
+/*
+   RSVP 取消大框框
+*/
 
 .rsvp-inner {
-    position: relative;
+    width:
+        min(720px, 100%);
 
-    width: min(760px, 100%);
     margin: 0 auto;
-    padding: 64px 54px;
 
-    background: var(--secondary-background);
+    padding:
+        20px
+        20px
+        0;
 
-    border: 1px solid var(--primary);
-    border-radius: 2px;
+    background: transparent;
 
-    box-shadow:
-        0 15px 38px var(--paper-shadow);
+    border: 0;
+
+    box-shadow: none;
 }
 
-.rsvp-inner::before,
-.rsvp-inner::after {
-    position: absolute;
 
-    width: 48px;
-    height: 48px;
+/* RSVP Kevin & Coco */
 
-    content: "";
+.rsvp-couple-signature {
+    display: flex;
 
-    border-color: var(--soft-pink);
-    border-style: solid;
+    flex-direction: column;
+
+    align-items: center;
+
+    margin:
+        24px
+        0
+        12px;
+
+    font-family:
+        "Allura",
+        cursive;
+
+    line-height: 0.72;
 }
 
-.rsvp-inner::before {
-    top: 16px;
-    left: 16px;
 
-    border-width: 1px 0 0 1px;
+.rsvp-kevin {
+    margin-right: 42px;
+
+    color: var(--primary);
+
+    font-size:
+        clamp(42px, 7vw, 60px);
 }
 
-.rsvp-inner::after {
-    right: 16px;
-    bottom: 16px;
 
-    border-width: 0 1px 1px 0;
+.rsvp-coco {
+    margin-top: 9px;
+    margin-left: 48px;
+
+    color: var(--accent);
+
+    font-size:
+        clamp(50px, 8vw, 70px);
 }
+
+
+.rsvp-couple-chinese {
+    margin:
+        0
+        0
+        26px;
+
+    color: var(--text-soft);
+
+    font-family:
+        "Noto Serif TC",
+        serif;
+
+    font-size: 12px;
+
+    letter-spacing: 0.08em;
+}
+
+
+.rsvp-couple-chinese i {
+    margin: 0 8px;
+
+    color: var(--accent);
+
+    font-style: normal;
+}
+
 
 .deadline-display {
-    margin: 18px 0 0;
+    margin-top: 18px;
 
     color: var(--accent);
 
@@ -1784,17 +2046,22 @@ h1 em {
         serif;
 
     font-size: 13px;
-    line-height: 1.8;
 }
 
+
+/* =========================================================
+   表單
+========================================================= */
+
 .form-group {
-    margin-bottom: 28px;
+    margin-bottom: 32px;
 }
+
 
 .form-group label {
     display: block;
 
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 
     color: var(--primary);
 
@@ -1803,14 +2070,13 @@ h1 em {
         serif;
 
     font-size: 15px;
+
     font-weight: 500;
-    letter-spacing: 1px;
 }
+
 
 .form-group label span {
     display: block;
-
-    margin-bottom: 1px;
 
     color: var(--accent);
 
@@ -1819,15 +2085,17 @@ h1 em {
         serif;
 
     font-size: 13px;
+
     letter-spacing: 3px;
+
     text-transform: uppercase;
 }
 
+
 .form-group label b {
     color: var(--accent);
-
-    font-weight: 400;
 }
+
 
 .form-group input,
 .form-group select,
@@ -1835,50 +2103,57 @@ h1 em {
     display: block;
 
     width: 100%;
-    padding: 12px 4px;
+
+    padding:
+        12px
+        4px;
 
     color: var(--text);
+
     background: transparent;
 
     border: 0;
-    border-bottom: 1px solid var(--primary);
+
+    border-bottom:
+        1px solid
+        var(--sage);
+
     border-radius: 0;
 
     font-size: 16px;
 
     outline: none;
-
-    transition:
-        border-color 0.2s ease,
-        background-color 0.2s ease;
 }
 
-.form-group select option {
-    color: var(--text);
-    background: var(--background);
-}
-
-.form-group textarea {
-    min-height: 92px;
-
-    resize: vertical;
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-    color: rgba(86, 87, 71, 0.45);
-}
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-    background: rgba(245, 241, 234, 0.48);
-
-    border-bottom-color: var(--accent);
+    border-bottom-color:
+        var(--accent);
 }
 
+
+.form-group select option {
+    color: var(--text);
+
+    background:
+        var(--background);
+}
+
+
+.form-group textarea {
+    min-height: 90px;
+
+    resize: vertical;
+}
+
+
 .field-help {
-    margin: 8px 0 0;
+    margin:
+        7px
+        0
+        0;
 
     color: var(--text-soft);
 
@@ -1887,111 +2162,118 @@ h1 em {
         serif;
 
     font-size: 12px;
-    line-height: 1.7;
 }
+
 
 .highlighted-help {
     color: var(--accent);
 }
 
+
+/* =========================================================
+   送出按鈕
+========================================================= */
+
 .submit-btn {
     display: block;
 
-    width: min(360px, 100%);
-    margin: 42px auto 0;
-    padding: 15px 24px;
+    width:
+        min(340px, 100%);
+
+    margin:
+        42px auto 0;
+
+    padding:
+        14px
+        24px;
 
     color: var(--background);
-    background: var(--primary);
 
-    border: 1px solid var(--primary);
-    border-radius: 2px;
+    background:
+        var(--primary);
 
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size: 15px;
-    letter-spacing: 3px;
+    border: 0;
 
     cursor: pointer;
 
     transition:
-        background-color 0.25s ease,
-        border-color 0.25s ease,
-        transform 0.25s ease;
+        background-color 0.25s ease;
 }
+
+
+.submit-btn:hover {
+    background:
+        var(--accent);
+}
+
 
 .submit-btn span {
     display: block;
-
-    margin-bottom: 1px;
 
     font-family:
         "Cormorant Garamond",
         serif;
 
     font-size: 12px;
+
     letter-spacing: 4px;
+
     text-transform: uppercase;
 }
 
-.submit-btn:hover {
-    background: var(--accent);
-    border-color: var(--accent);
-
-    transform: translateY(-2px);
-}
 
 .submit-btn:disabled {
     opacity: 0.55;
 
-    cursor: not-allowed;
-    transform: none;
+    cursor: default;
 }
+
 
 .form-status {
     min-height: 28px;
-    margin: 18px 0 0;
 
-    font-family:
-        "Noto Serif TC",
-        serif;
+    margin-top: 16px;
 
     text-align: center;
-    font-weight: 500;
 }
+
 
 .form-status.success {
     color: var(--primary);
 }
 
+
 .form-status.error {
     color: var(--accent);
 }
 
+
+/* =========================================================
+   RSVP 截止
+========================================================= */
+
 .deadline-notice {
-    width: min(500px, 100%);
-    margin: 20px auto 0;
-    padding: 40px 26px;
+    width:
+        min(500px, 100%);
 
-    background: var(--background);
+    margin:
+        20px auto;
 
-    border: 1px solid var(--accent);
-    border-radius: 2px;
+    padding:
+        34px
+        0;
 
     text-align: center;
+
+    border-top:
+        1px solid
+        var(--accent-light);
+
+    border-bottom:
+        1px solid
+        var(--accent-light);
 }
 
-.deadline-icon {
-    margin-bottom: 14px;
-
-    font-size: 34px;
-}
-
-.deadline-notice p {
-    margin: 5px 0;
-}
 
 .deadline-main {
     color: var(--accent);
@@ -2001,472 +2283,619 @@ h1 em {
         serif;
 
     font-size: 20px;
-    font-weight: 600;
 }
 
-.deadline-en {
-    margin-top: 14px !important;
 
+.deadline-en {
     color: var(--primary);
 
     font-family:
         "Cormorant Garamond",
         serif;
-
-    font-size: 16px;
-    letter-spacing: 1px;
 }
 
+
 /* =========================================================
-   Our Moments 燈箱
+   回邀請函按鈕
+========================================================= */
+
+.back-invitation-wrap {
+    margin-top: 60px;
+
+    text-align: center;
+}
+
+
+.back-invitation-button {
+    padding:
+        12px
+        28px;
+
+    color: var(--primary);
+
+    background: transparent;
+
+    border:
+        1px solid
+        var(--primary);
+
+    cursor: pointer;
+
+    transition:
+        color 0.25s ease,
+        border-color 0.25s ease;
+}
+
+
+.back-invitation-button:hover {
+    color: var(--accent);
+
+    border-color:
+        var(--accent);
+}
+
+
+.back-invitation-button span {
+    display: block;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   Lightbox
 ========================================================= */
 
 .lightbox {
     position: fixed;
+
     z-index: 9999;
+
     inset: 0;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
     padding: 28px;
 
-    background: rgba(70, 72, 55, 0.92);
+    background:
+        rgba(70, 72, 55, 0.92);
 }
+
 
 .lightbox-content {
-    max-width: min(1100px, 94vw);
+    max-width:
+        min(1100px, 94vw);
+
     max-height: 88vh;
-    padding: 8px;
 
     object-fit: contain;
-
-    background: var(--background);
-
-    border: 1px solid var(--sage);
 }
+
 
 .close-lightbox {
     position: absolute;
-    top: max(16px, env(safe-area-inset-top));
+
+    top:
+        max(
+            16px,
+            env(safe-area-inset-top)
+        );
+
     right: 20px;
 
-    width: 48px;
-    height: 48px;
+    color:
+        var(--background);
 
-    color: var(--background);
     background: transparent;
+
     border: 0;
 
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
     font-size: 44px;
-    line-height: 1;
 
     cursor: pointer;
 }
 
+
 /* =========================================================
-   頁尾
+   Footer
 ========================================================= */
 
 .page-footer {
-    position: relative;
-    z-index: 1;
-
-    padding: 76px 24px 86px;
+    padding:
+        80px
+        24px;
 
     color: var(--text-soft);
-    background: var(--secondary-background);
 
-    border-top: 1px solid var(--primary-transparent);
+    background:
+        rgba(239, 231, 219, 0.48);
 
     text-align: center;
 }
 
+
 .footer-decoration {
     color: var(--sage);
-
-    font-size: 24px;
 }
 
-.footer-names {
-    margin: 14px 0 4px;
+
+.footer-signature {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    margin:
+        12px
+        0
+        18px;
+
+    font-family:
+        "Allura",
+        cursive;
+
+    line-height: 0.72;
+}
+
+
+.footer-signature span:first-child {
+    margin-right: 35px;
 
     color: var(--primary);
 
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size: 34px;
-    font-weight: 400;
-    letter-spacing: 5px;
-    text-transform: uppercase;
+    font-size: 44px;
 }
 
-.page-footer > p {
-    margin: 8px 0;
 
-    font-family:
-        "Noto Serif TC",
-        serif;
+.footer-signature span:last-child {
+    margin-top: 6px;
+    margin-left: 42px;
 
-    font-size: 13px;
+    color: var(--accent);
+
+    font-size: 52px;
 }
+
+
+.footer-chinese-names {
+    font-size: 12px;
+}
+
+
+.footer-chinese-names i {
+    margin: 0 6px;
+
+    color: var(--accent);
+
+    font-style: normal;
+}
+
 
 .footer-line {
-    width: 70px;
+    width: 65px;
     height: 1px;
-    margin: 24px auto;
+
+    margin:
+        24px auto;
 
     background: var(--accent);
-    opacity: 0.6;
 }
+
 
 /* =========================================================
    平板
 ========================================================= */
 
 @media (max-width: 800px) {
-    .botanical-decoration {
-        width: 180px;
-        height: 240px;
-
-        opacity: 0.1;
-    }
-
-    .hero-content {
-        padding: 50px 18px;
-    }
-
-    .hero-card {
-        padding: 50px 26px;
-    }
-
-    h1 {
-        letter-spacing: 5px;
-    }
 
     .content-section {
         width: 100%;
-        padding: 88px 20px;
+
+        padding-left: 20px;
+        padding-right: 20px;
     }
+
 
     .detail-grid,
     .information-grid {
         grid-template-columns: 1fr;
     }
 
-    .detail-card-wide {
+
+    .detail-item-wide {
         grid-column: auto;
     }
 
-    .moments-section,
-    .rsvp-section {
-        padding-top: 88px;
-        padding-bottom: 88px;
+
+    .information-grid {
+        gap: 40px;
     }
 
-    .photo-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 14px;
+
+    .information-item:first-child::after {
+        display: none;
     }
+
+
+    .information-item:first-child {
+        padding-bottom: 40px;
+
+        border-bottom:
+            1px solid
+            var(--primary-light);
+    }
+
+
+    .photo-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
 
     .photo-item:nth-child(even) {
         transform: none;
     }
 
-    .photo-item:nth-child(even):hover {
-        transform: translateY(-4px);
-    }
-
-    .rsvp-inner {
-        padding: 54px 28px;
-    }
-
-    .map-container iframe {
-        height: 310px;
-    }
 }
 
+
+/* =========================================================
+   手機
+========================================================= */
+
 @media (max-width: 500px) {
-    .music-toggle {
-        right: 12px;
-        bottom: 12px;
-        padding: 9px 12px;
-        font-size: 13px;
-    }
 
     .gate-content {
-        justify-content: center;
-
         padding:
-            max(18px, env(safe-area-inset-top))
+            max(
+                18px,
+                env(safe-area-inset-top)
+            )
             13px
-            max(18px, env(safe-area-inset-bottom));
+            max(
+                18px,
+                env(safe-area-inset-bottom)
+            );
     }
+
 
     .gate-monogram-row {
-        grid-template-columns: 1fr 56px 1fr;
-        gap: 8px;
+        grid-template-columns:
+            1fr
+            58px
+            1fr;
+
+        gap: 7px;
     }
+
 
     .gate-monogram-row p {
         font-size: 10px;
-        letter-spacing: 0.2em;
+
+        letter-spacing: 0.17em;
     }
 
+
     .monogram-logo {
-        width: 56px;
-        height: 56px;
+        width: 58px;
+        height: 58px;
     }
+
 
     .gate-main-invitation {
         font-size: 11px;
-        letter-spacing: 0.13em;
+
+        letter-spacing: 0.12em;
     }
+
 
     .gate-english-invitation {
         font-size: 10px;
-        letter-spacing: 0.22em;
+
+        letter-spacing: 0.2em;
     }
 
+
     .gate-name-kevin {
-        margin-right: 35px;
+        margin-right: 32px;
 
         font-size: 38px;
     }
 
-    .gate-name-coco {
-        margin-left: 44px;
 
-        font-size: 48px;
+    .gate-name-coco {
+        margin-left: 40px;
+
+        font-size: 49px;
     }
+
+
+    .gate-couple-chinese {
+        font-size: 10px;
+    }
+
 
     .envelope-button {
-        width: min(310px, 80vw);
+        width:
+            min(310px, 80vw);
     }
+
 
     .envelope-seal {
-        width: 48px;
-        height: 48px;
+        width: 50px;
+        height: 50px;
+
+        top: 72%;
     }
 
-    .gate-botanical {
-        width: 150px;
-        height: 200px;
-
-        opacity: 0.08;
-    }
-
-    .gate-botanical-right {
-        display: none;
-    }
-
-    .botanical-top-right,
-    .botanical-bottom-left {
-        display: none;
-    }
-
-    .botanical-decoration {
-        width: 140px;
-        height: 190px;
-
-        opacity: 0.08;
-    }
 
     .hero-section,
     .hero-content {
         min-height: 88svh;
     }
 
+
+    .hero-content {
+        padding:
+            50px
+            16px;
+    }
+
+
     .hero-card {
         width: 100%;
-        padding: 42px 18px;
+
+        padding:
+            38px
+            5px;
     }
 
-    .hero-card::before,
-    .hero-card::after {
-        width: 26px;
-        height: 26px;
-    }
-
-    .eyebrow {
-        font-size: 12px;
-        letter-spacing: 4px;
-    }
 
     h1 {
-        font-size: 43px;
+        font-size: 42px;
+
         letter-spacing: 4px;
     }
+
+
+    .hero-couple-chinese {
+        font-size: 11px;
+    }
+
 
     .hero-date {
         font-size: 17px;
+
         letter-spacing: 2px;
     }
 
-    .hero-location {
-        font-size: 13px;
+
+    /*
+       SUN MOON LAKE 強制保持單行
+    */
+
+    .hero-date-line2 {
+        font-size: 16px;
+
+        white-space: nowrap;
     }
 
-    .countdown-section {
-        padding: 78px 10px;
+
+    .countdown-section,
+    .content-section,
+    .moments-section,
+    .rsvp-section {
+        padding-top: 78px;
+
+        padding-bottom: 78px;
     }
 
-    .section-heading {
-        margin-bottom: 34px;
-    }
 
     .section-heading h2 {
         font-size: 28px;
+
         letter-spacing: 3px;
     }
 
-    .content-section {
-        padding: 76px 16px;
-    }
 
     .editorial-image-frame {
-        margin-bottom: 38px;
-        padding: 6px;
+        margin-bottom: 44px;
     }
 
-    .detail-card,
-    .information-card {
-        padding: 30px 22px;
+
+    .detail-grid {
+        gap: 0;
     }
 
-    .timeline-text-board {
-        padding: 18px 14px 10px;
-        border-radius: 22px;
+
+    .detail-item {
+        padding:
+            24px
+            5px
+            32px;
     }
+
+
+    .detail-item-wide {
+        padding-top: 36px;
+    }
+
 
     .timeline-board-title {
         gap: 12px;
-        margin-bottom: 14px;
     }
+
 
     .timeline-board-icon {
-        width: 52px;
-        height: 46px;
+        width: 42px;
+        height: 42px;
+
         font-size: 22px;
-        border-radius: 14px;
     }
+
+
+    .timeline-board-heading {
+        gap: 11px;
+    }
+
 
     .timeline-board-heading span {
-        font-size: 16px;
-        letter-spacing: 4px;
+        font-size: 15px;
+
+        letter-spacing: 3px;
     }
+
 
     .timeline-board-heading h3 {
-        font-size: 24px;
-        letter-spacing: 4px;
+        font-size: 21px;
+
+        letter-spacing: 3px;
     }
+
 
     .timeline-item {
-        grid-template-columns: 62px 1fr;
-        gap: 12px;
-        padding: 8px 0 12px;
+        grid-template-columns:
+            58px
+            1fr;
+
+        gap: 10px;
     }
 
+
     .timeline-dot {
-        width: 46px;
-        height: 46px;
-        font-size: 20px;
+        width: 42px;
+        height: 42px;
+
+        font-size: 18px;
     }
+
 
     .timeline-line {
         top: 42px;
-        bottom: -12px;
     }
 
-    .timeline-time {
-        font-size: 17px;
-    }
 
     .timeline-title {
         font-size: 16px;
     }
 
+
     .timeline-subtitle {
         font-size: 14px;
     }
 
-    .moments-section,
-    .rsvp-section {
-        padding: 76px 14px;
+
+    .map-container iframe {
+        height: 290px;
     }
+
 
     .photo-grid {
         gap: 8px;
     }
 
-    .photo-item {
-        padding: 4px;
-    }
 
     .rsvp-inner {
-        padding: 48px 18px;
+        padding:
+            10px
+            4px
+            0;
     }
+
+
+    .rsvp-kevin {
+        font-size: 40px;
+    }
+
+
+    .rsvp-coco {
+        font-size: 50px;
+    }
+
 
     .submit-btn {
         width: 100%;
     }
 
-    .notice-inner {
-        gap: 10px;
-    }
-
-    .notice-leaf {
-        font-size: 20px;
-    }
 }
 
-@media (max-height: 720px) and (max-width: 500px) {
+
+/* =========================================================
+   低高度手機
+========================================================= */
+
+@media (
+    max-height: 720px
+)
+and (
+    max-width: 500px
+) {
+
     .gate-title {
+        margin-bottom: 8px;
+    }
+
+
+    .gate-monogram-row {
         margin-bottom: 10px;
     }
 
-    .gate-monogram-row {
-        margin-bottom: 12px;
-    }
 
     .gate-couple-names {
-        margin-top: 8px;
-        margin-bottom: 13px;
+        margin-top: 7px;
     }
 
-    .gate-name-kevin {
-        font-size: 34px;
+
+    .gate-couple-chinese {
+        margin-bottom: 10px;
     }
 
-    .gate-name-coco {
-        font-size: 43px;
-    }
 
     .envelope-button {
-        width: min(270px, 72vw);
+        width:
+            min(270px, 72vw);
     }
+
 
     .gate-instruction {
         margin-top: 10px;
     }
+
 }
 
-@media (prefers-reduced-motion: reduce) {
+
+/* =========================================================
+   Reduced Motion
+========================================================= */
+
+@media (
+    prefers-reduced-motion:
+    reduce
+) {
+
     *,
     *::before,
     *::after {
-        scroll-behavior: auto !important;
+        animation-duration:
+            0.01ms !important;
 
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
+        animation-iteration-count:
+            1 !important;
 
-        transition-duration: 0.01ms !important;
+        transition-duration:
+            0.01ms !important;
     }
+
 }

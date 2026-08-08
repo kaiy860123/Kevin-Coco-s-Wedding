@@ -10,7 +10,7 @@
 
     <meta
         name="description"
-        content="Kevin 與 Coco 的婚禮邀請函｜Kevin & Coco's Wedding Invitation"
+        content="周愷元 Kevin 與陳佳惠 Coco 的婚禮邀請函"
     >
 
     <title>Kevin & Coco's Wedding Invitation</title>
@@ -33,19 +33,25 @@
 
     <script>
         (function () {
-            const params = new URLSearchParams(window.location.search);
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
             const locationKey =
                 params.get("loc") === "nantou"
                     ? "nantou"
                     : "tainan";
 
             const sessionKey =
-                "weddingInvitationOpened:" + locationKey;
+                "weddingInvitationOpened:" +
+                locationKey;
 
             try {
                 if (
-                    window.sessionStorage.getItem(sessionKey) !==
-                    "true"
+                    window.sessionStorage.getItem(
+                        sessionKey
+                    ) !== "true"
                 ) {
                     document.documentElement.classList.add(
                         "show-invitation-gate"
@@ -61,12 +67,16 @@
 
     <link
         rel="stylesheet"
-        href="./style.css?v=20260806-03"
+        href="./style.css?v=20260808-01"
     >
 </head>
 
 <body>
-    <!-- 背景音樂 -->
+
+    <!-- =====================================================
+         背景音樂
+    ====================================================== -->
+
     <audio
         id="bg-music"
         loop
@@ -78,17 +88,9 @@
         >
     </audio>
 
-    <button
-        type="button"
-        id="music-toggle"
-        class="music-toggle"
-        aria-label="播放或暫停背景音樂"
-    >
-        ♫ Music
-    </button>
 
     <!-- =====================================================
-         信封開啟入口
+         信封入口
     ====================================================== -->
 
     <div
@@ -99,6 +101,7 @@
         aria-labelledby="gate-title"
         aria-describedby="gate-instruction"
     >
+
         <div
             class="gate-botanical gate-botanical-left"
             aria-hidden="true"
@@ -110,6 +113,7 @@
         ></div>
 
         <div class="gate-content">
+
             <p
                 id="gate-title"
                 class="gate-title"
@@ -118,23 +122,22 @@
             </p>
 
             <div class="gate-monogram-row">
+
                 <p>
                     誠 摯 邀 請
                 </p>
 
-                <div
-                    class="monogram-logo"
-                    aria-label="Kevin and Coco monogram"
-                >
+                <div class="monogram-logo">
                     <img
                         src="./images/monogram-kc-black.png"
-                        alt="KC Monogram Logo"
+                        alt="KC Logo"
                     >
                 </div>
 
                 <p>
                     蒞 臨 喜 宴
                 </p>
+
             </div>
 
             <p class="gate-main-invitation">
@@ -146,6 +149,7 @@
             </p>
 
             <div class="gate-couple-names">
+
                 <span class="gate-name-kevin">
                     Kevin &amp;
                 </span>
@@ -153,7 +157,19 @@
                 <span class="gate-name-coco">
                     Coco
                 </span>
+
             </div>
+
+            <p class="gate-couple-chinese">
+                周愷元
+                <span>(Kevin)</span>
+                <i>×</i>
+                陳佳惠
+                <span>(Coco)</span>
+            </p>
+
+
+            <!-- 信封 -->
 
             <button
                 type="button"
@@ -161,16 +177,13 @@
                 class="envelope-button"
                 aria-label="開啟 Kevin 與 Coco 的婚禮邀請函"
             >
+
                 <span class="envelope">
+
                     <span class="envelope-back"></span>
 
+                    <!-- 開封後升起的邀請卡 -->
                     <span class="envelope-card">
-                        <span class="envelope-card-monogram">
-                            <img
-                                src="./images/monogram-kc-black.png"
-                                alt="KC Monogram Logo"
-                            >
-                        </span>
 
                         <span class="envelope-card-name">
                             Kevin &amp; Coco
@@ -179,27 +192,50 @@
                         <span class="envelope-card-text">
                             OPEN INVITATION
                         </span>
+
+                        <!-- Logo 改到底部 -->
+                        <span class="envelope-card-monogram">
+                            <img
+                                src="./images/monogram-kc-black.png"
+                                alt="KC Logo"
+                            >
+                        </span>
+
                     </span>
 
                     <span class="envelope-front-left"></span>
+
                     <span class="envelope-front-right"></span>
+
                     <span class="envelope-front-bottom"></span>
 
                     <span class="envelope-flap">
+
+                        <!--
+                            Logo 往封蓋下方移動，
+                            底色與信封相同
+                        -->
                         <span class="envelope-seal">
+
                             <img
                                 src="./images/monogram-kc-black.png"
-                                alt="KC Monogram Logo"
+                                alt="KC Logo"
                             >
+
                         </span>
+
                     </span>
+
                 </span>
+
             </button>
+
 
             <div
                 id="gate-instruction"
                 class="gate-instruction"
             >
+
                 <p>
                     TAP TO OPEN
                 </p>
@@ -207,9 +243,13 @@
                 <span>
                     輕觸開啟
                 </span>
+
             </div>
+
         </div>
+
     </div>
+
 
     <!-- =====================================================
          頁面植物裝飾
@@ -235,18 +275,22 @@
         aria-hidden="true"
     ></div>
 
+
     <!-- =====================================================
-         首頁主視覺
+         首頁
     ====================================================== -->
 
     <header
         class="hero-section"
         id="hero-bg"
     >
+
         <div class="hero-overlay"></div>
 
         <div class="hero-content">
+
             <div class="hero-card">
+
                 <p class="eyebrow hero-eyebrow">
                     Wedding Invitation
                 </p>
@@ -262,10 +306,23 @@
                 </div>
 
                 <h1 id="page-title">
-                    Kevin <em>&amp;</em> Coco
+                    Kevin
+                    <em>&amp;</em>
+                    Coco
                 </h1>
 
+                <p class="hero-couple-chinese">
+                    周愷元
+                    <span>Kevin</span>
+
+                    <i>×</i>
+
+                    陳佳惠
+                    <span>Coco</span>
+                </p>
+
                 <div class="hero-date-wrap">
+
                     <p
                         class="hero-date hero-date-line1"
                         id="wedding-date-line1"
@@ -279,28 +336,33 @@
                     >
                         TAINAN
                     </p>
+
                 </div>
 
                 <p
                     class="hero-location"
                     id="wedding-location"
-                >
-                    Wedding venue loading
-                </p>
+                ></p>
 
                 <div class="hero-floral-mark">
                     ✦
                 </div>
+
             </div>
+
         </div>
+
     </header>
 
+
     <!-- =====================================================
-         婚禮倒數（圖片）
+         婚禮倒數圖片
     ====================================================== -->
 
     <section class="countdown-section">
+
         <div class="section-heading centered-heading">
+
             <p class="eyebrow">
                 Wedding Countdown
             </p>
@@ -308,14 +370,16 @@
             <h2>
                 婚禮倒數
             </h2>
+
         </div>
 
         <div class="editorial-image-frame countdown-frame">
+
             <img
                 id="countdown-image"
                 class="countdown-image"
                 src=""
-                alt="婚禮倒數圖片 Wedding countdown image"
+                alt="婚禮倒數 Wedding Countdown"
             >
 
             <p
@@ -324,22 +388,31 @@
                 hidden
             >
                 婚禮倒數圖片尚未上傳。<br>
-                The wedding countdown image is not available yet.
+                Wedding countdown image is not available yet.
             </p>
+
         </div>
+
     </section>
+
 
     <main
         id="wedding-content"
         tabindex="-1"
     >
-        <!-- 特別公告 -->
+
+        <!-- =================================================
+             特別公告
+        ================================================== -->
+
         <section
             id="notice-section"
             class="notice-section"
             hidden
         >
+
             <div class="notice-inner">
+
                 <span
                     class="notice-leaf"
                     aria-hidden="true"
@@ -348,6 +421,7 @@
                 </span>
 
                 <div>
+
                     <p
                         id="notice-zh"
                         class="notice-zh"
@@ -357,6 +431,7 @@
                         id="notice-en"
                         class="notice-en"
                     ></p>
+
                 </div>
 
                 <span
@@ -365,12 +440,20 @@
                 >
                     ❧
                 </span>
+
             </div>
+
         </section>
 
-        <!-- 婚禮資訊 -->
+
+        <!-- =================================================
+             婚禮資訊
+        ================================================== -->
+
         <section class="content-section event-section">
+
             <div class="section-heading centered-heading">
+
                 <p class="eyebrow">
                     Event Details
                 </p>
@@ -384,14 +467,17 @@
                     <i>✦</i>
                     <span></span>
                 </div>
+
             </div>
 
+
             <div class="editorial-image-frame">
+
                 <img
                     id="event-image"
                     class="event-image"
                     src=""
-                    alt="婚禮資訊圖片 Wedding event information"
+                    alt="婚禮資訊 Wedding Event Information"
                 >
 
                 <p
@@ -399,16 +485,15 @@
                     class="image-error-message"
                     hidden
                 >
-                    婚禮資訊圖片尚未上傳。<br>
-                    The wedding event image is not available yet.
+                    婚禮資訊圖片尚未上傳。
                 </p>
+
             </div>
 
+
             <div class="detail-grid">
-                <article class="detail-card">
-                    <div class="detail-symbol">
-                        Ⅰ
-                    </div>
+
+                <article class="detail-item">
 
                     <p class="detail-label">
                         Date
@@ -427,12 +512,11 @@
                         id="event-date-en"
                         class="detail-secondary"
                     ></p>
+
                 </article>
 
-                <article class="detail-card">
-                    <div class="detail-symbol">
-                        Ⅱ
-                    </div>
+
+                <article class="detail-item">
 
                     <p class="detail-label">
                         Time
@@ -442,25 +526,18 @@
                         時間
                     </h3>
 
-                    <p
-                        id="event-time"
-                        class="detail-main"
-                    >
+                    <p class="detail-main">
                         12:00
                     </p>
 
-                    <p
-                        id="event-time-en"
-                        class="detail-secondary"
-                    >
+                    <p class="detail-secondary">
                         Wedding Luncheon · 婚宴午宴
                     </p>
+
                 </article>
 
-                <article class="detail-card detail-card-wide">
-                    <div class="detail-symbol">
-                        Ⅲ
-                    </div>
+
+                <article class="detail-item detail-item-wide">
 
                     <p class="detail-label">
                         Venue
@@ -484,13 +561,22 @@
                         id="venue-detail"
                         class="venue-detail"
                     ></div>
+
                 </article>
+
             </div>
+
         </section>
 
-        <!-- 婚禮時程（文字版） -->
+
+        <!-- =================================================
+             婚禮時程
+        ================================================== -->
+
         <section class="content-section timeline-section">
+
             <div class="section-heading centered-heading">
+
                 <p class="eyebrow">
                     Wedding Timeline
                 </p>
@@ -509,34 +595,51 @@
                     <i>❦</i>
                     <span></span>
                 </div>
+
             </div>
 
+
             <div class="timeline-text-board">
+
                 <div class="timeline-board-title">
+
                     <div class="timeline-board-icon">
-                        ⏱
+                        ◷
                     </div>
 
                     <div class="timeline-board-heading">
+
                         <span>
                             Time
                         </span>
+
                         <h3>
                             時間
                         </h3>
+
                     </div>
+
                 </div>
+
 
                 <div
                     id="timeline-list"
                     class="timeline-list"
                 ></div>
+
             </div>
+
         </section>
 
-        <!-- 地點與交通 -->
+
+        <!-- =================================================
+             地點與交通
+        ================================================== -->
+
         <section class="content-section venue-section">
+
             <div class="section-heading centered-heading">
+
                 <p class="eyebrow">
                     Venue & Transportation
                 </p>
@@ -550,9 +653,12 @@
                     <i>✦</i>
                     <span></span>
                 </div>
+
             </div>
 
+
             <div class="map-actions">
+
                 <a
                     id="google-map-link"
                     class="primary-link"
@@ -561,32 +667,35 @@
                     rel="noopener noreferrer"
                 >
                     Google Maps 導航
-                    <span>Directions</span>
+
+                    <span>
+                        Directions
+                    </span>
+
                 </a>
+
             </div>
 
+
             <div class="map-container">
+
                 <iframe
                     id="map-iframe"
-                    title="婚禮地點 Google Maps Wedding venue map"
+                    title="Wedding Venue Map"
                     src=""
                     width="100%"
                     height="360"
-                    style="border: 0;"
                     allowfullscreen
                     loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"
                 ></iframe>
+
             </div>
 
+
             <div class="information-grid">
-                <article class="information-card">
-                    <div
-                        class="information-card-decoration"
-                        aria-hidden="true"
-                    >
-                        ❧
-                    </div>
+
+                <article class="information-item">
 
                     <p class="information-en-title">
                         Transit
@@ -600,15 +709,11 @@
                         class="information-content"
                         id="traffic-info"
                     ></div>
+
                 </article>
 
-                <article class="information-card">
-                    <div
-                        class="information-card-decoration"
-                        aria-hidden="true"
-                    >
-                        ❧
-                    </div>
+
+                <article class="information-item">
 
                     <p class="information-en-title">
                         Parking
@@ -622,13 +727,22 @@
                         class="information-content"
                         id="parking-info"
                     ></div>
+
                 </article>
+
             </div>
+
         </section>
 
-        <!-- Our Moments -->
+
+        <!-- =================================================
+             Our Moments
+        ================================================== -->
+
         <section class="moments-section">
+
             <div class="section-heading centered-heading">
+
                 <p class="eyebrow">
                     Our Moments
                 </p>
@@ -647,22 +761,31 @@
                     <i>❦</i>
                     <span></span>
                 </div>
+
             </div>
+
 
             <div
                 class="photo-grid"
                 id="photo-grid"
-                aria-label="婚禮照片 Wedding photos"
             ></div>
+
         </section>
 
-        <!-- RSVP -->
+
+        <!-- =================================================
+             RSVP
+        ================================================== -->
+
         <section
             class="rsvp-section"
             id="rsvp-section"
         >
+
             <div class="rsvp-inner">
+
                 <div class="section-heading centered-heading">
+
                     <p class="eyebrow">
                         Répondez S'il Vous Plaît
                     </p>
@@ -670,6 +793,29 @@
                     <h2>
                         賓客回覆
                     </h2>
+
+                    <!--
+                        與信封入口相同 Allura 字體
+                    -->
+
+                    <div class="rsvp-couple-signature">
+
+                        <span class="rsvp-kevin">
+                            Kevin &amp;
+                        </span>
+
+                        <span class="rsvp-coco">
+                            Coco
+                        </span>
+
+                    </div>
+
+                    <p class="rsvp-couple-chinese">
+                        周愷元 (Kevin)
+                        <i>×</i>
+                        陳佳惠 (Coco)
+                    </p>
+
 
                     <p class="section-note">
                         敬請於截止日前完成回覆<br>
@@ -686,21 +832,33 @@
                         id="rsvp-deadline-display"
                         class="deadline-display"
                     ></p>
+
                 </div>
 
+
                 <div id="rsvp-form-wrapper">
+
                     <form id="rsvp-form">
+
                         <input
                             type="hidden"
                             id="form-wedding-location"
                             name="weddingLocation"
                         >
 
+
                         <div class="form-group">
+
                             <label for="guest-name">
-                                <span>Your Name</span>
+
+                                <span>
+                                    Your Name
+                                </span>
+
                                 姓名
+
                                 <b>*</b>
+
                             </label>
 
                             <input
@@ -712,13 +870,22 @@
                                 autocomplete="name"
                                 placeholder="請輸入您的姓名"
                             >
+
                         </div>
 
+
                         <div class="form-group">
+
                             <label for="relation">
-                                <span>Relationship</span>
+
+                                <span>
+                                    Relationship
+                                </span>
+
                                 與新人的關係
+
                                 <b>*</b>
+
                             </label>
 
                             <select
@@ -726,6 +893,7 @@
                                 name="relation"
                                 required
                             >
+
                                 <option
                                     value=""
                                     selected
@@ -753,14 +921,24 @@
                                 <option value="其他">
                                     其他 · Other
                                 </option>
+
                             </select>
+
                         </div>
 
+
                         <div class="form-group">
+
                             <label for="phone">
-                                <span>Phone Number</span>
+
+                                <span>
+                                    Phone Number
+                                </span>
+
                                 聯絡電話
+
                                 <b>*</b>
+
                             </label>
 
                             <input
@@ -773,13 +951,22 @@
                                 inputmode="tel"
                                 placeholder="0912345678"
                             >
+
                         </div>
 
+
                         <div class="form-group">
+
                             <label for="attendance">
-                                <span>Attendance</span>
+
+                                <span>
+                                    Attendance
+                                </span>
+
                                 是否出席
+
                                 <b>*</b>
+
                             </label>
 
                             <select
@@ -787,6 +974,7 @@
                                 name="isAttending"
                                 required
                             >
+
                                 <option value="yes">
                                     出席 · Attending
                                 </option>
@@ -794,26 +982,38 @@
                                 <option value="no">
                                     不出席 · Not Attending
                                 </option>
+
                             </select>
+
                         </div>
+
 
                         <div
                             id="attendance-detail-fields"
                             class="conditional-fields"
                         >
+
+
                             <div
                                 id="field-ceremony"
                                 class="form-group"
                             >
+
                                 <label for="attend-ceremony">
-                                    <span>Ceremony Attendance</span>
+
+                                    <span>
+                                        Ceremony Attendance
+                                    </span>
+
                                     是否出席證婚
+
                                 </label>
 
                                 <select
                                     id="attend-ceremony"
                                     name="attendCeremony"
                                 >
+
                                     <option value="yes">
                                         是，會出席證婚 · Attending
                                     </option>
@@ -821,19 +1021,29 @@
                                     <option value="no">
                                         否，僅參加午宴 · Luncheon Only
                                     </option>
+
                                 </select>
 
                                 <p class="field-help">
                                     涵碧樓 8F 星光露台<br>
                                     8F Starlight Terrace
                                 </p>
+
                             </div>
 
+
                             <div class="form-group">
+
                                 <label for="attend-count">
-                                    <span>Total Guest Count</span>
+
+                                    <span>
+                                        Total Guest Count
+                                    </span>
+
                                     總出席人數
+
                                     <b>*</b>
+
                                 </label>
 
                                 <input
@@ -851,12 +1061,20 @@
                                     請包含您本人、其他成人與所有兒童。<br>
                                     Please include yourself, all adults and all children.
                                 </p>
+
                             </div>
 
+
                             <div class="form-group">
+
                                 <label for="child-set-count">
-                                    <span>Child Seat & Tableware Sets</span>
+
+                                    <span>
+                                        Child Seat & Tableware Sets
+                                    </span>
+
                                     兒童座椅及餐具組數量
+
                                 </label>
 
                                 <input
@@ -873,13 +1091,22 @@
                                     每組包含一張兒童座椅及一組兒童餐具，不需要請填 0。<br>
                                     Each set includes one child seat and one child tableware set.
                                 </p>
+
                             </div>
 
+
                             <div class="form-group">
+
                                 <label for="dietary-type">
-                                    <span>Meal Preference</span>
+
+                                    <span>
+                                        Meal Preference
+                                    </span>
+
                                     餐點需求
+
                                     <b>*</b>
+
                                 </label>
 
                                 <select
@@ -887,6 +1114,7 @@
                                     name="dietaryType"
                                     required
                                 >
+
                                     <option value="all_meat">
                                         全葷 · Regular Meals
                                     </option>
@@ -898,7 +1126,9 @@
                                     <option value="other">
                                         其他 · Other
                                     </option>
+
                                 </select>
+
 
                                 <p
                                     id="dietary-other-help"
@@ -908,15 +1138,23 @@
                                     請於下方「食物過敏或特殊需求」欄位說明餐點需求。<br>
                                     Please describe your meal requirements below.
                                 </p>
+
                             </div>
+
 
                             <div
                                 id="field-veg-count"
                                 class="form-group"
                             >
+
                                 <label for="veg-count">
-                                    <span>Vegetarian Guest Count</span>
+
+                                    <span>
+                                        Vegetarian Guest Count
+                                    </span>
+
                                     素食人數
+
                                 </label>
 
                                 <input
@@ -928,12 +1166,20 @@
                                     step="1"
                                     value="0"
                                 >
+
                             </div>
 
+
                             <div class="form-group">
+
                                 <label for="food-allergy">
-                                    <span>Dietary Restrictions</span>
+
+                                    <span>
+                                        Dietary Restrictions
+                                    </span>
+
                                     食物過敏或特殊需求
+
                                 </label>
 
                                 <textarea
@@ -943,13 +1189,22 @@
                                     maxlength="300"
                                     placeholder="請註明食物過敏、特殊餐點或其他需求"
                                 ></textarea>
+
                             </div>
+
                         </div>
 
+
                         <div class="form-group">
+
                             <label for="message">
-                                <span>Message for the Couple</span>
+
+                                <span>
+                                    Message for the Couple
+                                </span>
+
                                 想對新人說的話
+
                             </label>
 
                             <textarea
@@ -959,19 +1214,24 @@
                                 maxlength="500"
                                 placeholder="留下給 Kevin 與 Coco 的祝福"
                             ></textarea>
+
                         </div>
+
 
                         <button
                             type="submit"
                             class="submit-btn"
                             id="submit-button"
                         >
+
                             <span>
                                 Submit RSVP
                             </span>
 
                             送出回覆
+
                         </button>
+
 
                         <p
                             id="form-status"
@@ -979,14 +1239,18 @@
                             role="status"
                             aria-live="polite"
                         ></p>
+
                     </form>
+
                 </div>
+
 
                 <div
                     id="deadline-notice"
                     class="deadline-notice"
                     hidden
                 >
+
                     <div class="deadline-icon">
                         ⏰
                     </div>
@@ -1002,25 +1266,52 @@
                     <p class="deadline-en">
                         The RSVP deadline has passed.
                     </p>
+
                 </div>
+
+
+                <!-- 回到信封入口 -->
+
+                <div class="back-invitation-wrap">
+
+                    <button
+                        type="button"
+                        id="back-to-invitation"
+                        class="back-invitation-button"
+                    >
+                        <span>
+                            Back to Invitation
+                        </span>
+
+                        返回邀請函
+                    </button>
+
+                </div>
+
             </div>
+
         </section>
+
     </main>
 
-    <!-- Our Moments 圖片燈箱 -->
+
+    <!-- =====================================================
+         Our Moments 燈箱
+    ====================================================== -->
+
     <div
         id="lightbox"
         class="lightbox"
         role="dialog"
         aria-modal="true"
-        aria-label="圖片預覽 Image preview"
+        aria-label="圖片預覽"
         hidden
     >
+
         <button
             type="button"
             class="close-lightbox"
             id="close-lightbox"
-            aria-label="關閉圖片 Close image"
         >
             &times;
         </button>
@@ -1029,17 +1320,38 @@
             class="lightbox-content"
             id="lightbox-img"
             src=""
-            alt="圖片預覽 Image preview"
+            alt="圖片預覽"
         >
+
     </div>
 
+
+    <!-- =====================================================
+         Footer
+    ====================================================== -->
+
     <footer class="page-footer">
+
         <div class="footer-decoration">
             ❦
         </div>
 
-        <p class="footer-names">
-            Kevin &amp; Coco
+        <div class="footer-signature">
+
+            <span>
+                Kevin &amp;
+            </span>
+
+            <span>
+                Coco
+            </span>
+
+        </div>
+
+        <p class="footer-chinese-names">
+            周愷元 (Kevin)
+            <i>×</i>
+            陳佳惠 (Coco)
         </p>
 
         <p id="footer-date"></p>
@@ -1050,11 +1362,15 @@
             感謝您與我們一同分享這份喜悅。<br>
             Thank You for Celebrating with Us.
         </p>
+
     </footer>
 
+
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-    <script src="./app.js?v=20260806-03"></script>
+    <script src="./app.js?v=20260808-01"></script>
+
 </body>
 </html>
