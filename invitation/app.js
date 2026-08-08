@@ -1,3301 +1,1206 @@
-:root {
-    --background: #F5F1EA;
-    --primary: #6F7C3E;
-    --accent: #C97C7C;
-    --secondary-background: #EFE7DB;
-    --soft-pink: #D8A7A1;
-    --sage: #A3B18A;
-
-    --text: #565747;
-    --text-soft: #7A796D;
-
-    --primary-light:
-        rgba(111, 124, 62, 0.22);
-
-    --accent-light:
-        rgba(201, 124, 124, 0.18);
-
-    --sage-light:
-        rgba(163, 177, 138, 0.18);
-}
-
-
-* {
-    box-sizing: border-box;
-}
-
-
-html {
-    scroll-behavior: smooth;
-}
-
-
-html.show-invitation-gate,
-html.show-invitation-gate body {
-    overflow: hidden;
-}
-
-
-body {
-    position: relative;
-
-    margin: 0;
-
-    overflow-x: hidden;
-
-    color: var(--text);
-
-    background:
-        var(--background);
-
-    background-image:
-        repeating-linear-gradient(
-            0deg,
-            rgba(111, 124, 62, 0.014) 0,
-            rgba(111, 124, 62, 0.014) 1px,
-            transparent 1px,
-            transparent 5px
-        );
-
-    font-family:
-        "Noto Sans TC",
-        sans-serif;
-
-    line-height: 1.8;
-}
-
-
-button,
-input,
-select,
-textarea {
-    font: inherit;
-}
-
-
-img {
-    display: block;
-
-    max-width: 100%;
-}
-
-
-[hidden] {
-    display: none !important;
-}
+"use strict";
 
 
 /* =========================================================
-   信封入口
+   Firebase
 ========================================================= */
 
-.invitation-gate {
-    position: fixed;
+const firebaseConfig = {
+    apiKey:
+        "AIzaSyAsSnOUE0WyuWhC62njgfEW8j6NyZHDhzI",
 
-    z-index: 20000;
+    authDomain:
+        "weddingseating-4a476.firebaseapp.com",
 
-    inset: 0;
+    databaseURL:
+        "https://weddingseating-4a476-default-rtdb.firebaseio.com",
 
-    display: none;
+    projectId:
+        "weddingseating-4a476",
 
-    align-items: center;
-    justify-content: center;
+    storageBucket:
+        "weddingseating-4a476.firebasestorage.app",
 
-    overflow-y: auto;
-    overflow-x: hidden;
+    messagingSenderId:
+        "1055948896345",
 
-    color:
-        var(--text);
+    appId:
+        "1:1055948896345:web:16b5be9fd192151f851948",
 
-    background:
-        repeating-linear-gradient(
-            0deg,
-            rgba(111, 124, 62, 0.014) 0,
-            rgba(111, 124, 62, 0.014) 1px,
-            transparent 1px,
-            transparent 5px
-        ),
-        var(--background);
-
-    opacity: 1;
-
-    transition:
-        opacity 0.7s ease,
-        visibility 0.7s ease;
-}
+    measurementId:
+        "G-XDE62910SE"
+};
 
 
-html.show-invitation-gate
-.invitation-gate {
-    display: flex;
-}
+let database = null;
 
 
-.invitation-gate.is-leaving {
-    opacity: 0;
+try {
 
-    visibility: hidden;
+    if (
+        typeof firebase === "undefined" ||
+        typeof firebase.initializeApp !==
+            "function"
+    ) {
 
-    pointer-events: none;
-}
-
-
-.gate-content {
-    position: relative;
-
-    z-index: 2;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-    justify-content: center;
-
-    width:
-        min(820px, 100%);
-
-    min-height:
-        100svh;
-
-    padding:
-        max(
-            30px,
-            env(safe-area-inset-top)
-        )
-        20px
-        max(
-            30px,
-            env(safe-area-inset-bottom)
+        throw new Error(
+            "Firebase SDK 尚未正確載入。"
         );
 
-    text-align: center;
-}
-
-
-.gate-title {
-    margin:
-        0
-        0
-        clamp(
-            15px,
-            2.5vh,
-            26px
-        );
-
-    color:
-        var(--primary);
-
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size:
-        clamp(
-            15px,
-            2vw,
-            18px
-        );
-
-    font-weight: 400;
-
-    letter-spacing:
-        0.55em;
-}
-
-
-/* =========================================================
-   入口 Logo
-========================================================= */
-
-.gate-monogram-row {
-    display: grid;
-
-    grid-template-columns:
-        1fr
-        78px
-        1fr;
-
-    align-items: center;
-
-    gap:
-        clamp(
-            12px,
-            3vw,
-            28px
-        );
-
-    width:
-        min(620px, 100%);
-
-    margin-bottom:
-        clamp(
-            18px,
-            3vh,
-            28px
-        );
-}
-
-
-.gate-monogram-row p {
-    margin: 0;
-
-    color:
-        var(--sage);
-
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size:
-        clamp(
-            11px,
-            1.8vw,
-            14px
-        );
-
-    font-weight: 400;
-
-    letter-spacing:
-        0.34em;
-
-    white-space: nowrap;
-}
-
-
-.monogram-logo {
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    width: 78px;
-    height: 78px;
-
-    margin: 0 auto;
-}
-
-
-.monogram-logo img {
-    width: 100%;
-    height: 100%;
-
-    object-fit: contain;
-}
-
-
-/* =========================================================
-   入口文案與英文姓名
-========================================================= */
-
-.gate-main-invitation {
-    margin:
-        0
-        0
-        7px;
-
-    color:
-        var(--primary);
-
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size:
-        clamp(
-            12px,
-            2vw,
-            16px
-        );
-
-    letter-spacing:
-        clamp(
-            0.16em,
-            1vw,
-            0.4em
-        );
-}
-
-
-.gate-english-invitation {
-    margin: 0;
-
-    color:
-        var(--sage);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size:
-        clamp(
-            11px,
-            1.7vw,
-            14px
-        );
-
-    font-weight: 500;
-
-    letter-spacing:
-        0.32em;
-}
-
-
-.gate-couple-names {
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    margin:
-        clamp(
-            12px,
-            2.6vh,
-            24px
-        )
-        0
-        clamp(
-            20px,
-            3.5vh,
-            34px
-        );
-
-    font-family:
-        "Allura",
-        cursive;
-
-    line-height:
-        0.74;
-}
-
-
-.gate-name-kevin {
-    margin-right:
-        48px;
-
-    color:
-        var(--primary);
-
-    font-size:
-        clamp(
-            40px,
-            7vw,
-            62px
-        );
-}
-
-
-.gate-name-coco {
-    margin-top: 9px;
-
-    margin-left:
-        58px;
-
-    color:
-        var(--accent);
-
-    font-size:
-        clamp(
-            50px,
-            8.5vw,
-            76px
-        );
-}
-
-
-/* =========================================================
-   信封
-========================================================= */
-
-.envelope-button {
-    display: block;
-
-    width:
-        min(
-            420px,
-            78vw
-        );
-
-    padding: 0;
-
-    background:
-        transparent;
-
-    border: 0;
-
-    cursor: pointer;
-
-    -webkit-tap-highlight-color:
-        transparent;
-}
-
-
-.envelope-button:focus-visible {
-    outline:
-        1px
-        solid
-        var(--accent);
-
-    outline-offset:
-        12px;
-}
-
-
-.envelope-button:disabled {
-    cursor: default;
-}
-
-
-.envelope {
-    position: relative;
-
-    display: block;
-
-    width: 100%;
-
-    aspect-ratio:
-        1.55 / 1;
-
-    perspective:
-        1000px;
-
-    transform-style:
-        preserve-3d;
-}
-
-
-.envelope-back {
-    position: absolute;
-
-    z-index: 1;
-
-    inset: 0;
-
-    background:
-        linear-gradient(
-            180deg,
-            #A8B38B 0%,
-            var(--sage) 100%
-        );
-
-    border:
-        1px
-        solid
-        rgba(
-            111,
-            124,
-            62,
-            0.48
-        );
-}
-
-
-/* =========================================================
-   升起邀請卡
-========================================================= */
-
-.envelope-card {
-    position: absolute;
-
-    z-index: 2;
-
-    left: 8%;
-
-    bottom: 7%;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-    justify-content: center;
-
-    width: 84%;
-    height: 75%;
-
-    padding: 14px;
-
-    color:
-        var(--primary);
-
-    background:
-        var(--background);
-
-    border:
-        1px
-        solid
-        rgba(
-            111,
-            124,
-            62,
-            0.38
-        );
-
-    transform:
-        translateY(4%);
-
-    transform-origin:
-        center bottom;
-
-    transition:
-        transform
-        1.05s
-        cubic-bezier(
-            0.2,
-            0.72,
-            0.22,
-            1
-        );
-}
-
-
-.envelope-card-decoration {
-    margin-bottom:
-        4px;
-
-    color:
-        var(--sage);
-
-    font-size:
-        18px;
-}
-
-
-.envelope-card-name {
-    position: relative;
-
-    z-index: 1;
-
-    font-family:
-        "Allura",
-        cursive;
-
-    font-size:
-        clamp(
-            27px,
-            5vw,
-            40px
-        );
-
-    line-height: 1;
-}
-
-
-.envelope-card-text {
-    margin-top:
-        4px;
-
-    color:
-        var(--sage);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size:
-        9px;
-
-    letter-spacing:
-        0.28em;
-}
-
-
-.envelope-card-line {
-    width: 60px;
-    height: 1px;
-
-    margin:
-        10px
-        0
-        8px;
-
-    background:
-        var(--accent);
-
-    opacity:
-        0.6;
-}
-
-
-.envelope-card-open {
-    color:
-        var(--primary);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size:
-        9px;
-
-    letter-spacing:
-        0.25em;
-}
-
-
-/* =========================================================
-   信封前方摺面
-========================================================= */
-
-.envelope-front-left,
-.envelope-front-right,
-.envelope-front-bottom {
-    position: absolute;
-
-    z-index: 4;
-
-    inset: 0;
-
-    pointer-events: none;
-}
-
-
-.envelope-front-left {
-    background:
-        #9EAA7B;
-
-    clip-path:
-        polygon(
-            0 0,
-            56% 57%,
-            0 100%
-        );
-}
-
-
-.envelope-front-right {
-    background:
-        #A8B38B;
-
-    clip-path:
-        polygon(
-            100% 0,
-            44% 57%,
-            100% 100%
-        );
-}
-
-
-.envelope-front-bottom {
-    background:
-        var(--sage);
-
-    clip-path:
-        polygon(
-            0 100%,
-            50% 45%,
-            100% 100%
-        );
-}
-
-
-/* =========================================================
-   封蓋
-========================================================= */
-
-.envelope-flap {
-    position: absolute;
-
-    z-index: 6;
-
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 60%;
-
-    background:
-        #98A674;
-
-    clip-path:
-        polygon(
-            0 0,
-            100% 0,
-            50% 100%
-        );
-
-    transform:
-        rotateX(0deg);
-
-    transform-origin:
-        top center;
-
-    backface-visibility:
-        hidden;
-
-    transition:
-        transform
-        0.8s
-        cubic-bezier(
-            0.4,
-            0,
-            0.2,
-            1
-        );
-}
-
-
-/* =========================================================
-   KC Logo 放在信封正面
-========================================================= */
-
-.envelope-front-logo {
-    position: absolute;
-
-    z-index: 7;
-
-    left: 50%;
-
-    /*
-        約在整個信封高度 58% 的位置，
-        比原本封蓋 Logo 更低
-    */
-    top: 59%;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    width: 64px;
-    height: 64px;
-
-    background:
-        transparent;
-
-    transform:
-        translate(
-            -50%,
-            -50%
-        );
-
-    pointer-events: none;
-
-    transition:
-        opacity 0.35s ease;
-}
-
-
-.envelope-front-logo img {
-    width: 100%;
-    height: 100%;
-
-    object-fit: contain;
-}
-
-
-/*
-   開封時 Logo 留在信封上，
-   但略微變淡以避免搶邀請卡焦點
-*/
-
-.invitation-gate.is-opening
-.envelope-front-logo {
-    opacity: 0.82;
-}
-
-
-/* =========================================================
-   TAP TO OPEN
-========================================================= */
-
-.gate-instruction {
-    margin-top:
-        clamp(
-            16px,
-            2.8vh,
-            30px
-        );
-
-    transition:
-        opacity 0.3s ease,
-        transform 0.3s ease;
-}
-
-
-.gate-instruction p {
-    margin: 0;
-
-    color:
-        var(--primary);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size: 14px;
-
-    font-weight: 500;
-
-    letter-spacing:
-        0.42em;
-}
-
-
-.gate-instruction span {
-    display: block;
-
-    margin-top:
-        3px;
-
-    color:
-        var(--sage);
-
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size:
-        11px;
-
-    letter-spacing:
-        0.3em;
-}
-
-
-/* =========================================================
-   信封動畫
-========================================================= */
-
-.invitation-gate:not(.is-opening)
-.envelope-button {
-    animation:
-        envelopeFloat
-        3.2s
-        ease-in-out
-        infinite;
-}
-
-
-.invitation-gate.is-opening
-.envelope-flap {
-    z-index: 1;
-
-    transform:
-        rotateX(180deg);
-}
-
-
-.invitation-gate.is-opening
-.envelope-card {
-    transform:
-        translateY(-68%);
-}
-
-
-.invitation-gate.is-opening
-.gate-instruction {
-    opacity: 0;
-
-    transform:
-        translateY(8px);
-}
-
-
-.invitation-gate.is-opening
-.gate-title,
-.invitation-gate.is-opening
-.gate-monogram-row,
-.invitation-gate.is-opening
-.gate-main-invitation,
-.invitation-gate.is-opening
-.gate-english-invitation,
-.invitation-gate.is-opening
-.gate-couple-names {
-    transition:
-        opacity 0.7s ease;
-
-    opacity: 0.46;
-}
-
-
-@keyframes envelopeFloat {
-
-    0%,
-    100% {
-        transform:
-            translateY(0);
     }
 
-    50% {
-        transform:
-            translateY(-7px);
+
+    if (!firebase.apps.length) {
+
+        firebase.initializeApp(
+            firebaseConfig
+        );
+
+    }
+
+
+    database =
+        firebase.database();
+
+
+    console.log(
+        "Firebase Realtime Database 初始化成功。"
+    );
+
+}
+catch (error) {
+
+    console.error(
+        "Firebase 初始化失敗：",
+        error
+    );
+
+}
+
+
+/* =========================================================
+   Google Form
+========================================================= */
+
+const GOOGLE_FORM_URL =
+    "https://docs.google.com/forms/d/e/1FAIpQLSc08XmBI8W6_rmTZzwnLS3qi8GjLOADrR1Kwx_82zTKs2z1kw/formResponse";
+
+
+const GOOGLE_FORM_ENTRY = {
+
+    weddingLocation:
+        "entry.1643825659",
+
+    weddingVenue:
+        "entry.205515836",
+
+    weddingDate:
+        "entry.444740231",
+
+    guestName:
+        "entry.1010437169",
+
+    relation:
+        "entry.15718624",
+
+    phone:
+        "entry.1276247041",
+
+    isAttending:
+        "entry.203723826",
+
+    attendCeremony:
+        "entry.1034257855",
+
+    attendCount:
+        "entry.1492633836",
+
+    childSetCount:
+        "entry.1396423463",
+
+    dietaryType:
+        "entry.573487631",
+
+    vegetarianCount:
+        "entry.645844573",
+
+    foodAllergy:
+        "entry.1564798313",
+
+    message:
+        "entry.666038148",
+
+    formVersion:
+        "entry.365524471"
+
+};
+
+
+/* =========================================================
+   共用圖片
+========================================================= */
+
+const sharedImages = {
+
+    hero:
+        "./images/hero-cover.jpg",
+
+    moments: [
+        "./images/moment-01.jpg",
+        "./images/moment-02.jpg",
+        "./images/moment-03.jpg",
+        "./images/moment-04.jpg"
+    ]
+
+};
+
+
+/* =========================================================
+   婚禮設定
+========================================================= */
+
+const weddingConfig = {
+
+    defaultLocation:
+        "tainan",
+
+
+    getCurrentLocation() {
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const requestedLocation =
+            params.get("loc");
+
+
+        if (
+            requestedLocation &&
+            this.events[
+                requestedLocation
+            ]
+        ) {
+
+            return requestedLocation;
+
+        }
+
+
+        return this.defaultLocation;
+
+    },
+
+
+    events: {
+
+        /* =================================================
+           台南
+        ================================================= */
+
+        tainan: {
+
+            browserTitle:
+                "周愷元 & 陳佳惠 婚禮邀請函 - 台南",
+
+
+            dateZh:
+                "2027 年 1 月 17 日（星期日）",
+
+
+            dateEn:
+                "Sunday, January 17, 2027",
+
+
+            heroDateLine1:
+                "JANUARY 17 2027",
+
+
+            heroDateLine2:
+                "TAINAN",
+
+
+            countdownImage:
+                "./images/countdown-tainan.jpg",
+
+
+            countdownImageAlt:
+                "台南場婚禮倒數 Wedding Countdown",
+
+
+            rsvpDeadline:
+                "2026-12-31T23:59:59+08:00",
+
+
+            rsvpDeadlineZh:
+                "2026 年 12 月 31 日 23:59",
+
+
+            rsvpDeadlineEn:
+                "December 31, 2026 at 11:59 PM",
+
+
+            venueName:
+                "台南晶英酒店",
+
+
+            venueAddress:
+                "台南市中西區和意路 1 號",
+
+
+            venueDetail: `
+                <p>
+                    <strong>宴會廳：</strong>
+                    2F 明倫＋仁德廳
+                </p>
+
+                <p class="en-line">
+                    Ballroom:
+                    2F Minglun & Rende Ballroom
+                </p>
+            `,
+
+
+            noticeZh:
+                "",
+
+
+            noticeEn:
+                "",
+
+
+            eventImage:
+                "./images/event-tainan.jpg",
+
+
+            eventImageAlt:
+                "台南婚禮資訊",
+
+
+            timelineItems: [
+
+                {
+                    time:
+                        "11:30",
+
+                    icon:
+                        "❀",
+
+                    titleZh:
+                        "賓客入場、迎賓簽到",
+
+                    titleEn:
+                        "Guest Arrival",
+
+                    note:
+                        ""
+                },
+
+                {
+                    time:
+                        "12:00",
+
+                    icon:
+                        "♢",
+
+                    titleZh:
+                        "婚宴午宴開始",
+
+                    titleEn:
+                        "Wedding Luncheon Begins",
+
+                    note:
+                        "2F 明倫＋仁德廳"
+                }
+
+            ],
+
+
+            googleMapUrl:
+                "https://www.google.com/maps/search/?api=1&query=%E5%8F%B0%E5%8D%97%E6%99%B6%E8%8B%B1%E9%85%92%E5%BA%97",
+
+
+            mapEmbedSrc:
+                "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.9815295554013!2d120.19685391161538!3d22.987706679111458!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e767c77f6350f%3A0x802cfbc73a87af85!2z5Y-w5Y2X5pm26Iux6YWS5bqXIChTaWxrcyBQbGFjZSBUYWluYW4p!5e0!3m2!1szh-TW!2stw!4v1785570947869!5m2!1szh-TW!2stw",
+
+
+            trafficInfo: `
+                <p>
+                    <strong>高鐵：</strong>
+                    搭乘高鐵至高鐵台南站，
+                    可轉乘高鐵快捷公車 H31，
+                    於「小西門站」下車。
+
+                    <span class="en-line">
+                        HSR:
+                        Take the H31 shuttle bus
+                        from Tainan HSR Station
+                        and get off at Xiaoximen Station.
+                    </span>
+                </p>
+
+                <p>
+                    <strong>台鐵：</strong>
+                    抵達台南火車站後，
+                    可轉乘計程車前往，
+                    車程約 10 分鐘。
+
+                    <span class="en-line">
+                        TRA:
+                        A taxi ride from Tainan Railway Station
+                        takes approximately 10 minutes.
+                    </span>
+                </p>
+
+                <p>
+                    <strong>自行開車：</strong>
+                    可使用上方 Google Maps
+                    導航至台南晶英酒店。
+
+                    <span class="en-line">
+                        Driving:
+                        Use Google Maps
+                        for directions to Silks Place Tainan.
+                    </span>
+                </p>
+            `,
+
+
+            parkingInfo: `
+                <p>
+                    餐會提供每台車至多
+                    4 小時停車折抵。
+
+                    <span class="en-line">
+                        Wedding guests may receive
+                        up to four hours of parking validation
+                        per vehicle.
+                    </span>
+                </p>
+
+                <p>
+                    請於離場前依飯店
+                    現場指示辦理停車折抵。
+
+                    <span class="en-line">
+                        Please follow the hotel's
+                        on-site instructions before departure.
+                    </span>
+                </p>
+            `,
+
+
+            formToggles: {
+
+                showCeremony:
+                    false
+
+            }
+
+        },
+
+
+        /* =================================================
+           南投
+        ================================================= */
+
+        nantou: {
+
+            browserTitle:
+                "周愷元 & 陳佳惠 婚禮邀請函 - 日月潭",
+
+
+            dateZh:
+                "2027 年 1 月 24 日（星期日）",
+
+
+            dateEn:
+                "Sunday, January 24, 2027",
+
+
+            heroDateLine1:
+                "JANUARY 24 2027",
+
+
+            heroDateLine2:
+                "SUN MOON LAKE",
+
+
+            countdownImage:
+                "./images/countdown-nantou.jpg",
+
+
+            countdownImageAlt:
+                "南投場婚禮倒數 Wedding Countdown",
+
+
+            rsvpDeadline:
+                "2026-12-31T23:59:59+08:00",
+
+
+            rsvpDeadlineZh:
+                "2026 年 12 月 31 日 23:59",
+
+
+            rsvpDeadlineEn:
+                "December 31, 2026 at 11:59 PM",
+
+
+            venueName:
+                "日月潭涵碧樓",
+
+
+            venueAddress:
+                "南投縣魚池鄉中興路 142 號",
+
+
+            venueDetail: `
+                <p>
+                    <strong>證婚地點：</strong>
+                    8F 星光露台
+                </p>
+
+                <p class="en-line">
+                    Ceremony:
+                    8F Starlight Terrace
+                </p>
+
+                <p>
+                    <strong>用餐地點：</strong>
+                    7F 湖光軒
+                </p>
+
+                <p class="en-line">
+                    Luncheon:
+                    7F Lakeview Pavilion
+                </p>
+            `,
+
+
+            noticeZh:
+                "溫馨提醒：本場次謝絕禮金，您的到來就是最好的祝福！",
+
+
+            noticeEn:
+                "No gifts or cash gifts, please. Your presence is the greatest blessing to us.",
+
+
+            eventImage:
+                "./images/event-nantou.jpg",
+
+
+            eventImageAlt:
+                "南投婚禮資訊",
+
+
+            timelineItems: [
+
+                {
+                    time:
+                        "10:30",
+
+                    icon:
+                        "♡",
+
+                    titleZh:
+                        "證婚儀式",
+
+                    titleEn:
+                        "Wedding Ceremony",
+
+                    note:
+                        "8F 星光露台 · Starlight Terrace"
+                },
+
+                {
+                    time:
+                        "11:30",
+
+                    icon:
+                        "❀",
+
+                    titleZh:
+                        "午宴入席",
+
+                    titleEn:
+                        "Guest Seating",
+
+                    note:
+                        "7F 湖光軒 · Lakeview Pavilion"
+                },
+
+                {
+                    time:
+                        "12:15",
+
+                    icon:
+                        "♢",
+
+                    titleZh:
+                        "婚宴開席",
+
+                    titleEn:
+                        "Wedding Luncheon Begins",
+
+                    note:
+                        "7F 湖光軒 · Lakeview Pavilion"
+                }
+
+            ],
+
+
+            googleMapUrl:
+                "https://www.google.com/maps/search/?api=1&query=%E6%97%A5%E6%9C%88%E6%BD%AD%E6%B6%B5%E7%A2%A7%E6%A8%93",
+
+
+            mapEmbedSrc:
+                "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3648.750948355145!2d120.90602371163745!3d23.862975978504466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3468d60f0d7e1f0b%3A0xa748afffa2011207!2z5pel5pyI5r2t5ra156Kn5qiT!5e0!3m2!1szh-TW!2stw!4v1785571059341!5m2!1szh-TW!2stw",
+
+
+            trafficInfo: `
+                <p>
+                    <strong>南投客運：</strong>
+                    搭乘南投客運由台中干城車站發車，
+                    經台中火車站、高鐵台中烏日站、
+                    埔里至日月潭，
+                    約每小時一班車。
+
+                    <span class="en-line">
+                        Nantou Bus departs from
+                        Taichung Gancheng Station
+                        via Taichung Railway Station,
+                        Taichung HSR Station and Puli
+                        to Sun Moon Lake.
+                    </span>
+                </p>
+
+                <p>
+                    詳細時刻表請聯絡
+                    南投客運埔里站：
+                    <a href="tel:0492984031">
+                        049-2984031
+                    </a>。
+
+                    <span class="en-line">
+                        For the detailed timetable,
+                        contact Nantou Bus Puli Station.
+                    </span>
+                </p>
+
+                <p>
+                    抵達日月潭車站終點後
+                    （即水社遊客中心），
+                    步行約 15 分鐘即可抵達涵碧樓。
+
+                    <span class="en-line">
+                        From Shuishe Visitor Center,
+                        The Lalu is approximately
+                        a 15-minute walk.
+                    </span>
+                </p>
+            `,
+
+
+            parkingInfo: `
+                <p>
+                    抵達涵碧樓飯店入口後，
+                    請依現場服務人員指示
+                    辦理停車或代客泊車。
+
+                    <span class="en-line">
+                        Upon arrival,
+                        please follow staff instructions
+                        for parking or valet service.
+                    </span>
+                </p>
+
+                <p>
+                    婚宴賓客的停車安排及費用，
+                    請以婚宴當日飯店現場公告為準。
+
+                    <span class="en-line">
+                        Parking arrangements and fees
+                        are subject to event-day instructions.
+                    </span>
+                </p>
+            `,
+
+
+            formToggles: {
+
+                showCeremony:
+                    true
+
+            }
+
+        }
+
+    }
+
+};
+
+
+/* =========================================================
+   DOM
+========================================================= */
+
+function getElement(id) {
+
+    return document.getElementById(
+        id
+    );
+
+}
+
+
+function setText(
+    id,
+    value
+) {
+
+    const element =
+        getElement(id);
+
+
+    if (element) {
+
+        element.textContent =
+            value;
+
+    }
+
+}
+
+
+function setHtml(
+    id,
+    value
+) {
+
+    const element =
+        getElement(id);
+
+
+    if (element) {
+
+        element.innerHTML =
+            value;
+
     }
 
 }
 
 
 /* =========================================================
-   植物裝飾
+   Music
 ========================================================= */
 
-.gate-botanical,
-.botanical-decoration {
-    position: fixed;
+function setupBackgroundMusic() {
 
-    z-index: 0;
-
-    width:
-        250px;
-
-    height:
-        330px;
-
-    opacity:
-        0.08;
-
-    pointer-events:
-        none;
-
-    background:
-        radial-gradient(
-            ellipse
-            at
-            40%
-            30%,
-            rgba(
-                163,
-                177,
-                138,
-                0.32
-            ),
-            transparent
-            50%
+    const audio =
+        getElement(
+            "bg-music"
         );
-}
 
 
-.gate-botanical-left,
-.botanical-top-left {
-    left:
-        -80px;
+    if (!audio) {
 
-    bottom:
-        -80px;
-}
+        return {
 
+            play() {},
 
-.gate-botanical-right,
-.botanical-top-right {
-    top:
-        -80px;
+            pause() {},
 
-    right:
-        -80px;
-}
+            tryAutoPlay() {}
+
+        };
+
+    }
 
 
-.botanical-bottom-left {
-    bottom:
-        -90px;
-
-    left:
-        -90px;
-}
+    audio.volume =
+        0.42;
 
 
-.botanical-bottom-right {
-    right:
-        -90px;
+    async function playMusic() {
 
-    bottom:
-        -90px;
+        try {
+
+            await audio.play();
+
+
+            return true;
+
+        }
+        catch (error) {
+
+            console.log(
+                "瀏覽器暫時阻擋背景音樂播放。"
+            );
+
+
+            return false;
+
+        }
+
+    }
+
+
+    function pauseMusic() {
+
+        audio.pause();
+
+    }
+
+
+    async function tryAutoPlay() {
+
+        const success =
+            await playMusic();
+
+
+        if (success) {
+
+            return;
+
+        }
+
+
+        const startOnInteraction =
+            async () => {
+
+                const played =
+                    await playMusic();
+
+
+                if (played) {
+
+                    document.removeEventListener(
+                        "pointerdown",
+                        startOnInteraction
+                    );
+
+
+                    document.removeEventListener(
+                        "keydown",
+                        startOnInteraction
+                    );
+
+                }
+
+            };
+
+
+        document.addEventListener(
+            "pointerdown",
+            startOnInteraction
+        );
+
+
+        document.addEventListener(
+            "keydown",
+            startOnInteraction
+        );
+
+    }
+
+
+    return {
+
+        play:
+            playMusic,
+
+        pause:
+            pauseMusic,
+
+        tryAutoPlay:
+            tryAutoPlay
+
+    };
+
 }
 
 
 /* =========================================================
-   共用標題
+   Invitation Gate
 ========================================================= */
 
-.eyebrow {
-    margin:
-        0
-        0
-        10px;
+function setupInvitationGate(
+    currentLocation,
+    musicController
+) {
 
-    color:
-        var(--primary);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size:
-        14px;
-
-    font-weight:
-        500;
-
-    letter-spacing:
-        5px;
-
-    text-transform:
-        uppercase;
-}
-
-
-.section-heading {
-    margin-bottom:
-        44px;
-}
-
-
-.centered-heading {
-    text-align:
-        center;
-}
-
-
-.section-heading h2 {
-    margin: 0;
-
-    color:
-        var(--primary);
-
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size:
-        clamp(
-            28px,
-            5vw,
-            38px
+    const gate =
+        getElement(
+            "invitation-gate"
         );
 
-    font-weight:
-        500;
 
-    letter-spacing:
-        4px;
-}
-
-
-.section-note {
-    margin:
-        14px
-        0
-        0;
-
-    color:
-        var(--text-soft);
-
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size:
-        14px;
-}
-
-
-.section-divider,
-.ornamental-divider {
-    display: flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    gap:
-        12px;
-
-    width:
-        min(
-            280px,
-            76%
+    const envelopeButton =
+        getElement(
+            "envelope-button"
         );
 
-    margin:
-        24px
-        auto
-        0;
-}
+
+    if (
+        !gate ||
+        !envelopeButton
+    ) {
+
+        document.documentElement
+            .classList
+            .remove(
+                "show-invitation-gate"
+            );
 
 
-.section-divider span,
-.ornamental-divider span {
-    display:
-        block;
+        return null;
 
-    width:
-        90px;
-
-    height:
-        1px;
-
-    background:
-        var(--primary);
-
-    opacity:
-        0.45;
-}
+    }
 
 
-.section-divider i,
-.ornamental-divider i {
-    color:
-        var(--accent);
+    const sessionKey =
+        `weddingInvitationOpened:${currentLocation}`;
 
-    font-style:
-        normal;
+
+    let isOpening =
+        false;
+
+
+    const reducedMotion =
+        window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+
+    function resetGateVisual() {
+
+        isOpening =
+            false;
+
+
+        gate.classList.remove(
+            "is-opening"
+        );
+
+
+        gate.classList.remove(
+            "is-leaving"
+        );
+
+
+        envelopeButton.disabled =
+            false;
+
+    }
+
+
+    function finishOpening() {
+
+        document.documentElement
+            .classList
+            .remove(
+                "show-invitation-gate"
+            );
+
+
+        gate.hidden =
+            true;
+
+
+        gate.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+
+        document.body.style.overflow =
+            "";
+
+
+        window.scrollTo({
+
+            top:
+                0,
+
+            left:
+                0,
+
+            behavior:
+                "auto"
+
+        });
+
+    }
+
+
+    async function openInvitation() {
+
+        if (isOpening) {
+
+            return;
+
+        }
+
+
+        isOpening =
+            true;
+
+
+        envelopeButton.disabled =
+            true;
+
+
+        try {
+
+            window.sessionStorage
+                .setItem(
+                    sessionKey,
+                    "true"
+                );
+
+        }
+        catch (error) {
+
+            console.warn(
+                "sessionStorage 無法寫入。",
+                error
+            );
+
+        }
+
+
+        /*
+            點擊信封本身就是使用者操作，
+            在這裡播放音樂最穩定。
+        */
+
+        if (
+            musicController &&
+            typeof musicController.play ===
+                "function"
+        ) {
+
+            musicController.play();
+
+        }
+
+
+        gate.classList.add(
+            "is-opening"
+        );
+
+
+        /*
+            Reduced motion
+        */
+
+        if (reducedMotion) {
+
+            window.setTimeout(
+                () => {
+
+                    gate.classList.add(
+                        "is-leaving"
+                    );
+
+                },
+                250
+            );
+
+
+            window.setTimeout(
+                finishOpening,
+                650
+            );
+
+
+            return;
+
+        }
+
+
+        /*
+            正常動畫流程：
+
+            0.0 秒：信封開啟
+            約 1 秒：邀請卡升起完成
+            1～4.8 秒：邀請卡停留
+            4.8 秒：入口淡出
+            5.5 秒：正式進入網站
+        */
+
+        window.setTimeout(
+            () => {
+
+                gate.classList.add(
+                    "is-leaving"
+                );
+
+            },
+            4800
+        );
+
+
+        window.setTimeout(
+            finishOpening,
+            5500
+        );
+
+    }
+
+
+    function showInvitation() {
+
+        resetGateVisual();
+
+
+        gate.hidden =
+            false;
+
+
+        gate.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+
+        document.documentElement
+            .classList
+            .add(
+                "show-invitation-gate"
+            );
+
+
+        window.scrollTo({
+
+            top:
+                0,
+
+            left:
+                0,
+
+            behavior:
+                "auto"
+
+        });
+
+
+        try {
+
+            window.sessionStorage
+                .removeItem(
+                    sessionKey
+                );
+
+        }
+        catch (error) {
+
+            console.warn(
+                error
+            );
+
+        }
+
+    }
+
+
+    envelopeButton.addEventListener(
+        "click",
+        openInvitation
+    );
+
+
+    const shouldShow =
+        document.documentElement
+            .classList
+            .contains(
+                "show-invitation-gate"
+            );
+
+
+    if (shouldShow) {
+
+        gate.hidden =
+            false;
+
+
+        gate.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+    }
+    else {
+
+        gate.hidden =
+            true;
+
+
+        gate.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+
+        if (
+            musicController &&
+            typeof musicController.tryAutoPlay ===
+                "function"
+        ) {
+
+            musicController.tryAutoPlay();
+
+        }
+
+    }
+
+
+    return {
+
+        showInvitation
+
+    };
+
 }
 
 
 /* =========================================================
-   Hero
+   Back to Invitation
 ========================================================= */
 
-.hero-section {
-    position:
-        relative;
+function setupBackToInvitation(
+    invitationGateController
+) {
 
-    z-index:
-        1;
-
-    min-height:
-        94svh;
-
-    background-color:
-        var(--secondary-background);
-
-    background-position:
-        center;
-
-    background-repeat:
-        no-repeat;
-
-    background-size:
-        cover;
-}
-
-
-.hero-overlay {
-    position:
-        absolute;
-
-    inset:
-        0;
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(
-                245,
-                241,
-                234,
-                0.15
-            ),
-            rgba(
-                245,
-                241,
-                234,
-                0.42
-            ),
-            rgba(
-                245,
-                241,
-                234,
-                0.86
-            )
-        );
-}
-
-
-.hero-content {
-    position:
-        relative;
-
-    z-index:
-        2;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    min-height:
-        94svh;
-
-    padding:
-        80px
-        24px;
-}
-
-
-.hero-card {
-    width:
-        min(
-            740px,
-            94%
+    const button =
+        getElement(
+            "back-to-invitation"
         );
 
-    padding:
-        52px
-        20px;
 
-    text-align:
-        center;
+    if (
+        !button ||
+        !invitationGateController
+    ) {
 
-    background:
-        rgba(
-            245,
-            241,
-            234,
-            0.61
-        );
-}
+        return;
 
+    }
 
-.hero-chinese-label {
-    margin:
-        0;
 
-    color:
-        var(--text-soft);
+    button.addEventListener(
+        "click",
+        () => {
 
-    font-family:
-        "Noto Serif TC",
-        serif;
+            invitationGateController
+                .showInvitation();
 
-    font-size:
-        14px;
+        }
+    );
 
-    letter-spacing:
-        5px;
-}
-
-
-/* =========================================================
-   首頁中文姓名
-========================================================= */
-
-.hero-couple-title {
-    margin:
-        30px
-        0
-        28px;
-
-    color:
-        var(--primary);
-
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size:
-        clamp(
-            34px,
-            6vw,
-            56px
-        );
-
-    font-weight:
-        400;
-
-    line-height:
-        1.35;
-
-    letter-spacing:
-        0.12em;
-
-    text-transform:
-        none;
-}
-
-
-.hero-couple-title em {
-    display:
-        inline-block;
-
-    margin:
-        0
-        10px;
-
-    color:
-        var(--accent);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size:
-        0.9em;
-
-    font-style:
-        italic;
-
-    font-weight:
-        400;
-}
-
-
-/* =========================================================
-   日期
-========================================================= */
-
-.hero-date-wrap {
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    gap:
-        0;
-
-    margin-bottom:
-        24px;
-}
-
-
-.hero-date {
-    margin:
-        0;
-
-    color:
-        var(--accent);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size:
-        clamp(
-            18px,
-            3vw,
-            23px
-        );
-
-    font-weight:
-        500;
-
-    letter-spacing:
-        4px;
-
-    line-height:
-        1.4;
-
-    text-transform:
-        uppercase;
-
-    white-space:
-        nowrap;
-}
-
-
-.hero-date-line2 {
-    color:
-        var(--primary);
-}
-
-
-/* =========================================================
-   首頁邀請文字
-========================================================= */
-
-.hero-invitation-copy {
-    width:
-        min(
-            580px,
-            100%
-        );
-
-    margin:
-        0
-        auto;
-}
-
-
-.hero-invitation-zh {
-    margin:
-        0;
-
-    color:
-        var(--text);
-
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size:
-        15px;
-
-    font-weight:
-        400;
-
-    line-height:
-        2;
-
-    letter-spacing:
-        0.08em;
-}
-
-
-.hero-invitation-en {
-    margin:
-        10px
-        0
-        0;
-
-    color:
-        var(--text-soft);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size:
-        14px;
-
-    line-height:
-        1.55;
-
-    letter-spacing:
-        0.06em;
-}
-
-
-.hero-floral-mark {
-    margin-top:
-        26px;
-
-    color:
-        var(--sage);
-}
-
-
-/* =========================================================
-   大區塊
-========================================================= */
-
-.countdown-section,
-.content-section,
-.moments-section,
-.rsvp-section {
-    position:
-        relative;
-
-    z-index:
-        1;
-
-    padding-top:
-        105px;
-
-    padding-bottom:
-        105px;
-}
-
-
-.countdown-section {
-    padding-left:
-        20px;
-
-    padding-right:
-        20px;
-
-    background:
-        rgba(
-            239,
-            231,
-            219,
-            0.45
-        );
-}
-
-
-.content-section {
-    width:
-        min(
-            1000px,
-            calc(
-                100% - 30px
-            )
-        );
-
-    margin:
-        0
-        auto;
-
-    padding-left:
-        30px;
-
-    padding-right:
-        30px;
-
-    background:
-        transparent;
-}
-
-
-/* =========================================================
-   圖片
-========================================================= */
-
-.editorial-image-frame {
-    width:
-        min(
-            720px,
-            100%
-        );
-
-    margin:
-        0
-        auto
-        60px;
-
-    padding:
-        0;
-
-    background:
-        transparent;
-
-    border:
-        0;
-
-    box-shadow:
-        none;
-}
-
-
-.countdown-frame {
-    margin-bottom:
-        0;
-}
-
-
-.countdown-image,
-.event-image {
-    width:
-        100%;
-
-    height:
-        auto;
-
-    aspect-ratio:
-        3 / 2;
-
-    object-fit:
-        contain;
-
-    background:
-        transparent;
-}
-
-
-.image-error-message {
-    padding:
-        30px;
-
-    color:
-        var(--text-soft);
-
-    text-align:
-        center;
-}
-
-
-/* =========================================================
-   婚禮資訊
-========================================================= */
-
-.detail-grid {
-    display:
-        grid;
-
-    grid-template-columns:
-        1fr
-        1fr;
-
-    gap:
-        0
-        50px;
-
-    width:
-        min(
-            820px,
-            100%
-        );
-
-    margin:
-        0
-        auto;
-}
-
-
-.detail-item {
-    position:
-        relative;
-
-    padding:
-        26px
-        10px
-        34px;
-
-    text-align:
-        center;
-}
-
-
-.detail-item::after {
-    position:
-        absolute;
-
-    bottom:
-        0;
-
-    left:
-        15%;
-
-    width:
-        70%;
-
-    height:
-        1px;
-
-    content:
-        "";
-
-    background:
-        rgba(
-            111,
-            124,
-            62,
-            0.24
-        );
-}
-
-
-.detail-item-wide {
-    grid-column:
-        1 / -1;
-
-    padding-top:
-        42px;
-}
-
-
-.detail-label {
-    margin:
-        0;
-
-    color:
-        var(--accent);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size:
-        14px;
-
-    letter-spacing:
-        4px;
-
-    text-transform:
-        uppercase;
-}
-
-
-.detail-item h3 {
-    margin:
-        4px
-        0
-        18px;
-
-    color:
-        var(--primary);
-
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size:
-        21px;
-
-    font-weight:
-        500;
-
-    letter-spacing:
-        4px;
-}
-
-
-.detail-main {
-    margin:
-        0;
-
-    color:
-        var(--text);
-
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size:
-        17px;
-}
-
-
-.detail-secondary {
-    margin:
-        7px
-        0
-        0;
-
-    color:
-        var(--text-soft);
-
-    font-family:
-        "Cormorant Garamond",
-        "Noto Serif TC",
-        serif;
-
-    font-size:
-        14px;
-}
-
-
-.venue-detail {
-    margin-top:
-        16px;
-}
-
-
-.venue-detail p {
-    margin:
-        5px
-        0;
-}
-
-
-.venue-detail strong {
-    color:
-        var(--primary);
-}
-
-
-.venue-detail .en-line {
-    color:
-        var(--accent);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size:
-        14px;
-}
-
-
-/* =========================================================
-   Dress Code
-========================================================= */
-
-.dress-code-section {
-    width:
-        min(
-            820px,
-            100%
-        );
-
-    margin:
-        82px
-        auto
-        0;
-
-    padding-top:
-        54px;
-
-    border-top:
-        1px
-        solid
-        rgba(
-            111,
-            124,
-            62,
-            0.22
-        );
-
-    text-align:
-        center;
-}
-
-
-.dress-code-heading h3 {
-    margin:
-        0;
-
-    color:
-        var(--primary);
-
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size:
-        26px;
-
-    font-weight:
-        500;
-
-    letter-spacing:
-        4px;
-}
-
-
-.dress-code-introduction {
-    margin:
-        18px
-        auto
-        0;
-
-    color:
-        var(--text);
-
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size:
-        14px;
-
-    line-height:
-        1.9;
-
-    letter-spacing:
-        0.05em;
-}
-
-
-.dress-code-introduction-en {
-    margin:
-        4px
-        auto
-        0;
-
-    color:
-        var(--text-soft);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size:
-        14px;
-
-    line-height:
-        1.5;
-}
-
-
-.dress-code-palette {
-    display:
-        flex;
-
-    align-items:
-        flex-start;
-
-    justify-content:
-        center;
-
-    gap:
-        clamp(
-            16px,
-            4vw,
-            36px
-        );
-
-    margin-top:
-        34px;
-}
-
-
-.dress-color-item {
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    align-items:
-        center;
-
-    width:
-        90px;
-}
-
-
-.dress-color-circle {
-    width:
-        68px;
-
-    height:
-        68px;
-
-    border-radius:
-        50%;
-
-    box-shadow:
-        inset
-        0
-        0
-        0
-        1px
-        rgba(
-            86,
-            87,
-            71,
-            0.08
-        );
-}
-
-
-.dress-color-light {
-    border:
-        1px
-        solid
-        rgba(
-            111,
-            124,
-            62,
-            0.28
-        );
-}
-
-
-.dress-color-item p {
-    margin:
-        12px
-        0
-        0;
-
-    color:
-        var(--primary);
-
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size:
-        13px;
-
-    letter-spacing:
-        0.08em;
-}
-
-
-.dress-color-item span {
-    display:
-        block;
-
-    margin-top:
-        1px;
-
-    color:
-        var(--text-soft);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size:
-        11px;
-
-    letter-spacing:
-        0.05em;
-}
-
-
-/* =========================================================
-   婚禮時程
-========================================================= */
-
-.timeline-text-board {
-    width:
-        min(
-            720px,
-            100%
-        );
-
-    margin:
-        0
-        auto;
-
-    padding:
-        0;
-
-    background:
-        transparent;
-
-    border:
-        0;
-
-    box-shadow:
-        none;
-}
-
-
-.timeline-board-title {
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    gap:
-        17px;
-
-    margin-bottom:
-        26px;
-
-    padding-bottom:
-        18px;
-
-    border-bottom:
-        1px
-        solid
-        rgba(
-            111,
-            124,
-            62,
-            0.25
-        );
-}
-
-
-.timeline-board-icon {
-    display:
-        flex;
-
-    align-items:
-        center;
-    justify-content:
-        center;
-
-    width:
-        54px;
-
-    height:
-        54px;
-
-    color:
-        var(--primary);
-
-    font-size:
-        28px;
-}
-
-
-.timeline-board-heading {
-    display:
-        flex;
-
-    align-items:
-        baseline;
-
-    gap:
-        18px;
-}
-
-
-.timeline-board-heading span {
-    color:
-        var(--primary);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size:
-        18px;
-
-    font-weight:
-        600;
-
-    letter-spacing:
-        5px;
-
-    text-transform:
-        uppercase;
-}
-
-
-.timeline-board-heading h3 {
-    margin:
-        0;
-
-    color:
-        var(--primary);
-
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size:
-        24px;
-
-    font-weight:
-        500;
-
-    letter-spacing:
-        5px;
-}
-
-
-.timeline-item {
-    position:
-        relative;
-
-    display:
-        grid;
-
-    grid-template-columns:
-        75px
-        1fr;
-
-    gap:
-        18px;
-
-    padding:
-        12px
-        0
-        24px;
-}
-
-
-.timeline-marker {
-    position:
-        relative;
-
-    display:
-        flex;
-
-    justify-content:
-        center;
-}
-
-
-.timeline-dot {
-    position:
-        relative;
-
-    z-index:
-        1;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    width:
-        48px;
-
-    height:
-        48px;
-
-    color:
-        var(--primary);
-
-    background:
-        var(--background);
-
-    border:
-        1px
-        solid
-        var(--sage);
-
-    border-radius:
-        50%;
-
-    font-size:
-        20px;
-}
-
-
-.timeline-line {
-    position:
-        absolute;
-
-    top:
-        48px;
-
-    bottom:
-        -24px;
-
-    left:
-        50%;
-
-    width:
-        1px;
-
-    background:
-        var(--sage);
-
-    transform:
-        translateX(-50%);
-}
-
-
-.timeline-item:last-child
-.timeline-line {
-    display:
-        none;
-}
-
-
-.timeline-time {
-    margin:
-        0;
-
-    color:
-        var(--primary);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size:
-        18px;
-
-    font-weight:
-        600;
-
-    letter-spacing:
-        2px;
-}
-
-
-.timeline-title {
-    margin:
-        2px
-        0
-        0;
-
-    color:
-        var(--text);
-
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size:
-        17px;
-}
-
-
-.timeline-subtitle {
-    margin:
-        1px
-        0
-        0;
-
-    color:
-        var(--accent);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size:
-        15px;
-}
-
-
-.timeline-note {
-    margin:
-        4px
-        0
-        0;
-
-    color:
-        var(--text-soft);
-
-    font-size:
-        12px;
-}
-
-
-/* =========================================================
-   Google Map
-========================================================= */
-
-.map-actions {
-    margin-bottom:
-        30px;
-
-    text-align:
-        center;
-}
-
-
-.primary-link {
-    display:
-        inline-flex;
-
-    flex-direction:
-        column;
-
-    align-items:
-        center;
-
-    min-width:
-        230px;
-
-    padding:
-        13px
-        28px;
-
-    color:
-        var(--background);
-
-    background:
-        var(--primary);
-
-    border:
-        0;
-
-    text-decoration:
-        none;
-
-    transition:
-        background-color
-        0.25s
-        ease;
-}
-
-
-.primary-link:hover {
-    background:
-        var(--accent);
-}
-
-
-.primary-link span {
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size:
-        12px;
-
-    letter-spacing:
-        3px;
-}
-
-
-.map-container {
-    overflow:
-        hidden;
-
-    width:
-        min(
-            900px,
-            100%
-        );
-
-    margin:
-        0
-        auto
-        60px;
-
-    background:
-        transparent;
-
-    border:
-        0;
-
-    box-shadow:
-        none;
-}
-
-
-.map-container iframe {
-    display:
-        block;
-
-    width:
-        100%;
-
-    border:
-        0;
-}
-
-
-/* =========================================================
-   交通
-========================================================= */
-
-.information-grid {
-    display:
-        grid;
-
-    grid-template-columns:
-        1fr
-        1fr;
-
-    gap:
-        60px;
-
-    width:
-        min(
-            900px,
-            100%
-        );
-
-    margin:
-        0
-        auto;
-}
-
-
-.information-item {
-    position:
-        relative;
-
-    padding:
-        10px
-        0;
-}
-
-
-.information-item:first-child::after {
-    position:
-        absolute;
-
-    top:
-        5%;
-
-    right:
-        -30px;
-
-    width:
-        1px;
-
-    height:
-        90%;
-
-    content:
-        "";
-
-    background:
-        rgba(
-            111,
-            124,
-            62,
-            0.2
-        );
-}
-
-
-.information-en-title {
-    margin:
-        0;
-
-    color:
-        var(--accent);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size:
-        15px;
-
-    letter-spacing:
-        4px;
-
-    text-transform:
-        uppercase;
-}
-
-
-.information-item h3 {
-    margin:
-        4px
-        0
-        20px;
-
-    color:
-        var(--primary);
-
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size:
-        20px;
-
-    font-weight:
-        500;
-}
-
-
-.information-content p {
-    margin:
-        0
-        0
-        18px;
-
-    font-size:
-        14px;
-}
-
-
-.information-content strong {
-    color:
-        var(--primary);
-}
-
-
-.information-content a {
-    color:
-        var(--accent);
-}
-
-
-.information-content .en-line {
-    display:
-        block;
-
-    margin-top:
-        3px;
-
-    color:
-        var(--text-soft);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size:
-        14px;
-}
-
-
-/* =========================================================
-   Notice
-========================================================= */
-
-.notice-section {
-    padding:
-        34px
-        20px;
-
-    background:
-        rgba(
-            216,
-            167,
-            161,
-            0.16
-        );
-
-    border-top:
-        1px
-        solid
-        var(--accent-light);
-
-    border-bottom:
-        1px
-        solid
-        var(--accent-light);
-}
-
-
-.notice-inner {
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    gap:
-        20px;
-
-    width:
-        min(
-            850px,
-            100%
-        );
-
-    margin:
-        0
-        auto;
-
-    text-align:
-        center;
-}
-
-
-.notice-inner p {
-    margin:
-        2px
-        0;
-}
-
-
-.notice-zh {
-    color:
-        var(--primary);
-
-    font-family:
-        "Noto Serif TC",
-        serif;
-}
-
-
-.notice-en {
-    color:
-        var(--accent);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-}
-
-
-.notice-leaf {
-    color:
-        var(--sage);
-}
-
-
-/* =========================================================
-   Our Moments
-========================================================= */
-
-.moments-section {
-    padding-left:
-        max(
-            20px,
-            calc(
-                (100% - 1040px) / 2
-                + 30px
-            )
-        );
-
-    padding-right:
-        max(
-            20px,
-            calc(
-                (100% - 1040px) / 2
-                + 30px
-            )
-        );
-
-    background:
-        rgba(
-            239,
-            231,
-            219,
-            0.42
-        );
-}
-
-
-.photo-grid {
-    display:
-        grid;
-
-    grid-template-columns:
-        repeat(
-            4,
-            1fr
-        );
-
-    gap:
-        18px;
-
-    width:
-        min(
-            980px,
-            100%
-        );
-
-    margin:
-        0
-        auto;
-}
-
-
-.photo-item {
-    width:
-        100%;
-
-    aspect-ratio:
-        3 / 4;
-
-    object-fit:
-        cover;
-
-    cursor:
-        zoom-in;
-
-    transition:
-        transform
-        0.3s
-        ease;
-}
-
-
-.photo-item:nth-child(even) {
-    transform:
-        translateY(
-            16px
-        );
-}
-
-
-.photo-item:hover {
-    transform:
-        translateY(
-            -4px
-        );
-}
-
-
-/* =========================================================
-   RSVP
-========================================================= */
-
-.rsvp-section {
-    padding-left:
-        20px;
-
-    padding-right:
-        20px;
-
-    background:
-        transparent;
-}
-
-
-.rsvp-inner {
-    width:
-        min(
-            720px,
-            100%
-        );
-
-    margin:
-        0
-        auto;
-
-    padding:
-        20px
-        20px
-        0;
-
-    background:
-        transparent;
-
-    border:
-        0;
-
-    box-shadow:
-        none;
-}
-
-
-/* =========================================================
-   RSVP Signature
-========================================================= */
-
-.rsvp-couple-signature {
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    align-items:
-        center;
-
-    margin:
-        24px
-        0
-        12px;
-
-    font-family:
-        "Allura",
-        cursive;
-
-    line-height:
-        0.72;
-}
-
-
-.rsvp-kevin {
-    margin-right:
-        42px;
-
-    color:
-        var(--primary);
-
-    font-size:
-        clamp(
-            42px,
-            7vw,
-            60px
-        );
-}
-
-
-.rsvp-coco {
-    margin-top:
-        9px;
-
-    margin-left:
-        48px;
-
-    color:
-        var(--accent);
-
-    font-size:
-        clamp(
-            50px,
-            8vw,
-            70px
-        );
-}
-
-
-.rsvp-couple-chinese {
-    margin:
-        0
-        0
-        26px;
-
-    color:
-        var(--text-soft);
-
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size:
-        13px;
-
-    letter-spacing:
-        0.14em;
-}
-
-
-.rsvp-couple-chinese i {
-    margin:
-        0
-        9px;
-
-    color:
-        var(--accent);
-
-    font-style:
-        normal;
-}
-
-
-.deadline-display {
-    margin-top:
-        18px;
-
-    color:
-        var(--accent);
-
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size:
-        13px;
-}
-
-
-/* =========================================================
-   RSVP Form
-========================================================= */
-
-.form-group {
-    margin-bottom:
-        32px;
-}
-
-
-.form-group label {
-    display:
-        block;
-
-    margin-bottom:
-        8px;
-
-    color:
-        var(--primary);
-
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size:
-        15px;
-
-    font-weight:
-        500;
-}
-
-
-.form-group label span {
-    display:
-        block;
-
-    color:
-        var(--accent);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size:
-        13px;
-
-    letter-spacing:
-        3px;
-
-    text-transform:
-        uppercase;
-}
-
-
-.form-group label b {
-    color:
-        var(--accent);
-}
-
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-    display:
-        block;
-
-    width:
-        100%;
-
-    padding:
-        12px
-        4px;
-
-    color:
-        var(--text);
-
-    background:
-        transparent;
-
-    border:
-        0;
-
-    border-bottom:
-        1px
-        solid
-        var(--sage);
-
-    border-radius:
-        0;
-
-    font-size:
-        16px;
-
-    outline:
-        none;
-}
-
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    border-bottom-color:
-        var(--accent);
-}
-
-
-.form-group select option {
-    color:
-        var(--text);
-
-    background:
-        var(--background);
-}
-
-
-.form-group textarea {
-    min-height:
-        90px;
-
-    resize:
-        vertical;
-}
-
-
-.field-help {
-    margin:
-        7px
-        0
-        0;
-
-    color:
-        var(--text-soft);
-
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size:
-        12px;
-}
-
-
-.highlighted-help {
-    color:
-        var(--accent);
-}
-
-
-/* =========================================================
-   Submit
-========================================================= */
-
-.submit-btn {
-    display:
-        block;
-
-    width:
-        min(
-            340px,
-            100%
-        );
-
-    margin:
-        42px
-        auto
-        0;
-
-    padding:
-        14px
-        24px;
-
-    color:
-        var(--background);
-
-    background:
-        var(--primary);
-
-    border:
-        0;
-
-    cursor:
-        pointer;
-
-    transition:
-        background-color
-        0.25s
-        ease;
-}
-
-
-.submit-btn:hover {
-    background:
-        var(--accent);
-}
-
-
-.submit-btn span {
-    display:
-        block;
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size:
-        12px;
-
-    letter-spacing:
-        4px;
-
-    text-transform:
-        uppercase;
-}
-
-
-.submit-btn:disabled {
-    opacity:
-        0.55;
-
-    cursor:
-        default;
-}
-
-
-.form-status {
-    min-height:
-        28px;
-
-    margin-top:
-        16px;
-
-    text-align:
-        center;
-}
-
-
-.form-status.success {
-    color:
-        var(--primary);
-}
-
-
-.form-status.error {
-    color:
-        var(--accent);
-}
-
-
-/* =========================================================
-   Deadline
-========================================================= */
-
-.deadline-notice {
-    width:
-        min(
-            500px,
-            100%
-        );
-
-    margin:
-        20px
-        auto;
-
-    padding:
-        34px
-        0;
-
-    text-align:
-        center;
-
-    border-top:
-        1px
-        solid
-        var(--accent-light);
-
-    border-bottom:
-        1px
-        solid
-        var(--accent-light);
-}
-
-
-.deadline-main {
-    color:
-        var(--accent);
-
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size:
-        20px;
-}
-
-
-.deadline-en {
-    color:
-        var(--primary);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-}
-
-
-/* =========================================================
-   返回邀請函
-========================================================= */
-
-.back-invitation-wrap {
-    margin-top:
-        60px;
-
-    text-align:
-        center;
-}
-
-
-.back-invitation-button {
-    padding:
-        12px
-        28px;
-
-    color:
-        var(--primary);
-
-    background:
-        transparent;
-
-    border:
-        1px
-        solid
-        var(--primary);
-
-    cursor:
-        pointer;
-
-    transition:
-        color
-        0.25s
-        ease,
-        border-color
-        0.25s
-        ease;
-}
-
-
-.back-invitation-button:hover {
-    color:
-        var(--accent);
-
-    border-color:
-        var(--accent);
-}
-
-
-.back-invitation-button span {
-    display:
-        block;
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size:
-        11px;
-
-    letter-spacing:
-        3px;
-
-    text-transform:
-        uppercase;
 }
 
 
@@ -3303,799 +1208,1950 @@ html.show-invitation-gate
    Lightbox
 ========================================================= */
 
-.lightbox {
-    position:
-        fixed;
+function setupLightbox() {
 
-    z-index:
-        9999;
-
-    inset:
-        0;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    padding:
-        28px;
-
-    background:
-        rgba(
-            70,
-            72,
-            55,
-            0.92
-        );
-}
-
-
-.lightbox-content {
-    max-width:
-        min(
-            1100px,
-            94vw
+    const lightbox =
+        getElement(
+            "lightbox"
         );
 
-    max-height:
-        88vh;
 
-    object-fit:
-        contain;
-}
-
-
-.close-lightbox {
-    position:
-        absolute;
-
-    top:
-        max(
-            16px,
-            env(safe-area-inset-top)
+    const image =
+        getElement(
+            "lightbox-img"
         );
 
-    right:
-        20px;
 
-    color:
-        var(--background);
+    const closeButton =
+        getElement(
+            "close-lightbox"
+        );
 
-    background:
-        transparent;
 
-    border:
-        0;
+    if (
+        !lightbox ||
+        !image ||
+        !closeButton
+    ) {
 
-    font-size:
-        44px;
+        return null;
 
-    cursor:
-        pointer;
+    }
+
+
+    function openImage(
+        source,
+        alt
+    ) {
+
+        image.src =
+            source;
+
+
+        image.alt =
+            alt;
+
+
+        lightbox.hidden =
+            false;
+
+
+        document.body.style.overflow =
+            "hidden";
+
+    }
+
+
+    function closeImage() {
+
+        lightbox.hidden =
+            true;
+
+
+        image.src =
+            "";
+
+
+        document.body.style.overflow =
+            "";
+
+    }
+
+
+    closeButton.addEventListener(
+        "click",
+        closeImage
+    );
+
+
+    lightbox.addEventListener(
+        "click",
+        event => {
+
+            if (
+                event.target ===
+                lightbox
+            ) {
+
+                closeImage();
+
+            }
+
+        }
+    );
+
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Escape" &&
+                !lightbox.hidden
+            ) {
+
+                closeImage();
+
+            }
+
+        }
+    );
+
+
+    return {
+
+        openImage
+
+    };
+
 }
 
 
 /* =========================================================
-   Footer
+   Render Page
 ========================================================= */
 
-.page-footer {
-    padding:
-        80px
-        24px;
+function renderPage(
+    config,
+    currentLocation,
+    lightboxController
+) {
 
-    color:
-        var(--text-soft);
+    document.title =
+        config.browserTitle;
 
-    background:
-        rgba(
-            239,
-            231,
-            219,
-            0.48
+
+    setText(
+        "wedding-date-line1",
+        config.heroDateLine1
+    );
+
+
+    setText(
+        "wedding-date-line2",
+        config.heroDateLine2
+    );
+
+
+    setText(
+        "event-date",
+        config.dateZh
+    );
+
+
+    setText(
+        "event-date-en",
+        config.dateEn
+    );
+
+
+    setText(
+        "venue-name",
+        config.venueName
+    );
+
+
+    setText(
+        "venue-address",
+        config.venueAddress
+    );
+
+
+    setHtml(
+        "venue-detail",
+        config.venueDetail
+    );
+
+
+    setHtml(
+        "traffic-info",
+        config.trafficInfo
+    );
+
+
+    setHtml(
+        "parking-info",
+        config.parkingInfo
+    );
+
+
+    setText(
+        "footer-date",
+        config.dateEn
+    );
+
+
+    const hero =
+        getElement(
+            "hero-bg"
         );
 
-    text-align:
-        center;
-}
+
+    if (hero) {
+
+        hero.style.backgroundImage =
+            `url("${sharedImages.hero}")`;
+
+    }
 
 
-.footer-decoration {
-    color:
-        var(--sage);
-}
+    const locationInput =
+        getElement(
+            "form-wedding-location"
+        );
 
 
-.footer-signature {
-    display:
-        flex;
+    if (locationInput) {
 
-    flex-direction:
-        column;
+        locationInput.value =
+            currentLocation;
 
-    align-items:
-        center;
-
-    margin:
-        12px
-        0
-        18px;
-
-    font-family:
-        "Allura",
-        cursive;
-
-    line-height:
-        0.72;
-}
+    }
 
 
-.footer-signature span:first-child {
-    margin-right:
-        35px;
-
-    color:
-        var(--primary);
-
-    font-size:
-        44px;
-}
+    const mapLink =
+        getElement(
+            "google-map-link"
+        );
 
 
-.footer-signature span:last-child {
-    margin-top:
-        6px;
+    if (mapLink) {
 
-    margin-left:
-        42px;
+        mapLink.href =
+            config.googleMapUrl;
 
-    color:
-        var(--accent);
-
-    font-size:
-        52px;
-}
+    }
 
 
-.footer-chinese-names {
-    font-family:
-        "Noto Serif TC",
-        serif;
-
-    font-size:
-        12px;
-
-    letter-spacing:
-        0.12em;
-}
+    const mapIframe =
+        getElement(
+            "map-iframe"
+        );
 
 
-.footer-chinese-names i {
-    margin:
-        0
-        7px;
+    if (mapIframe) {
 
-    color:
-        var(--accent);
+        mapIframe.src =
+            config.mapEmbedSrc;
 
-    font-style:
-        normal;
-}
+    }
 
 
-.footer-line {
-    width:
-        65px;
+    renderNotice(
+        config
+    );
 
-    height:
-        1px;
 
-    margin:
-        24px
-        auto;
+    renderCountdownImage(
+        config
+    );
 
-    background:
-        var(--accent);
+
+    renderEventImage(
+        config
+    );
+
+
+    renderTimelineItems(
+        config
+    );
+
+
+    renderMoments(
+        lightboxController
+    );
+
 }
 
 
 /* =========================================================
-   Tablet
+   Notice
 ========================================================= */
 
-@media (max-width: 800px) {
+function renderNotice(
+    config
+) {
 
-    .content-section {
-        width:
-            100%;
+    const section =
+        getElement(
+            "notice-section"
+        );
 
-        padding-left:
-            20px;
 
-        padding-right:
-            20px;
+    if (!section) {
+
+        return;
+
     }
 
 
-    .detail-grid,
-    .information-grid {
-        grid-template-columns:
-            1fr;
+    if (
+        config.noticeZh ||
+        config.noticeEn
+    ) {
+
+        setText(
+            "notice-zh",
+            config.noticeZh
+        );
+
+
+        setText(
+            "notice-en",
+            config.noticeEn
+        );
+
+
+        section.hidden =
+            false;
+
+    }
+    else {
+
+        section.hidden =
+            true;
+
+    }
+
+}
+
+
+/* =========================================================
+   Countdown Image
+========================================================= */
+
+function renderCountdownImage(
+    config
+) {
+
+    const image =
+        getElement(
+            "countdown-image"
+        );
+
+
+    const error =
+        getElement(
+            "countdown-image-error"
+        );
+
+
+    if (
+        !image ||
+        !error
+    ) {
+
+        return;
+
     }
 
 
-    .detail-item-wide {
-        grid-column:
-            auto;
+    image.alt =
+        config.countdownImageAlt;
+
+
+    image.onload =
+        () => {
+
+            image.hidden =
+                false;
+
+
+            error.hidden =
+                true;
+
+        };
+
+
+    image.onerror =
+        () => {
+
+            image.hidden =
+                true;
+
+
+            error.hidden =
+                false;
+
+        };
+
+
+    image.src =
+        config.countdownImage;
+
+}
+
+
+/* =========================================================
+   Event Image
+========================================================= */
+
+function renderEventImage(
+    config
+) {
+
+    const image =
+        getElement(
+            "event-image"
+        );
+
+
+    const error =
+        getElement(
+            "event-image-error"
+        );
+
+
+    if (
+        !image ||
+        !error
+    ) {
+
+        return;
+
     }
 
 
-    .information-grid {
-        gap:
-            40px;
+    image.alt =
+        config.eventImageAlt;
+
+
+    image.onload =
+        () => {
+
+            image.hidden =
+                false;
+
+
+            error.hidden =
+                true;
+
+        };
+
+
+    image.onerror =
+        () => {
+
+            image.hidden =
+                true;
+
+
+            error.hidden =
+                false;
+
+        };
+
+
+    image.src =
+        config.eventImage;
+
+}
+
+
+/* =========================================================
+   Timeline
+========================================================= */
+
+function renderTimelineItems(
+    config
+) {
+
+    const list =
+        getElement(
+            "timeline-list"
+        );
+
+
+    if (!list) {
+
+        return;
+
     }
 
 
-    .information-item:first-child::after {
-        display:
-            none;
-    }
+    list.innerHTML =
+        "";
 
 
-    .information-item:first-child {
-        padding-bottom:
-            40px;
+    config.timelineItems.forEach(
+        item => {
 
-        border-bottom:
-            1px
-            solid
-            var(--primary-light);
-    }
+            const element =
+                document.createElement(
+                    "div"
+                );
 
 
-    .photo-grid {
-        grid-template-columns:
-            repeat(
-                2,
-                1fr
+            element.className =
+                "timeline-item";
+
+
+            element.innerHTML = `
+
+                <div class="timeline-marker">
+
+                    <div class="timeline-dot">
+                        ${item.icon}
+                    </div>
+
+                    <div class="timeline-line"></div>
+
+                </div>
+
+
+                <div class="timeline-content-box">
+
+                    <p class="timeline-time">
+                        ${item.time}
+                    </p>
+
+                    <p class="timeline-title">
+                        ${item.titleZh}
+                    </p>
+
+                    <p class="timeline-subtitle">
+                        ${item.titleEn}
+                    </p>
+
+                    ${
+                        item.note
+                            ?
+                            `
+                                <p class="timeline-note">
+                                    ${item.note}
+                                </p>
+                            `
+                            :
+                            ""
+                    }
+
+                </div>
+
+            `;
+
+
+            list.appendChild(
+                element
             );
-    }
 
-
-    .photo-item:nth-child(even) {
-        transform:
-            none;
-    }
-
-
-    .dress-code-palette {
-        gap:
-            18px;
-    }
-
-
-    .dress-color-circle {
-        width:
-            60px;
-
-        height:
-            60px;
-    }
+        }
+    );
 
 }
 
 
 /* =========================================================
-   Mobile
+   Moments
 ========================================================= */
 
-@media (max-width: 500px) {
+function renderMoments(
+    lightboxController
+) {
 
-    .gate-content {
-        padding:
-            max(
-                18px,
-                env(safe-area-inset-top)
+    const grid =
+        getElement(
+            "photo-grid"
+        );
+
+
+    if (!grid) {
+
+        return;
+
+    }
+
+
+    grid.innerHTML =
+        "";
+
+
+    sharedImages.moments.forEach(
+        (
+            source,
+            index
+        ) => {
+
+            const image =
+                document.createElement(
+                    "img"
+                );
+
+
+            image.src =
+                source;
+
+
+            image.alt =
+                `Wedding Moment ${index + 1}`;
+
+
+            image.className =
+                "photo-item";
+
+
+            image.loading =
+                "lazy";
+
+
+            image.addEventListener(
+                "click",
+                () => {
+
+                    if (
+                        lightboxController
+                    ) {
+
+                        lightboxController
+                            .openImage(
+                                image.src,
+                                image.alt
+                            );
+
+                    }
+
+                }
+            );
+
+
+            image.addEventListener(
+                "error",
+                () => {
+
+                    image.remove();
+
+                }
+            );
+
+
+            grid.appendChild(
+                image
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   RSVP Deadline
+========================================================= */
+
+function setupRsvpDeadline(
+    config
+) {
+
+    const wrapper =
+        getElement(
+            "rsvp-form-wrapper"
+        );
+
+
+    const notice =
+        getElement(
+            "deadline-notice"
+        );
+
+
+    const display =
+        getElement(
+            "rsvp-deadline-display"
+        );
+
+
+    const timestamp =
+        new Date(
+            config.rsvpDeadline
+        ).getTime();
+
+
+    if (display) {
+
+        display.innerHTML = `
+            回覆截止：
+            ${config.rsvpDeadlineZh}
+            <br>
+            RSVP Deadline:
+            ${config.rsvpDeadlineEn}
+        `;
+
+    }
+
+
+    if (
+        !Number.isFinite(
+            timestamp
+        )
+    ) {
+
+        return false;
+
+    }
+
+
+    const expired =
+        Date.now() >
+        timestamp;
+
+
+    if (wrapper) {
+
+        wrapper.hidden =
+            expired;
+
+    }
+
+
+    if (notice) {
+
+        notice.hidden =
+            !expired;
+
+    }
+
+
+    return expired;
+
+}
+
+
+/* =========================================================
+   Form Dynamic
+========================================================= */
+
+function setFieldVisibility(
+    element,
+    visible
+) {
+
+    if (!element) {
+
+        return;
+
+    }
+
+
+    element.hidden =
+        !visible;
+
+
+    element
+        .querySelectorAll(
+            "input, select, textarea"
+        )
+        .forEach(
+            control => {
+
+                if (visible) {
+
+                    if (
+                        control.dataset
+                            .originallyRequired ===
+                        "true"
+                    ) {
+
+                        control.required =
+                            true;
+
+                    }
+
+                }
+                else {
+
+                    control.required =
+                        false;
+
+                }
+
+            }
+        );
+
+}
+
+
+function prepareFormControls(
+    config
+) {
+
+    const form =
+        getElement(
+            "rsvp-form"
+        );
+
+
+    const attendance =
+        getElement(
+            "attendance"
+        );
+
+
+    const details =
+        getElement(
+            "attendance-detail-fields"
+        );
+
+
+    const ceremony =
+        getElement(
+            "field-ceremony"
+        );
+
+
+    const dietary =
+        getElement(
+            "dietary-type"
+        );
+
+
+    const vegField =
+        getElement(
+            "field-veg-count"
+        );
+
+
+    const vegCount =
+        getElement(
+            "veg-count"
+        );
+
+
+    const otherHelp =
+        getElement(
+            "dietary-other-help"
+        );
+
+
+    const allergy =
+        getElement(
+            "food-allergy"
+        );
+
+
+    if (
+        !form ||
+        !attendance ||
+        !details ||
+        !ceremony ||
+        !dietary ||
+        !vegField ||
+        !vegCount ||
+        !otherHelp ||
+        !allergy
+    ) {
+
+        return;
+
+    }
+
+
+    form
+        .querySelectorAll(
+            "input, select, textarea"
+        )
+        .forEach(
+            control => {
+
+                if (
+                    control.dataset
+                        .originallyRequired ===
+                    undefined
+                ) {
+
+                    control.dataset
+                        .originallyRequired =
+                        String(
+                            control.required
+                        );
+
+                }
+
+            }
+        );
+
+
+    function updateDietary() {
+
+        const attending =
+            attendance.value ===
+            "yes";
+
+
+        const type =
+            dietary.value;
+
+
+        const showVeg =
+            attending &&
+            type ===
+                "all_veg";
+
+
+        const showOther =
+            attending &&
+            type ===
+                "other";
+
+
+        setFieldVisibility(
+            vegField,
+            showVeg
+        );
+
+
+        otherHelp.hidden =
+            !showOther;
+
+
+        allergy.required =
+            showOther;
+
+
+        if (!showVeg) {
+
+            vegCount.value =
+                "0";
+
+        }
+
+    }
+
+
+    function updateAttendance() {
+
+        const attending =
+            attendance.value ===
+            "yes";
+
+
+        setFieldVisibility(
+            details,
+            attending
+        );
+
+
+        if (attending) {
+
+            setFieldVisibility(
+                ceremony,
+                config
+                    .formToggles
+                    .showCeremony
+            );
+
+        }
+
+
+        updateDietary();
+
+    }
+
+
+    if (
+        attendance.dataset
+            .listenerBound !==
+        "true"
+    ) {
+
+        attendance.addEventListener(
+            "change",
+            updateAttendance
+        );
+
+
+        attendance.dataset
+            .listenerBound =
+            "true";
+
+    }
+
+
+    if (
+        dietary.dataset
+            .listenerBound !==
+        "true"
+    ) {
+
+        dietary.addEventListener(
+            "change",
+            updateDietary
+        );
+
+
+        dietary.dataset
+            .listenerBound =
+            "true";
+
+    }
+
+
+    updateAttendance();
+
+}
+
+
+/* =========================================================
+   Dietary Labels
+========================================================= */
+
+function getDietaryTypeLabel(
+    type
+) {
+
+    const labels = {
+
+        all_meat:
+            "全葷 / Regular Meals",
+
+        all_veg:
+            "全素 / All Vegetarian",
+
+        other:
+            "其他 / Other",
+
+        not_applicable:
+            "不適用 / Not Applicable"
+
+    };
+
+
+    return (
+        labels[type] ||
+        type ||
+        ""
+    );
+
+}
+
+
+/* =========================================================
+   Build RSVP
+========================================================= */
+
+function buildRsvpData(
+    form,
+    currentLocation,
+    config
+) {
+
+    const formData =
+        new FormData(
+            form
+        );
+
+
+    const attending =
+        formData.get(
+            "isAttending"
+        ) === "yes";
+
+
+    const dietaryType =
+        attending
+            ?
+            String(
+                formData.get(
+                    "dietaryType"
+                ) || ""
             )
-            13px
-            max(
-                18px,
-                env(safe-area-inset-bottom)
-            );
-    }
+            :
+            "not_applicable";
 
 
-    .gate-monogram-row {
-        grid-template-columns:
-            1fr
-            58px
-            1fr;
+    return {
 
-        gap:
-            7px;
-    }
+        weddingLocation:
+            currentLocation,
 
+
+        weddingVenue:
+            config.venueName,
+
+
+        weddingDate:
+            config.dateZh,
+
+
+        guestName:
+            String(
+                formData.get(
+                    "guestName"
+                ) || ""
+            ).trim(),
+
+
+        relation:
+            String(
+                formData.get(
+                    "relation"
+                ) || ""
+            ).trim(),
+
+
+        phone:
+            String(
+                formData.get(
+                    "phone"
+                ) || ""
+            ).trim(),
+
+
+        isAttending:
+            attending
+                ?
+                "是 / Attending"
+                :
+                "否 / Not Attending",
 
-    .gate-monogram-row p {
-        font-size:
-            10px;
+
+        attendCeremony:
+            attending &&
+            config
+                .formToggles
+                .showCeremony
+                ?
+                (
+                    formData.get(
+                        "attendCeremony"
+                    ) === "yes"
+                        ?
+                        "是 / Attending"
+                        :
+                        "否，僅參加午宴 / Luncheon Only"
+                )
+                :
+                "不適用 / Not Applicable",
 
-        letter-spacing:
-            0.17em;
-    }
 
+        attendCount:
+            attending
+                ?
+                Number(
+                    formData.get(
+                        "attendCount"
+                    ) || 0
+                )
+                :
+                0,
 
-    .monogram-logo {
-        width:
-            58px;
 
-        height:
-            58px;
-    }
+        childSetCount:
+            attending
+                ?
+                Number(
+                    formData.get(
+                        "childSetCount"
+                    ) || 0
+                )
+                :
+                0,
 
 
-    .gate-main-invitation {
-        font-size:
-            11px;
+        dietaryType:
+            dietaryType,
 
-        letter-spacing:
-            0.12em;
-    }
 
+        dietaryTypeLabel:
+            getDietaryTypeLabel(
+                dietaryType
+            ),
 
-    .gate-english-invitation {
-        font-size:
-            10px;
 
-        letter-spacing:
-            0.2em;
-    }
+        vegetarianCount:
+            attending &&
+            dietaryType ===
+                "all_veg"
+                ?
+                Number(
+                    formData.get(
+                        "vegCount"
+                    ) || 0
+                )
+                :
+                0,
 
 
-    .gate-name-kevin {
-        margin-right:
-            32px;
+        foodAllergy:
+            attending
+                ?
+                String(
+                    formData.get(
+                        "foodAllergy"
+                    ) || ""
+                ).trim()
+                :
+                "",
 
-        font-size:
-            38px;
-    }
 
+        message:
+            String(
+                formData.get(
+                    "message"
+                ) || ""
+            ).trim(),
 
-    .gate-name-coco {
-        margin-left:
-            40px;
 
-        font-size:
-            49px;
-    }
+        submittedAtServer:
+            firebase.database
+                .ServerValue
+                .TIMESTAMP,
 
 
-    .envelope-button {
-        width:
-            min(
-                310px,
-                80vw
-            );
-    }
+        sourcePage:
+            window.location.href,
 
 
-    .envelope-front-logo {
-        width:
-            50px;
+        formVersion:
+            "20260808-02"
 
-        height:
-            50px;
-
-        top:
-            59%;
-    }
-
-
-    .hero-section,
-    .hero-content {
-        min-height:
-            88svh;
-    }
-
-
-    .hero-content {
-        padding:
-            50px
-            16px;
-    }
-
-
-    .hero-card {
-        width:
-            100%;
-
-        padding:
-            38px
-            5px;
-    }
-
-
-    .hero-couple-title {
-        font-size:
-            32px;
-
-        letter-spacing:
-            0.08em;
-    }
-
-
-    .hero-couple-title em {
-        margin:
-            0
-            5px;
-    }
-
-
-    .hero-date {
-        font-size:
-            17px;
-
-        letter-spacing:
-            2px;
-    }
-
-
-    .hero-date-line2 {
-        font-size:
-            16px;
-
-        white-space:
-            nowrap;
-    }
-
-
-    .hero-invitation-zh {
-        font-size:
-            13px;
-
-        line-height:
-            1.9;
-    }
-
-
-    .hero-invitation-en {
-        font-size:
-            12px;
-    }
-
-
-    .desktop-break {
-        display:
-            none;
-    }
-
-
-    .countdown-section,
-    .content-section,
-    .moments-section,
-    .rsvp-section {
-        padding-top:
-            78px;
-
-        padding-bottom:
-            78px;
-    }
-
-
-    .section-heading h2 {
-        font-size:
-            28px;
-
-        letter-spacing:
-            3px;
-    }
-
-
-    .editorial-image-frame {
-        margin-bottom:
-            44px;
-    }
-
-
-    .detail-grid {
-        gap:
-            0;
-    }
-
-
-    .detail-item {
-        padding:
-            24px
-            5px
-            32px;
-    }
-
-
-    .detail-item-wide {
-        padding-top:
-            36px;
-    }
-
-
-    /* =============================================
-       Dress Code 手機仍維持五個並排
-    ============================================= */
-
-    .dress-code-section {
-        margin-top:
-            62px;
-
-        padding-top:
-            44px;
-    }
-
-
-    .dress-code-heading h3 {
-        font-size:
-            23px;
-    }
-
-
-    .dress-code-introduction {
-        font-size:
-            13px;
-    }
-
-
-    .dress-code-introduction-en {
-        font-size:
-            12px;
-    }
-
-
-    .dress-code-palette {
-        width:
-            100%;
-
-        gap:
-            5px;
-
-        margin-top:
-            28px;
-    }
-
-
-    .dress-color-item {
-        flex:
-            1;
-
-        min-width:
-            0;
-    }
-
-
-    .dress-color-circle {
-        width:
-            clamp(
-                43px,
-                12vw,
-                52px
-            );
-
-        height:
-            clamp(
-                43px,
-                12vw,
-                52px
-            );
-    }
-
-
-    .dress-color-item p {
-        margin-top:
-            8px;
-
-        font-size:
-            11px;
-    }
-
-
-    .dress-color-item span {
-        font-size:
-            8px;
-
-        letter-spacing:
-            0;
-    }
-
-
-    .timeline-board-title {
-        gap:
-            12px;
-    }
-
-
-    .timeline-board-icon {
-        width:
-            42px;
-
-        height:
-            42px;
-
-        font-size:
-            22px;
-    }
-
-
-    .timeline-board-heading {
-        gap:
-            11px;
-    }
-
-
-    .timeline-board-heading span {
-        font-size:
-            15px;
-
-        letter-spacing:
-            3px;
-    }
-
-
-    .timeline-board-heading h3 {
-        font-size:
-            21px;
-
-        letter-spacing:
-            3px;
-    }
-
-
-    .timeline-item {
-        grid-template-columns:
-            58px
-            1fr;
-
-        gap:
-            10px;
-    }
-
-
-    .timeline-dot {
-        width:
-            42px;
-
-        height:
-            42px;
-
-        font-size:
-            18px;
-    }
-
-
-    .timeline-line {
-        top:
-            42px;
-    }
-
-
-    .timeline-title {
-        font-size:
-            16px;
-    }
-
-
-    .timeline-subtitle {
-        font-size:
-            14px;
-    }
-
-
-    .map-container iframe {
-        height:
-            290px;
-    }
-
-
-    .photo-grid {
-        gap:
-            8px;
-    }
-
-
-    .rsvp-inner {
-        padding:
-            10px
-            4px
-            0;
-    }
-
-
-    .rsvp-kevin {
-        font-size:
-            40px;
-    }
-
-
-    .rsvp-coco {
-        font-size:
-            50px;
-    }
-
-
-    .submit-btn {
-        width:
-            100%;
-    }
+    };
 
 }
 
 
 /* =========================================================
-   Low-height Mobile
+   Validate RSVP
 ========================================================= */
 
-@media
-    (max-height: 720px)
-    and
-    (max-width: 500px) {
+function validateRsvpData(
+    data
+) {
 
-    .gate-title {
-        margin-bottom:
-            8px;
+    if (!data.guestName) {
+
+        return (
+            "請填寫姓名。 " +
+            "Please enter your name."
+        );
+
     }
 
 
-    .gate-monogram-row {
-        margin-bottom:
-            10px;
+    if (!data.relation) {
+
+        return (
+            "請選擇與新人的關係。 " +
+            "Please select your relationship."
+        );
+
     }
 
 
-    .gate-couple-names {
-        margin-top:
-            7px;
+    if (!data.phone) {
 
-        margin-bottom:
-            12px;
+        return (
+            "請填寫聯絡電話。 " +
+            "Please enter your phone number."
+        );
+
     }
 
 
-    .envelope-button {
-        width:
-            min(
-                270px,
-                72vw
-            );
+    const digits =
+        data.phone.replace(
+            /\D/g,
+            ""
+        );
+
+
+    if (
+        digits.length < 8 ||
+        digits.length > 15
+    ) {
+
+        return (
+            "請確認聯絡電話格式，例如 0912345678。"
+        );
+
     }
 
 
-    .gate-instruction {
-        margin-top:
-            10px;
+    const attending =
+        data.isAttending.startsWith(
+            "是"
+        );
+
+
+    if (
+        attending &&
+        (
+            !Number.isInteger(
+                data.attendCount
+            ) ||
+            data.attendCount < 1 ||
+            data.attendCount > 20
+        )
+    ) {
+
+        return (
+            "總出席人數需為 1 至 20 人，並包含所有兒童。"
+        );
+
     }
+
+
+    if (
+        attending &&
+        (
+            !Number.isInteger(
+                data.childSetCount
+            ) ||
+            data.childSetCount < 0 ||
+            data.childSetCount >
+                data.attendCount
+        )
+    ) {
+
+        return (
+            "兒童座椅及餐具組數量不可大於總出席人數。"
+        );
+
+    }
+
+
+    if (
+        attending &&
+        data.dietaryType ===
+            "all_veg" &&
+        (
+            !Number.isInteger(
+                data.vegetarianCount
+            ) ||
+            data.vegetarianCount < 1 ||
+            data.vegetarianCount >
+                data.attendCount
+        )
+    ) {
+
+        return (
+            "素食人數不可大於總出席人數。"
+        );
+
+    }
+
+
+    if (
+        attending &&
+        data.dietaryType ===
+            "other" &&
+        !data.foodAllergy
+    ) {
+
+        return (
+            "選擇其他餐點需求時，請於食物過敏或特殊需求欄位註明。"
+        );
+
+    }
+
+
+    return "";
 
 }
 
 
 /* =========================================================
-   Reduced Motion
+   Firebase Submit
 ========================================================= */
 
-@media
-    (prefers-reduced-motion: reduce) {
+async function submitToFirebase(
+    data
+) {
 
-    *,
-    *::before,
-    *::after {
-        animation-duration:
-            0.01ms !important;
+    if (!database) {
 
-        animation-iteration-count:
-            1 !important;
+        throw new Error(
+            "Firebase 尚未初始化。"
+        );
 
-        transition-duration:
-            0.01ms !important;
     }
 
+
+    if (
+        data.weddingLocation !==
+            "tainan" &&
+        data.weddingLocation !==
+            "nantou"
+    ) {
+
+        throw new Error(
+            "無效的婚禮場次。"
+        );
+
+    }
+
+
+    const reference =
+        database.ref(
+            `rsvpResponses/${data.weddingLocation}`
+        );
+
+
+    const newReference =
+        reference.push();
+
+
+    await newReference.set(
+        data
+    );
+
+
+    return {
+
+        success:
+            true,
+
+
+        responseId:
+            newReference.key
+
+    };
+
 }
+
+
+/* =========================================================
+   Google Form Submit
+========================================================= */
+
+async function submitToGoogleForm(
+    data
+) {
+
+    const params =
+        new URLSearchParams();
+
+
+    params.append(
+        GOOGLE_FORM_ENTRY
+            .weddingLocation,
+        data.weddingLocation
+    );
+
+
+    params.append(
+        GOOGLE_FORM_ENTRY
+            .weddingVenue,
+        data.weddingVenue
+    );
+
+
+    params.append(
+        GOOGLE_FORM_ENTRY
+            .weddingDate,
+        data.weddingDate
+    );
+
+
+    params.append(
+        GOOGLE_FORM_ENTRY
+            .guestName,
+        data.guestName
+    );
+
+
+    params.append(
+        GOOGLE_FORM_ENTRY
+            .relation,
+        data.relation
+    );
+
+
+    params.append(
+        GOOGLE_FORM_ENTRY
+            .phone,
+        data.phone
+    );
+
+
+    params.append(
+        GOOGLE_FORM_ENTRY
+            .isAttending,
+        data.isAttending
+    );
+
+
+    params.append(
+        GOOGLE_FORM_ENTRY
+            .attendCeremony,
+        data.attendCeremony
+    );
+
+
+    params.append(
+        GOOGLE_FORM_ENTRY
+            .attendCount,
+        String(
+            data.attendCount
+        )
+    );
+
+
+    params.append(
+        GOOGLE_FORM_ENTRY
+            .childSetCount,
+        String(
+            data.childSetCount
+        )
+    );
+
+
+    params.append(
+        GOOGLE_FORM_ENTRY
+            .dietaryType,
+        data.dietaryTypeLabel
+    );
+
+
+    params.append(
+        GOOGLE_FORM_ENTRY
+            .vegetarianCount,
+        String(
+            data.vegetarianCount
+        )
+    );
+
+
+    params.append(
+        GOOGLE_FORM_ENTRY
+            .foodAllergy,
+        data.foodAllergy
+    );
+
+
+    params.append(
+        GOOGLE_FORM_ENTRY
+            .message,
+        data.message
+    );
+
+
+    params.append(
+        GOOGLE_FORM_ENTRY
+            .formVersion,
+        data.formVersion
+    );
+
+
+    await fetch(
+        GOOGLE_FORM_URL,
+        {
+
+            method:
+                "POST",
+
+            mode:
+                "no-cors",
+
+            headers: {
+
+                "Content-Type":
+                    "application/x-www-form-urlencoded;charset=UTF-8"
+
+            },
+
+            body:
+                params.toString()
+
+        }
+    );
+
+
+    return {
+
+        success:
+            true
+
+    };
+
+}
+
+
+/* =========================================================
+   Submit Both
+========================================================= */
+
+async function submitRsvpData(
+    data
+) {
+
+    const firebaseResult =
+        await submitToFirebase(
+            data
+        );
+
+
+    try {
+
+        await submitToGoogleForm(
+            data
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "Google Form 同步失敗：",
+            error
+        );
+
+    }
+
+
+    return {
+
+        success:
+            true,
+
+
+        firebaseResponseId:
+            firebaseResult.responseId
+
+    };
+
+}
+
+
+/* =========================================================
+   RSVP Form
+========================================================= */
+
+function setupRsvpForm(
+    currentLocation,
+    config
+) {
+
+    const form =
+        getElement(
+            "rsvp-form"
+        );
+
+
+    const button =
+        getElement(
+            "submit-button"
+        );
+
+
+    const status =
+        getElement(
+            "form-status"
+        );
+
+
+    if (
+        !form ||
+        !button ||
+        !status
+    ) {
+
+        return;
+
+    }
+
+
+    form.addEventListener(
+        "submit",
+        async event => {
+
+            event.preventDefault();
+
+
+            const deadline =
+                new Date(
+                    config.rsvpDeadline
+                ).getTime();
+
+
+            if (
+                Number.isFinite(
+                    deadline
+                ) &&
+                Date.now() >
+                    deadline
+            ) {
+
+                setupRsvpDeadline(
+                    config
+                );
+
+
+                return;
+
+            }
+
+
+            status.textContent =
+                "";
+
+
+            status.className =
+                "form-status";
+
+
+            if (
+                !form.checkValidity()
+            ) {
+
+                form.reportValidity();
+
+
+                return;
+
+            }
+
+
+            const data =
+                buildRsvpData(
+                    form,
+                    currentLocation,
+                    config
+                );
+
+
+            const errorMessage =
+                validateRsvpData(
+                    data
+                );
+
+
+            if (errorMessage) {
+
+                status.textContent =
+                    errorMessage;
+
+
+                status.className =
+                    "form-status error";
+
+
+                return;
+
+            }
+
+
+            button.disabled =
+                true;
+
+
+            button.innerHTML = `
+
+                <span>
+                    Submitting
+                </span>
+
+                送出中
+
+            `;
+
+
+            try {
+
+                await submitRsvpData(
+                    data
+                );
+
+
+                status.textContent =
+                    "✓ 回覆已成功送出 · RSVP submitted successfully";
+
+
+                status.className =
+                    "form-status success";
+
+
+                form.reset();
+
+
+                const locationInput =
+                    getElement(
+                        "form-wedding-location"
+                    );
+
+
+                if (locationInput) {
+
+                    locationInput.value =
+                        currentLocation;
+
+                }
+
+
+                prepareFormControls(
+                    config
+                );
+
+            }
+            catch (error) {
+
+                console.error(
+                    "RSVP 送出失敗：",
+                    error
+                );
+
+
+                let message =
+                    "✕ 資料送出失敗，請稍後再試。";
+
+
+                const code =
+                    String(
+                        error?.code || ""
+                    ).toLowerCase();
+
+
+                const errorText =
+                    String(
+                        error?.message || ""
+                    ).toLowerCase();
+
+
+                if (
+                    code.includes(
+                        "permission"
+                    ) ||
+                    errorText.includes(
+                        "permission_denied"
+                    ) ||
+                    errorText.includes(
+                        "permission denied"
+                    )
+                ) {
+
+                    message =
+                        "✕ 資料庫拒絕寫入，請直接與新人聯絡。";
+
+                }
+
+
+                status.textContent =
+                    message;
+
+
+                status.className =
+                    "form-status error";
+
+            }
+            finally {
+
+                button.disabled =
+                    false;
+
+
+                button.innerHTML = `
+
+                    <span>
+                        Submit RSVP
+                    </span>
+
+                    送出回覆
+
+                `;
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   Initialize
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const currentLocation =
+            weddingConfig
+                .getCurrentLocation();
+
+
+        const config =
+            weddingConfig
+                .events[
+                    currentLocation
+                ];
+
+
+        if (!config) {
+
+            window.location.replace(
+                `?loc=${weddingConfig.defaultLocation}`
+            );
+
+
+            return;
+
+        }
+
+
+        const musicController =
+            setupBackgroundMusic();
+
+
+        const invitationGateController =
+            setupInvitationGate(
+                currentLocation,
+                musicController
+            );
+
+
+        setupBackToInvitation(
+            invitationGateController
+        );
+
+
+        const lightboxController =
+            setupLightbox();
+
+
+        renderPage(
+            config,
+            currentLocation,
+            lightboxController
+        );
+
+
+        const expired =
+            setupRsvpDeadline(
+                config
+            );
+
+
+        if (!expired) {
+
+            prepareFormControls(
+                config
+            );
+
+
+            setupRsvpForm(
+                currentLocation,
+                config
+            );
+
+        }
+
+    }
+);
