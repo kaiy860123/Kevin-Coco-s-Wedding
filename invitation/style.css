@@ -20,6 +20,21 @@
 }
 
 
+/* =========================================================
+   清松手寫體
+   請將字型檔放在：
+   invitation/fonts/QingSongHandwriting.ttf
+========================================================= */
+
+@font-face {
+    font-family: "QingSong Handwriting";
+    src: url("./fonts/QingSongHandwriting.ttf") format("truetype");
+    font-display: swap;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
 * {
     box-sizing: border-box;
 }
@@ -738,7 +753,6 @@ html.show-invitation-gate
 
 /* =========================================================
    KC Logo
-   從上一版 59% 下移至 72%
 ========================================================= */
 
 .envelope-front-logo {
@@ -1279,11 +1293,6 @@ html.show-invitation-gate
 }
 
 
-/* =========================================================
-   首頁新人姓名
-   改用 LXGW WenKai TC
-========================================================= */
-
 .hero-couple-title {
     margin:
         30px
@@ -1345,10 +1354,6 @@ html.show-invitation-gate
 }
 
 
-/* =========================================================
-   日期
-========================================================= */
-
 .hero-date-wrap {
     display:
         flex;
@@ -1404,10 +1409,6 @@ html.show-invitation-gate
         var(--primary);
 }
 
-
-/* =========================================================
-   邀請文字
-========================================================= */
 
 .hero-invitation-copy {
     width:
@@ -2820,10 +2821,6 @@ html.show-invitation-gate
 }
 
 
-/* =========================================================
-   RSVP 英文簽名字體
-========================================================= */
-
 .rsvp-couple-signature {
     display:
         flex;
@@ -2884,8 +2881,8 @@ html.show-invitation-gate
 
 
 /* =========================================================
-   RSVP 中文新人姓名
-   改成 LXGW WenKai TC
+   RSVP 中文姓名
+   改成清松手寫體
 ========================================================= */
 
 .rsvp-couple-chinese {
@@ -2898,21 +2895,21 @@ html.show-invitation-gate
         var(--primary);
 
     font-family:
-        "LXGW WenKai TC",
+        "QingSong Handwriting",
         "Noto Serif TC",
         serif;
 
     font-size:
-        22px;
+        28px;
 
     font-weight:
         400;
 
     line-height:
-        1.6;
+        1.55;
 
     letter-spacing:
-        0.16em;
+        0.08em;
 }
 
 
@@ -3106,10 +3103,6 @@ html.show-invitation-gate
 }
 
 
-/* =========================================================
-   Submit
-========================================================= */
-
 .submit-btn {
     display:
         block;
@@ -3206,10 +3199,6 @@ html.show-invitation-gate
 }
 
 
-/* =========================================================
-   Deadline
-========================================================= */
-
 .deadline-notice {
     width:
         min(
@@ -3262,10 +3251,6 @@ html.show-invitation-gate
         serif;
 }
 
-
-/* =========================================================
-   返回邀請函
-========================================================= */
 
 .back-invitation-wrap {
     margin-top:
@@ -3332,10 +3317,6 @@ html.show-invitation-gate
         uppercase;
 }
 
-
-/* =========================================================
-   Lightbox
-========================================================= */
 
 .lightbox {
     position:
@@ -3413,10 +3394,6 @@ html.show-invitation-gate
         pointer;
 }
 
-
-/* =========================================================
-   Footer
-========================================================= */
 
 .page-footer {
     padding:
@@ -3723,7 +3700,6 @@ html.show-invitation-gate
     }
 
 
-    /* KC Logo 手機版同步往下 */
     .envelope-front-logo {
         width:
             50px;
@@ -4070,10 +4046,10 @@ html.show-invitation-gate
             28px;
 
         font-size:
-            20px;
+            22px;
 
         letter-spacing:
-            0.11em;
+            0.04em;
     }
 
 
