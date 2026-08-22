@@ -1,1603 +1,198 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-
-<head>
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-    >
-
-    <meta
-        name="description"
-        content="周愷元與陳佳惠的婚禮邀請函"
-    >
-
-    <title>Wedding Invitation</title>
-
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
-
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
-
-    <script>
-        (function () {
-
-            const params =
-                new URLSearchParams(
-                    window.location.search
-                );
-
-            const locationKey =
-                params.get("loc") === "nantou"
-                    ? "nantou"
-                    : "tainan";
-
-            const sessionKey =
-                "weddingInvitationOpened:" +
-                locationKey;
-
-            try {
-
-                if (
-                    window.sessionStorage.getItem(
-                        sessionKey
-                    ) !== "true"
-                ) {
-
-                    document.documentElement
-                        .classList
-                        .add(
-                            "show-invitation-gate"
-                        );
-
-                }
-
-            }
-            catch (error) {
-
-                document.documentElement
-                    .classList
-                    .add(
-                        "show-invitation-gate"
-                    );
-
-            }
-
-        })();
-    </script>
-
-    <link
-        rel="stylesheet"
-        href="./style.css?v=20260822-02"
-    >
-</head>
-
-
-<body>
-
-    <!-- =====================================================
-         背景音樂
-    ====================================================== -->
-
-    <audio
-        id="bg-music"
-        loop
-        preload="auto"
-    >
-        <source
-            src="./InvitationMusic.mp3"
-            type="audio/mpeg"
-        >
-    </audio>
-
-
-    <!-- =====================================================
-         信封入口
-    ====================================================== -->
-
-    <div
-        id="invitation-gate"
-        class="invitation-gate"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="gate-title"
-        aria-describedby="gate-instruction"
-    >
-
-        <div
-            class="gate-botanical gate-botanical-left"
-            aria-hidden="true"
-        ></div>
-
-        <div
-            class="gate-botanical gate-botanical-right"
-            aria-hidden="true"
-        ></div>
-
-
-        <div class="gate-content">
-
-            <p
-                id="gate-title"
-                class="gate-title"
-            >
-                邀 請 函
-            </p>
-
-
-            <div class="gate-monogram-row">
-
-                <p>
-                    誠 摯 邀 請
-                </p>
-
-
-                <div class="monogram-logo">
-
-                    <img
-                        src="./images/monogram-kc-black.png"
-                        alt="KC Logo"
-                    >
-
-                </div>
-
-
-                <p>
-                    蒞 臨 喜 宴
-                </p>
-
-            </div>
-
-
-            <p class="gate-main-invitation">
-                誠 摯 邀 您 參 與 我 們 的 婚 禮
-            </p>
-
-
-            <p class="gate-english-invitation">
-                A HEARTFELT INVITATION FROM
-            </p>
-
-
-            <div class="gate-couple-names">
-
-                <span class="gate-name-kevin">
-                    Kevin &amp;
-                </span>
-
-                <span class="gate-name-coco">
-                    Coco
-                </span>
-
-            </div>
-
-
-            <!-- =================================================
-                 信封
-            ================================================== -->
-
-            <button
-                type="button"
-                id="envelope-button"
-                class="envelope-button"
-                aria-label="開啟婚禮邀請函"
-            >
-
-                <span class="envelope">
-
-                    <span class="envelope-back"></span>
-
-
-                    <span class="envelope-card">
-
-                        <span class="envelope-card-decoration">
-                            ❦
-                        </span>
-
-                        <span class="envelope-card-name">
-                            Kevin &amp; Coco
-                        </span>
-
-                        <span class="envelope-card-text">
-                            WEDDING INVITATION
-                        </span>
-
-                        <span class="envelope-card-line"></span>
-
-                        <span class="envelope-card-open">
-                            OPEN INVITATION
-                        </span>
-
-                    </span>
-
-
-                    <span class="envelope-front-left"></span>
-
-                    <span class="envelope-front-right"></span>
-
-                    <span class="envelope-front-bottom"></span>
-
-                    <span class="envelope-flap"></span>
-
-
-                    <span class="envelope-front-logo">
-
-                        <img
-                            src="./images/monogram-kc-black.png"
-                            alt="KC Logo"
-                        >
-
-                    </span>
-
-                </span>
-
-            </button>
-
-
-            <div
-                id="gate-instruction"
-                class="gate-instruction"
-            >
-
-                <p>
-                    TAP TO OPEN
-                </p>
-
-                <span>
-                    輕觸開啟
-                </span>
-
-            </div>
-
-        </div>
+<!-- =================================================
+     Dress Code
+================================================== -->
+
+<div class="dress-code-section">
+
+    <div class="dress-code-heading">
+
+        <p class="eyebrow">
+            Dress Code
+        </p>
+
+        <h3>
+            婚禮穿搭
+        </h3>
+
+        <p class="dress-code-introduction">
+            歡迎以自然、柔和且沉穩的色系盛裝出席，
+            一同融入我們婚禮的色彩。
+        </p>
+
+        <p class="dress-code-introduction-en">
+            We would love for you to join us
+            in these soft, natural and timeless tones.
+        </p>
 
     </div>
 
 
-    <!-- =====================================================
-         背景裝飾
-    ====================================================== -->
-
     <div
-        class="botanical-decoration botanical-top-left"
-        aria-hidden="true"
-    ></div>
-
-    <div
-        class="botanical-decoration botanical-top-right"
-        aria-hidden="true"
-    ></div>
-
-    <div
-        class="botanical-decoration botanical-bottom-left"
-        aria-hidden="true"
-    ></div>
-
-    <div
-        class="botanical-decoration botanical-bottom-right"
-        aria-hidden="true"
-    ></div>
-
-
-    <!-- =====================================================
-         首頁主視覺
-    ====================================================== -->
-
-    <header
-        class="hero-section"
-        id="hero-bg"
+        class="dress-code-palette"
+        aria-label="婚禮 Dress Code 色系"
     >
 
-        <div class="hero-overlay"></div>
-
-
-        <div class="hero-content">
-
-            <div class="hero-card">
-
-                <p class="eyebrow hero-eyebrow">
-                    Wedding Invitation
-                </p>
-
-
-                <p class="hero-chinese-label">
-                    婚禮邀請函
-                </p>
-
-
-                <div class="ornamental-divider">
-
-                    <span></span>
-
-                    <i>❦</i>
-
-                    <span></span>
-
-                </div>
-
-
-                <h1
-                    id="page-title"
-                    class="hero-couple-title couple-chinese-font"
-                >
-                    周愷元
-
-                    <em>&amp;</em>
-
-                    陳佳惠
-                </h1>
-
-
-                <div class="hero-date-wrap">
-
-                    <p
-                        class="hero-date hero-date-line1"
-                        id="wedding-date-line1"
-                    >
-                        JANUARY 17 2027
-                    </p>
-
-                    <p
-                        class="hero-date hero-date-line2"
-                        id="wedding-date-line2"
-                    >
-                        TAINAN
-                    </p>
-
-                </div>
-
-
-                <div class="hero-invitation-copy">
-
-                    <p class="hero-invitation-zh">
-                        誠摯邀請您與我們一同見證這份幸福，
-                        <br class="desktop-break">
-                        分享屬於我們的重要時刻。
-                    </p>
-
-                    <p class="hero-invitation-en">
-                        We warmly invite you to celebrate this special moment with us
-                        <br class="desktop-break">
-                        and share in the joy of our wedding day.
-                    </p>
-
-                </div>
-
-
-                <div class="hero-floral-mark">
-                    ✦
-                </div>
-
-            </div>
-
-        </div>
-
-    </header>
-
-
-    <!-- =====================================================
-         婚禮倒數
-    ====================================================== -->
-
-    <section class="countdown-section">
-
-        <div class="section-heading centered-heading">
-
-            <p class="eyebrow">
-                Wedding Countdown
-            </p>
-
-            <h2>
-                婚禮倒數
-            </h2>
-
-        </div>
-
-
-        <div class="editorial-image-frame countdown-frame">
-
-            <img
-                id="countdown-image"
-                class="countdown-image"
-                src=""
-                alt="婚禮倒數 Wedding Countdown"
-            >
-
-            <p
-                id="countdown-image-error"
-                class="image-error-message"
-                hidden
-            >
-                婚禮倒數圖片尚未上傳。<br>
-                Wedding countdown image is not available yet.
-            </p>
-
-        </div>
-
-    </section>
-
-
-    <main
-        id="wedding-content"
-        tabindex="-1"
-    >
-
-        <!-- =================================================
-             特別公告
-        ================================================== -->
-
-        <section
-            id="notice-section"
-            class="notice-section"
-            hidden
-        >
-
-            <div class="notice-inner">
-
-                <span
-                    class="notice-leaf"
-                    aria-hidden="true"
-                >
-                    ❧
-                </span>
-
-
-                <div>
-
-                    <p
-                        id="notice-zh"
-                        class="notice-zh"
-                    ></p>
-
-                    <p
-                        id="notice-en"
-                        class="notice-en"
-                    ></p>
-
-                </div>
-
-
-                <span
-                    class="notice-leaf notice-leaf-right"
-                    aria-hidden="true"
-                >
-                    ❧
-                </span>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             婚禮資訊
-        ================================================== -->
-
-        <section class="content-section event-section">
-
-            <div class="section-heading centered-heading">
-
-                <p class="eyebrow">
-                    Event Details
-                </p>
-
-                <h2>
-                    婚禮資訊
-                </h2>
-
-
-                <div class="section-divider">
-
-                    <span></span>
-
-                    <i>✦</i>
-
-                    <span></span>
-
-                </div>
-
-            </div>
-
-
-            <div class="editorial-image-frame">
-
-                <img
-                    id="event-image"
-                    class="event-image"
-                    src=""
-                    alt="婚禮資訊 Wedding Event Information"
-                >
-
-                <p
-                    id="event-image-error"
-                    class="image-error-message"
-                    hidden
-                >
-                    婚禮資訊圖片尚未上傳。
-                </p>
-
-            </div>
-
-
-            <!-- 日期 / 時間 / 地點 -->
-
-            <div class="detail-grid">
-
-                <article class="detail-item">
-
-                    <p class="detail-label">
-                        Date
-                    </p>
-
-                    <h3>
-                        日期
-                    </h3>
-
-                    <p
-                        id="event-date"
-                        class="detail-main"
-                    ></p>
-
-                    <p
-                        id="event-date-en"
-                        class="detail-secondary"
-                    ></p>
-
-                </article>
-
-
-                <article class="detail-item">
-
-                    <p class="detail-label">
-                        Time
-                    </p>
-
-                    <h3>
-                        時間
-                    </h3>
-
-                    <p class="detail-main">
-                        12:00
-                    </p>
-
-                    <p class="detail-secondary">
-                        Wedding Luncheon · 婚宴午宴
-                    </p>
-
-                </article>
-
-
-                <article class="detail-item detail-item-wide">
-
-                    <p class="detail-label">
-                        Venue
-                    </p>
-
-                    <h3>
-                        地點
-                    </h3>
-
-                    <p
-                        id="venue-name"
-                        class="detail-main"
-                    ></p>
-
-                    <p
-                        id="venue-address"
-                        class="detail-secondary"
-                    ></p>
-
-                    <div
-                        id="venue-detail"
-                        class="venue-detail"
-                    ></div>
-
-                </article>
-
-            </div>
-
-
-            <!-- =================================================
-                 Dress Code
-            ================================================== -->
-
-            <div class="dress-code-section">
-
-                <div class="dress-code-heading">
-
-                    <p class="eyebrow">
-                        Dress Code
-                    </p>
-
-                    <h3>
-                        婚禮穿搭
-                    </h3>
-
-
-                    <p class="dress-code-introduction">
-                        歡迎以自然、柔和且沉穩的色系盛裝出席，
-                        一同融入我們婚禮的色彩。
-                    </p>
-
-
-                    <p class="dress-code-introduction-en">
-                        We would love for you to join us
-                        in these soft, natural and timeless tones.
-                    </p>
-
-                </div>
-
-
-                <div
-                    class="dress-code-palette"
-                    aria-label="婚禮 Dress Code 色系"
-                >
-
-                    <div class="dress-color-item">
-
-                        <div
-                            class="dress-color-circle dress-color-light"
-                            style="background-color:#EFECE6;"
-                        ></div>
-
-                        <p>
-                            米白
-                        </p>
-
-                        <span>
-                            #EFECE6
-                        </span>
-
-                    </div>
-
-
-                    <div class="dress-color-item">
-
-                        <div
-                            class="dress-color-circle dress-color-light"
-                            style="background-color:#DED8CE;"
-                        ></div>
-
-                        <p>
-                            灰米
-                        </p>
-
-                        <span>
-                            #DED8CE
-                        </span>
-
-                    </div>
-
-
-                    <div class="dress-color-item">
-
-                        <div
-                            class="dress-color-circle"
-                            style="background-color:#3D3A37;"
-                        ></div>
-
-                        <p>
-                            深灰棕
-                        </p>
-
-                        <span>
-                            #3D3A37
-                        </span>
-
-                    </div>
-
-
-                    <div class="dress-color-item">
-
-                        <div
-                            class="dress-color-circle"
-                            style="background-color:#7A7570;"
-                        ></div>
-
-                        <p>
-                            暖灰
-                        </p>
-
-                        <span>
-                            #7A7570
-                        </span>
-
-                    </div>
-
-
-                    <div class="dress-color-item">
-
-                        <div
-                            class="dress-color-circle"
-                            style="background-color:#8A9A86;"
-                        ></div>
-
-                        <p>
-                            灰綠
-                        </p>
-
-                        <span>
-                            #8A9A86
-                        </span>
-
-                    </div>
-
-
-                    <div class="dress-color-item">
-
-                        <div
-                            class="dress-color-circle"
-                            style="background-color:#3F483F;"
-                        ></div>
-
-                        <p>
-                            深綠
-                        </p>
-
-                        <span>
-                            #3F483F
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             婚禮時程
-        ================================================== -->
-
-        <section class="content-section timeline-section">
-
-            <div class="section-heading centered-heading">
-
-                <p class="eyebrow">
-                    Wedding Timeline
-                </p>
-
-                <h2>
-                    婚禮時程
-                </h2>
-
-                <p class="section-note">
-                    婚禮當日流程與時間<br>
-                    Wedding Day Schedule
-                </p>
-
-
-                <div class="section-divider">
-
-                    <span></span>
-
-                    <i>❦</i>
-
-                    <span></span>
-
-                </div>
-
-            </div>
-
-
-            <div class="timeline-text-board">
-
-                <div class="timeline-board-title">
-
-                    <div class="timeline-board-icon">
-                        ◷
-                    </div>
-
-
-                    <div class="timeline-board-heading">
-
-                        <span>
-                            Time
-                        </span>
-
-                        <h3>
-                            時間
-                        </h3>
-
-                    </div>
-
-                </div>
-
-
-                <div
-                    id="timeline-list"
-                    class="timeline-list"
-                ></div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             地點與交通
-        ================================================== -->
-
-        <section class="content-section venue-section">
-
-            <div class="section-heading centered-heading">
-
-                <p class="eyebrow">
-                    Venue & Transportation
-                </p>
-
-                <h2>
-                    地點與交通資訊
-                </h2>
-
-
-                <div class="section-divider">
-
-                    <span></span>
-
-                    <i>✦</i>
-
-                    <span></span>
-
-                </div>
-
-            </div>
-
-
-            <div class="map-actions">
-
-                <a
-                    id="google-map-link"
-                    class="primary-link"
-                    href="#"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Google Maps 導航
-
-                    <span>
-                        Directions
-                    </span>
-
-                </a>
-
-            </div>
-
-
-            <div class="map-container">
-
-                <iframe
-                    id="map-iframe"
-                    title="Wedding Venue Map"
-                    src=""
-                    width="100%"
-                    height="360"
-                    allowfullscreen
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                ></iframe>
-
-            </div>
-
-
-            <div class="information-grid">
-
-                <article class="information-item">
-
-                    <p class="information-en-title">
-                        Transit
-                    </p>
-
-                    <h3>
-                        大眾運輸與接駁
-                    </h3>
-
-                    <div
-                        class="information-content"
-                        id="traffic-info"
-                    ></div>
-
-                </article>
-
-
-                <article class="information-item">
-
-                    <p class="information-en-title">
-                        Parking
-                    </p>
-
-                    <h3>
-                        停車資訊
-                    </h3>
-
-                    <div
-                        class="information-content"
-                        id="parking-info"
-                    ></div>
-
-                </article>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             Our Moments
-        ================================================== -->
-
-        <section class="moments-section">
-
-            <div class="section-heading centered-heading">
-
-                <p class="eyebrow">
-                    Our Moments
-                </p>
-
-                <h2>
-                    拾光片刻
-                </h2>
-
-                <p class="section-note">
-                    Moments We Cherish Together<br>
-                    我們珍藏的每一個瞬間
-                </p>
-
-
-                <div class="section-divider">
-
-                    <span></span>
-
-                    <i>❦</i>
-
-                    <span></span>
-
-                </div>
-
-            </div>
-
+        <div class="dress-color-item">
 
             <div
-                class="photo-grid"
-                id="photo-grid"
+                class="dress-color-circle dress-color-light"
+                style="background-color:#F8F4E3;"
             ></div>
 
-        </section>
+            <p>
+                暖米白
+            </p>
 
+            <span>
+                #F8F4E3
+            </span>
 
-        <!-- =================================================
-             RSVP
-        ================================================== -->
+        </div>
 
-        <section
-            class="rsvp-section"
-            id="rsvp-section"
-        >
 
-            <div class="rsvp-inner">
+        <div class="dress-color-item">
 
-                <div class="section-heading centered-heading">
+            <div
+                class="dress-color-circle"
+                style="background-color:#C3B091;"
+            ></div>
 
-                    <p class="eyebrow">
-                        Répondez S'il Vous Plaît
-                    </p>
+            <p>
+                卡其
+            </p>
 
-                    <h2>
-                        賓客回覆
-                    </h2>
+            <span>
+                #C3B091
+            </span>
 
+        </div>
 
-                    <div class="rsvp-couple-signature">
 
-                        <span class="rsvp-kevin">
-                            Kevin &amp;
-                        </span>
+        <div class="dress-color-item">
 
-                        <span class="rsvp-coco">
-                            Coco
-                        </span>
+            <div
+                class="dress-color-circle"
+                style="background-color:#D2B48C;"
+            ></div>
 
-                    </div>
+            <p>
+                淺棕
+            </p>
 
+            <span>
+                #D2B48C
+            </span>
 
-                    <p class="rsvp-couple-chinese couple-chinese-font">
-                        周愷元
+        </div>
 
-                        <i>×</i>
 
-                        陳佳惠
-                    </p>
+        <div class="dress-color-item">
 
+            <div
+                class="dress-color-circle"
+                style="background-color:#3B3C2A;"
+            ></div>
 
-                    <p class="section-note">
-                        敬請於截止日前完成回覆<br>
-                        Kindly Respond Before the Deadline
-                    </p>
+            <p>
+                深橄欖
+            </p>
 
+            <span>
+                #3B3C2A
+            </span>
 
-                    <div class="section-divider">
+        </div>
 
-                        <span></span>
 
-                        <i>✦</i>
+        <div class="dress-color-item">
 
-                        <span></span>
+            <div
+                class="dress-color-circle dress-color-light"
+                style="background-color:#EFECE6;"
+            ></div>
 
-                    </div>
+            <p>
+                米灰
+            </p>
 
+            <span>
+                #EFECE6
+            </span>
 
-                    <p
-                        id="rsvp-deadline-display"
-                        class="deadline-display"
-                    ></p>
+        </div>
 
-                </div>
 
+        <div class="dress-color-item">
 
-                <div id="rsvp-form-wrapper">
+            <div
+                class="dress-color-circle dress-color-light"
+                style="background-color:#DED8CE;"
+            ></div>
 
-                    <form id="rsvp-form">
+            <p>
+                灰米
+            </p>
 
-                        <input
-                            type="hidden"
-                            id="form-wedding-location"
-                            name="weddingLocation"
-                        >
+            <span>
+                #DED8CE
+            </span>
 
+        </div>
 
-                        <div class="form-group">
 
-                            <label for="guest-name">
+        <div class="dress-color-item">
 
-                                <span>
-                                    Your Name
-                                </span>
+            <div
+                class="dress-color-circle"
+                style="background-color:#8A9A86;"
+            ></div>
 
-                                姓名
+            <p>
+                灰綠
+            </p>
 
-                                <b>*</b>
+            <span>
+                #8A9A86
+            </span>
 
-                            </label>
+        </div>
 
-                            <input
-                                id="guest-name"
-                                type="text"
-                                name="guestName"
-                                required
-                                maxlength="50"
-                                autocomplete="name"
-                                placeholder="請輸入您的姓名"
-                            >
 
-                        </div>
+        <div class="dress-color-item">
 
+            <div
+                class="dress-color-circle"
+                style="background-color:#3F483F;"
+            ></div>
 
-                        <div class="form-group">
+            <p>
+                深綠
+            </p>
 
-                            <label for="relation">
+            <span>
+                #3F483F
+            </span>
 
-                                <span>
-                                    Relationship
-                                </span>
+        </div>
 
-                                與新人的關係
 
-                                <b>*</b>
+        <div class="dress-color-item">
 
-                            </label>
+            <div
+                class="dress-color-circle"
+                style="background-color:#7A7570;"
+            ></div>
 
-                            <select
-                                id="relation"
-                                name="relation"
-                                required
-                            >
+            <p>
+                暖灰
+            </p>
 
-                                <option
-                                    value=""
-                                    selected
-                                    disabled
-                                >
-                                    請選擇 Select
-                                </option>
+            <span>
+                #7A7570
+            </span>
 
-                                <option value="男方親友">
-                                    男方親友 · Groom's Guest
-                                </option>
-
-                                <option value="女方親友">
-                                    女方親友 · Bride's Guest
-                                </option>
-
-                                <option value="共同朋友">
-                                    共同朋友 · Mutual Friend
-                                </option>
-
-                                <option value="公司同事">
-                                    公司同事 · Colleague
-                                </option>
-
-                                <option value="其他">
-                                    其他 · Other
-                                </option>
-
-                            </select>
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label for="phone">
-
-                                <span>
-                                    Phone Number
-                                </span>
-
-                                聯絡電話
-
-                                <b>*</b>
-
-                            </label>
-
-                            <input
-                                id="phone"
-                                type="tel"
-                                name="phone"
-                                required
-                                maxlength="20"
-                                autocomplete="tel"
-                                inputmode="tel"
-                                placeholder="0912345678"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label for="attendance">
-
-                                <span>
-                                    Attendance
-                                </span>
-
-                                是否出席
-
-                                <b>*</b>
-
-                            </label>
-
-                            <select
-                                id="attendance"
-                                name="isAttending"
-                                required
-                            >
-
-                                <option value="yes">
-                                    出席 · Attending
-                                </option>
-
-                                <option value="no">
-                                    不出席 · Not Attending
-                                </option>
-
-                            </select>
-
-                        </div>
-
-
-                        <div
-                            id="attendance-detail-fields"
-                            class="conditional-fields"
-                        >
-
-                            <div
-                                id="field-ceremony"
-                                class="form-group"
-                            >
-
-                                <label for="attend-ceremony">
-
-                                    <span>
-                                        Ceremony Attendance
-                                    </span>
-
-                                    是否出席證婚
-
-                                </label>
-
-                                <select
-                                    id="attend-ceremony"
-                                    name="attendCeremony"
-                                >
-
-                                    <option value="yes">
-                                        是，會出席證婚 · Attending
-                                    </option>
-
-                                    <option value="no">
-                                        否，僅參加午宴 · Luncheon Only
-                                    </option>
-
-                                </select>
-
-                                <p class="field-help">
-                                    涵碧樓 8F 星光露台<br>
-                                    8F Starlight Terrace
-                                </p>
-
-                            </div>
-
-
-                            <div class="form-group">
-
-                                <label for="attend-count">
-
-                                    <span>
-                                        Total Guest Count
-                                    </span>
-
-                                    包含您在內，總出席人數
-
-                                    <b>*</b>
-
-                                </label>
-
-                                <input
-                                    id="attend-count"
-                                    type="number"
-                                    name="attendCount"
-                                    min="1"
-                                    max="20"
-                                    step="1"
-                                    value="1"
-                                    required
-                                >
-
-                                <p class="field-help highlighted-help">
-                                    請包含您本人、其他成人與所有兒童。<br>
-                                    Please include yourself, all adults and all children.
-                                </p>
-
-                            </div>
-
-
-                            <div class="form-group">
-
-                                <label for="child-set-count">
-
-                                    <span>
-                                        Child Seat & Tableware Sets
-                                    </span>
-
-                                    需要兒童座椅及餐具組的數量
-
-                                </label>
-
-                                <input
-                                    id="child-set-count"
-                                    type="number"
-                                    name="childSetCount"
-                                    min="0"
-                                    max="20"
-                                    step="1"
-                                    value="0"
-                                >
-
-                                <p class="field-help">
-                                    每組包含一張兒童座椅及一組兒童餐具，不需要請填 0。<br>
-                                    Each set includes one child seat and one child tableware set.
-                                </p>
-
-                            </div>
-
-
-                            <div class="form-group">
-
-                                <label for="dietary-type">
-
-                                    <span>
-                                        Meal Preference
-                                    </span>
-
-                                    餐點需求
-
-                                    <b>*</b>
-
-                                </label>
-
-                                <select
-                                    id="dietary-type"
-                                    name="dietaryType"
-                                    required
-                                >
-
-                                    <option value="all_meat">
-                                        全葷 · Regular Meals
-                                    </option>
-
-                                    <option value="all_veg">
-                                        全素 · All Vegetarian
-                                    </option>
-
-                                    <option value="other">
-                                        其他 · Other
-                                    </option>
-
-                                </select>
-
-
-                                <p
-                                    id="dietary-other-help"
-                                    class="field-help highlighted-help"
-                                    hidden
-                                >
-                                    請於下方「食物過敏或特殊需求」註明需求。<br>
-                                    Please describe your meal requirements below.
-                                </p>
-
-                            </div>
-
-
-                            <div
-                                id="field-veg-count"
-                                class="form-group"
-                            >
-
-                                <label for="veg-count">
-
-                                    <span>
-                                        Vegetarian Guest Count
-                                    </span>
-
-                                    素食人數
-
-                                </label>
-
-                                <input
-                                    id="veg-count"
-                                    type="number"
-                                    name="vegCount"
-                                    min="0"
-                                    max="20"
-                                    step="1"
-                                    value="0"
-                                >
-
-                            </div>
-
-
-                            <div class="form-group">
-
-                                <label for="food-allergy">
-
-                                    <span>
-                                        Dietary Restrictions
-                                    </span>
-
-                                    食物過敏或特殊需求
-
-                                </label>
-
-                                <textarea
-                                    id="food-allergy"
-                                    name="foodAllergy"
-                                    rows="3"
-                                    maxlength="300"
-                                    placeholder="請註明食物過敏、特殊餐點或其他需求"
-                                ></textarea>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label for="message">
-
-                                <span>
-                                    Message for the Couple
-                                </span>
-
-                                想對新人說的話
-
-                            </label>
-
-                            <textarea
-                                id="message"
-                                name="message"
-                                rows="3"
-                                maxlength="500"
-                                placeholder="留下給我們的祝福"
-                            ></textarea>
-
-                        </div>
-
-
-                        <button
-                            type="submit"
-                            class="submit-btn"
-                            id="submit-button"
-                        >
-
-                            <span>
-                                Submit RSVP
-                            </span>
-
-                            送出回覆
-
-                        </button>
-
-
-                        <p
-                            id="form-status"
-                            class="form-status"
-                            role="status"
-                            aria-live="polite"
-                        ></p>
-
-                    </form>
-
-                </div>
-
-
-                <div
-                    id="deadline-notice"
-                    class="deadline-notice"
-                    hidden
-                >
-
-                    <div class="deadline-icon">
-                        ⏰
-                    </div>
-
-                    <p class="deadline-main">
-                        截止日期已過。
-                    </p>
-
-                    <p>
-                        如需異動，請直接與我們聯絡。
-                    </p>
-
-                    <p class="deadline-en">
-                        The RSVP deadline has passed.
-                    </p>
-
-                </div>
-
-
-                <div class="back-invitation-wrap">
-
-                    <button
-                        type="button"
-                        id="back-to-invitation"
-                        class="back-invitation-button"
-                    >
-
-                        <span>
-                            Back to Invitation
-                        </span>
-
-                        返回邀請函
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- =====================================================
-         照片燈箱
-    ====================================================== -->
-
-    <div
-        id="lightbox"
-        class="lightbox"
-        role="dialog"
-        aria-modal="true"
-        aria-label="圖片預覽"
-        hidden
-    >
-
-        <button
-            type="button"
-            class="close-lightbox"
-            id="close-lightbox"
-            aria-label="關閉照片"
-        >
-            &times;
-        </button>
-
-        <img
-            class="lightbox-content"
-            id="lightbox-img"
-            src=""
-            alt="圖片預覽"
-        >
+        </div>
 
     </div>
 
-
-    <!-- =====================================================
-         Footer
-    ====================================================== -->
-
-    <footer class="page-footer">
-
-        <div class="footer-decoration">
-            ❦
-        </div>
-
-
-        <div class="footer-signature">
-
-            <span>
-                Kevin &amp;
-            </span>
-
-            <span>
-                Coco
-            </span>
-
-        </div>
-
-
-        <p class="footer-chinese-names couple-chinese-font">
-            周愷元
-
-            <i>×</i>
-
-            陳佳惠
-        </p>
-
-
-        <p id="footer-date"></p>
-
-
-        <div class="footer-line"></div>
-
-
-        <p>
-            感謝您與我們一同分享這份喜悅。<br>
-            Thank You for Celebrating with Us.
-        </p>
-
-    </footer>
-
-
-    <script
-        src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"
-    ></script>
-
-    <script
-        src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"
-    ></script>
-
-    <script
-        src="./app.js?v=20260822-01"
-    ></script>
-
-</body>
-
-</html>
+</div>
