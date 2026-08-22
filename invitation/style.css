@@ -22,44 +22,23 @@
 
 :root {
     --background: #F5F1EA;
-
     --primary: #6F7C3E;
-
     --accent: #C97C7C;
-
     --secondary-background: #EFE7DB;
-
     --soft-pink: #D8A7A1;
-
     --sage: #A3B18A;
 
     --text: #565747;
-
     --text-soft: #7A796D;
 
     --primary-light:
-        rgba(
-            111,
-            124,
-            62,
-            0.22
-        );
+        rgba(111, 124, 62, 0.22);
 
     --accent-light:
-        rgba(
-            201,
-            124,
-            124,
-            0.18
-        );
+        rgba(201, 124, 124, 0.18);
 
     --sage-light:
-        rgba(
-            163,
-            177,
-            138,
-            0.18
-        );
+        rgba(163, 177, 138, 0.18);
 }
 
 
@@ -68,69 +47,46 @@
 ========================================================= */
 
 * {
-    box-sizing:
-        border-box;
+    box-sizing: border-box;
 }
 
 
 html {
-    scroll-behavior:
-        smooth;
+    scroll-behavior: smooth;
 }
 
 
 html.show-invitation-gate,
 html.show-invitation-gate body {
-    overflow:
-        hidden;
+    overflow: hidden;
 }
 
 
 body {
-    position:
-        relative;
+    position: relative;
 
-    margin:
-        0;
+    margin: 0;
 
-    overflow-x:
-        hidden;
+    overflow-x: hidden;
 
-    color:
-        var(--text);
+    color: var(--text);
 
-    background:
-        var(--background);
+    background: var(--background);
 
     background-image:
         repeating-linear-gradient(
             0deg,
-            rgba(
-                111,
-                124,
-                62,
-                0.014
-            )
-            0,
-            rgba(
-                111,
-                124,
-                62,
-                0.014
-            )
-            1px,
-            transparent
-            1px,
-            transparent
-            5px
+            rgba(111, 124, 62, 0.014) 0,
+            rgba(111, 124, 62, 0.014) 1px,
+            transparent 1px,
+            transparent 5px
         );
 
     font-family:
         "Noto Sans TC",
         sans-serif;
 
-    line-height:
-        1.8;
+    line-height: 1.8;
 }
 
 
@@ -138,28 +94,24 @@ button,
 input,
 select,
 textarea {
-    font:
-        inherit;
+    font: inherit;
 }
 
 
 img {
-    display:
-        block;
-
-    max-width:
-        100%;
+    display: block;
+    max-width: 100%;
 }
 
 
 [hidden] {
-    display:
-        none !important;
+    display: none !important;
 }
 
 
 /* =========================================================
-   所有新人中文姓名
+   新人中文姓名
+   禁止瀏覽器自行合成粗體
 ========================================================= */
 
 .couple-chinese-font {
@@ -168,8 +120,11 @@ img {
         "Noto Serif TC",
         serif !important;
 
-    font-weight:
-        300;
+    font-weight: 300 !important;
+
+    font-style: normal;
+
+    font-synthesis: none;
 }
 
 
@@ -178,113 +133,69 @@ img {
 ========================================================= */
 
 .invitation-gate {
-    position:
-        fixed;
+    position: fixed;
 
-    z-index:
-        20000;
+    z-index: 20000;
 
-    inset:
-        0;
+    inset: 0;
 
-    display:
-        none;
+    display: none;
 
-    align-items:
-        center;
+    align-items: center;
+    justify-content: center;
 
-    justify-content:
-        center;
+    overflow-y: auto;
+    overflow-x: hidden;
 
-    overflow-y:
-        auto;
-
-    overflow-x:
-        hidden;
-
-    color:
-        var(--text);
+    color: var(--text);
 
     background:
         repeating-linear-gradient(
             0deg,
-            rgba(
-                111,
-                124,
-                62,
-                0.014
-            )
-            0,
-            rgba(
-                111,
-                124,
-                62,
-                0.014
-            )
-            1px,
-            transparent
-            1px,
-            transparent
-            5px
+            rgba(111, 124, 62, 0.014) 0,
+            rgba(111, 124, 62, 0.014) 1px,
+            transparent 1px,
+            transparent 5px
         ),
         var(--background);
 
-    opacity:
-        1;
+    opacity: 1;
 
     transition:
-        opacity
-        0.7s
-        ease,
-        visibility
-        0.7s
-        ease;
+        opacity 0.7s ease,
+        visibility 0.7s ease;
 }
 
 
 html.show-invitation-gate
 .invitation-gate {
-    display:
-        flex;
+    display: flex;
 }
 
 
 .invitation-gate.is-leaving {
-    opacity:
-        0;
+    opacity: 0;
 
-    visibility:
-        hidden;
+    visibility: hidden;
 
-    pointer-events:
-        none;
+    pointer-events: none;
 }
 
 
 .gate-content {
-    position:
-        relative;
+    position: relative;
 
-    z-index:
-        2;
+    z-index: 2;
 
-    display:
-        flex;
+    display: flex;
 
-    flex-direction:
-        column;
+    flex-direction: column;
 
-    align-items:
-        center;
-
-    justify-content:
-        center;
+    align-items: center;
+    justify-content: center;
 
     width:
-        min(
-            820px,
-            100%
-        );
+        min(820px, 100%);
 
     min-height:
         100svh;
@@ -292,20 +203,15 @@ html.show-invitation-gate
     padding:
         max(
             30px,
-            env(
-                safe-area-inset-top
-            )
+            env(safe-area-inset-top)
         )
         20px
         max(
             30px,
-            env(
-                safe-area-inset-bottom
-            )
+            env(safe-area-inset-bottom)
         );
 
-    text-align:
-        center;
+    text-align: center;
 }
 
 
@@ -319,8 +225,7 @@ html.show-invitation-gate
             26px
         );
 
-    color:
-        var(--primary);
+    color: var(--primary);
 
     font-family:
         "Noto Serif TC",
@@ -333,29 +238,25 @@ html.show-invitation-gate
             18px
         );
 
-    font-weight:
-        400;
+    font-weight: 400;
 
-    letter-spacing:
-        0.55em;
+    letter-spacing: 0.55em;
 }
 
 
 /* =========================================================
-   Gate Logo Row
+   Gate Logo
 ========================================================= */
 
 .gate-monogram-row {
-    display:
-        grid;
+    display: grid;
 
     grid-template-columns:
         1fr
         78px
         1fr;
 
-    align-items:
-        center;
+    align-items: center;
 
     gap:
         clamp(
@@ -365,10 +266,7 @@ html.show-invitation-gate
         );
 
     width:
-        min(
-            620px,
-            100%
-        );
+        min(620px, 100%);
 
     margin-bottom:
         clamp(
@@ -380,11 +278,9 @@ html.show-invitation-gate
 
 
 .gate-monogram-row p {
-    margin:
-        0;
+    margin: 0;
 
-    color:
-        var(--sage);
+    color: var(--sage);
 
     font-family:
         "Noto Serif TC",
@@ -397,48 +293,32 @@ html.show-invitation-gate
             14px
         );
 
-    font-weight:
-        400;
+    font-weight: 400;
 
-    letter-spacing:
-        0.34em;
+    letter-spacing: 0.34em;
 
-    white-space:
-        nowrap;
+    white-space: nowrap;
 }
 
 
 .monogram-logo {
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        center;
+    align-items: center;
+    justify-content: center;
 
-    justify-content:
-        center;
+    width: 78px;
+    height: 78px;
 
-    width:
-        78px;
-
-    height:
-        78px;
-
-    margin:
-        0
-        auto;
+    margin: 0 auto;
 }
 
 
 .monogram-logo img {
-    width:
-        100%;
+    width: 100%;
+    height: 100%;
 
-    height:
-        100%;
-
-    object-fit:
-        contain;
+    object-fit: contain;
 }
 
 
@@ -452,8 +332,7 @@ html.show-invitation-gate
         0
         7px;
 
-    color:
-        var(--primary);
+    color: var(--primary);
 
     font-family:
         "Noto Serif TC",
@@ -476,11 +355,9 @@ html.show-invitation-gate
 
 
 .gate-english-invitation {
-    margin:
-        0;
+    margin: 0;
 
-    color:
-        var(--sage);
+    color: var(--sage);
 
     font-family:
         "Cormorant Garamond",
@@ -493,23 +370,18 @@ html.show-invitation-gate
             14px
         );
 
-    font-weight:
-        500;
+    font-weight: 500;
 
-    letter-spacing:
-        0.32em;
+    letter-spacing: 0.32em;
 }
 
 
 .gate-couple-names {
-    display:
-        flex;
+    display: flex;
 
-    flex-direction:
-        column;
+    flex-direction: column;
 
-    align-items:
-        center;
+    align-items: center;
 
     margin:
         clamp(
@@ -528,17 +400,14 @@ html.show-invitation-gate
         "Allura",
         cursive;
 
-    line-height:
-        0.74;
+    line-height: 0.74;
 }
 
 
 .gate-name-kevin {
-    margin-right:
-        48px;
+    margin-right: 48px;
 
-    color:
-        var(--primary);
+    color: var(--primary);
 
     font-size:
         clamp(
@@ -550,14 +419,11 @@ html.show-invitation-gate
 
 
 .gate-name-coco {
-    margin-top:
-        9px;
+    margin-top: 9px;
 
-    margin-left:
-        58px;
+    margin-left: 58px;
 
-    color:
-        var(--accent);
+    color: var(--accent);
 
     font-size:
         clamp(
@@ -573,8 +439,7 @@ html.show-invitation-gate
 ========================================================= */
 
 .envelope-button {
-    display:
-        block;
+    display: block;
 
     width:
         min(
@@ -582,17 +447,13 @@ html.show-invitation-gate
             78vw
         );
 
-    padding:
-        0;
+    padding: 0;
 
-    background:
-        transparent;
+    background: transparent;
 
-    border:
-        0;
+    border: 0;
 
-    cursor:
-        pointer;
+    cursor: pointer;
 
     -webkit-tap-highlight-color:
         transparent;
@@ -605,55 +466,42 @@ html.show-invitation-gate
         solid
         var(--accent);
 
-    outline-offset:
-        12px;
+    outline-offset: 12px;
 }
 
 
 .envelope-button:disabled {
-    cursor:
-        default;
+    cursor: default;
 }
 
 
 .envelope {
-    position:
-        relative;
+    position: relative;
 
-    display:
-        block;
+    display: block;
 
-    width:
-        100%;
+    width: 100%;
 
-    aspect-ratio:
-        1.55 / 1;
+    aspect-ratio: 1.55 / 1;
 
-    perspective:
-        1000px;
+    perspective: 1000px;
 
-    transform-style:
-        preserve-3d;
+    transform-style: preserve-3d;
 }
 
 
 .envelope-back {
-    position:
-        absolute;
+    position: absolute;
 
-    z-index:
-        1;
+    z-index: 1;
 
-    inset:
-        0;
+    inset: 0;
 
     background:
         linear-gradient(
             180deg,
-            #A8B38B
-            0%,
-            var(--sage)
-            100%
+            #A8B38B 0%,
+            var(--sage) 100%
         );
 
     border:
@@ -673,44 +521,29 @@ html.show-invitation-gate
 ========================================================= */
 
 .envelope-card {
-    position:
-        absolute;
+    position: absolute;
 
-    z-index:
-        2;
+    z-index: 2;
 
-    left:
-        8%;
+    left: 8%;
 
-    bottom:
-        7%;
+    bottom: 7%;
 
-    display:
-        flex;
+    display: flex;
 
-    flex-direction:
-        column;
+    flex-direction: column;
 
-    align-items:
-        center;
+    align-items: center;
+    justify-content: center;
 
-    justify-content:
-        center;
+    width: 84%;
+    height: 75%;
 
-    width:
-        84%;
+    padding: 14px;
 
-    height:
-        75%;
+    color: var(--primary);
 
-    padding:
-        14px;
-
-    color:
-        var(--primary);
-
-    background:
-        var(--background);
+    background: var(--background);
 
     border:
         1px
@@ -723,13 +556,10 @@ html.show-invitation-gate
         );
 
     transform:
-        translateY(
-            4%
-        );
+        translateY(4%);
 
     transform-origin:
-        center
-        bottom;
+        center bottom;
 
     transition:
         transform
@@ -744,14 +574,11 @@ html.show-invitation-gate
 
 
 .envelope-card-decoration {
-    margin-bottom:
-        4px;
+    margin-bottom: 4px;
 
-    color:
-        var(--sage);
+    color: var(--sage);
 
-    font-size:
-        18px;
+    font-size: 18px;
 }
 
 
@@ -767,63 +594,50 @@ html.show-invitation-gate
             40px
         );
 
-    line-height:
-        1;
+    line-height: 1;
 }
 
 
 .envelope-card-text {
-    margin-top:
-        4px;
+    margin-top: 4px;
 
-    color:
-        var(--sage);
+    color: var(--sage);
 
     font-family:
         "Cormorant Garamond",
         serif;
 
-    font-size:
-        9px;
+    font-size: 9px;
 
-    letter-spacing:
-        0.28em;
+    letter-spacing: 0.28em;
 }
 
 
 .envelope-card-line {
-    width:
-        60px;
-
-    height:
-        1px;
+    width: 60px;
+    height: 1px;
 
     margin:
         10px
         0
         8px;
 
-    background:
-        var(--accent);
+    background: var(--accent);
 
-    opacity:
-        0.6;
+    opacity: 0.6;
 }
 
 
 .envelope-card-open {
-    color:
-        var(--primary);
+    color: var(--primary);
 
     font-family:
         "Cormorant Garamond",
         serif;
 
-    font-size:
-        9px;
+    font-size: 9px;
 
-    letter-spacing:
-        0.25em;
+    letter-spacing: 0.25em;
 }
 
 
@@ -834,64 +648,48 @@ html.show-invitation-gate
 .envelope-front-left,
 .envelope-front-right,
 .envelope-front-bottom {
-    position:
-        absolute;
+    position: absolute;
 
-    z-index:
-        4;
+    z-index: 4;
 
-    inset:
-        0;
+    inset: 0;
 
-    pointer-events:
-        none;
+    pointer-events: none;
 }
 
 
 .envelope-front-left {
-    background:
-        #9EAA7B;
+    background: #9EAA7B;
 
     clip-path:
         polygon(
-            0
-            0,
-            56%
-            57%,
-            0
-            100%
+            0 0,
+            56% 57%,
+            0 100%
         );
 }
 
 
 .envelope-front-right {
-    background:
-        #A8B38B;
+    background: #A8B38B;
 
     clip-path:
         polygon(
-            100%
-            0,
-            44%
-            57%,
-            100%
-            100%
+            100% 0,
+            44% 57%,
+            100% 100%
         );
 }
 
 
 .envelope-front-bottom {
-    background:
-        var(--sage);
+    background: var(--sage);
 
     clip-path:
         polygon(
-            0
-            100%,
-            50%
-            45%,
-            100%
-            100%
+            0 100%,
+            50% 45%,
+            100% 100%
         );
 }
 
@@ -901,48 +699,32 @@ html.show-invitation-gate
 ========================================================= */
 
 .envelope-flap {
-    position:
-        absolute;
+    position: absolute;
 
-    z-index:
-        6;
+    z-index: 6;
 
-    top:
-        0;
+    top: 0;
+    left: 0;
 
-    left:
-        0;
+    width: 100%;
+    height: 60%;
 
-    width:
-        100%;
-
-    height:
-        60%;
-
-    background:
-        #98A674;
+    background: #98A674;
 
     clip-path:
         polygon(
-            0
-            0,
-            100%
-            0,
-            50%
-            100%
+            0 0,
+            100% 0,
+            50% 100%
         );
 
     transform:
-        rotateX(
-            0deg
-        );
+        rotateX(0deg);
 
     transform-origin:
-        top
-        center;
+        top center;
 
-    backface-visibility:
-        hidden;
+    backface-visibility: hidden;
 
     transition:
         transform
@@ -958,39 +740,25 @@ html.show-invitation-gate
 
 /* =========================================================
    KC Logo
-   再往下放
 ========================================================= */
 
 .envelope-front-logo {
-    position:
-        absolute;
+    position: absolute;
 
-    z-index:
-        7;
+    z-index: 7;
 
-    left:
-        50%;
+    left: 50%;
+    top: 79%;
 
-    top:
-        79%;
+    display: flex;
 
-    display:
-        flex;
+    align-items: center;
+    justify-content: center;
 
-    align-items:
-        center;
+    width: 64px;
+    height: 64px;
 
-    justify-content:
-        center;
-
-    width:
-        64px;
-
-    height:
-        64px;
-
-    background:
-        transparent;
+    background: transparent;
 
     transform:
         translate(
@@ -998,8 +766,7 @@ html.show-invitation-gate
             -50%
         );
 
-    pointer-events:
-        none;
+    pointer-events: none;
 
     transition:
         opacity
@@ -1009,21 +776,16 @@ html.show-invitation-gate
 
 
 .envelope-front-logo img {
-    width:
-        100%;
+    width: 100%;
+    height: 100%;
 
-    height:
-        100%;
-
-    object-fit:
-        contain;
+    object-fit: contain;
 }
 
 
 .invitation-gate.is-opening
 .envelope-front-logo {
-    opacity:
-        0.82;
+    opacity: 0.82;
 }
 
 
@@ -1050,46 +812,36 @@ html.show-invitation-gate
 
 
 .gate-instruction p {
-    margin:
-        0;
+    margin: 0;
 
-    color:
-        var(--primary);
+    color: var(--primary);
 
     font-family:
         "Cormorant Garamond",
         serif;
 
-    font-size:
-        14px;
+    font-size: 14px;
 
-    font-weight:
-        500;
+    font-weight: 500;
 
-    letter-spacing:
-        0.42em;
+    letter-spacing: 0.42em;
 }
 
 
 .gate-instruction span {
-    display:
-        block;
+    display: block;
 
-    margin-top:
-        3px;
+    margin-top: 3px;
 
-    color:
-        var(--sage);
+    color: var(--sage);
 
     font-family:
         "Noto Serif TC",
         serif;
 
-    font-size:
-        11px;
+    font-size: 11px;
 
-    letter-spacing:
-        0.3em;
+    letter-spacing: 0.3em;
 }
 
 
@@ -1109,34 +861,26 @@ html.show-invitation-gate
 
 .invitation-gate.is-opening
 .envelope-flap {
-    z-index:
-        1;
+    z-index: 1;
 
     transform:
-        rotateX(
-            180deg
-        );
+        rotateX(180deg);
 }
 
 
 .invitation-gate.is-opening
 .envelope-card {
     transform:
-        translateY(
-            -68%
-        );
+        translateY(-68%);
 }
 
 
 .invitation-gate.is-opening
 .gate-instruction {
-    opacity:
-        0;
+    opacity: 0;
 
     transform:
-        translateY(
-            8px
-        );
+        translateY(8px);
 }
 
 
@@ -1155,8 +899,7 @@ html.show-invitation-gate
         0.7s
         ease;
 
-    opacity:
-        0.46;
+    opacity: 0.46;
 }
 
 
@@ -1165,16 +908,12 @@ html.show-invitation-gate
     0%,
     100% {
         transform:
-            translateY(
-                0
-            );
+            translateY(0);
     }
 
     50% {
         transform:
-            translateY(
-                -7px
-            );
+            translateY(-7px);
     }
 
 }
@@ -1186,23 +925,16 @@ html.show-invitation-gate
 
 .gate-botanical,
 .botanical-decoration {
-    position:
-        fixed;
+    position: fixed;
 
-    z-index:
-        0;
+    z-index: 0;
 
-    width:
-        250px;
+    width: 250px;
+    height: 330px;
 
-    height:
-        330px;
+    opacity: 0.08;
 
-    opacity:
-        0.08;
-
-    pointer-events:
-        none;
+    pointer-events: none;
 
     background:
         radial-gradient(
@@ -1224,39 +956,27 @@ html.show-invitation-gate
 
 .gate-botanical-left,
 .botanical-top-left {
-    left:
-        -80px;
-
-    bottom:
-        -80px;
+    left: -80px;
+    bottom: -80px;
 }
 
 
 .gate-botanical-right,
 .botanical-top-right {
-    top:
-        -80px;
-
-    right:
-        -80px;
+    top: -80px;
+    right: -80px;
 }
 
 
 .botanical-bottom-left {
-    bottom:
-        -90px;
-
-    left:
-        -90px;
+    bottom: -90px;
+    left: -90px;
 }
 
 
 .botanical-bottom-right {
-    right:
-        -90px;
-
-    bottom:
-        -90px;
+    right: -90px;
+    bottom: -90px;
 }
 
 
@@ -1270,45 +990,36 @@ html.show-invitation-gate
         0
         10px;
 
-    color:
-        var(--primary);
+    color: var(--primary);
 
     font-family:
         "Cormorant Garamond",
         serif;
 
-    font-size:
-        14px;
+    font-size: 14px;
 
-    font-weight:
-        500;
+    font-weight: 500;
 
-    letter-spacing:
-        5px;
+    letter-spacing: 5px;
 
-    text-transform:
-        uppercase;
+    text-transform: uppercase;
 }
 
 
 .section-heading {
-    margin-bottom:
-        44px;
+    margin-bottom: 44px;
 }
 
 
 .centered-heading {
-    text-align:
-        center;
+    text-align: center;
 }
 
 
 .section-heading h2 {
-    margin:
-        0;
+    margin: 0;
 
-    color:
-        var(--primary);
+    color: var(--primary);
 
     font-family:
         "Noto Serif TC",
@@ -1321,11 +1032,9 @@ html.show-invitation-gate
             38px
         );
 
-    font-weight:
-        500;
+    font-weight: 500;
 
-    letter-spacing:
-        4px;
+    letter-spacing: 4px;
 }
 
 
@@ -1335,31 +1044,24 @@ html.show-invitation-gate
         0
         0;
 
-    color:
-        var(--text-soft);
+    color: var(--text-soft);
 
     font-family:
         "Noto Serif TC",
         serif;
 
-    font-size:
-        14px;
+    font-size: 14px;
 }
 
 
 .section-divider,
 .ornamental-divider {
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        center;
+    align-items: center;
+    justify-content: center;
 
-    justify-content:
-        center;
-
-    gap:
-        12px;
+    gap: 12px;
 
     width:
         min(
@@ -1376,30 +1078,22 @@ html.show-invitation-gate
 
 .section-divider span,
 .ornamental-divider span {
-    display:
-        block;
+    display: block;
 
-    width:
-        90px;
+    width: 90px;
+    height: 1px;
 
-    height:
-        1px;
+    background: var(--primary);
 
-    background:
-        var(--primary);
-
-    opacity:
-        0.45;
+    opacity: 0.45;
 }
 
 
 .section-divider i,
 .ornamental-divider i {
-    color:
-        var(--accent);
+    color: var(--accent);
 
-    font-style:
-        normal;
+    font-style: normal;
 }
 
 
@@ -1408,35 +1102,27 @@ html.show-invitation-gate
 ========================================================= */
 
 .hero-section {
-    position:
-        relative;
+    position: relative;
 
-    z-index:
-        1;
+    z-index: 1;
 
-    min-height:
-        94svh;
+    min-height: 94svh;
 
     background-color:
         var(--secondary-background);
 
-    background-position:
-        center;
+    background-position: center;
 
-    background-repeat:
-        no-repeat;
+    background-repeat: no-repeat;
 
-    background-size:
-        cover;
+    background-size: cover;
 }
 
 
 .hero-overlay {
-    position:
-        absolute;
+    position: absolute;
 
-    inset:
-        0;
+    inset: 0;
 
     background:
         linear-gradient(
@@ -1464,23 +1150,16 @@ html.show-invitation-gate
 
 
 .hero-content {
-    position:
-        relative;
+    position: relative;
 
-    z-index:
-        2;
+    z-index: 2;
 
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        center;
+    align-items: center;
+    justify-content: center;
 
-    justify-content:
-        center;
-
-    min-height:
-        94svh;
+    min-height: 94svh;
 
     padding:
         80px
@@ -1499,8 +1178,7 @@ html.show-invitation-gate
         52px
         20px;
 
-    text-align:
-        center;
+    text-align: center;
 
     background:
         rgba(
@@ -1513,26 +1191,24 @@ html.show-invitation-gate
 
 
 .hero-chinese-label {
-    margin:
-        0;
+    margin: 0;
 
-    color:
-        var(--text-soft);
+    color: var(--text-soft);
 
     font-family:
         "Noto Serif TC",
         serif;
 
-    font-size:
-        14px;
+    font-size: 14px;
 
-    letter-spacing:
-        5px;
+    letter-spacing: 5px;
 }
 
 
 /* =========================================================
-   Hero Couple Name
+   首頁新人中文姓名
+   使用 GenWanMin2-L
+   不使用粗體
 ========================================================= */
 
 .hero-couple-title {
@@ -1541,8 +1217,7 @@ html.show-invitation-gate
         0
         28px;
 
-    color:
-        var(--primary);
+    color: var(--primary);
 
     font-family:
         "GenWanMin2Wedding",
@@ -1556,43 +1231,36 @@ html.show-invitation-gate
             60px
         );
 
-    font-weight:
-        300;
+    font-weight: 300 !important;
 
-    line-height:
-        1.45;
+    font-synthesis: none;
 
-    letter-spacing:
-        0.13em;
+    line-height: 1.45;
 
-    text-transform:
-        none;
+    letter-spacing: 0.13em;
+
+    text-transform: none;
 }
 
 
 .hero-couple-title em {
-    display:
-        inline-block;
+    display: inline-block;
 
     margin:
         0
         13px;
 
-    color:
-        var(--accent);
+    color: var(--accent);
 
     font-family:
         "Cormorant Garamond",
         serif;
 
-    font-size:
-        0.82em;
+    font-size: 0.82em;
 
-    font-style:
-        italic;
+    font-style: italic;
 
-    font-weight:
-        400;
+    font-weight: 400;
 }
 
 
@@ -1601,26 +1269,20 @@ html.show-invitation-gate
 ========================================================= */
 
 .hero-date-wrap {
-    display:
-        flex;
+    display: flex;
 
-    flex-direction:
-        column;
+    flex-direction: column;
 
-    gap:
-        0;
+    gap: 0;
 
-    margin-bottom:
-        24px;
+    margin-bottom: 24px;
 }
 
 
 .hero-date {
-    margin:
-        0;
+    margin: 0;
 
-    color:
-        var(--accent);
+    color: var(--accent);
 
     font-family:
         "Cormorant Garamond",
@@ -1633,26 +1295,20 @@ html.show-invitation-gate
             23px
         );
 
-    font-weight:
-        500;
+    font-weight: 500;
 
-    letter-spacing:
-        4px;
+    letter-spacing: 4px;
 
-    line-height:
-        1.4;
+    line-height: 1.4;
 
-    text-transform:
-        uppercase;
+    text-transform: uppercase;
 
-    white-space:
-        nowrap;
+    white-space: nowrap;
 }
 
 
 .hero-date-line2 {
-    color:
-        var(--primary);
+    color: var(--primary);
 }
 
 
@@ -1674,27 +1330,21 @@ html.show-invitation-gate
 
 
 .hero-invitation-zh {
-    margin:
-        0;
+    margin: 0;
 
-    color:
-        var(--text);
+    color: var(--text);
 
     font-family:
         "Noto Serif TC",
         serif;
 
-    font-size:
-        15px;
+    font-size: 15px;
 
-    font-weight:
-        400;
+    font-weight: 400;
 
-    line-height:
-        2;
+    line-height: 2;
 
-    letter-spacing:
-        0.08em;
+    letter-spacing: 0.08em;
 }
 
 
@@ -1704,30 +1354,24 @@ html.show-invitation-gate
         0
         0;
 
-    color:
-        var(--text-soft);
+    color: var(--text-soft);
 
     font-family:
         "Cormorant Garamond",
         serif;
 
-    font-size:
-        14px;
+    font-size: 14px;
 
-    line-height:
-        1.55;
+    line-height: 1.55;
 
-    letter-spacing:
-        0.06em;
+    letter-spacing: 0.06em;
 }
 
 
 .hero-floral-mark {
-    margin-top:
-        26px;
+    margin-top: 26px;
 
-    color:
-        var(--sage);
+    color: var(--sage);
 }
 
 
@@ -1739,26 +1383,18 @@ html.show-invitation-gate
 .content-section,
 .moments-section,
 .rsvp-section {
-    position:
-        relative;
+    position: relative;
 
-    z-index:
-        1;
+    z-index: 1;
 
-    padding-top:
-        105px;
-
-    padding-bottom:
-        105px;
+    padding-top: 105px;
+    padding-bottom: 105px;
 }
 
 
 .countdown-section {
-    padding-left:
-        20px;
-
-    padding-right:
-        20px;
+    padding-left: 20px;
+    padding-right: 20px;
 
     background:
         rgba(
@@ -1783,14 +1419,10 @@ html.show-invitation-gate
         0
         auto;
 
-    padding-left:
-        30px;
+    padding-left: 30px;
+    padding-right: 30px;
 
-    padding-right:
-        30px;
-
-    background:
-        transparent;
+    background: transparent;
 }
 
 
@@ -1810,54 +1442,40 @@ html.show-invitation-gate
         auto
         60px;
 
-    padding:
-        0;
+    padding: 0;
 
-    background:
-        transparent;
+    background: transparent;
 
-    border:
-        0;
+    border: 0;
 
-    box-shadow:
-        none;
+    box-shadow: none;
 }
 
 
 .countdown-frame {
-    margin-bottom:
-        0;
+    margin-bottom: 0;
 }
 
 
 .countdown-image,
 .event-image {
-    width:
-        100%;
+    width: 100%;
+    height: auto;
 
-    height:
-        auto;
+    aspect-ratio: 3 / 2;
 
-    aspect-ratio:
-        3 / 2;
+    object-fit: contain;
 
-    object-fit:
-        contain;
-
-    background:
-        transparent;
+    background: transparent;
 }
 
 
 .image-error-message {
-    padding:
-        30px;
+    padding: 30px;
 
-    color:
-        var(--text-soft);
+    color: var(--text-soft);
 
-    text-align:
-        center;
+    text-align: center;
 }
 
 
@@ -1866,8 +1484,7 @@ html.show-invitation-gate
 ========================================================= */
 
 .detail-grid {
-    display:
-        grid;
+    display: grid;
 
     grid-template-columns:
         1fr
@@ -1890,37 +1507,27 @@ html.show-invitation-gate
 
 
 .detail-item {
-    position:
-        relative;
+    position: relative;
 
     padding:
         26px
         10px
         34px;
 
-    text-align:
-        center;
+    text-align: center;
 }
 
 
 .detail-item::after {
-    position:
-        absolute;
+    position: absolute;
 
-    bottom:
-        0;
+    bottom: 0;
+    left: 15%;
 
-    left:
-        15%;
+    width: 70%;
+    height: 1px;
 
-    width:
-        70%;
-
-    height:
-        1px;
-
-    content:
-        "";
+    content: "";
 
     background:
         rgba(
@@ -1936,30 +1543,24 @@ html.show-invitation-gate
     grid-column:
         1 / -1;
 
-    padding-top:
-        42px;
+    padding-top: 42px;
 }
 
 
 .detail-label {
-    margin:
-        0;
+    margin: 0;
 
-    color:
-        var(--accent);
+    color: var(--accent);
 
     font-family:
         "Cormorant Garamond",
         serif;
 
-    font-size:
-        14px;
+    font-size: 14px;
 
-    letter-spacing:
-        4px;
+    letter-spacing: 4px;
 
-    text-transform:
-        uppercase;
+    text-transform: uppercase;
 }
 
 
@@ -1969,37 +1570,30 @@ html.show-invitation-gate
         0
         18px;
 
-    color:
-        var(--primary);
+    color: var(--primary);
 
     font-family:
         "Noto Serif TC",
         serif;
 
-    font-size:
-        21px;
+    font-size: 21px;
 
-    font-weight:
-        500;
+    font-weight: 500;
 
-    letter-spacing:
-        4px;
+    letter-spacing: 4px;
 }
 
 
 .detail-main {
-    margin:
-        0;
+    margin: 0;
 
-    color:
-        var(--text);
+    color: var(--text);
 
     font-family:
         "Noto Serif TC",
         serif;
 
-    font-size:
-        17px;
+    font-size: 17px;
 }
 
 
@@ -2009,22 +1603,19 @@ html.show-invitation-gate
         0
         0;
 
-    color:
-        var(--text-soft);
+    color: var(--text-soft);
 
     font-family:
         "Cormorant Garamond",
         "Noto Serif TC",
         serif;
 
-    font-size:
-        14px;
+    font-size: 14px;
 }
 
 
 .venue-detail {
-    margin-top:
-        16px;
+    margin-top: 16px;
 }
 
 
@@ -2036,21 +1627,18 @@ html.show-invitation-gate
 
 
 .venue-detail strong {
-    color:
-        var(--primary);
+    color: var(--primary);
 }
 
 
 .venue-detail .en-line {
-    color:
-        var(--accent);
+    color: var(--accent);
 
     font-family:
         "Cormorant Garamond",
         serif;
 
-    font-size:
-        14px;
+    font-size: 14px;
 }
 
 
@@ -2061,7 +1649,7 @@ html.show-invitation-gate
 .dress-code-section {
     width:
         min(
-            820px,
+            900px,
             100%
         );
 
@@ -2070,8 +1658,7 @@ html.show-invitation-gate
         auto
         0;
 
-    padding-top:
-        54px;
+    padding-top: 54px;
 
     border-top:
         1px
@@ -2083,30 +1670,24 @@ html.show-invitation-gate
             0.22
         );
 
-    text-align:
-        center;
+    text-align: center;
 }
 
 
 .dress-code-heading h3 {
-    margin:
-        0;
+    margin: 0;
 
-    color:
-        var(--primary);
+    color: var(--primary);
 
     font-family:
         "Noto Serif TC",
         serif;
 
-    font-size:
-        26px;
+    font-size: 26px;
 
-    font-weight:
-        500;
+    font-weight: 500;
 
-    letter-spacing:
-        4px;
+    letter-spacing: 4px;
 }
 
 
@@ -2116,21 +1697,17 @@ html.show-invitation-gate
         auto
         0;
 
-    color:
-        var(--text);
+    color: var(--text);
 
     font-family:
         "Noto Serif TC",
         serif;
 
-    font-size:
-        14px;
+    font-size: 14px;
 
-    line-height:
-        1.9;
+    line-height: 1.9;
 
-    letter-spacing:
-        0.05em;
+    letter-spacing: 0.05em;
 }
 
 
@@ -2140,67 +1717,63 @@ html.show-invitation-gate
         auto
         0;
 
-    color:
-        var(--text-soft);
+    color: var(--text-soft);
 
     font-family:
         "Cormorant Garamond",
         serif;
 
-    font-size:
-        14px;
+    font-size: 14px;
 
-    line-height:
-        1.5;
+    line-height: 1.5;
 }
 
 
+/* 六顆固定一排 */
+
 .dress-code-palette {
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        flex-start;
+    align-items: flex-start;
 
-    justify-content:
-        center;
+    justify-content: center;
 
     gap:
         clamp(
-            28px,
-            6vw,
-            58px
+            15px,
+            3vw,
+            30px
         );
 
-    margin-top:
-        36px;
+    width: 100%;
+
+    margin-top: 36px;
 }
 
 
 .dress-color-item {
-    display:
-        flex;
+    display: flex;
 
-    flex-direction:
-        column;
+    flex-direction: column;
 
-    align-items:
-        center;
+    align-items: center;
 
-    width:
-        112px;
+    width: 95px;
+
+    min-width: 0;
 }
 
 
 .dress-color-circle {
-    width:
-        72px;
+    width: 68px;
+    height: 68px;
 
-    height:
-        72px;
+    flex:
+        0
+        0
+        auto;
 
-    border-radius:
-        50%;
+    border-radius: 50%;
 
     border:
         1px
@@ -2209,90 +1782,73 @@ html.show-invitation-gate
             86,
             87,
             71,
-            0.14
+            0.13
         );
 
     box-shadow:
         0
-        5px
-        15px
+        4px
+        12px
         rgba(
             86,
             87,
             71,
-            0.06
+            0.05
         );
 }
 
 
-.dress-color-split {
-    overflow:
-        hidden;
+.dress-color-light {
+    border:
+        1px
+        solid
+        rgba(
+            86,
+            87,
+            71,
+            0.18
+        );
 }
 
 
 .dress-color-item p {
     margin:
-        12px
+        11px
         0
         0;
 
-    color:
-        var(--primary);
+    color: var(--primary);
 
     font-family:
         "Noto Serif TC",
         serif;
 
-    font-size:
-        13px;
+    font-size: 12px;
 
-    letter-spacing:
-        0.08em;
-}
+    line-height: 1.45;
 
-
-.dress-color-item small {
-    display:
-        block;
-
-    margin-bottom:
-        4px;
-
-    color:
-        var(--text-soft);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size:
-        12px;
-
-    letter-spacing:
-        0.04em;
+    white-space: nowrap;
 }
 
 
 .dress-color-item span {
-    display:
-        block;
+    display: block;
 
-    color:
-        var(--text-soft);
+    margin-top: 2px;
+
+    color: var(--text-soft);
 
     font-family:
         "Cormorant Garamond",
         serif;
 
-    font-size:
-        10px;
+    font-size: 10px;
 
-    line-height:
-        1.25;
+    line-height: 1.3;
 
-    letter-spacing:
-        0.03em;
+    letter-spacing: 0.02em;
+
+    white-space: nowrap;
 }
 
 
@@ -2311,35 +1867,26 @@ html.show-invitation-gate
         0
         auto;
 
-    padding:
-        0;
+    padding: 0;
 
-    background:
-        transparent;
+    background: transparent;
 
-    border:
-        0;
+    border: 0;
 
-    box-shadow:
-        none;
+    box-shadow: none;
 }
 
 
 .timeline-board-title {
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        center;
+    align-items: center;
 
-    gap:
-        17px;
+    gap: 17px;
 
-    margin-bottom:
-        26px;
+    margin-bottom: 26px;
 
-    padding-bottom:
-        18px;
+    padding-bottom: 18px;
 
     border-bottom:
         1px
@@ -2354,98 +1901,73 @@ html.show-invitation-gate
 
 
 .timeline-board-icon {
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        center;
+    align-items: center;
+    justify-content: center;
 
-    justify-content:
-        center;
+    width: 54px;
+    height: 54px;
 
-    width:
-        54px;
+    color: var(--primary);
 
-    height:
-        54px;
-
-    color:
-        var(--primary);
-
-    font-size:
-        28px;
+    font-size: 28px;
 }
 
 
 .timeline-board-heading {
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        baseline;
+    align-items: baseline;
 
-    gap:
-        18px;
+    gap: 18px;
 }
 
 
 .timeline-board-heading span {
-    color:
-        var(--primary);
+    color: var(--primary);
 
     font-family:
         "Cormorant Garamond",
         serif;
 
-    font-size:
-        18px;
+    font-size: 18px;
 
-    font-weight:
-        600;
+    font-weight: 600;
 
-    letter-spacing:
-        5px;
+    letter-spacing: 5px;
 
-    text-transform:
-        uppercase;
+    text-transform: uppercase;
 }
 
 
 .timeline-board-heading h3 {
-    margin:
-        0;
+    margin: 0;
 
-    color:
-        var(--primary);
+    color: var(--primary);
 
     font-family:
         "Noto Serif TC",
         serif;
 
-    font-size:
-        24px;
+    font-size: 24px;
 
-    font-weight:
-        500;
+    font-weight: 500;
 
-    letter-spacing:
-        5px;
+    letter-spacing: 5px;
 }
 
 
 .timeline-item {
-    position:
-        relative;
+    position: relative;
 
-    display:
-        grid;
+    display: grid;
 
     grid-template-columns:
         75px
         1fr;
 
-    gap:
-        18px;
+    gap: 18px;
 
     padding:
         12px
@@ -2455,110 +1977,78 @@ html.show-invitation-gate
 
 
 .timeline-marker {
-    position:
-        relative;
+    position: relative;
 
-    display:
-        flex;
+    display: flex;
 
-    justify-content:
-        center;
+    justify-content: center;
 }
 
 
 .timeline-dot {
-    position:
-        relative;
+    position: relative;
 
-    z-index:
-        1;
+    z-index: 1;
 
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        center;
+    align-items: center;
+    justify-content: center;
 
-    justify-content:
-        center;
+    width: 48px;
+    height: 48px;
 
-    width:
-        48px;
+    color: var(--primary);
 
-    height:
-        48px;
-
-    color:
-        var(--primary);
-
-    background:
-        var(--background);
+    background: var(--background);
 
     border:
         1px
         solid
         var(--sage);
 
-    border-radius:
-        50%;
+    border-radius: 50%;
 
-    font-size:
-        20px;
+    font-size: 20px;
 }
 
 
 .timeline-line {
-    position:
-        absolute;
+    position: absolute;
 
-    top:
-        48px;
+    top: 48px;
+    bottom: -24px;
+    left: 50%;
 
-    bottom:
-        -24px;
+    width: 1px;
 
-    left:
-        50%;
-
-    width:
-        1px;
-
-    background:
-        var(--sage);
+    background: var(--sage);
 
     transform:
-        translateX(
-            -50%
-        );
+        translateX(-50%);
 }
 
 
 .timeline-item:last-child
 .timeline-line {
-    display:
-        none;
+    display: none;
 }
 
 
 .timeline-time {
-    margin:
-        0;
+    margin: 0;
 
-    color:
-        var(--primary);
+    color: var(--primary);
 
     font-family:
         "Cormorant Garamond",
         serif;
 
-    font-size:
-        18px;
+    font-size: 18px;
 
-    font-weight:
-        600;
+    font-weight: 600;
 
-    letter-spacing:
-        2px;
+    letter-spacing: 2px;
 }
 
 
@@ -2568,15 +2058,13 @@ html.show-invitation-gate
         0
         0;
 
-    color:
-        var(--text);
+    color: var(--text);
 
     font-family:
         "Noto Serif TC",
         serif;
 
-    font-size:
-        17px;
+    font-size: 17px;
 }
 
 
@@ -2586,15 +2074,13 @@ html.show-invitation-gate
         0
         0;
 
-    color:
-        var(--accent);
+    color: var(--accent);
 
     font-family:
         "Cormorant Garamond",
         serif;
 
-    font-size:
-        15px;
+    font-size: 15px;
 }
 
 
@@ -2604,11 +2090,9 @@ html.show-invitation-gate
         0
         0;
 
-    color:
-        var(--text-soft);
+    color: var(--text-soft);
 
-    font-size:
-        12px;
+    font-size: 12px;
 }
 
 
@@ -2617,42 +2101,32 @@ html.show-invitation-gate
 ========================================================= */
 
 .map-actions {
-    margin-bottom:
-        30px;
+    margin-bottom: 30px;
 
-    text-align:
-        center;
+    text-align: center;
 }
 
 
 .primary-link {
-    display:
-        inline-flex;
+    display: inline-flex;
 
-    flex-direction:
-        column;
+    flex-direction: column;
 
-    align-items:
-        center;
+    align-items: center;
 
-    min-width:
-        230px;
+    min-width: 230px;
 
     padding:
         13px
         28px;
 
-    color:
-        var(--background);
+    color: var(--background);
 
-    background:
-        var(--primary);
+    background: var(--primary);
 
-    border:
-        0;
+    border: 0;
 
-    text-decoration:
-        none;
+    text-decoration: none;
 
     transition:
         background-color
@@ -2662,8 +2136,7 @@ html.show-invitation-gate
 
 
 .primary-link:hover {
-    background:
-        var(--accent);
+    background: var(--accent);
 }
 
 
@@ -2672,17 +2145,14 @@ html.show-invitation-gate
         "Cormorant Garamond",
         serif;
 
-    font-size:
-        12px;
+    font-size: 12px;
 
-    letter-spacing:
-        3px;
+    letter-spacing: 3px;
 }
 
 
 .map-container {
-    overflow:
-        hidden;
+    overflow: hidden;
 
     width:
         min(
@@ -2695,26 +2165,20 @@ html.show-invitation-gate
         auto
         60px;
 
-    background:
-        transparent;
+    background: transparent;
 
-    border:
-        0;
+    border: 0;
 
-    box-shadow:
-        none;
+    box-shadow: none;
 }
 
 
 .map-container iframe {
-    display:
-        block;
+    display: block;
 
-    width:
-        100%;
+    width: 100%;
 
-    border:
-        0;
+    border: 0;
 }
 
 
@@ -2723,15 +2187,13 @@ html.show-invitation-gate
 ========================================================= */
 
 .information-grid {
-    display:
-        grid;
+    display: grid;
 
     grid-template-columns:
         1fr
         1fr;
 
-    gap:
-        60px;
+    gap: 60px;
 
     width:
         min(
@@ -2746,8 +2208,7 @@ html.show-invitation-gate
 
 
 .information-item {
-    position:
-        relative;
+    position: relative;
 
     padding:
         10px
@@ -2756,23 +2217,15 @@ html.show-invitation-gate
 
 
 .information-item:first-child::after {
-    position:
-        absolute;
+    position: absolute;
 
-    top:
-        5%;
+    top: 5%;
+    right: -30px;
 
-    right:
-        -30px;
+    width: 1px;
+    height: 90%;
 
-    width:
-        1px;
-
-    height:
-        90%;
-
-    content:
-        "";
+    content: "";
 
     background:
         rgba(
@@ -2785,24 +2238,19 @@ html.show-invitation-gate
 
 
 .information-en-title {
-    margin:
-        0;
+    margin: 0;
 
-    color:
-        var(--accent);
+    color: var(--accent);
 
     font-family:
         "Cormorant Garamond",
         serif;
 
-    font-size:
-        15px;
+    font-size: 15px;
 
-    letter-spacing:
-        4px;
+    letter-spacing: 4px;
 
-    text-transform:
-        uppercase;
+    text-transform: uppercase;
 }
 
 
@@ -2812,18 +2260,15 @@ html.show-invitation-gate
         0
         20px;
 
-    color:
-        var(--primary);
+    color: var(--primary);
 
     font-family:
         "Noto Serif TC",
         serif;
 
-    font-size:
-        20px;
+    font-size: 20px;
 
-    font-weight:
-        500;
+    font-weight: 500;
 }
 
 
@@ -2833,82 +2278,64 @@ html.show-invitation-gate
         0
         20px;
 
-    color:
-        var(--text);
+    color: var(--text);
 
-    font-size:
-        14px;
+    font-size: 14px;
 
-    line-height:
-        1.9;
+    line-height: 1.9;
 }
 
 
 .information-content strong {
-    color:
-        var(--primary);
+    color: var(--primary);
 }
 
 
 .information-content a {
-    color:
-        var(--accent);
+    color: var(--accent);
 
-    text-decoration:
-        underline;
+    text-decoration: underline;
 
-    text-decoration-thickness:
-        1px;
+    text-decoration-thickness: 1px;
 
-    text-underline-offset:
-        3px;
+    text-underline-offset: 3px;
 }
 
 
 .information-content .en-line {
-    display:
-        block;
+    display: block;
 
-    margin-top:
-        5px;
+    margin-top: 5px;
 
-    color:
-        var(--text-soft);
+    color: var(--text-soft);
 
     font-family:
         "Cormorant Garamond",
         serif;
 
-    font-size:
-        14px;
+    font-size: 14px;
 
-    line-height:
-        1.55;
+    line-height: 1.55;
 }
 
 
 .information-content .transport-note {
-    color:
-        var(--accent);
+    color: var(--accent);
 }
 
 
 .information-content .shuttle-link {
-    display:
-        inline-block;
+    display: inline-block;
 
-    margin-top:
-        4px;
+    margin-top: 4px;
 
-    color:
-        var(--primary);
+    color: var(--primary);
 
     font-family:
         "Noto Serif TC",
         serif;
 
-    font-weight:
-        500;
+    font-weight: 500;
 }
 
 
@@ -2942,17 +2369,12 @@ html.show-invitation-gate
 
 
 .notice-inner {
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        center;
+    align-items: center;
+    justify-content: center;
 
-    justify-content:
-        center;
-
-    gap:
-        20px;
+    gap: 20px;
 
     width:
         min(
@@ -2964,8 +2386,7 @@ html.show-invitation-gate
         0
         auto;
 
-    text-align:
-        center;
+    text-align: center;
 }
 
 
@@ -2977,8 +2398,7 @@ html.show-invitation-gate
 
 
 .notice-zh {
-    color:
-        var(--primary);
+    color: var(--primary);
 
     font-family:
         "Noto Serif TC",
@@ -2987,8 +2407,7 @@ html.show-invitation-gate
 
 
 .notice-en {
-    color:
-        var(--accent);
+    color: var(--accent);
 
     font-family:
         "Cormorant Garamond",
@@ -2997,8 +2416,7 @@ html.show-invitation-gate
 
 
 .notice-leaf {
-    color:
-        var(--sage);
+    color: var(--sage);
 }
 
 
@@ -3011,9 +2429,7 @@ html.show-invitation-gate
         max(
             20px,
             calc(
-                (
-                    100% - 1040px
-                ) / 2
+                (100% - 1040px) / 2
                 + 30px
             )
         );
@@ -3022,9 +2438,7 @@ html.show-invitation-gate
         max(
             20px,
             calc(
-                (
-                    100% - 1040px
-                ) / 2
+                (100% - 1040px) / 2
                 + 30px
             )
         );
@@ -3040,8 +2454,7 @@ html.show-invitation-gate
 
 
 .photo-grid {
-    display:
-        grid;
+    display: grid;
 
     grid-template-columns:
         repeat(
@@ -3049,8 +2462,7 @@ html.show-invitation-gate
             1fr
         );
 
-    gap:
-        18px;
+    gap: 18px;
 
     width:
         min(
@@ -3065,17 +2477,13 @@ html.show-invitation-gate
 
 
 .photo-item {
-    width:
-        100%;
+    width: 100%;
 
-    aspect-ratio:
-        3 / 4;
+    aspect-ratio: 3 / 4;
 
-    object-fit:
-        cover;
+    object-fit: cover;
 
-    cursor:
-        zoom-in;
+    cursor: zoom-in;
 
     transition:
         transform
@@ -3086,17 +2494,13 @@ html.show-invitation-gate
 
 .photo-item:nth-child(even) {
     transform:
-        translateY(
-            16px
-        );
+        translateY(16px);
 }
 
 
 .photo-item:hover {
     transform:
-        translateY(
-            -4px
-        );
+        translateY(-4px);
 }
 
 
@@ -3105,14 +2509,10 @@ html.show-invitation-gate
 ========================================================= */
 
 .rsvp-section {
-    padding-left:
-        20px;
+    padding-left: 20px;
+    padding-right: 20px;
 
-    padding-right:
-        20px;
-
-    background:
-        transparent;
+    background: transparent;
 }
 
 
@@ -3132,14 +2532,11 @@ html.show-invitation-gate
         20px
         0;
 
-    background:
-        transparent;
+    background: transparent;
 
-    border:
-        0;
+    border: 0;
 
-    box-shadow:
-        none;
+    box-shadow: none;
 }
 
 
@@ -3148,14 +2545,11 @@ html.show-invitation-gate
 ========================================================= */
 
 .rsvp-couple-signature {
-    display:
-        flex;
+    display: flex;
 
-    flex-direction:
-        column;
+    flex-direction: column;
 
-    align-items:
-        center;
+    align-items: center;
 
     margin:
         24px
@@ -3166,17 +2560,14 @@ html.show-invitation-gate
         "Allura",
         cursive;
 
-    line-height:
-        0.72;
+    line-height: 0.72;
 }
 
 
 .rsvp-kevin {
-    margin-right:
-        42px;
+    margin-right: 42px;
 
-    color:
-        var(--primary);
+    color: var(--primary);
 
     font-size:
         clamp(
@@ -3188,14 +2579,11 @@ html.show-invitation-gate
 
 
 .rsvp-coco {
-    margin-top:
-        9px;
+    margin-top: 9px;
 
-    margin-left:
-        48px;
+    margin-left: 48px;
 
-    color:
-        var(--accent);
+    color: var(--accent);
 
     font-size:
         clamp(
@@ -3212,67 +2600,56 @@ html.show-invitation-gate
         0
         30px;
 
-    color:
-        var(--primary);
+    color: var(--primary);
 
     font-family:
         "GenWanMin2Wedding",
         "Noto Serif TC",
         serif;
 
-    font-size:
-        28px;
+    font-size: 28px;
 
-    font-weight:
-        300;
+    font-weight: 300 !important;
 
-    line-height:
-        1.6;
+    font-synthesis: none;
 
-    letter-spacing:
-        0.11em;
+    line-height: 1.6;
+
+    letter-spacing: 0.11em;
 }
 
 
 .rsvp-couple-chinese i {
-    display:
-        inline-block;
+    display: inline-block;
 
     margin:
         0
         12px;
 
-    color:
-        var(--accent);
+    color: var(--accent);
 
     font-family:
         "Cormorant Garamond",
         serif;
 
-    font-size:
-        0.82em;
+    font-size: 0.82em;
 
-    font-style:
-        italic;
+    font-style: italic;
 
-    font-weight:
-        400;
+    font-weight: 400;
 }
 
 
 .deadline-display {
-    margin-top:
-        18px;
+    margin-top: 18px;
 
-    color:
-        var(--accent);
+    color: var(--accent);
 
     font-family:
         "Noto Serif TC",
         serif;
 
-    font-size:
-        13px;
+    font-size: 13px;
 }
 
 
@@ -3281,96 +2658,76 @@ html.show-invitation-gate
 ========================================================= */
 
 .form-group {
-    margin-bottom:
-        32px;
+    margin-bottom: 32px;
 }
 
 
 .form-group label {
-    display:
-        block;
+    display: block;
 
-    margin-bottom:
-        8px;
+    margin-bottom: 8px;
 
-    color:
-        var(--primary);
+    color: var(--primary);
 
     font-family:
         "Noto Serif TC",
         serif;
 
-    font-size:
-        15px;
+    font-size: 15px;
 
-    font-weight:
-        500;
+    font-weight: 500;
 }
 
 
 .form-group label span {
-    display:
-        block;
+    display: block;
 
-    color:
-        var(--accent);
+    color: var(--accent);
 
     font-family:
         "Cormorant Garamond",
         serif;
 
-    font-size:
-        13px;
+    font-size: 13px;
 
-    letter-spacing:
-        3px;
+    letter-spacing: 3px;
 
-    text-transform:
-        uppercase;
+    text-transform: uppercase;
 }
 
 
 .form-group label b {
-    color:
-        var(--accent);
+    color: var(--accent);
 }
 
 
 .form-group input,
 .form-group select,
 .form-group textarea {
-    display:
-        block;
+    display: block;
 
-    width:
-        100%;
+    width: 100%;
 
     padding:
         12px
         4px;
 
-    color:
-        var(--text);
+    color: var(--text);
 
-    background:
-        transparent;
+    background: transparent;
 
-    border:
-        0;
+    border: 0;
 
     border-bottom:
         1px
         solid
         var(--sage);
 
-    border-radius:
-        0;
+    border-radius: 0;
 
-    font-size:
-        16px;
+    font-size: 16px;
 
-    outline:
-        none;
+    outline: none;
 }
 
 
@@ -3383,20 +2740,16 @@ html.show-invitation-gate
 
 
 .form-group select option {
-    color:
-        var(--text);
+    color: var(--text);
 
-    background:
-        var(--background);
+    background: var(--background);
 }
 
 
 .form-group textarea {
-    min-height:
-        90px;
+    min-height: 90px;
 
-    resize:
-        vertical;
+    resize: vertical;
 }
 
 
@@ -3406,21 +2759,18 @@ html.show-invitation-gate
         0
         0;
 
-    color:
-        var(--text-soft);
+    color: var(--text-soft);
 
     font-family:
         "Noto Serif TC",
         serif;
 
-    font-size:
-        12px;
+    font-size: 12px;
 }
 
 
 .highlighted-help {
-    color:
-        var(--accent);
+    color: var(--accent);
 }
 
 
@@ -3429,8 +2779,7 @@ html.show-invitation-gate
 ========================================================= */
 
 .submit-btn {
-    display:
-        block;
+    display: block;
 
     width:
         min(
@@ -3447,17 +2796,13 @@ html.show-invitation-gate
         14px
         24px;
 
-    color:
-        var(--background);
+    color: var(--background);
 
-    background:
-        var(--primary);
+    background: var(--primary);
 
-    border:
-        0;
+    border: 0;
 
-    cursor:
-        pointer;
+    cursor: pointer;
 
     transition:
         background-color
@@ -3467,60 +2812,48 @@ html.show-invitation-gate
 
 
 .submit-btn:hover {
-    background:
-        var(--accent);
+    background: var(--accent);
 }
 
 
 .submit-btn span {
-    display:
-        block;
+    display: block;
 
     font-family:
         "Cormorant Garamond",
         serif;
 
-    font-size:
-        12px;
+    font-size: 12px;
 
-    letter-spacing:
-        4px;
+    letter-spacing: 4px;
 
-    text-transform:
-        uppercase;
+    text-transform: uppercase;
 }
 
 
 .submit-btn:disabled {
-    opacity:
-        0.55;
+    opacity: 0.55;
 
-    cursor:
-        default;
+    cursor: default;
 }
 
 
 .form-status {
-    min-height:
-        28px;
+    min-height: 28px;
 
-    margin-top:
-        16px;
+    margin-top: 16px;
 
-    text-align:
-        center;
+    text-align: center;
 }
 
 
 .form-status.success {
-    color:
-        var(--primary);
+    color: var(--primary);
 }
 
 
 .form-status.error {
-    color:
-        var(--accent);
+    color: var(--accent);
 }
 
 
@@ -3543,8 +2876,7 @@ html.show-invitation-gate
         34px
         0;
 
-    text-align:
-        center;
+    text-align: center;
 
     border-top:
         1px
@@ -3559,21 +2891,18 @@ html.show-invitation-gate
 
 
 .deadline-main {
-    color:
-        var(--accent);
+    color: var(--accent);
 
     font-family:
         "Noto Serif TC",
         serif;
 
-    font-size:
-        20px;
+    font-size: 20px;
 }
 
 
 .deadline-en {
-    color:
-        var(--primary);
+    color: var(--primary);
 
     font-family:
         "Cormorant Garamond",
@@ -3586,11 +2915,9 @@ html.show-invitation-gate
 ========================================================= */
 
 .back-invitation-wrap {
-    margin-top:
-        60px;
+    margin-top: 60px;
 
-    text-align:
-        center;
+    text-align: center;
 }
 
 
@@ -3599,19 +2926,16 @@ html.show-invitation-gate
         12px
         28px;
 
-    color:
-        var(--primary);
+    color: var(--primary);
 
-    background:
-        transparent;
+    background: transparent;
 
     border:
         1px
         solid
         var(--primary);
 
-    cursor:
-        pointer;
+    cursor: pointer;
 
     transition:
         color
@@ -3624,30 +2948,24 @@ html.show-invitation-gate
 
 
 .back-invitation-button:hover {
-    color:
-        var(--accent);
+    color: var(--accent);
 
-    border-color:
-        var(--accent);
+    border-color: var(--accent);
 }
 
 
 .back-invitation-button span {
-    display:
-        block;
+    display: block;
 
     font-family:
         "Cormorant Garamond",
         serif;
 
-    font-size:
-        11px;
+    font-size: 11px;
 
-    letter-spacing:
-        3px;
+    letter-spacing: 3px;
 
-    text-transform:
-        uppercase;
+    text-transform: uppercase;
 }
 
 
@@ -3656,26 +2974,18 @@ html.show-invitation-gate
 ========================================================= */
 
 .lightbox {
-    position:
-        fixed;
+    position: fixed;
 
-    z-index:
-        9999;
+    z-index: 9999;
 
-    inset:
-        0;
+    inset: 0;
 
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        center;
+    align-items: center;
+    justify-content: center;
 
-    justify-content:
-        center;
-
-    padding:
-        28px;
+    padding: 28px;
 
     background:
         rgba(
@@ -3694,43 +3004,32 @@ html.show-invitation-gate
             94vw
         );
 
-    max-height:
-        88vh;
+    max-height: 88vh;
 
-    object-fit:
-        contain;
+    object-fit: contain;
 }
 
 
 .close-lightbox {
-    position:
-        absolute;
+    position: absolute;
 
     top:
         max(
             16px,
-            env(
-                safe-area-inset-top
-            )
+            env(safe-area-inset-top)
         );
 
-    right:
-        20px;
+    right: 20px;
 
-    color:
-        var(--background);
+    color: var(--background);
 
-    background:
-        transparent;
+    background: transparent;
 
-    border:
-        0;
+    border: 0;
 
-    font-size:
-        44px;
+    font-size: 44px;
 
-    cursor:
-        pointer;
+    cursor: pointer;
 }
 
 
@@ -3743,8 +3042,7 @@ html.show-invitation-gate
         80px
         24px;
 
-    color:
-        var(--text-soft);
+    color: var(--text-soft);
 
     background:
         rgba(
@@ -3754,26 +3052,21 @@ html.show-invitation-gate
             0.48
         );
 
-    text-align:
-        center;
+    text-align: center;
 }
 
 
 .footer-decoration {
-    color:
-        var(--sage);
+    color: var(--sage);
 }
 
 
 .footer-signature {
-    display:
-        flex;
+    display: flex;
 
-    flex-direction:
-        column;
+    flex-direction: column;
 
-    align-items:
-        center;
+    align-items: center;
 
     margin:
         12px
@@ -3784,35 +3077,27 @@ html.show-invitation-gate
         "Allura",
         cursive;
 
-    line-height:
-        0.72;
+    line-height: 0.72;
 }
 
 
 .footer-signature span:first-child {
-    margin-right:
-        35px;
+    margin-right: 35px;
 
-    color:
-        var(--primary);
+    color: var(--primary);
 
-    font-size:
-        44px;
+    font-size: 44px;
 }
 
 
 .footer-signature span:last-child {
-    margin-top:
-        6px;
+    margin-top: 6px;
 
-    margin-left:
-        42px;
+    margin-left: 42px;
 
-    color:
-        var(--accent);
+    color: var(--accent);
 
-    font-size:
-        52px;
+    font-size: 52px;
 }
 
 
@@ -3822,14 +3107,13 @@ html.show-invitation-gate
         "Noto Serif TC",
         serif;
 
-    font-size:
-        17px;
+    font-size: 17px;
 
-    font-weight:
-        300;
+    font-weight: 300 !important;
 
-    letter-spacing:
-        0.12em;
+    font-synthesis: none;
+
+    letter-spacing: 0.12em;
 }
 
 
@@ -3838,31 +3122,25 @@ html.show-invitation-gate
         0
         8px;
 
-    color:
-        var(--accent);
+    color: var(--accent);
 
     font-family:
         "Cormorant Garamond",
         serif;
 
-    font-style:
-        italic;
+    font-style: italic;
 }
 
 
 .footer-line {
-    width:
-        65px;
-
-    height:
-        1px;
+    width: 65px;
+    height: 1px;
 
     margin:
         24px
         auto;
 
-    background:
-        var(--accent);
+    background: var(--accent);
 }
 
 
@@ -3873,14 +3151,10 @@ html.show-invitation-gate
 @media (max-width: 800px) {
 
     .content-section {
-        width:
-            100%;
+        width: 100%;
 
-        padding-left:
-            20px;
-
-        padding-right:
-            20px;
+        padding-left: 20px;
+        padding-right: 20px;
     }
 
 
@@ -3892,26 +3166,22 @@ html.show-invitation-gate
 
 
     .detail-item-wide {
-        grid-column:
-            auto;
+        grid-column: auto;
     }
 
 
     .information-grid {
-        gap:
-            40px;
+        gap: 40px;
     }
 
 
     .information-item:first-child::after {
-        display:
-            none;
+        display: none;
     }
 
 
     .information-item:first-child {
-        padding-bottom:
-            40px;
+        padding-bottom: 40px;
 
         border-bottom:
             1px
@@ -3930,23 +3200,23 @@ html.show-invitation-gate
 
 
     .photo-item:nth-child(even) {
-        transform:
-            none;
+        transform: none;
     }
 
 
     .dress-code-palette {
-        gap:
-            24px;
+        gap: 12px;
+    }
+
+
+    .dress-color-item {
+        width: 85px;
     }
 
 
     .dress-color-circle {
-        width:
-            64px;
-
-        height:
-            64px;
+        width: 60px;
+        height: 60px;
     }
 
 }
@@ -3962,16 +3232,12 @@ html.show-invitation-gate
         padding:
             max(
                 18px,
-                env(
-                    safe-area-inset-top
-                )
+                env(safe-area-inset-top)
             )
             13px
             max(
                 18px,
-                env(
-                    safe-area-inset-bottom
-                )
+                env(safe-area-inset-bottom)
             );
     }
 
@@ -3982,62 +3248,48 @@ html.show-invitation-gate
             58px
             1fr;
 
-        gap:
-            7px;
+        gap: 7px;
     }
 
 
     .gate-monogram-row p {
-        font-size:
-            10px;
+        font-size: 10px;
 
-        letter-spacing:
-            0.17em;
+        letter-spacing: 0.17em;
     }
 
 
     .monogram-logo {
-        width:
-            58px;
-
-        height:
-            58px;
+        width: 58px;
+        height: 58px;
     }
 
 
     .gate-main-invitation {
-        font-size:
-            11px;
+        font-size: 11px;
 
-        letter-spacing:
-            0.12em;
+        letter-spacing: 0.12em;
     }
 
 
     .gate-english-invitation {
-        font-size:
-            10px;
+        font-size: 10px;
 
-        letter-spacing:
-            0.2em;
+        letter-spacing: 0.2em;
     }
 
 
     .gate-name-kevin {
-        margin-right:
-            32px;
+        margin-right: 32px;
 
-        font-size:
-            38px;
+        font-size: 38px;
     }
 
 
     .gate-name-coco {
-        margin-left:
-            40px;
+        margin-left: 40px;
 
-        font-size:
-            49px;
+        font-size: 49px;
     }
 
 
@@ -4050,24 +3302,17 @@ html.show-invitation-gate
     }
 
 
-    /* KC Logo 手機版也放更下面 */
-
     .envelope-front-logo {
-        width:
-            50px;
+        width: 50px;
+        height: 50px;
 
-        height:
-            50px;
-
-        top:
-            78%;
+        top: 78%;
     }
 
 
     .hero-section,
     .hero-content {
-        min-height:
-            88svh;
+        min-height: 88svh;
     }
 
 
@@ -4079,8 +3324,7 @@ html.show-invitation-gate
 
 
     .hero-card {
-        width:
-            100%;
+        width: 100%;
 
         padding:
             38px
@@ -4088,15 +3332,18 @@ html.show-invitation-gate
     }
 
 
+    /* 首頁姓名維持細字 */
+
     .hero-couple-title {
-        font-size:
-            37px;
+        font-size: 36px;
 
-        line-height:
-            1.5;
+        font-weight: 300 !important;
 
-        letter-spacing:
-            0.07em;
+        font-synthesis: none;
+
+        line-height: 1.5;
+
+        letter-spacing: 0.06em;
     }
 
 
@@ -4108,41 +3355,33 @@ html.show-invitation-gate
 
 
     .hero-date {
-        font-size:
-            17px;
+        font-size: 17px;
 
-        letter-spacing:
-            2px;
+        letter-spacing: 2px;
     }
 
 
     .hero-date-line2 {
-        font-size:
-            16px;
+        font-size: 16px;
 
-        white-space:
-            nowrap;
+        white-space: nowrap;
     }
 
 
     .hero-invitation-zh {
-        font-size:
-            13px;
+        font-size: 13px;
 
-        line-height:
-            1.9;
+        line-height: 1.9;
     }
 
 
     .hero-invitation-en {
-        font-size:
-            12px;
+        font-size: 12px;
     }
 
 
     .desktop-break {
-        display:
-            none;
+        display: none;
     }
 
 
@@ -4150,32 +3389,25 @@ html.show-invitation-gate
     .content-section,
     .moments-section,
     .rsvp-section {
-        padding-top:
-            78px;
-
-        padding-bottom:
-            78px;
+        padding-top: 78px;
+        padding-bottom: 78px;
     }
 
 
     .section-heading h2 {
-        font-size:
-            28px;
+        font-size: 28px;
 
-        letter-spacing:
-            3px;
+        letter-spacing: 3px;
     }
 
 
     .editorial-image-frame {
-        margin-bottom:
-            44px;
+        margin-bottom: 44px;
     }
 
 
     .detail-grid {
-        gap:
-            0;
+        gap: 0;
     }
 
 
@@ -4188,150 +3420,127 @@ html.show-invitation-gate
 
 
     .detail-item-wide {
-        padding-top:
-            36px;
+        padding-top: 36px;
     }
 
 
     /* =====================================================
-       Dress Code - Mobile
+       Dress Code Mobile
+       六顆維持同一排
     ====================================================== */
 
     .dress-code-section {
-        margin-top:
-            62px;
+        margin-top: 62px;
 
-        padding-top:
-            44px;
+        padding-top: 44px;
     }
 
 
     .dress-code-heading h3 {
-        font-size:
-            23px;
+        font-size: 23px;
     }
 
 
     .dress-code-introduction {
-        font-size:
-            13px;
+        font-size: 13px;
     }
 
 
     .dress-code-introduction-en {
-        font-size:
-            12px;
+        font-size: 12px;
     }
 
 
     .dress-code-palette {
-        width:
-            100%;
+        display: flex;
 
-        gap:
-            4px;
+        width: 100%;
 
-        margin-top:
-            28px;
+        gap: 2px;
+
+        margin-top: 28px;
     }
 
 
     .dress-color-item {
-        flex:
-            1;
+        flex: 1;
 
-        width:
-            auto;
+        width: auto;
 
-        min-width:
-            0;
+        min-width: 0;
     }
 
 
     .dress-color-circle {
         width:
             clamp(
-                48px,
-                14vw,
-                58px
+                38px,
+                10.5vw,
+                46px
             );
 
         height:
             clamp(
-                48px,
-                14vw,
-                58px
+                38px,
+                10.5vw,
+                46px
             );
     }
 
 
     .dress-color-item p {
-        margin-top:
-            8px;
+        margin-top: 7px;
 
-        font-size:
-            11px;
-    }
+        font-size: 9px;
 
+        letter-spacing: 0;
 
-    .dress-color-item small {
-        font-size:
-            10px;
+        white-space: nowrap;
     }
 
 
     .dress-color-item span {
-        font-size:
-            8px;
+        font-size: 7px;
 
-        letter-spacing:
-            0;
+        letter-spacing: 0;
+
+        white-space: nowrap;
     }
 
 
     /* =====================================================
-       Timeline Mobile
+       Timeline
     ====================================================== */
 
     .timeline-board-title {
-        gap:
-            12px;
+        gap: 12px;
     }
 
 
     .timeline-board-icon {
-        width:
-            42px;
+        width: 42px;
+        height: 42px;
 
-        height:
-            42px;
-
-        font-size:
-            22px;
+        font-size: 22px;
     }
 
 
     .timeline-board-heading {
-        gap:
-            11px;
+        gap: 11px;
     }
 
 
     .timeline-board-heading span {
-        font-size:
-            15px;
+        font-size: 15px;
 
-        letter-spacing:
-            3px;
+        letter-spacing: 3px;
     }
 
 
     .timeline-board-heading h3 {
-        font-size:
-            21px;
+        font-size: 21px;
 
-        letter-spacing:
-            3px;
+        letter-spacing: 3px;
     }
 
 
@@ -4340,50 +3549,40 @@ html.show-invitation-gate
             58px
             1fr;
 
-        gap:
-            10px;
+        gap: 10px;
     }
 
 
     .timeline-dot {
-        width:
-            42px;
+        width: 42px;
+        height: 42px;
 
-        height:
-            42px;
-
-        font-size:
-            18px;
+        font-size: 18px;
     }
 
 
     .timeline-line {
-        top:
-            42px;
+        top: 42px;
     }
 
 
     .timeline-title {
-        font-size:
-            16px;
+        font-size: 16px;
     }
 
 
     .timeline-subtitle {
-        font-size:
-            14px;
+        font-size: 14px;
     }
 
 
     .map-container iframe {
-        height:
-            290px;
+        height: 290px;
     }
 
 
     .photo-grid {
-        gap:
-            8px;
+        gap: 8px;
     }
 
 
@@ -4396,29 +3595,27 @@ html.show-invitation-gate
 
 
     .rsvp-kevin {
-        font-size:
-            40px;
+        font-size: 40px;
     }
 
 
     .rsvp-coco {
-        font-size:
-            50px;
+        font-size: 50px;
     }
 
 
     .rsvp-couple-chinese {
-        margin-top:
-            5px;
+        margin-top: 5px;
 
-        margin-bottom:
-            28px;
+        margin-bottom: 28px;
 
-        font-size:
-            24px;
+        font-size: 24px;
 
-        letter-spacing:
-            0.06em;
+        font-weight: 300 !important;
+
+        font-synthesis: none;
+
+        letter-spacing: 0.06em;
     }
 
 
@@ -4430,8 +3627,7 @@ html.show-invitation-gate
 
 
     .submit-btn {
-        width:
-            100%;
+        width: 100%;
     }
 
 }
@@ -4447,23 +3643,19 @@ html.show-invitation-gate
     (max-width: 500px) {
 
     .gate-title {
-        margin-bottom:
-            8px;
+        margin-bottom: 8px;
     }
 
 
     .gate-monogram-row {
-        margin-bottom:
-            10px;
+        margin-bottom: 10px;
     }
 
 
     .gate-couple-names {
-        margin-top:
-            7px;
+        margin-top: 7px;
 
-        margin-bottom:
-            12px;
+        margin-bottom: 12px;
     }
 
 
@@ -4477,8 +3669,7 @@ html.show-invitation-gate
 
 
     .gate-instruction {
-        margin-top:
-            10px;
+        margin-top: 10px;
     }
 
 }
