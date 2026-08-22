@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
 
@@ -13,7 +14,7 @@
         content="周愷元與陳佳惠的婚禮邀請函"
     >
 
-    <title>Kevin & Coco's Wedding Invitation</title>
+    <title>Wedding Invitation</title>
 
     <link
         rel="preconnect"
@@ -27,12 +28,13 @@
     >
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;500;600&family=LXGW+WenKai+TC:wght@300;400;700&family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@400;500;600;700&display=swap"
         rel="stylesheet"
     >
 
     <script>
         (function () {
+
             const params =
                 new URLSearchParams(
                     window.location.search
@@ -48,30 +50,47 @@
                 locationKey;
 
             try {
+
                 if (
                     window.sessionStorage.getItem(
                         sessionKey
                     ) !== "true"
                 ) {
-                    document.documentElement.classList.add(
+
+                    document.documentElement
+                        .classList
+                        .add(
+                            "show-invitation-gate"
+                        );
+
+                }
+
+            }
+            catch (error) {
+
+                document.documentElement
+                    .classList
+                    .add(
                         "show-invitation-gate"
                     );
-                }
-            } catch (error) {
-                document.documentElement.classList.add(
-                    "show-invitation-gate"
-                );
+
             }
+
         })();
     </script>
 
     <link
         rel="stylesheet"
-        href="./style.css?v=20260810-01"
+        href="./style.css?v=20260822-01"
     >
 </head>
 
+
 <body>
+
+    <!-- =====================================================
+         背景音樂
+    ====================================================== -->
 
     <audio
         id="bg-music"
@@ -125,6 +144,7 @@
                     誠 摯 邀 請
                 </p>
 
+
                 <div class="monogram-logo">
 
                     <img
@@ -133,6 +153,7 @@
                     >
 
                 </div>
+
 
                 <p>
                     蒞 臨 喜 宴
@@ -164,6 +185,10 @@
             </div>
 
 
+            <!-- =================================================
+                 信封
+            ================================================== -->
+
             <button
                 type="button"
                 id="envelope-button"
@@ -175,6 +200,8 @@
 
                     <span class="envelope-back"></span>
 
+
+                    <!-- 開信封後升起的邀請卡 -->
 
                     <span class="envelope-card">
 
@@ -208,7 +235,8 @@
                     <span class="envelope-flap"></span>
 
 
-                    <!-- KC Logo 固定於信封正面偏下方 -->
+                    <!-- KC Logo 位於信封正面下半部 -->
+
                     <span class="envelope-front-logo">
 
                         <img
@@ -307,10 +335,12 @@
 
                 <h1
                     id="page-title"
-                    class="hero-couple-title"
+                    class="hero-couple-title couple-chinese-font"
                 >
                     周愷元
+
                     <em>&amp;</em>
+
                     陳佳惠
                 </h1>
 
@@ -428,6 +458,7 @@
                     ❧
                 </span>
 
+
                 <div>
 
                     <p
@@ -441,6 +472,7 @@
                     ></p>
 
                 </div>
+
 
                 <span
                     class="notice-leaf notice-leaf-right"
@@ -469,6 +501,7 @@
                 <h2>
                     婚禮資訊
                 </h2>
+
 
                 <div class="section-divider">
 
@@ -502,6 +535,8 @@
 
             </div>
 
+
+            <!-- 日期 / 時間 / 地點 -->
 
             <div class="detail-grid">
 
@@ -595,14 +630,16 @@
                         婚禮穿搭
                     </h3>
 
+
                     <p class="dress-code-introduction">
-                        歡迎以自然、柔和的大地色系盛裝出席，
+                        歡迎以柔和的大地色系與沉穩自然色調盛裝出席，
                         一同融入我們婚禮的色彩。
                     </p>
 
+
                     <p class="dress-code-introduction-en">
                         We would love for you to join us
-                        in these soft, natural and earthy tones.
+                        in these soft, earthy and timeless tones.
                     </p>
 
                 </div>
@@ -613,91 +650,129 @@
                     aria-label="婚禮 Dress Code 色系"
                 >
 
-                    <div class="dress-color-item">
-
-                        <div
-                            class="dress-color-circle"
-                            style="background-color: #6F7C5B;"
-                        ></div>
-
-                        <p>
-                            深綠
-                        </p>
-
-                        <span>
-                            #6F7C5B
-                        </span>
-
-                    </div>
-
+                    <!-- 米白：兩種皆可 -->
 
                     <div class="dress-color-item">
 
                         <div
-                            class="dress-color-circle"
-                            style="background-color: #8FA78E;"
-                        ></div>
-
-                        <p>
-                            灰綠
-                        </p>
-
-                        <span>
-                            #8FA78E
-                        </span>
-
-                    </div>
-
-
-                    <div class="dress-color-item">
-
-                        <div
-                            class="dress-color-circle"
-                            style="background-color: #D8A7A1;"
-                        ></div>
-
-                        <p>
-                            灰粉
-                        </p>
-
-                        <span>
-                            #D8A7A1
-                        </span>
-
-                    </div>
-
-
-                    <div class="dress-color-item">
-
-                        <div
-                            class="dress-color-circle"
-                            style="background-color: #B8A79A;"
-                        ></div>
-
-                        <p>
-                            裸棕
-                        </p>
-
-                        <span>
-                            #B8A79A
-                        </span>
-
-                    </div>
-
-
-                    <div class="dress-color-item">
-
-                        <div
-                            class="dress-color-circle dress-color-light"
-                            style="background-color: #F5F1EA;"
+                            class="dress-color-circle dress-color-split"
+                            style="
+                                background:
+                                linear-gradient(
+                                    90deg,
+                                    #F5F5DC 0%,
+                                    #F5F5DC 50%,
+                                    #F8F4E3 50%,
+                                    #F8F4E3 100%
+                                );
+                            "
                         ></div>
 
                         <p>
                             米白
                         </p>
 
+                        <small>
+                            Ivory
+                        </small>
+
                         <span>
-                            #F5F1EA
+                            #F5F5DC
+                        </span>
+
+                        <span>
+                            #F8F4E3
+                        </span>
+
+                    </div>
+
+
+                    <!-- 卡其：兩種皆可 -->
+
+                    <div class="dress-color-item">
+
+                        <div
+                            class="dress-color-circle dress-color-split"
+                            style="
+                                background:
+                                linear-gradient(
+                                    90deg,
+                                    #C3B091 0%,
+                                    #C3B091 50%,
+                                    #D2B48C 50%,
+                                    #D2B48C 100%
+                                );
+                            "
+                        ></div>
+
+                        <p>
+                            卡其
+                        </p>
+
+                        <small>
+                            Beige
+                        </small>
+
+                        <span>
+                            #C3B091
+                        </span>
+
+                        <span>
+                            #D2B48C
+                        </span>
+
+                    </div>
+
+
+                    <!-- 深橄欖 -->
+
+                    <div class="dress-color-item">
+
+                        <div
+                            class="dress-color-circle"
+                            style="
+                                background-color:
+                                #3B3C2A;
+                            "
+                        ></div>
+
+                        <p>
+                            深橄欖
+                        </p>
+
+                        <small>
+                            Deep Olive
+                        </small>
+
+                        <span>
+                            #3B3C2A
+                        </span>
+
+                    </div>
+
+
+                    <!-- 炭灰 -->
+
+                    <div class="dress-color-item">
+
+                        <div
+                            class="dress-color-circle"
+                            style="
+                                background-color:
+                                #36454F;
+                            "
+                        ></div>
+
+                        <p>
+                            炭灰
+                        </p>
+
+                        <small>
+                            Charcoal
+                        </small>
+
+                        <span>
+                            #36454F
                         </span>
 
                     </div>
@@ -730,6 +805,7 @@
                     Wedding Day Schedule
                 </p>
 
+
                 <div class="section-divider">
 
                     <span></span>
@@ -750,6 +826,7 @@
                     <div class="timeline-board-icon">
                         ◷
                     </div>
+
 
                     <div class="timeline-board-heading">
 
@@ -791,6 +868,7 @@
                 <h2>
                     地點與交通資訊
                 </h2>
+
 
                 <div class="section-divider">
 
@@ -850,7 +928,7 @@
                     </p>
 
                     <h3>
-                        大眾運輸與交通
+                        大眾運輸與接駁
                     </h3>
 
                     <div
@@ -903,6 +981,7 @@
                     Moments We Cherish Together<br>
                     我們珍藏的每一個瞬間
                 </p>
+
 
                 <div class="section-divider">
 
@@ -960,9 +1039,11 @@
                     </div>
 
 
-                    <p class="rsvp-couple-chinese">
+                    <p class="rsvp-couple-chinese couple-chinese-font">
                         周愷元
+
                         <i>×</i>
+
                         陳佳惠
                     </p>
 
@@ -1003,6 +1084,8 @@
                         >
 
 
+                        <!-- 姓名 -->
+
                         <div class="form-group">
 
                             <label for="guest-name">
@@ -1029,6 +1112,8 @@
 
                         </div>
 
+
+                        <!-- 關係 -->
 
                         <div class="form-group">
 
@@ -1083,6 +1168,8 @@
                         </div>
 
 
+                        <!-- 電話 -->
+
                         <div class="form-group">
 
                             <label for="phone">
@@ -1110,6 +1197,8 @@
 
                         </div>
 
+
+                        <!-- 是否出席 -->
 
                         <div class="form-group">
 
@@ -1149,6 +1238,8 @@
                             class="conditional-fields"
                         >
 
+                            <!-- 南投證婚 -->
+
                             <div
                                 id="field-ceremony"
                                 class="form-group"
@@ -1187,6 +1278,8 @@
                             </div>
 
 
+                            <!-- 人數 -->
+
                             <div class="form-group">
 
                                 <label for="attend-count">
@@ -1195,7 +1288,7 @@
                                         Total Guest Count
                                     </span>
 
-                                    總出席人數
+                                    包含您在內，總出席人數
 
                                     <b>*</b>
 
@@ -1220,6 +1313,8 @@
                             </div>
 
 
+                            <!-- 兒童座椅＋餐具 -->
+
                             <div class="form-group">
 
                                 <label for="child-set-count">
@@ -1228,7 +1323,7 @@
                                         Child Seat & Tableware Sets
                                     </span>
 
-                                    兒童座椅及餐具組數量
+                                    需要兒童座椅及餐具組的數量
 
                                 </label>
 
@@ -1249,6 +1344,8 @@
 
                             </div>
 
+
+                            <!-- 餐點 -->
 
                             <div class="form-group">
 
@@ -1290,12 +1387,14 @@
                                     class="field-help highlighted-help"
                                     hidden
                                 >
-                                    請於下方「食物過敏或特殊需求」欄位說明餐點需求。<br>
+                                    請於下方「食物過敏或特殊需求」註明需求。<br>
                                     Please describe your meal requirements below.
                                 </p>
 
                             </div>
 
+
+                            <!-- 素食人數 -->
 
                             <div
                                 id="field-veg-count"
@@ -1325,6 +1424,8 @@
                             </div>
 
 
+                            <!-- 特殊需求 -->
+
                             <div class="form-group">
 
                                 <label for="food-allergy">
@@ -1349,6 +1450,8 @@
 
                         </div>
 
+
+                        <!-- 留言 -->
 
                         <div class="form-group">
 
@@ -1400,6 +1503,8 @@
                 </div>
 
 
+                <!-- RSVP 截止 -->
+
                 <div
                     id="deadline-notice"
                     class="deadline-notice"
@@ -1424,6 +1529,8 @@
 
                 </div>
 
+
+                <!-- 返回信封 -->
 
                 <div class="back-invitation-wrap">
 
@@ -1451,7 +1558,7 @@
 
 
     <!-- =====================================================
-         Lightbox
+         照片燈箱
     ====================================================== -->
 
     <div
@@ -1506,9 +1613,11 @@
         </div>
 
 
-        <p class="footer-chinese-names">
+        <p class="footer-chinese-names couple-chinese-font">
             周愷元
+
             <i>×</i>
+
             陳佳惠
         </p>
 
@@ -1527,11 +1636,18 @@
     </footer>
 
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script
+        src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"
+    ></script>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script
+        src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"
+    ></script>
 
-    <script src="./app.js?v=20260808-02"></script>
+    <script
+        src="./app.js?v=20260822-01"
+    ></script>
 
 </body>
+
 </html>

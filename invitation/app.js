@@ -6,6 +6,7 @@
 ========================================================= */
 
 const firebaseConfig = {
+
     apiKey:
         "AIzaSyAsSnOUE0WyuWhC62njgfEW8j6NyZHDhzI",
 
@@ -29,6 +30,7 @@ const firebaseConfig = {
 
     measurementId:
         "G-XDE62910SE"
+
 };
 
 
@@ -50,7 +52,9 @@ try {
     }
 
 
-    if (!firebase.apps.length) {
+    if (
+        !firebase.apps.length
+    ) {
 
         firebase.initializeApp(
             firebaseConfig
@@ -137,7 +141,7 @@ const GOOGLE_FORM_ENTRY = {
 
 
 /* =========================================================
-   共用圖片
+   Shared Images
 ========================================================= */
 
 const sharedImages = {
@@ -146,17 +150,22 @@ const sharedImages = {
         "./images/hero-cover.jpg",
 
     moments: [
+
         "./images/moment-01.jpg",
+
         "./images/moment-02.jpg",
+
         "./images/moment-03.jpg",
+
         "./images/moment-04.jpg"
+
     ]
 
 };
 
 
 /* =========================================================
-   婚禮設定
+   Wedding Configuration
 ========================================================= */
 
 const weddingConfig = {
@@ -174,7 +183,9 @@ const weddingConfig = {
 
 
         const requestedLocation =
-            params.get("loc");
+            params.get(
+                "loc"
+            );
 
 
         if (
@@ -230,16 +241,20 @@ const weddingConfig = {
                 "台南場婚禮倒數 Wedding Countdown",
 
 
+            /* =============================================
+               RSVP 截止：2026/11/30
+            ============================================= */
+
             rsvpDeadline:
-                "2026-12-31T23:59:59+08:00",
+                "2026-11-30T23:59:59+08:00",
 
 
             rsvpDeadlineZh:
-                "2026 年 12 月 31 日 23:59",
+                "2026 年 11 月 30 日 23:59",
 
 
             rsvpDeadlineEn:
-                "December 31, 2026 at 11:59 PM",
+                "November 30, 2026 at 11:59 PM",
 
 
             venueName:
@@ -251,8 +266,12 @@ const weddingConfig = {
 
 
             venueDetail: `
+
                 <p>
-                    <strong>宴會廳：</strong>
+                    <strong>
+                        宴會廳：
+                    </strong>
+
                     2F 明倫＋仁德廳
                 </p>
 
@@ -260,6 +279,7 @@ const weddingConfig = {
                     Ballroom:
                     2F Minglun & Rende Ballroom
                 </p>
+
             `,
 
 
@@ -282,6 +302,7 @@ const weddingConfig = {
             timelineItems: [
 
                 {
+
                     time:
                         "11:30",
 
@@ -296,9 +317,11 @@ const weddingConfig = {
 
                     note:
                         ""
+
                 },
 
                 {
+
                     time:
                         "12:00",
 
@@ -313,6 +336,7 @@ const weddingConfig = {
 
                     note:
                         "2F 明倫＋仁德廳"
+
                 }
 
             ],
@@ -327,68 +351,110 @@ const weddingConfig = {
 
 
             trafficInfo: `
+
                 <p>
-                    <strong>高鐵：</strong>
+
+                    <strong>
+                        高鐵：
+                    </strong>
+
                     搭乘高鐵至高鐵台南站，
                     可轉乘高鐵快捷公車 H31，
                     於「小西門站」下車。
 
                     <span class="en-line">
+
                         HSR:
                         Take the H31 shuttle bus
                         from Tainan HSR Station
                         and get off at Xiaoximen Station.
+
                     </span>
+
                 </p>
 
+
                 <p>
-                    <strong>台鐵：</strong>
+
+                    <strong>
+                        台鐵：
+                    </strong>
+
                     抵達台南火車站後，
                     可轉乘計程車前往，
                     車程約 10 分鐘。
 
                     <span class="en-line">
+
                         TRA:
-                        A taxi ride from Tainan Railway Station
-                        takes approximately 10 minutes.
+                        A taxi ride from
+                        Tainan Railway Station
+                        takes approximately
+                        10 minutes.
+
                     </span>
+
                 </p>
 
+
                 <p>
-                    <strong>自行開車：</strong>
+
+                    <strong>
+                        自行開車：
+                    </strong>
+
                     可使用上方 Google Maps
                     導航至台南晶英酒店。
 
                     <span class="en-line">
+
                         Driving:
                         Use Google Maps
-                        for directions to Silks Place Tainan.
+                        for directions to
+                        Silks Place Tainan.
+
                     </span>
+
                 </p>
+
             `,
 
 
             parkingInfo: `
+
                 <p>
-                    餐會提供每台車至多
-                    4 小時停車折抵。
+
+                    餐會提供每台車
+                    至多 4 小時停車折抵。
 
                     <span class="en-line">
+
                         Wedding guests may receive
-                        up to four hours of parking validation
+                        up to four hours
+                        of parking validation
                         per vehicle.
+
                     </span>
+
                 </p>
 
+
                 <p>
+
                     請於離場前依飯店
                     現場指示辦理停車折抵。
 
                     <span class="en-line">
+
                         Please follow the hotel's
-                        on-site instructions before departure.
+                        on-site instructions
+                        to validate your parking
+                        before departure.
+
                     </span>
+
                 </p>
+
             `,
 
 
@@ -403,7 +469,7 @@ const weddingConfig = {
 
 
         /* =================================================
-           南投
+           南投 / 日月潭
         ================================================= */
 
         nantou: {
@@ -436,16 +502,20 @@ const weddingConfig = {
                 "南投場婚禮倒數 Wedding Countdown",
 
 
+            /* =============================================
+               RSVP 截止：2026/11/30
+            ============================================= */
+
             rsvpDeadline:
-                "2026-12-31T23:59:59+08:00",
+                "2026-11-30T23:59:59+08:00",
 
 
             rsvpDeadlineZh:
-                "2026 年 12 月 31 日 23:59",
+                "2026 年 11 月 30 日 23:59",
 
 
             rsvpDeadlineEn:
-                "December 31, 2026 at 11:59 PM",
+                "November 30, 2026 at 11:59 PM",
 
 
             venueName:
@@ -457,25 +527,44 @@ const weddingConfig = {
 
 
             venueDetail: `
+
                 <p>
-                    <strong>證婚地點：</strong>
+
+                    <strong>
+                        證婚地點：
+                    </strong>
+
                     8F 星光露台
+
                 </p>
 
+
                 <p class="en-line">
+
                     Ceremony:
                     8F Starlight Terrace
+
                 </p>
+
 
                 <p>
-                    <strong>用餐地點：</strong>
+
+                    <strong>
+                        用餐地點：
+                    </strong>
+
                     7F 湖光軒
+
                 </p>
 
+
                 <p class="en-line">
+
                     Luncheon:
                     7F Lakeview Pavilion
+
                 </p>
+
             `,
 
 
@@ -498,6 +587,7 @@ const weddingConfig = {
             timelineItems: [
 
                 {
+
                     time:
                         "10:30",
 
@@ -512,9 +602,11 @@ const weddingConfig = {
 
                     note:
                         "8F 星光露台 · Starlight Terrace"
+
                 },
 
                 {
+
                     time:
                         "11:30",
 
@@ -529,9 +621,11 @@ const weddingConfig = {
 
                     note:
                         "7F 湖光軒 · Lakeview Pavilion"
+
                 },
 
                 {
+
                     time:
                         "12:15",
 
@@ -546,6 +640,7 @@ const weddingConfig = {
 
                     note:
                         "7F 湖光軒 · Lakeview Pavilion"
+
                 }
 
             ],
@@ -559,72 +654,294 @@ const weddingConfig = {
                 "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3648.750948355145!2d120.90602371163745!3d23.862975978504466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3468d60f0d7e1f0b%3A0xa748afffa2011207!2z5pel5pyI5r2t5ra156Kn5qiT!5e0!3m2!1szh-TW!2stw!4v1785571059341!5m2!1szh-TW!2stw",
 
 
+            /* =============================================
+               南投場交通資訊
+            ============================================= */
+
             trafficInfo: `
-                <p>
-                    <strong>南投客運：</strong>
-                    搭乘南投客運由台中干城車站發車，
-                    經台中火車站、高鐵台中烏日站、
-                    埔里至日月潭，
-                    約每小時一班車。
-
-                    <span class="en-line">
-                        Nantou Bus departs from
-                        Taichung Gancheng Station
-                        via Taichung Railway Station,
-                        Taichung HSR Station and Puli
-                        to Sun Moon Lake.
-                    </span>
-                </p>
 
                 <p>
-                    詳細時刻表請聯絡
-                    南投客運埔里站：
-                    <a href="tel:0492984031">
-                        049-2984031
-                    </a>。
+
+                    <strong>
+                        台灣好行 6670 日月潭線：
+                    </strong>
+
+                    可由台中市區搭乘
+                    台灣好行 6670 日月潭線前往日月潭。
+                    路線停靠
+                    「臺中車站（民族路口）」
+                    與「高鐵臺中站」，
+                    建議搭乘至
+                    <strong>水社站</strong>
+                    下車。
 
                     <span class="en-line">
-                        For the detailed timetable,
-                        contact Nantou Bus Puli Station.
+
+                        Taiwan Tourist Shuttle 6670:
+                        The Sun Moon Lake route serves
+                        Taichung Railway Station
+                        and Taichung HSR Station.
+                        Please get off at
+                        Shuishe Station.
+
                     </span>
+
                 </p>
+
 
                 <p>
-                    抵達日月潭車站終點後
-                    （即水社遊客中心），
-                    步行約 15 分鐘即可抵達涵碧樓。
+
+                    抵達水社站後，
+                    請步行前往
+                    <strong>
+                        中興停車場接駁地點
+                    </strong>
+                    ，抵達後再以電話聯絡
+                    涵碧樓接駁車前來接送。
+
+                    <br>
+
+                    <a
+                        class="shuttle-link"
+                        href="https://maps.app.goo.gl/8hMTiDvCu5Q34TfM8?g_st=il"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        中興停車場接駁地點 Google Maps →
+                    </a>
 
                     <span class="en-line">
-                        From Shuishe Visitor Center,
-                        The Lalu is approximately
-                        a 15-minute walk.
+
+                        After arriving at Shuishe,
+                        please walk to the
+                        Chunghsing Parking Lot
+                        shuttle pick-up point.
+                        Once you arrive,
+                        call the hotel shuttle
+                        for pick-up.
+
                     </span>
+
                 </p>
+
+
+                <p>
+
+                    <strong>
+                        涵碧樓接駁車：
+                    </strong>
+
+                    婚禮當日提供
+                    中興停車場與涵碧樓間的
+                    往返接駁服務，
+                    <strong>無固定班次</strong>。
+                    抵達接駁地點後
+                    請直接致電接駁司機，
+                    一般等候時間約
+                    <strong>5 分鐘內</strong>。
+
+                    <span class="en-line">
+
+                        Hotel Shuttle:
+                        A shuttle will operate
+                        between Chunghsing Parking Lot
+                        and The Lalu on the wedding day.
+                        There is no fixed timetable.
+                        Please call the shuttle driver
+                        after reaching the pick-up point.
+                        Pick-up is generally
+                        within approximately five minutes.
+
+                    </span>
+
+                </p>
+
+
+                <p class="transport-note">
+
+                    接駁車之司機、
+                    車號及車型可能依當日安排調整，
+                    請以婚禮當日提供的最新資訊為準。
+
+                    <span class="en-line">
+
+                        Shuttle driver,
+                        vehicle and license plate
+                        may vary.
+                        Please refer to the latest
+                        information provided
+                        on the wedding day.
+
+                    </span>
+
+                </p>
+
+
+                <p>
+
+                    <a
+                        href="https://www.taiwantrip.com.tw/Frontend/Bustime/TimeTable/R0005"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        台灣好行 6670 日月潭線最新時刻表 →
+                    </a>
+
+                    <span class="en-line">
+
+                        Bus routes and schedules
+                        may change before the event.
+                        Please check the latest
+                        Taiwan Tourist Shuttle timetable
+                        before departure.
+
+                    </span>
+
+                </p>
+
             `,
 
 
+            /* =============================================
+               南投場停車資訊
+            ============================================= */
+
             parkingInfo: `
-                <p>
-                    抵達涵碧樓飯店入口後，
-                    請依現場服務人員指示
-                    辦理停車或代客泊車。
-
-                    <span class="en-line">
-                        Upon arrival,
-                        please follow staff instructions
-                        for parking or valet service.
-                    </span>
-                </p>
 
                 <p>
-                    婚宴賓客的停車安排及費用，
-                    請以婚宴當日飯店現場公告為準。
+
+                    <strong>
+                        涵碧樓館內停車：
+                    </strong>
+
+                    婚禮當日若館內仍有停車位，
+                    賓客可直接將車輛
+                    停放於涵碧樓館內，
+                    <strong>賓客停車免費</strong>，
+                    抵達後請依飯店
+                    安全部同仁現場引導停車。
 
                     <span class="en-line">
-                        Parking arrangements and fees
-                        are subject to event-day instructions.
+
+                        Hotel Parking:
+                        If spaces are available,
+                        wedding guests may park
+                        inside The Lalu free of charge.
+                        Please follow the directions
+                        of the hotel staff upon arrival.
+
                     </span>
+
                 </p>
+
+
+                <p>
+
+                    <strong>
+                        館內停車位客滿時：
+                    </strong>
+
+                    如涵碧樓館內停車位已滿，
+                    請依現場人員指示
+                    前往山下的
+                    <strong>
+                        中興停車場
+                    </strong>
+                    停車。
+
+                    <br>
+
+                    <a
+                        class="shuttle-link"
+                        href="https://maps.app.goo.gl/8hMTiDvCu5Q34TfM8?g_st=il"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        中興停車場導航 →
+                    </a>
+
+                    <span class="en-line">
+
+                        If hotel parking is full,
+                        please park at
+                        Chunghsing Parking Lot
+                        downhill as directed
+                        by hotel staff.
+
+                    </span>
+
+                </p>
+
+
+                <p>
+
+                    中興停車場為
+                    <strong>
+                        自費公共停車場
+                    </strong>
+                    ，停車費需自行負擔，
+                    飯店無提供停車費折抵。
+
+                    <span class="en-line">
+
+                        Chunghsing Parking Lot
+                        is a paid public parking lot.
+                        Parking fees are at
+                        the guest's own expense
+                        and are not reimbursed
+                        or validated by the hotel.
+
+                    </span>
+
+                </p>
+
+
+                <p>
+
+                    車輛停妥後，
+                    請步行至
+                    <strong>
+                        中興停車場出入口
+                        （7-Eleven 正對面）
+                    </strong>
+                    等候，
+                    並致電接駁司機
+                    前來接送至涵碧樓。
+
+                    <span class="en-line">
+
+                        After parking,
+                        please wait near the
+                        Chunghsing Parking Lot entrance
+                        opposite 7-Eleven
+                        and call the shuttle driver
+                        for transportation to The Lalu.
+
+                    </span>
+
+                </p>
+
+
+                <p>
+
+                    婚禮當日亦提供
+                    涵碧樓至中興停車場的
+                    回程接駁服務；
+                    宴會結束離場時，
+                    可依現場指示搭乘接駁車取車。
+
+                    <span class="en-line">
+
+                        Return shuttle service
+                        from The Lalu to
+                        Chunghsing Parking Lot
+                        will also be available
+                        on the wedding day.
+
+                    </span>
+
+                </p>
+
             `,
 
 
@@ -643,10 +960,12 @@ const weddingConfig = {
 
 
 /* =========================================================
-   DOM
+   DOM Helpers
 ========================================================= */
 
-function getElement(id) {
+function getElement(
+    id
+) {
 
     return document.getElementById(
         id
@@ -661,10 +980,14 @@ function setText(
 ) {
 
     const element =
-        getElement(id);
+        getElement(
+            id
+        );
 
 
-    if (element) {
+    if (
+        element
+    ) {
 
         element.textContent =
             value;
@@ -680,10 +1003,14 @@ function setHtml(
 ) {
 
     const element =
-        getElement(id);
+        getElement(
+            id
+        );
 
 
-    if (element) {
+    if (
+        element
+    ) {
 
         element.innerHTML =
             value;
@@ -694,7 +1021,7 @@ function setHtml(
 
 
 /* =========================================================
-   Music
+   Background Music
 ========================================================= */
 
 function setupBackgroundMusic() {
@@ -705,7 +1032,9 @@ function setupBackgroundMusic() {
         );
 
 
-    if (!audio) {
+    if (
+        !audio
+    ) {
 
         return {
 
@@ -734,7 +1063,9 @@ function setupBackgroundMusic() {
             return true;
 
         }
-        catch (error) {
+        catch (
+            error
+        ) {
 
             console.log(
                 "瀏覽器暫時阻擋背景音樂播放。"
@@ -761,7 +1092,9 @@ function setupBackgroundMusic() {
             await playMusic();
 
 
-        if (success) {
+        if (
+            success
+        ) {
 
             return;
 
@@ -775,7 +1108,9 @@ function setupBackgroundMusic() {
                     await playMusic();
 
 
-                if (played) {
+                if (
+                    played
+                ) {
 
                     document.removeEventListener(
                         "pointerdown",
@@ -938,7 +1273,9 @@ function setupInvitationGate(
 
     async function openInvitation() {
 
-        if (isOpening) {
+        if (
+            isOpening
+        ) {
 
             return;
 
@@ -962,7 +1299,9 @@ function setupInvitationGate(
                 );
 
         }
-        catch (error) {
+        catch (
+            error
+        ) {
 
             console.warn(
                 "sessionStorage 無法寫入。",
@@ -971,11 +1310,6 @@ function setupInvitationGate(
 
         }
 
-
-        /*
-            點擊信封本身就是使用者操作，
-            在這裡播放音樂最穩定。
-        */
 
         if (
             musicController &&
@@ -993,11 +1327,9 @@ function setupInvitationGate(
         );
 
 
-        /*
-            Reduced motion
-        */
-
-        if (reducedMotion) {
+        if (
+            reducedMotion
+        ) {
 
             window.setTimeout(
                 () => {
@@ -1022,15 +1354,10 @@ function setupInvitationGate(
         }
 
 
-        /*
-            正常動畫流程：
-
-            0.0 秒：信封開啟
-            約 1 秒：邀請卡升起完成
-            1～4.8 秒：邀請卡停留
-            4.8 秒：入口淡出
-            5.5 秒：正式進入網站
-        */
+        /* =============================================
+           正常動畫
+           約 5 秒後進入主頁
+        ============================================= */
 
         window.setTimeout(
             () => {
@@ -1096,7 +1423,9 @@ function setupInvitationGate(
                 );
 
         }
-        catch (error) {
+        catch (
+            error
+        ) {
 
             console.warn(
                 error
@@ -1121,7 +1450,9 @@ function setupInvitationGate(
             );
 
 
-    if (shouldShow) {
+    if (
+        shouldShow
+    ) {
 
         gate.hidden =
             false;
@@ -1168,7 +1499,7 @@ function setupInvitationGate(
 
 
 /* =========================================================
-   Back to Invitation
+   Back To Invitation
 ========================================================= */
 
 function setupBackToInvitation(
@@ -1306,7 +1637,8 @@ function setupLightbox() {
         event => {
 
             if (
-                event.key === "Escape" &&
+                event.key ===
+                    "Escape" &&
                 !lightbox.hidden
             ) {
 
@@ -1407,7 +1739,9 @@ function renderPage(
         );
 
 
-    if (hero) {
+    if (
+        hero
+    ) {
 
         hero.style.backgroundImage =
             `url("${sharedImages.hero}")`;
@@ -1421,7 +1755,9 @@ function renderPage(
         );
 
 
-    if (locationInput) {
+    if (
+        locationInput
+    ) {
 
         locationInput.value =
             currentLocation;
@@ -1435,7 +1771,9 @@ function renderPage(
         );
 
 
-    if (mapLink) {
+    if (
+        mapLink
+    ) {
 
         mapLink.href =
             config.googleMapUrl;
@@ -1449,7 +1787,9 @@ function renderPage(
         );
 
 
-    if (mapIframe) {
+    if (
+        mapIframe
+    ) {
 
         mapIframe.src =
             config.mapEmbedSrc;
@@ -1498,7 +1838,9 @@ function renderNotice(
         );
 
 
-    if (!section) {
+    if (
+        !section
+    ) {
 
         return;
 
@@ -1682,7 +2024,9 @@ function renderTimelineItems(
         );
 
 
-    if (!list) {
+    if (
+        !list
+    ) {
 
         return;
 
@@ -1725,21 +2069,24 @@ function renderTimelineItems(
                         ${item.time}
                     </p>
 
+
                     <p class="timeline-title">
                         ${item.titleZh}
                     </p>
+
 
                     <p class="timeline-subtitle">
                         ${item.titleEn}
                     </p>
 
+
                     ${
                         item.note
                             ?
                             `
-                                <p class="timeline-note">
-                                    ${item.note}
-                                </p>
+                            <p class="timeline-note">
+                                ${item.note}
+                            </p>
                             `
                             :
                             ""
@@ -1774,7 +2121,9 @@ function renderMoments(
         );
 
 
-    if (!grid) {
+    if (
+        !grid
+    ) {
 
         return;
 
@@ -1885,14 +2234,20 @@ function setupRsvpDeadline(
         ).getTime();
 
 
-    if (display) {
+    if (
+        display
+    ) {
 
         display.innerHTML = `
+
             回覆截止：
             ${config.rsvpDeadlineZh}
+
             <br>
+
             RSVP Deadline:
             ${config.rsvpDeadlineEn}
+
         `;
 
     }
@@ -1914,7 +2269,9 @@ function setupRsvpDeadline(
         timestamp;
 
 
-    if (wrapper) {
+    if (
+        wrapper
+    ) {
 
         wrapper.hidden =
             expired;
@@ -1922,7 +2279,9 @@ function setupRsvpDeadline(
     }
 
 
-    if (notice) {
+    if (
+        notice
+    ) {
 
         notice.hidden =
             !expired;
@@ -1936,7 +2295,7 @@ function setupRsvpDeadline(
 
 
 /* =========================================================
-   Form Dynamic
+   Dynamic Form Fields
 ========================================================= */
 
 function setFieldVisibility(
@@ -1944,7 +2303,9 @@ function setFieldVisibility(
     visible
 ) {
 
-    if (!element) {
+    if (
+        !element
+    ) {
 
         return;
 
@@ -1962,7 +2323,9 @@ function setFieldVisibility(
         .forEach(
             control => {
 
-                if (visible) {
+                if (
+                    visible
+                ) {
 
                     if (
                         control.dataset
@@ -2126,7 +2489,9 @@ function prepareFormControls(
             showOther;
 
 
-        if (!showVeg) {
+        if (
+            !showVeg
+        ) {
 
             vegCount.value =
                 "0";
@@ -2149,7 +2514,9 @@ function prepareFormControls(
         );
 
 
-        if (attending) {
+        if (
+            attending
+        ) {
 
             setFieldVisibility(
                 ceremony,
@@ -2210,7 +2577,7 @@ function prepareFormControls(
 
 
 /* =========================================================
-   Dietary Labels
+   Dietary Label
 ========================================================= */
 
 function getDietaryTypeLabel(
@@ -2235,7 +2602,9 @@ function getDietaryTypeLabel(
 
 
     return (
-        labels[type] ||
+        labels[
+            type
+        ] ||
         type ||
         ""
     );
@@ -2244,7 +2613,7 @@ function getDietaryTypeLabel(
 
 
 /* =========================================================
-   Build RSVP
+   Build RSVP Data
 ========================================================= */
 
 function buildRsvpData(
@@ -2262,7 +2631,8 @@ function buildRsvpData(
     const attending =
         formData.get(
             "isAttending"
-        ) === "yes";
+        ) ===
+        "yes";
 
 
     const dietaryType =
@@ -2271,7 +2641,8 @@ function buildRsvpData(
             String(
                 formData.get(
                     "dietaryType"
-                ) || ""
+                ) ||
+                ""
             )
             :
             "not_applicable";
@@ -2295,7 +2666,8 @@ function buildRsvpData(
             String(
                 formData.get(
                     "guestName"
-                ) || ""
+                ) ||
+                ""
             ).trim(),
 
 
@@ -2303,7 +2675,8 @@ function buildRsvpData(
             String(
                 formData.get(
                     "relation"
-                ) || ""
+                ) ||
+                ""
             ).trim(),
 
 
@@ -2311,7 +2684,8 @@ function buildRsvpData(
             String(
                 formData.get(
                     "phone"
-                ) || ""
+                ) ||
+                ""
             ).trim(),
 
 
@@ -2332,7 +2706,8 @@ function buildRsvpData(
                 (
                     formData.get(
                         "attendCeremony"
-                    ) === "yes"
+                    ) ===
+                    "yes"
                         ?
                         "是 / Attending"
                         :
@@ -2348,7 +2723,8 @@ function buildRsvpData(
                 Number(
                     formData.get(
                         "attendCount"
-                    ) || 0
+                    ) ||
+                    0
                 )
                 :
                 0,
@@ -2360,7 +2736,8 @@ function buildRsvpData(
                 Number(
                     formData.get(
                         "childSetCount"
-                    ) || 0
+                    ) ||
+                    0
                 )
                 :
                 0,
@@ -2384,7 +2761,8 @@ function buildRsvpData(
                 Number(
                     formData.get(
                         "vegCount"
-                    ) || 0
+                    ) ||
+                    0
                 )
                 :
                 0,
@@ -2396,7 +2774,8 @@ function buildRsvpData(
                 String(
                     formData.get(
                         "foodAllergy"
-                    ) || ""
+                    ) ||
+                    ""
                 ).trim()
                 :
                 "",
@@ -2406,7 +2785,8 @@ function buildRsvpData(
             String(
                 formData.get(
                     "message"
-                ) || ""
+                ) ||
+                ""
             ).trim(),
 
 
@@ -2421,7 +2801,7 @@ function buildRsvpData(
 
 
         formVersion:
-            "20260808-02"
+            "20260822-01"
 
     };
 
@@ -2436,7 +2816,9 @@ function validateRsvpData(
     data
 ) {
 
-    if (!data.guestName) {
+    if (
+        !data.guestName
+    ) {
 
         return (
             "請填寫姓名。 " +
@@ -2446,7 +2828,9 @@ function validateRsvpData(
     }
 
 
-    if (!data.relation) {
+    if (
+        !data.relation
+    ) {
 
         return (
             "請選擇與新人的關係。 " +
@@ -2456,7 +2840,9 @@ function validateRsvpData(
     }
 
 
-    if (!data.phone) {
+    if (
+        !data.phone
+    ) {
 
         return (
             "請填寫聯絡電話。 " +
@@ -2474,8 +2860,10 @@ function validateRsvpData(
 
 
     if (
-        digits.length < 8 ||
-        digits.length > 15
+        digits.length <
+            8 ||
+        digits.length >
+            15
     ) {
 
         return (
@@ -2486,9 +2874,10 @@ function validateRsvpData(
 
 
     const attending =
-        data.isAttending.startsWith(
-            "是"
-        );
+        data.isAttending
+            .startsWith(
+                "是"
+            );
 
 
     if (
@@ -2497,8 +2886,10 @@ function validateRsvpData(
             !Number.isInteger(
                 data.attendCount
             ) ||
-            data.attendCount < 1 ||
-            data.attendCount > 20
+            data.attendCount <
+                1 ||
+            data.attendCount >
+                20
         )
     ) {
 
@@ -2515,7 +2906,8 @@ function validateRsvpData(
             !Number.isInteger(
                 data.childSetCount
             ) ||
-            data.childSetCount < 0 ||
+            data.childSetCount <
+                0 ||
             data.childSetCount >
                 data.attendCount
         )
@@ -2536,7 +2928,8 @@ function validateRsvpData(
             !Number.isInteger(
                 data.vegetarianCount
             ) ||
-            data.vegetarianCount < 1 ||
+            data.vegetarianCount <
+                1 ||
             data.vegetarianCount >
                 data.attendCount
         )
@@ -2576,7 +2969,9 @@ async function submitToFirebase(
     data
 ) {
 
-    if (!database) {
+    if (
+        !database
+    ) {
 
         throw new Error(
             "Firebase 尚未初始化。"
@@ -2806,7 +3201,9 @@ async function submitRsvpData(
         );
 
     }
-    catch (error) {
+    catch (
+        error
+    ) {
 
         console.error(
             "Google Form 同步失敗：",
@@ -2933,7 +3330,9 @@ function setupRsvpForm(
                 );
 
 
-            if (errorMessage) {
+            if (
+                errorMessage
+            ) {
 
                 status.textContent =
                     errorMessage;
@@ -2987,7 +3386,9 @@ function setupRsvpForm(
                     );
 
 
-                if (locationInput) {
+                if (
+                    locationInput
+                ) {
 
                     locationInput.value =
                         currentLocation;
@@ -3000,7 +3401,9 @@ function setupRsvpForm(
                 );
 
             }
-            catch (error) {
+            catch (
+                error
+            ) {
 
                 console.error(
                     "RSVP 送出失敗：",
@@ -3014,13 +3417,15 @@ function setupRsvpForm(
 
                 const code =
                     String(
-                        error?.code || ""
+                        error?.code ||
+                        ""
                     ).toLowerCase();
 
 
                 const errorText =
                     String(
-                        error?.message || ""
+                        error?.message ||
+                        ""
                     ).toLowerCase();
 
 
@@ -3094,7 +3499,9 @@ document.addEventListener(
                 ];
 
 
-        if (!config) {
+        if (
+            !config
+        ) {
 
             window.location.replace(
                 `?loc=${weddingConfig.defaultLocation}`
@@ -3139,7 +3546,9 @@ document.addEventListener(
             );
 
 
-        if (!expired) {
+        if (
+            !expired
+        ) {
 
             prepareFormControls(
                 config
