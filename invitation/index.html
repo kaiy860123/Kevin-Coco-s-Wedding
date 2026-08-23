@@ -34,11 +34,7 @@
 
     <script>
         (function () {
-
-            const params =
-                new URLSearchParams(
-                    window.location.search
-                );
+            const params = new URLSearchParams(window.location.search);
 
             const locationKey =
                 params.get("loc") === "nantou"
@@ -46,42 +42,28 @@
                     : "tainan";
 
             const sessionKey =
-                "weddingInvitationOpened:" +
-                locationKey;
+                "weddingInvitationOpened:" + locationKey;
 
             try {
-
                 if (
-                    window.sessionStorage.getItem(
-                        sessionKey
-                    ) !== "true"
+                    window.sessionStorage.getItem(sessionKey) !== "true"
                 ) {
-
-                    document.documentElement
-                        .classList
-                        .add(
-                            "show-invitation-gate"
-                        );
-
-                }
-
-            }
-            catch (error) {
-
-                document.documentElement
-                    .classList
-                    .add(
+                    document.documentElement.classList.add(
                         "show-invitation-gate"
                     );
-
+                }
             }
-
+            catch (error) {
+                document.documentElement.classList.add(
+                    "show-invitation-gate"
+                );
+            }
         })();
     </script>
 
     <link
         rel="stylesheet"
-        href="./style.css?v=20260822-02"
+        href="./style.css?v=20260823-01"
     >
 </head>
 
@@ -102,6 +84,27 @@
             type="audio/mpeg"
         >
     </audio>
+
+
+    <!-- =====================================================
+         音樂靜音按鈕
+    ====================================================== -->
+
+    <button
+        type="button"
+        id="music-toggle"
+        class="music-toggle"
+        aria-label="將背景音樂靜音"
+        aria-pressed="false"
+        title="背景音樂"
+    >
+        <span
+            class="music-toggle-icon"
+            aria-hidden="true"
+        >
+            ♫
+        </span>
+    </button>
 
 
     <!-- =====================================================
@@ -252,11 +255,11 @@
                 class="gate-instruction"
             >
 
-                <p>
+                <p id="gate-instruction-main">
                     TAP TO OPEN
                 </p>
 
-                <span>
+                <span id="gate-instruction-sub">
                     輕觸開啟
                 </span>
 
@@ -532,8 +535,6 @@
             </div>
 
 
-            <!-- 日期 / 時間 / 地點 -->
-
             <div class="detail-grid">
 
                 <article class="detail-item">
@@ -610,204 +611,119 @@
             </div>
 
 
-<!-- =================================================
-     Dress Code
-================================================== -->
+            <!-- =================================================
+                 Dress Code
+            ================================================== -->
 
-<div class="dress-code-section">
+            <div class="dress-code-section">
 
-    <div class="dress-code-heading">
+                <div class="dress-code-heading">
 
-        <p class="eyebrow">
-            Dress Code
-        </p>
+                    <p class="eyebrow">
+                        Dress Code
+                    </p>
 
-        <h3>
-            婚禮穿搭
-        </h3>
+                    <h3>
+                        自然中性色系
+                    </h3>
 
-        <p class="dress-code-introduction">
-            歡迎以自然、柔和且沉穩的色系盛裝出席，
-            一同融入我們婚禮的色彩。
-        </p>
 
-        <p class="dress-code-introduction-en">
-            We would love for you to join us
-            in these soft, natural and timeless tones.
-        </p>
+                    <p class="dress-code-introduction">
+                        誠摯邀請您以自然、柔和且沉穩的色調前來與我們相聚，
+                        一同融入這場溫暖而美好的婚禮。
+                    </p>
 
-    </div>
 
+                    <div class="dress-code-guidance">
 
-    <div
-        class="dress-code-palette"
-        aria-label="婚禮 Dress Code 色系"
-    >
+                        <p>
+                            <strong>
+                                推薦色系
+                            </strong>
 
-        <div class="dress-color-item">
+                            <span>
+                                燕麥米白、大地色系、暖灰、
+                                低飽和灰綠／墨綠色
+                            </span>
+                        </p>
 
-            <div
-                class="dress-color-circle dress-color-light"
-                style="background-color:#F8F4E3;"
-            ></div>
 
-            <p>
-                暖米白
-            </p>
+                        <p>
+                            <strong>
+                                建議風格
+                            </strong>
 
-            <span>
-                #F8F4E3
-            </span>
+                            <span>
+                                簡約優雅、半正式
+                                <em>
+                                    Smart Casual / Formal
+                                </em>
+                            </span>
+                        </p>
 
-        </div>
+                    </div>
 
+                </div>
 
-        <div class="dress-color-item">
 
-            <div
-                class="dress-color-circle"
-                style="background-color:#C3B091;"
-            ></div>
+                <div
+                    class="dress-code-palette"
+                    aria-label="婚禮 Dress Code 推薦色系"
+                >
 
-            <p>
-                卡其
-            </p>
+                    <div
+                        class="dress-color-circle dress-color-light"
+                        style="background-color:#F8F4E3;"
+                        title="#F8F4E3"
+                    ></div>
 
-            <span>
-                #C3B091
-            </span>
 
-        </div>
+                    <div
+                        class="dress-color-circle"
+                        style="background-color:#C3B091;"
+                        title="#C3B091"
+                    ></div>
 
 
-        <div class="dress-color-item">
+                    <div
+                        class="dress-color-circle"
+                        style="background-color:#D2B48C;"
+                        title="#D2B48C"
+                    ></div>
 
-            <div
-                class="dress-color-circle"
-                style="background-color:#D2B48C;"
-            ></div>
 
-            <p>
-                淺棕
-            </p>
+                    <div
+                        class="dress-color-circle dress-color-light"
+                        style="background-color:#DED8CE;"
+                        title="#DED8CE"
+                    ></div>
 
-            <span>
-                #D2B48C
-            </span>
 
-        </div>
+                    <div
+                        class="dress-color-circle"
+                        style="background-color:#8A9A86;"
+                        title="#8A9A86"
+                    ></div>
 
 
-        <div class="dress-color-item">
+                    <div
+                        class="dress-color-circle"
+                        style="background-color:#3F483F;"
+                        title="#3F483F"
+                    ></div>
 
-            <div
-                class="dress-color-circle"
-                style="background-color:#3B3C2A;"
-            ></div>
 
-            <p>
-                深橄欖
-            </p>
+                    <div
+                        class="dress-color-circle"
+                        style="background-color:#7A7570;"
+                        title="#7A7570"
+                    ></div>
 
-            <span>
-                #3B3C2A
-            </span>
+                </div>
 
-        </div>
+            </div>
 
-
-        <div class="dress-color-item">
-
-            <div
-                class="dress-color-circle dress-color-light"
-                style="background-color:#EFECE6;"
-            ></div>
-
-            <p>
-                米灰
-            </p>
-
-            <span>
-                #EFECE6
-            </span>
-
-        </div>
-
-
-        <div class="dress-color-item">
-
-            <div
-                class="dress-color-circle dress-color-light"
-                style="background-color:#DED8CE;"
-            ></div>
-
-            <p>
-                灰米
-            </p>
-
-            <span>
-                #DED8CE
-            </span>
-
-        </div>
-
-
-        <div class="dress-color-item">
-
-            <div
-                class="dress-color-circle"
-                style="background-color:#8A9A86;"
-            ></div>
-
-            <p>
-                灰綠
-            </p>
-
-            <span>
-                #8A9A86
-            </span>
-
-        </div>
-
-
-        <div class="dress-color-item">
-
-            <div
-                class="dress-color-circle"
-                style="background-color:#3F483F;"
-            ></div>
-
-            <p>
-                深綠
-            </p>
-
-            <span>
-                #3F483F
-            </span>
-
-        </div>
-
-
-        <div class="dress-color-item">
-
-            <div
-                class="dress-color-circle"
-                style="background-color:#7A7570;"
-            ></div>
-
-            <p>
-                暖灰
-            </p>
-
-            <span>
-                #7A7570
-            </span>
-
-        </div>
-
-    </div>
-
-</div>
+        </section>
 
 
         <!-- =================================================
@@ -1645,7 +1561,7 @@
     ></script>
 
     <script
-        src="./app.js?v=20260822-01"
+        src="./app.js?v=20260823-01"
     ></script>
 
 </body>

@@ -6,7 +6,6 @@
 ========================================================= */
 
 const firebaseConfig = {
-
     apiKey:
         "AIzaSyAsSnOUE0WyuWhC62njgfEW8j6NyZHDhzI",
 
@@ -30,7 +29,6 @@ const firebaseConfig = {
 
     measurementId:
         "G-XDE62910SE"
-
 };
 
 
@@ -41,25 +39,18 @@ try {
 
     if (
         typeof firebase === "undefined" ||
-        typeof firebase.initializeApp !==
-            "function"
+        typeof firebase.initializeApp !== "function"
     ) {
-
         throw new Error(
             "Firebase SDK 尚未正確載入。"
         );
-
     }
 
 
-    if (
-        !firebase.apps.length
-    ) {
-
+    if (!firebase.apps.length) {
         firebase.initializeApp(
             firebaseConfig
         );
-
     }
 
 
@@ -150,15 +141,10 @@ const sharedImages = {
         "./images/hero-cover.jpg",
 
     moments: [
-
         "./images/moment-01.jpg",
-
         "./images/moment-02.jpg",
-
         "./images/moment-03.jpg",
-
         "./images/moment-04.jpg"
-
     ]
 
 };
@@ -183,9 +169,7 @@ const weddingConfig = {
 
 
         const requestedLocation =
-            params.get(
-                "loc"
-            );
+            params.get("loc");
 
 
         if (
@@ -194,9 +178,7 @@ const weddingConfig = {
                 requestedLocation
             ]
         ) {
-
             return requestedLocation;
-
         }
 
 
@@ -240,10 +222,6 @@ const weddingConfig = {
             countdownImageAlt:
                 "台南場婚禮倒數 Wedding Countdown",
 
-
-            /* =============================================
-               RSVP 截止：2026/11/30
-            ============================================= */
 
             rsvpDeadline:
                 "2026-11-30T23:59:59+08:00",
@@ -302,7 +280,6 @@ const weddingConfig = {
             timelineItems: [
 
                 {
-
                     time:
                         "11:30",
 
@@ -317,11 +294,9 @@ const weddingConfig = {
 
                     note:
                         ""
-
                 },
 
                 {
-
                     time:
                         "12:00",
 
@@ -336,7 +311,6 @@ const weddingConfig = {
 
                     note:
                         "2F 明倫＋仁德廳"
-
                 }
 
             ],
@@ -363,12 +337,10 @@ const weddingConfig = {
                     於「小西門站」下車。
 
                     <span class="en-line">
-
                         HSR:
                         Take the H31 shuttle bus
                         from Tainan HSR Station
                         and get off at Xiaoximen Station.
-
                     </span>
 
                 </p>
@@ -385,13 +357,11 @@ const weddingConfig = {
                     車程約 10 分鐘。
 
                     <span class="en-line">
-
                         TRA:
                         A taxi ride from
                         Tainan Railway Station
                         takes approximately
                         10 minutes.
-
                     </span>
 
                 </p>
@@ -407,12 +377,10 @@ const weddingConfig = {
                     導航至台南晶英酒店。
 
                     <span class="en-line">
-
                         Driving:
                         Use Google Maps
                         for directions to
                         Silks Place Tainan.
-
                     </span>
 
                 </p>
@@ -428,12 +396,10 @@ const weddingConfig = {
                     至多 4 小時停車折抵。
 
                     <span class="en-line">
-
                         Wedding guests may receive
                         up to four hours
                         of parking validation
                         per vehicle.
-
                     </span>
 
                 </p>
@@ -445,12 +411,10 @@ const weddingConfig = {
                     現場指示辦理停車折抵。
 
                     <span class="en-line">
-
                         Please follow the hotel's
                         on-site instructions
                         to validate your parking
                         before departure.
-
                     </span>
 
                 </p>
@@ -469,7 +433,7 @@ const weddingConfig = {
 
 
         /* =================================================
-           南投 / 日月潭
+           南投
         ================================================= */
 
         nantou: {
@@ -501,10 +465,6 @@ const weddingConfig = {
             countdownImageAlt:
                 "南投場婚禮倒數 Wedding Countdown",
 
-
-            /* =============================================
-               RSVP 截止：2026/11/30
-            ============================================= */
 
             rsvpDeadline:
                 "2026-11-30T23:59:59+08:00",
@@ -587,7 +547,6 @@ const weddingConfig = {
             timelineItems: [
 
                 {
-
                     time:
                         "10:30",
 
@@ -602,11 +561,9 @@ const weddingConfig = {
 
                     note:
                         "8F 星光露台 · Starlight Terrace"
-
                 },
 
                 {
-
                     time:
                         "11:30",
 
@@ -621,11 +578,9 @@ const weddingConfig = {
 
                     note:
                         "7F 湖光軒 · Lakeview Pavilion"
-
                 },
 
                 {
-
                     time:
                         "12:15",
 
@@ -640,7 +595,6 @@ const weddingConfig = {
 
                     note:
                         "7F 湖光軒 · Lakeview Pavilion"
-
                 }
 
             ],
@@ -653,10 +607,6 @@ const weddingConfig = {
             mapEmbedSrc:
                 "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3648.750948355145!2d120.90602371163745!3d23.862975978504466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3468d60f0d7e1f0b%3A0xa748afffa2011207!2z5pel5pyI5r2t5ra156Kn5qiT!5e0!3m2!1szh-TW!2stw!4v1785571059341!5m2!1szh-TW!2stw",
 
-
-            /* =============================================
-               南投場交通資訊
-            ============================================= */
 
             trafficInfo: `
 
@@ -801,10 +751,6 @@ const weddingConfig = {
 
             `,
 
-
-            /* =============================================
-               南投場停車資訊
-            ============================================= */
 
             parkingInfo: `
 
@@ -963,14 +909,8 @@ const weddingConfig = {
    DOM Helpers
 ========================================================= */
 
-function getElement(
-    id
-) {
-
-    return document.getElementById(
-        id
-    );
-
+function getElement(id) {
+    return document.getElementById(id);
 }
 
 
@@ -980,18 +920,12 @@ function setText(
 ) {
 
     const element =
-        getElement(
-            id
-        );
+        getElement(id);
 
 
-    if (
-        element
-    ) {
-
+    if (element) {
         element.textContent =
             value;
-
     }
 
 }
@@ -1003,18 +937,12 @@ function setHtml(
 ) {
 
     const element =
-        getElement(
-            id
-        );
+        getElement(id);
 
 
-    if (
-        element
-    ) {
-
+    if (element) {
         element.innerHTML =
             value;
-
     }
 
 }
@@ -1032,18 +960,19 @@ function setupBackgroundMusic() {
         );
 
 
-    if (
-        !audio
-    ) {
+    const toggleButton =
+        getElement(
+            "music-toggle"
+        );
+
+
+    if (!audio) {
 
         return {
-
             play() {},
-
             pause() {},
-
-            tryAutoPlay() {}
-
+            tryAutoPlay() {},
+            toggleMute() {}
         };
 
     }
@@ -1053,24 +982,63 @@ function setupBackgroundMusic() {
         0.42;
 
 
+    let muted =
+        false;
+
+
+    function updateMuteButton() {
+
+        audio.muted =
+            muted;
+
+
+        if (!toggleButton) {
+            return;
+        }
+
+
+        toggleButton.classList.toggle(
+            "is-muted",
+            muted
+        );
+
+
+        toggleButton.setAttribute(
+            "aria-pressed",
+            String(muted)
+        );
+
+
+        toggleButton.setAttribute(
+            "aria-label",
+            muted
+                ? "恢復背景音樂"
+                : "將背景音樂靜音"
+        );
+
+
+        toggleButton.title =
+            muted
+                ? "恢復背景音樂"
+                : "背景音樂靜音";
+
+    }
+
+
     async function playMusic() {
 
         try {
 
             await audio.play();
 
-
             return true;
 
         }
-        catch (
-            error
-        ) {
+        catch (error) {
 
             console.log(
                 "瀏覽器暫時阻擋背景音樂播放。"
             );
-
 
             return false;
 
@@ -1080,8 +1048,29 @@ function setupBackgroundMusic() {
 
 
     function pauseMusic() {
-
         audio.pause();
+    }
+
+
+    async function toggleMute() {
+
+        muted =
+            !muted;
+
+
+        updateMuteButton();
+
+
+        /*
+            如果使用者按下解除靜音，
+            同時嘗試播放音樂。
+            此時屬於使用者互動，
+            瀏覽器通常允許播放。
+        */
+
+        if (!muted) {
+            await playMusic();
+        }
 
     }
 
@@ -1092,12 +1081,8 @@ function setupBackgroundMusic() {
             await playMusic();
 
 
-        if (
-            success
-        ) {
-
+        if (success) {
             return;
-
         }
 
 
@@ -1108,9 +1093,7 @@ function setupBackgroundMusic() {
                     await playMusic();
 
 
-                if (
-                    played
-                ) {
+                if (played) {
 
                     document.removeEventListener(
                         "pointerdown",
@@ -1142,6 +1125,32 @@ function setupBackgroundMusic() {
     }
 
 
+    if (toggleButton) {
+
+        toggleButton.addEventListener(
+            "click",
+            async event => {
+
+                /*
+                    避免音樂按鈕的點擊
+                    被其他互動誤判。
+                */
+
+                event.preventDefault();
+                event.stopPropagation();
+
+
+                await toggleMute();
+
+            }
+        );
+
+    }
+
+
+    updateMuteButton();
+
+
     return {
 
         play:
@@ -1151,7 +1160,10 @@ function setupBackgroundMusic() {
             pauseMusic,
 
         tryAutoPlay:
-            tryAutoPlay
+            tryAutoPlay,
+
+        toggleMute:
+            toggleMute
 
     };
 
@@ -1176,6 +1188,18 @@ function setupInvitationGate(
     const envelopeButton =
         getElement(
             "envelope-button"
+        );
+
+
+    const instructionMain =
+        getElement(
+            "gate-instruction-main"
+        );
+
+
+    const instructionSub =
+        getElement(
+            "gate-instruction-sub"
         );
 
 
@@ -1204,13 +1228,112 @@ function setupInvitationGate(
         false;
 
 
+    let fadeTimer =
+        null;
+
+
+    let finishTimer =
+        null;
+
+
+    let skipFinishTimer =
+        null;
+
+
     const reducedMotion =
         window.matchMedia(
             "(prefers-reduced-motion: reduce)"
         ).matches;
 
 
+    function clearOpeningTimers() {
+
+        if (fadeTimer !== null) {
+
+            window.clearTimeout(
+                fadeTimer
+            );
+
+            fadeTimer =
+                null;
+
+        }
+
+
+        if (finishTimer !== null) {
+
+            window.clearTimeout(
+                finishTimer
+            );
+
+            finishTimer =
+                null;
+
+        }
+
+
+        if (skipFinishTimer !== null) {
+
+            window.clearTimeout(
+                skipFinishTimer
+            );
+
+            skipFinishTimer =
+                null;
+
+        }
+
+    }
+
+
+    function setInstructionToDefault() {
+
+        if (instructionMain) {
+            instructionMain.textContent =
+                "TAP TO OPEN";
+        }
+
+
+        if (instructionSub) {
+            instructionSub.textContent =
+                "輕觸開啟";
+        }
+
+
+        envelopeButton.setAttribute(
+            "aria-label",
+            "開啟婚禮邀請函"
+        );
+
+    }
+
+
+    function setInstructionToSkip() {
+
+        if (instructionMain) {
+            instructionMain.textContent =
+                "TAP AGAIN TO ENTER";
+        }
+
+
+        if (instructionSub) {
+            instructionSub.textContent =
+                "再次輕觸立即進入";
+        }
+
+
+        envelopeButton.setAttribute(
+            "aria-label",
+            "立即進入婚禮邀請頁面"
+        );
+
+    }
+
+
     function resetGateVisual() {
+
+        clearOpeningTimers();
+
 
         isOpening =
             false;
@@ -1226,13 +1349,19 @@ function setupInvitationGate(
         );
 
 
-        envelopeButton.disabled =
-            false;
+        setInstructionToDefault();
 
     }
 
 
     function finishOpening() {
+
+        clearOpeningTimers();
+
+
+        isOpening =
+            false;
+
 
         document.documentElement
             .classList
@@ -1271,11 +1400,54 @@ function setupInvitationGate(
     }
 
 
-    async function openInvitation() {
+    /*
+        信封開啟動畫尚未結束時，
+        再次點擊信封即可立即進入主頁。
+    */
+
+    function skipOpeningAnimation() {
+
+        if (!isOpening) {
+            return;
+        }
+
 
         if (
-            isOpening
+            gate.classList.contains(
+                "is-leaving"
+            )
         ) {
+            return;
+        }
+
+
+        clearOpeningTimers();
+
+
+        gate.classList.add(
+            "is-leaving"
+        );
+
+
+        skipFinishTimer =
+            window.setTimeout(
+                finishOpening,
+                220
+            );
+
+    }
+
+
+    async function openInvitation() {
+
+        /*
+            第二次點擊：
+            不再等待 5 秒。
+        */
+
+        if (isOpening) {
+
+            skipOpeningAnimation();
 
             return;
 
@@ -1283,10 +1455,6 @@ function setupInvitationGate(
 
 
         isOpening =
-            true;
-
-
-        envelopeButton.disabled =
             true;
 
 
@@ -1299,9 +1467,7 @@ function setupInvitationGate(
                 );
 
         }
-        catch (
-            error
-        ) {
+        catch (error) {
 
             console.warn(
                 "sessionStorage 無法寫入。",
@@ -1310,6 +1476,11 @@ function setupInvitationGate(
 
         }
 
+
+        /*
+            第一次點擊信封，
+            同時開始播放背景音樂。
+        */
 
         if (
             musicController &&
@@ -1327,10 +1498,64 @@ function setupInvitationGate(
         );
 
 
-        if (
-            reducedMotion
-        ) {
+        setInstructionToSkip();
 
+
+        /*
+            使用者系統設定減少動畫時，
+            直接快速完成。
+        */
+
+        if (reducedMotion) {
+
+            fadeTimer =
+                window.setTimeout(
+                    () => {
+
+                        gate.classList.add(
+                            "is-leaving"
+                        );
+
+                    },
+                    250
+                );
+
+
+            finishTimer =
+                window.setTimeout(
+                    finishOpening,
+                    650
+                );
+
+
+            return;
+
+        }
+
+
+        /*
+            正常流程：
+
+            0 秒：
+            點擊信封、開始開啟。
+
+            約 1 秒：
+            邀請卡升起。
+
+            約 1～4.8 秒：
+            邀請卡停留。
+
+            期間再次點擊信封：
+            立即進入主頁。
+
+            4.8 秒：
+            自動淡出。
+
+            5.5 秒：
+            正式進入主頁。
+        */
+
+        fadeTimer =
             window.setTimeout(
                 () => {
 
@@ -1339,42 +1564,15 @@ function setupInvitationGate(
                     );
 
                 },
-                250
+                4800
             );
 
 
+        finishTimer =
             window.setTimeout(
                 finishOpening,
-                650
+                5500
             );
-
-
-            return;
-
-        }
-
-
-        /* =============================================
-           正常動畫
-           約 5 秒後進入主頁
-        ============================================= */
-
-        window.setTimeout(
-            () => {
-
-                gate.classList.add(
-                    "is-leaving"
-                );
-
-            },
-            4800
-        );
-
-
-        window.setTimeout(
-            finishOpening,
-            5500
-        );
 
     }
 
@@ -1423,9 +1621,7 @@ function setupInvitationGate(
                 );
 
         }
-        catch (
-            error
-        ) {
+        catch (error) {
 
             console.warn(
                 error
@@ -1450,9 +1646,7 @@ function setupInvitationGate(
             );
 
 
-    if (
-        shouldShow
-    ) {
+    if (shouldShow) {
 
         gate.hidden =
             false;
@@ -1516,9 +1710,7 @@ function setupBackToInvitation(
         !button ||
         !invitationGateController
     ) {
-
         return;
-
     }
 
 
@@ -1564,9 +1756,7 @@ function setupLightbox() {
         !image ||
         !closeButton
     ) {
-
         return null;
-
     }
 
 
@@ -1623,9 +1813,7 @@ function setupLightbox() {
                 event.target ===
                 lightbox
             ) {
-
                 closeImage();
-
             }
 
         }
@@ -1637,13 +1825,10 @@ function setupLightbox() {
         event => {
 
             if (
-                event.key ===
-                    "Escape" &&
+                event.key === "Escape" &&
                 !lightbox.hidden
             ) {
-
                 closeImage();
-
             }
 
         }
@@ -1739,9 +1924,7 @@ function renderPage(
         );
 
 
-    if (
-        hero
-    ) {
+    if (hero) {
 
         hero.style.backgroundImage =
             `url("${sharedImages.hero}")`;
@@ -1755,9 +1938,7 @@ function renderPage(
         );
 
 
-    if (
-        locationInput
-    ) {
+    if (locationInput) {
 
         locationInput.value =
             currentLocation;
@@ -1771,9 +1952,7 @@ function renderPage(
         );
 
 
-    if (
-        mapLink
-    ) {
+    if (mapLink) {
 
         mapLink.href =
             config.googleMapUrl;
@@ -1787,9 +1966,7 @@ function renderPage(
         );
 
 
-    if (
-        mapIframe
-    ) {
+    if (mapIframe) {
 
         mapIframe.src =
             config.mapEmbedSrc;
@@ -1838,12 +2015,8 @@ function renderNotice(
         );
 
 
-    if (
-        !section
-    ) {
-
+    if (!section) {
         return;
-
     }
 
 
@@ -1902,9 +2075,7 @@ function renderCountdownImage(
         !image ||
         !error
     ) {
-
         return;
-
     }
 
 
@@ -1968,9 +2139,7 @@ function renderEventImage(
         !image ||
         !error
     ) {
-
         return;
-
     }
 
 
@@ -2024,12 +2193,8 @@ function renderTimelineItems(
         );
 
 
-    if (
-        !list
-    ) {
-
+    if (!list) {
         return;
-
     }
 
 
@@ -2121,12 +2286,8 @@ function renderMoments(
         );
 
 
-    if (
-        !grid
-    ) {
-
+    if (!grid) {
         return;
-
     }
 
 
@@ -2234,9 +2395,7 @@ function setupRsvpDeadline(
         ).getTime();
 
 
-    if (
-        display
-    ) {
+    if (display) {
 
         display.innerHTML = `
 
@@ -2258,9 +2417,7 @@ function setupRsvpDeadline(
             timestamp
         )
     ) {
-
         return false;
-
     }
 
 
@@ -2269,23 +2426,15 @@ function setupRsvpDeadline(
         timestamp;
 
 
-    if (
-        wrapper
-    ) {
-
+    if (wrapper) {
         wrapper.hidden =
             expired;
-
     }
 
 
-    if (
-        notice
-    ) {
-
+    if (notice) {
         notice.hidden =
             !expired;
-
     }
 
 
@@ -2303,12 +2452,8 @@ function setFieldVisibility(
     visible
 ) {
 
-    if (
-        !element
-    ) {
-
+    if (!element) {
         return;
-
     }
 
 
@@ -2323,9 +2468,7 @@ function setFieldVisibility(
         .forEach(
             control => {
 
-                if (
-                    visible
-                ) {
+                if (visible) {
 
                     if (
                         control.dataset
@@ -2421,9 +2564,7 @@ function prepareFormControls(
         !otherHelp ||
         !allergy
     ) {
-
         return;
-
     }
 
 
@@ -2489,9 +2630,7 @@ function prepareFormControls(
             showOther;
 
 
-        if (
-            !showVeg
-        ) {
+        if (!showVeg) {
 
             vegCount.value =
                 "0";
@@ -2514,9 +2653,7 @@ function prepareFormControls(
         );
 
 
-        if (
-            attending
-        ) {
+        if (attending) {
 
             setFieldVisibility(
                 ceremony,
@@ -2602,9 +2739,7 @@ function getDietaryTypeLabel(
 
 
     return (
-        labels[
-            type
-        ] ||
+        labels[type] ||
         type ||
         ""
     );
@@ -2801,7 +2936,7 @@ function buildRsvpData(
 
 
         formVersion:
-            "20260822-01"
+            "20260823-01"
 
     };
 
@@ -2816,9 +2951,7 @@ function validateRsvpData(
     data
 ) {
 
-    if (
-        !data.guestName
-    ) {
+    if (!data.guestName) {
 
         return (
             "請填寫姓名。 " +
@@ -2828,9 +2961,7 @@ function validateRsvpData(
     }
 
 
-    if (
-        !data.relation
-    ) {
+    if (!data.relation) {
 
         return (
             "請選擇與新人的關係。 " +
@@ -2840,9 +2971,7 @@ function validateRsvpData(
     }
 
 
-    if (
-        !data.phone
-    ) {
+    if (!data.phone) {
 
         return (
             "請填寫聯絡電話。 " +
@@ -2860,10 +2989,8 @@ function validateRsvpData(
 
 
     if (
-        digits.length <
-            8 ||
-        digits.length >
-            15
+        digits.length < 8 ||
+        digits.length > 15
     ) {
 
         return (
@@ -2886,10 +3013,8 @@ function validateRsvpData(
             !Number.isInteger(
                 data.attendCount
             ) ||
-            data.attendCount <
-                1 ||
-            data.attendCount >
-                20
+            data.attendCount < 1 ||
+            data.attendCount > 20
         )
     ) {
 
@@ -2906,8 +3031,7 @@ function validateRsvpData(
             !Number.isInteger(
                 data.childSetCount
             ) ||
-            data.childSetCount <
-                0 ||
+            data.childSetCount < 0 ||
             data.childSetCount >
                 data.attendCount
         )
@@ -2928,8 +3052,7 @@ function validateRsvpData(
             !Number.isInteger(
                 data.vegetarianCount
             ) ||
-            data.vegetarianCount <
-                1 ||
+            data.vegetarianCount < 1 ||
             data.vegetarianCount >
                 data.attendCount
         )
@@ -2969,9 +3092,7 @@ async function submitToFirebase(
     data
 ) {
 
-    if (
-        !database
-    ) {
+    if (!database) {
 
         throw new Error(
             "Firebase 尚未初始化。"
@@ -3201,9 +3322,7 @@ async function submitRsvpData(
         );
 
     }
-    catch (
-        error
-    ) {
+    catch (error) {
 
         console.error(
             "Google Form 同步失敗：",
@@ -3259,9 +3378,7 @@ function setupRsvpForm(
         !button ||
         !status
     ) {
-
         return;
-
     }
 
 
@@ -3304,12 +3421,9 @@ function setupRsvpForm(
                 "form-status";
 
 
-            if (
-                !form.checkValidity()
-            ) {
+            if (!form.checkValidity()) {
 
                 form.reportValidity();
-
 
                 return;
 
@@ -3330,9 +3444,7 @@ function setupRsvpForm(
                 );
 
 
-            if (
-                errorMessage
-            ) {
+            if (errorMessage) {
 
                 status.textContent =
                     errorMessage;
@@ -3386,9 +3498,7 @@ function setupRsvpForm(
                     );
 
 
-                if (
-                    locationInput
-                ) {
+                if (locationInput) {
 
                     locationInput.value =
                         currentLocation;
@@ -3401,9 +3511,7 @@ function setupRsvpForm(
                 );
 
             }
-            catch (
-                error
-            ) {
+            catch (error) {
 
                 console.error(
                     "RSVP 送出失敗：",
@@ -3499,9 +3607,7 @@ document.addEventListener(
                 ];
 
 
-        if (
-            !config
-        ) {
+        if (!config) {
 
             window.location.replace(
                 `?loc=${weddingConfig.defaultLocation}`
@@ -3546,9 +3652,7 @@ document.addEventListener(
             );
 
 
-        if (
-            !expired
-        ) {
+        if (!expired) {
 
             prepareFormControls(
                 config
