@@ -4,9 +4,11 @@
 
 @font-face {
     font-family: "GenWanMin2Wedding";
+
     src:
         url("./fonts/GenWanMin2-L.ttc") format("collection"),
         url("./fonts/GenWanMin2-L.ttc");
+
     font-weight: 300;
     font-style: normal;
     font-display: swap;
@@ -56,7 +58,9 @@ html.show-invitation-gate body {
 
 body {
     position: relative;
+
     margin: 0;
+
     overflow-x: hidden;
 
     color: var(--text);
@@ -90,6 +94,7 @@ textarea {
 
 img {
     display: block;
+
     max-width: 100%;
 }
 
@@ -110,7 +115,9 @@ img {
         serif !important;
 
     font-weight: 300 !important;
+
     font-style: normal;
+
     font-synthesis: none;
 }
 
@@ -124,17 +131,20 @@ img {
 
     z-index: 21000;
 
-    right: max(
-        16px,
-        env(safe-area-inset-right)
-    );
+    right:
+        max(
+            16px,
+            env(safe-area-inset-right)
+        );
 
-    bottom: max(
-        16px,
-        env(safe-area-inset-bottom)
-    );
+    bottom:
+        max(
+            16px,
+            env(safe-area-inset-bottom)
+        );
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -165,7 +175,9 @@ img {
     border-radius: 50%;
 
     box-shadow:
-        0 5px 18px
+        0
+        5px
+        18px
         rgba(
             86,
             87,
@@ -188,13 +200,17 @@ img {
 
 .music-toggle:hover {
     color: var(--accent);
+
     border-color: var(--accent);
-    transform: translateY(-2px);
+
+    transform:
+        translateY(-2px);
 }
 
 
 .music-toggle-icon {
     position: relative;
+
     z-index: 1;
 
     display: block;
@@ -204,6 +220,7 @@ img {
         serif;
 
     font-size: 25px;
+
     line-height: 1;
 }
 
@@ -227,7 +244,10 @@ img {
         translate(-50%, -50%)
         rotate(-45deg);
 
-    transition: opacity 0.2s ease;
+    transition:
+        opacity
+        0.2s
+        ease;
 }
 
 
@@ -253,7 +273,9 @@ img {
 
 .invitation-gate {
     position: fixed;
+
     z-index: 20000;
+
     inset: 0;
 
     display: none;
@@ -292,21 +314,31 @@ html.show-invitation-gate
 
 .invitation-gate.is-leaving {
     opacity: 0;
+
     visibility: hidden;
+
     pointer-events: none;
 }
 
 
 .gate-content {
     position: relative;
+
     z-index: 2;
 
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
     justify-content: center;
 
-    width: min(820px, 100%);
+    width:
+        min(
+            820px,
+            100%
+        );
+
     min-height: 100svh;
 
     padding:
@@ -348,6 +380,7 @@ html.show-invitation-gate
         );
 
     font-weight: 400;
+
     letter-spacing: 0.55em;
 }
 
@@ -373,7 +406,11 @@ html.show-invitation-gate
             28px
         );
 
-    width: min(620px, 100%);
+    width:
+        min(
+            620px,
+            100%
+        );
 
     margin-bottom:
         clamp(
@@ -410,6 +447,7 @@ html.show-invitation-gate
 
 .monogram-logo {
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -423,6 +461,7 @@ html.show-invitation-gate
 .monogram-logo img {
     width: 100%;
     height: 100%;
+
     object-fit: contain;
 }
 
@@ -432,7 +471,10 @@ html.show-invitation-gate
 ========================================================= */
 
 .gate-main-invitation {
-    margin: 0 0 7px;
+    margin:
+        0
+        0
+        7px;
 
     color: var(--primary);
 
@@ -473,13 +515,16 @@ html.show-invitation-gate
         );
 
     font-weight: 500;
+
     letter-spacing: 0.32em;
 }
 
 
 .gate-couple-names {
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
 
     margin:
@@ -519,6 +564,7 @@ html.show-invitation-gate
 
 .gate-name-coco {
     margin-top: 9px;
+
     margin-left: 58px;
 
     color: var(--accent);
@@ -548,6 +594,7 @@ html.show-invitation-gate
     padding: 0;
 
     background: transparent;
+
     border: 0;
 
     cursor: pointer;
@@ -559,7 +606,8 @@ html.show-invitation-gate
 
 .envelope-button:focus-visible {
     outline:
-        1px solid
+        1px
+        solid
         var(--accent);
 
     outline-offset: 12px;
@@ -573,10 +621,13 @@ html.show-invitation-gate
 
     width: 100%;
 
-    aspect-ratio: 1.55 / 1;
+    aspect-ratio:
+        1.55 / 1;
 
     perspective: 1000px;
-    transform-style: preserve-3d;
+
+    transform-style:
+        preserve-3d;
 }
 
 
@@ -595,7 +646,8 @@ html.show-invitation-gate
         );
 
     border:
-        1px solid
+        1px
+        solid
         rgba(
             111,
             124,
@@ -618,7 +670,9 @@ html.show-invitation-gate
     bottom: 7%;
 
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
     justify-content: center;
 
@@ -632,7 +686,8 @@ html.show-invitation-gate
     background: var(--background);
 
     border:
-        1px solid
+        1px
+        solid
         rgba(
             111,
             124,
@@ -640,8 +695,11 @@ html.show-invitation-gate
             0.38
         );
 
-    transform: translateY(4%);
-    transform-origin: center bottom;
+    transform:
+        translateY(4%);
+
+    transform-origin:
+        center bottom;
 
     transition:
         transform
@@ -655,16 +713,34 @@ html.show-invitation-gate
 }
 
 
+/* 愛心改為粉紅 */
+
 .envelope-card-decoration {
-    margin-bottom: 4px;
+    margin-bottom: 5px;
 
-    color: var(--sage);
+    color: var(--accent);
 
-    font-size: 18px;
+    font-family:
+        Georgia,
+        serif;
+
+    font-size: 16px;
+
+    line-height: 1;
 }
 
 
+/* 英文姓名 */
+
 .envelope-card-name {
+    display: inline-flex;
+
+    align-items: baseline;
+
+    justify-content: center;
+
+    gap: 5px;
+
     font-family:
         "Allura",
         cursive;
@@ -680,8 +756,20 @@ html.show-invitation-gate
 }
 
 
+.envelope-card-name-text {
+    color: var(--primary);
+}
+
+
+/* & 改為 RSVP 相同粉紅 */
+
+.envelope-card-amp {
+    color: var(--accent);
+}
+
+
 .envelope-card-text {
-    margin-top: 4px;
+    margin-top: 5px;
 
     color: var(--sage);
 
@@ -699,7 +787,10 @@ html.show-invitation-gate
     width: 60px;
     height: 1px;
 
-    margin: 10px 0 8px;
+    margin:
+        10px
+        0
+        8px;
 
     background: var(--accent);
 
@@ -797,11 +888,14 @@ html.show-invitation-gate
             50% 100%
         );
 
-    transform: rotateX(0deg);
+    transform:
+        rotateX(0deg);
 
-    transform-origin: top center;
+    transform-origin:
+        top center;
 
-    backface-visibility: hidden;
+    backface-visibility:
+        hidden;
 
     transition:
         transform
@@ -828,6 +922,7 @@ html.show-invitation-gate
     top: 79%;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -854,6 +949,7 @@ html.show-invitation-gate
 .envelope-front-logo img {
     width: 100%;
     height: 100%;
+
     object-fit: contain;
 }
 
@@ -877,8 +973,12 @@ html.show-invitation-gate
         );
 
     transition:
-        opacity 0.3s ease,
-        transform 0.3s ease;
+        opacity
+        0.3s
+        ease,
+        transform
+        0.3s
+        ease;
 }
 
 
@@ -894,10 +994,13 @@ html.show-invitation-gate
     font-size: 14px;
 
     font-weight: 500;
+
     letter-spacing: 0.42em;
 
     transition:
-        color 0.3s ease;
+        color
+        0.3s
+        ease;
 }
 
 
@@ -917,11 +1020,11 @@ html.show-invitation-gate
     letter-spacing: 0.3em;
 
     transition:
-        color 0.3s ease;
+        color
+        0.3s
+        ease;
 }
 
-
-/* 開封後改成「再點一下立即進入」 */
 
 .invitation-gate.is-opening
 .gate-instruction {
@@ -1073,7 +1176,10 @@ html.show-invitation-gate
 ========================================================= */
 
 .eyebrow {
-    margin: 0 0 10px;
+    margin:
+        0
+        0
+        10px;
 
     color: var(--primary);
 
@@ -1118,12 +1224,16 @@ html.show-invitation-gate
         );
 
     font-weight: 500;
+
     letter-spacing: 4px;
 }
 
 
 .section-note {
-    margin: 14px 0 0;
+    margin:
+        14px
+        0
+        0;
 
     color: var(--text-soft);
 
@@ -1138,6 +1248,7 @@ html.show-invitation-gate
 .section-divider,
 .ornamental-divider {
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -1149,7 +1260,10 @@ html.show-invitation-gate
             76%
         );
 
-    margin: 24px auto 0;
+    margin:
+        24px
+        auto
+        0;
 }
 
 
@@ -1169,6 +1283,7 @@ html.show-invitation-gate
 .section-divider i,
 .ornamental-divider i {
     color: var(--accent);
+
     font-style: normal;
 }
 
@@ -1188,7 +1303,9 @@ html.show-invitation-gate
         var(--secondary-background);
 
     background-position: center;
+
     background-repeat: no-repeat;
+
     background-size: cover;
 }
 
@@ -1229,12 +1346,15 @@ html.show-invitation-gate
     z-index: 2;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
     min-height: 94svh;
 
-    padding: 80px 24px;
+    padding:
+        80px
+        24px;
 }
 
 
@@ -1245,7 +1365,9 @@ html.show-invitation-gate
             94%
         );
 
-    padding: 52px 20px;
+    padding:
+        52px
+        20px;
 
     text-align: center;
 
@@ -1275,7 +1397,10 @@ html.show-invitation-gate
 
 
 .hero-couple-title {
-    margin: 30px 0 28px;
+    margin:
+        30px
+        0
+        28px;
 
     color: var(--primary);
 
@@ -1306,7 +1431,9 @@ html.show-invitation-gate
 .hero-couple-title em {
     display: inline-block;
 
-    margin: 0 13px;
+    margin:
+        0
+        13px;
 
     color: var(--accent);
 
@@ -1317,12 +1444,14 @@ html.show-invitation-gate
     font-size: 0.82em;
 
     font-style: italic;
+
     font-weight: 400;
 }
 
 
 .hero-date-wrap {
     display: flex;
+
     flex-direction: column;
 
     gap: 0;
@@ -1371,7 +1500,9 @@ html.show-invitation-gate
             100%
         );
 
-    margin: 0 auto;
+    margin:
+        0
+        auto;
 }
 
 
@@ -1395,7 +1526,10 @@ html.show-invitation-gate
 
 
 .hero-invitation-en {
-    margin: 10px 0 0;
+    margin:
+        10px
+        0
+        0;
 
     color: var(--text-soft);
 
@@ -1431,12 +1565,14 @@ html.show-invitation-gate
     z-index: 1;
 
     padding-top: 105px;
+
     padding-bottom: 105px;
 }
 
 
 .countdown-section {
     padding-left: 20px;
+
     padding-right: 20px;
 
     background:
@@ -1458,12 +1594,105 @@ html.show-invitation-gate
             )
         );
 
-    margin: 0 auto;
+    margin:
+        0
+        auto;
 
     padding-left: 30px;
+
     padding-right: 30px;
 
     background: transparent;
+}
+
+
+/* =========================================================
+   Wedding Day Heading
+========================================================= */
+
+.wedding-day-heading {
+    margin-bottom: 44px;
+
+    text-align: center;
+}
+
+
+.wedding-day-ornament {
+    width:
+        min(
+            220px,
+            68vw
+        );
+
+    margin:
+        0
+        auto
+        7px;
+}
+
+
+.wedding-day-ornament svg {
+    display: block;
+
+    width: 100%;
+
+    height: auto;
+
+    overflow: visible;
+}
+
+
+.ornament-stroke {
+    fill: none;
+
+    stroke: var(--primary);
+
+    stroke-width: 1.65;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+
+    opacity: 0.78;
+}
+
+
+.ornament-dot {
+    fill: var(--primary);
+
+    opacity: 0.85;
+}
+
+
+.ornament-heart {
+    fill: var(--accent);
+
+    opacity: 0.9;
+}
+
+
+.wedding-day-title {
+    margin: 0;
+
+    color: var(--text);
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(
+            34px,
+            5vw,
+            48px
+        );
+
+    font-weight: 500;
+
+    line-height: 1;
+
+    letter-spacing:
+        0.12em;
 }
 
 
@@ -1478,7 +1707,10 @@ html.show-invitation-gate
             100%
         );
 
-    margin: 0 auto 60px;
+    margin:
+        0
+        auto
+        60px;
 
     padding: 0;
 
@@ -1498,9 +1730,11 @@ html.show-invitation-gate
 .countdown-image,
 .event-image {
     width: 100%;
+
     height: auto;
 
-    aspect-ratio: 3 / 2;
+    aspect-ratio:
+        3 / 2;
 
     object-fit: contain;
 
@@ -1528,7 +1762,9 @@ html.show-invitation-gate
         1fr
         1fr;
 
-    gap: 0 50px;
+    gap:
+        0
+        50px;
 
     width:
         min(
@@ -1536,14 +1772,19 @@ html.show-invitation-gate
             100%
         );
 
-    margin: 0 auto;
+    margin:
+        0
+        auto;
 }
 
 
 .detail-item {
     position: relative;
 
-    padding: 26px 10px 34px;
+    padding:
+        26px
+        10px
+        34px;
 
     text-align: center;
 }
@@ -1553,9 +1794,11 @@ html.show-invitation-gate
     position: absolute;
 
     bottom: 0;
+
     left: 15%;
 
     width: 70%;
+
     height: 1px;
 
     content: "";
@@ -1571,7 +1814,8 @@ html.show-invitation-gate
 
 
 .detail-item-wide {
-    grid-column: 1 / -1;
+    grid-column:
+        1 / -1;
 
     padding-top: 42px;
 }
@@ -1595,7 +1839,10 @@ html.show-invitation-gate
 
 
 .detail-item h3 {
-    margin: 4px 0 18px;
+    margin:
+        4px
+        0
+        18px;
 
     color: var(--primary);
 
@@ -1625,7 +1872,10 @@ html.show-invitation-gate
 
 
 .detail-secondary {
-    margin: 7px 0 0;
+    margin:
+        7px
+        0
+        0;
 
     color: var(--text-soft);
 
@@ -1644,7 +1894,9 @@ html.show-invitation-gate
 
 
 .venue-detail p {
-    margin: 5px 0;
+    margin:
+        5px
+        0;
 }
 
 
@@ -1683,7 +1935,8 @@ html.show-invitation-gate
     padding-top: 54px;
 
     border-top:
-        1px solid
+        1px
+        solid
         rgba(
             111,
             124,
@@ -1719,7 +1972,10 @@ html.show-invitation-gate
             100%
         );
 
-    margin: 20px auto 0;
+    margin:
+        20px
+        auto
+        0;
 
     color: var(--text);
 
@@ -1750,7 +2006,8 @@ html.show-invitation-gate
     padding-top: 20px;
 
     border-top:
-        1px solid
+        1px
+        solid
         rgba(
             111,
             124,
@@ -1762,12 +2019,16 @@ html.show-invitation-gate
 
 .dress-code-guidance p {
     display: flex;
+
     align-items: baseline;
+
     justify-content: center;
 
     gap: 14px;
 
-    margin: 7px 0;
+    margin:
+        7px
+        0;
 
     color: var(--text);
 
@@ -1782,7 +2043,10 @@ html.show-invitation-gate
 
 
 .dress-code-guidance strong {
-    flex: 0 0 auto;
+    flex:
+        0
+        0
+        auto;
 
     color: var(--primary);
 
@@ -1821,12 +2085,11 @@ html.show-invitation-gate
 }
 
 
-/* 7 顆色球，不顯示文字 */
-
 .dress-code-palette {
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     gap:
@@ -1844,6 +2107,7 @@ html.show-invitation-gate
 
 .dress-color-circle {
     width: 66px;
+
     height: 66px;
 
     flex:
@@ -1854,7 +2118,8 @@ html.show-invitation-gate
     border-radius: 50%;
 
     border:
-        1px solid
+        1px
+        solid
         rgba(
             86,
             87,
@@ -1863,7 +2128,9 @@ html.show-invitation-gate
         );
 
     box-shadow:
-        0 4px 12px
+        0
+        4px
+        12px
         rgba(
             86,
             87,
@@ -1875,7 +2142,8 @@ html.show-invitation-gate
 
 .dress-color-light {
     border:
-        1px solid
+        1px
+        solid
         rgba(
             86,
             87,
@@ -1896,12 +2164,16 @@ html.show-invitation-gate
             100%
         );
 
-    margin: 0 auto;
+    margin:
+        0
+        auto;
 
     padding: 0;
 
     background: transparent;
+
     border: 0;
+
     box-shadow: none;
 }
 
@@ -1918,7 +2190,8 @@ html.show-invitation-gate
     padding-bottom: 18px;
 
     border-bottom:
-        1px solid
+        1px
+        solid
         rgba(
             111,
             124,
@@ -1932,9 +2205,11 @@ html.show-invitation-gate
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     width: 54px;
+
     height: 54px;
 
     color: var(--primary);
@@ -1997,7 +2272,10 @@ html.show-invitation-gate
 
     gap: 18px;
 
-    padding: 12px 0 24px;
+    padding:
+        12px
+        0
+        24px;
 }
 
 
@@ -2018,9 +2296,11 @@ html.show-invitation-gate
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     width: 48px;
+
     height: 48px;
 
     color: var(--primary);
@@ -2028,7 +2308,8 @@ html.show-invitation-gate
     background: var(--background);
 
     border:
-        1px solid
+        1px
+        solid
         var(--sage);
 
     border-radius: 50%;
@@ -2041,7 +2322,9 @@ html.show-invitation-gate
     position: absolute;
 
     top: 48px;
+
     bottom: -24px;
+
     left: 50%;
 
     width: 1px;
@@ -2077,7 +2360,10 @@ html.show-invitation-gate
 
 
 .timeline-title {
-    margin: 2px 0 0;
+    margin:
+        2px
+        0
+        0;
 
     color: var(--text);
 
@@ -2090,7 +2376,10 @@ html.show-invitation-gate
 
 
 .timeline-subtitle {
-    margin: 1px 0 0;
+    margin:
+        1px
+        0
+        0;
 
     color: var(--accent);
 
@@ -2103,7 +2392,10 @@ html.show-invitation-gate
 
 
 .timeline-note {
-    margin: 4px 0 0;
+    margin:
+        4px
+        0
+        0;
 
     color: var(--text-soft);
 
@@ -2131,7 +2423,9 @@ html.show-invitation-gate
 
     min-width: 230px;
 
-    padding: 13px 28px;
+    padding:
+        13px
+        28px;
 
     color: var(--background);
 
@@ -2173,7 +2467,10 @@ html.show-invitation-gate
             100%
         );
 
-    margin: 0 auto 60px;
+    margin:
+        0
+        auto
+        60px;
 
     background: transparent;
 
@@ -2211,14 +2508,18 @@ html.show-invitation-gate
             100%
         );
 
-    margin: 0 auto;
+    margin:
+        0
+        auto;
 }
 
 
 .information-item {
     position: relative;
 
-    padding: 10px 0;
+    padding:
+        10px
+        0;
 }
 
 
@@ -2226,9 +2527,11 @@ html.show-invitation-gate
     position: absolute;
 
     top: 5%;
+
     right: -30px;
 
     width: 1px;
+
     height: 90%;
 
     content: "";
@@ -2261,7 +2564,10 @@ html.show-invitation-gate
 
 
 .information-item h3 {
-    margin: 4px 0 20px;
+    margin:
+        4px
+        0
+        20px;
 
     color: var(--primary);
 
@@ -2276,7 +2582,10 @@ html.show-invitation-gate
 
 
 .information-content p {
-    margin: 0 0 20px;
+    margin:
+        0
+        0
+        20px;
 
     color: var(--text);
 
@@ -2344,7 +2653,9 @@ html.show-invitation-gate
 ========================================================= */
 
 .notice-section {
-    padding: 34px 20px;
+    padding:
+        34px
+        20px;
 
     background:
         rgba(
@@ -2355,11 +2666,13 @@ html.show-invitation-gate
         );
 
     border-top:
-        1px solid
+        1px
+        solid
         var(--accent-light);
 
     border-bottom:
-        1px solid
+        1px
+        solid
         var(--accent-light);
 }
 
@@ -2368,6 +2681,7 @@ html.show-invitation-gate
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     gap: 20px;
@@ -2378,14 +2692,18 @@ html.show-invitation-gate
             100%
         );
 
-    margin: 0 auto;
+    margin:
+        0
+        auto;
 
     text-align: center;
 }
 
 
 .notice-inner p {
-    margin: 2px 0;
+    margin:
+        2px
+        0;
 }
 
 
@@ -2462,14 +2780,17 @@ html.show-invitation-gate
             100%
         );
 
-    margin: 0 auto;
+    margin:
+        0
+        auto;
 }
 
 
 .photo-item {
     width: 100%;
 
-    aspect-ratio: 3 / 4;
+    aspect-ratio:
+        3 / 4;
 
     object-fit: cover;
 
@@ -2483,12 +2804,14 @@ html.show-invitation-gate
 
 
 .photo-item:nth-child(even) {
-    transform: translateY(16px);
+    transform:
+        translateY(16px);
 }
 
 
 .photo-item:hover {
-    transform: translateY(-4px);
+    transform:
+        translateY(-4px);
 }
 
 
@@ -2498,6 +2821,7 @@ html.show-invitation-gate
 
 .rsvp-section {
     padding-left: 20px;
+
     padding-right: 20px;
 
     background: transparent;
@@ -2511,9 +2835,14 @@ html.show-invitation-gate
             100%
         );
 
-    margin: 0 auto;
+    margin:
+        0
+        auto;
 
-    padding: 20px 20px 0;
+    padding:
+        20px
+        20px
+        0;
 
     background: transparent;
 
@@ -2530,7 +2859,10 @@ html.show-invitation-gate
 
     align-items: center;
 
-    margin: 24px 0 16px;
+    margin:
+        24px
+        0
+        16px;
 
     font-family:
         "Allura",
@@ -2556,6 +2888,7 @@ html.show-invitation-gate
 
 .rsvp-coco {
     margin-top: 9px;
+
     margin-left: 48px;
 
     color: var(--accent);
@@ -2570,7 +2903,10 @@ html.show-invitation-gate
 
 
 .rsvp-couple-chinese {
-    margin: 5px 0 30px;
+    margin:
+        5px
+        0
+        30px;
 
     color: var(--primary);
 
@@ -2594,7 +2930,9 @@ html.show-invitation-gate
 .rsvp-couple-chinese i {
     display: inline-block;
 
-    margin: 0 12px;
+    margin:
+        0
+        12px;
 
     color: var(--accent);
 
@@ -2678,7 +3016,9 @@ html.show-invitation-gate
 
     width: 100%;
 
-    padding: 12px 4px;
+    padding:
+        12px
+        4px;
 
     color: var(--text);
 
@@ -2687,7 +3027,8 @@ html.show-invitation-gate
     border: 0;
 
     border-bottom:
-        1px solid
+        1px
+        solid
         var(--sage);
 
     border-radius: 0;
@@ -2721,7 +3062,10 @@ html.show-invitation-gate
 
 
 .field-help {
-    margin: 7px 0 0;
+    margin:
+        7px
+        0
+        0;
 
     color: var(--text-soft);
 
@@ -2751,9 +3095,14 @@ html.show-invitation-gate
             100%
         );
 
-    margin: 42px auto 0;
+    margin:
+        42px
+        auto
+        0;
 
-    padding: 14px 24px;
+    padding:
+        14px
+        24px;
 
     color: var(--background);
 
@@ -2827,18 +3176,24 @@ html.show-invitation-gate
             100%
         );
 
-    margin: 20px auto;
+    margin:
+        20px
+        auto;
 
-    padding: 34px 0;
+    padding:
+        34px
+        0;
 
     text-align: center;
 
     border-top:
-        1px solid
+        1px
+        solid
         var(--accent-light);
 
     border-bottom:
-        1px solid
+        1px
+        solid
         var(--accent-light);
 }
 
@@ -2875,14 +3230,17 @@ html.show-invitation-gate
 
 
 .back-invitation-button {
-    padding: 12px 28px;
+    padding:
+        12px
+        28px;
 
     color: var(--primary);
 
     background: transparent;
 
     border:
-        1px solid
+        1px
+        solid
         var(--primary);
 
     cursor: pointer;
@@ -2927,6 +3285,7 @@ html.show-invitation-gate
     inset: 0;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -2983,7 +3342,9 @@ html.show-invitation-gate
 ========================================================= */
 
 .page-footer {
-    padding: 80px 24px;
+    padding:
+        80px
+        24px;
 
     color: var(--text-soft);
 
@@ -3011,7 +3372,10 @@ html.show-invitation-gate
 
     align-items: center;
 
-    margin: 12px 0 18px;
+    margin:
+        12px
+        0
+        18px;
 
     font-family:
         "Allura",
@@ -3032,6 +3396,7 @@ html.show-invitation-gate
 
 .footer-signature span:last-child {
     margin-top: 6px;
+
     margin-left: 42px;
 
     color: var(--accent);
@@ -3057,7 +3422,9 @@ html.show-invitation-gate
 
 
 .footer-chinese-names i {
-    margin: 0 8px;
+    margin:
+        0
+        8px;
 
     color: var(--accent);
 
@@ -3071,9 +3438,12 @@ html.show-invitation-gate
 
 .footer-line {
     width: 65px;
+
     height: 1px;
 
-    margin: 24px auto;
+    margin:
+        24px
+        auto;
 
     background: var(--accent);
 }
@@ -3089,13 +3459,15 @@ html.show-invitation-gate
         width: 100%;
 
         padding-left: 20px;
+
         padding-right: 20px;
     }
 
 
     .detail-grid,
     .information-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
     }
 
 
@@ -3118,7 +3490,8 @@ html.show-invitation-gate
         padding-bottom: 40px;
 
         border-bottom:
-            1px solid
+            1px
+            solid
             var(--primary-light);
     }
 
@@ -3149,6 +3522,7 @@ html.show-invitation-gate
 
     .dress-color-circle {
         width: 56px;
+
         height: 56px;
     }
 
@@ -3175,6 +3549,7 @@ html.show-invitation-gate
             );
 
         width: 42px;
+
         height: 42px;
     }
 
@@ -3217,6 +3592,7 @@ html.show-invitation-gate
 
     .monogram-logo {
         width: 58px;
+
         height: 58px;
     }
 
@@ -3260,6 +3636,7 @@ html.show-invitation-gate
 
     .envelope-front-logo {
         width: 50px;
+
         height: 50px;
 
         top: 78%;
@@ -3273,14 +3650,18 @@ html.show-invitation-gate
 
 
     .hero-content {
-        padding: 50px 16px;
+        padding:
+            50px
+            16px;
     }
 
 
     .hero-card {
         width: 100%;
 
-        padding: 38px 5px;
+        padding:
+            38px
+            5px;
     }
 
 
@@ -3298,7 +3679,9 @@ html.show-invitation-gate
 
 
     .hero-couple-title em {
-        margin: 0 6px;
+        margin:
+            0
+            6px;
     }
 
 
@@ -3338,6 +3721,7 @@ html.show-invitation-gate
     .moments-section,
     .rsvp-section {
         padding-top: 78px;
+
         padding-bottom: 78px;
     }
 
@@ -3346,6 +3730,31 @@ html.show-invitation-gate
         font-size: 28px;
 
         letter-spacing: 3px;
+    }
+
+
+    /* Wedding Day */
+
+    .wedding-day-heading {
+        margin-bottom: 34px;
+    }
+
+
+    .wedding-day-ornament {
+        width:
+            min(
+                180px,
+                62vw
+            );
+
+        margin-bottom: 4px;
+    }
+
+
+    .wedding-day-title {
+        font-size: 34px;
+
+        letter-spacing: 0.09em;
     }
 
 
@@ -3360,7 +3769,10 @@ html.show-invitation-gate
 
 
     .detail-item {
-        padding: 24px 5px 32px;
+        padding:
+            24px
+            5px
+            32px;
     }
 
 
@@ -3369,9 +3781,7 @@ html.show-invitation-gate
     }
 
 
-    /* =====================================================
-       Dress Code Mobile
-    ====================================================== */
+    /* Dress Code */
 
     .dress-code-section {
         margin-top: 62px;
@@ -3388,7 +3798,11 @@ html.show-invitation-gate
 
 
     .dress-code-introduction {
-        width: min(330px, 100%);
+        width:
+            min(
+                330px,
+                100%
+            );
 
         font-size: 13px;
 
@@ -3397,7 +3811,11 @@ html.show-invitation-gate
 
 
     .dress-code-guidance {
-        width: min(340px, 100%);
+        width:
+            min(
+                340px,
+                100%
+            );
 
         margin-top: 20px;
 
@@ -3408,7 +3826,9 @@ html.show-invitation-gate
     .dress-code-guidance p {
         display: block;
 
-        margin: 9px 0;
+        margin:
+            9px
+            0;
 
         font-size: 12px;
 
@@ -3446,8 +3866,6 @@ html.show-invitation-gate
     }
 
 
-    /* 7 顆在手機仍維持同一排 */
-
     .dress-code-palette {
         gap:
             clamp(
@@ -3477,9 +3895,7 @@ html.show-invitation-gate
     }
 
 
-    /* =====================================================
-       Timeline
-    ====================================================== */
+    /* Timeline */
 
     .timeline-board-title {
         gap: 12px;
@@ -3488,6 +3904,7 @@ html.show-invitation-gate
 
     .timeline-board-icon {
         width: 42px;
+
         height: 42px;
 
         font-size: 22px;
@@ -3524,6 +3941,7 @@ html.show-invitation-gate
 
     .timeline-dot {
         width: 42px;
+
         height: 42px;
 
         font-size: 18px;
@@ -3556,7 +3974,10 @@ html.show-invitation-gate
 
 
     .rsvp-inner {
-        padding: 10px 4px 0;
+        padding:
+            10px
+            4px
+            0;
     }
 
 
@@ -3586,7 +4007,9 @@ html.show-invitation-gate
 
 
     .rsvp-couple-chinese i {
-        margin: 0 8px;
+        margin:
+            0
+            8px;
     }
 
 

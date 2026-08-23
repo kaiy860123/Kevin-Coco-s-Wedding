@@ -220,7 +220,7 @@ const weddingConfig = {
 
 
             countdownImageAlt:
-                "台南場婚禮倒數 Wedding Countdown",
+                "Wedding Day - Tainan",
 
 
             rsvpDeadline:
@@ -423,10 +423,8 @@ const weddingConfig = {
 
 
             formToggles: {
-
                 showCeremony:
                     false
-
             }
 
         },
@@ -463,7 +461,7 @@ const weddingConfig = {
 
 
             countdownImageAlt:
-                "南投場婚禮倒數 Wedding Countdown",
+                "Wedding Day - Sun Moon Lake",
 
 
             rsvpDeadline:
@@ -868,6 +866,28 @@ const weddingConfig = {
                 </p>
 
 
+                <!-- 新增：接駁車資訊依當日安排 -->
+
+                <p class="transport-note">
+
+                    接駁車之司機、
+                    車號及車型可能依當日安排調整，
+                    請以婚禮當日提供的最新資訊為準。
+
+                    <span class="en-line">
+
+                        Shuttle driver,
+                        vehicle and license plate
+                        may vary.
+                        Please refer to the latest
+                        information provided
+                        on the wedding day.
+
+                    </span>
+
+                </p>
+
+
                 <p>
 
                     婚禮當日亦提供
@@ -892,10 +912,8 @@ const weddingConfig = {
 
 
             formToggles: {
-
                 showCeremony:
                     true
-
             }
 
         }
@@ -1061,13 +1079,6 @@ function setupBackgroundMusic() {
         updateMuteButton();
 
 
-        /*
-            如果使用者按下解除靜音，
-            同時嘗試播放音樂。
-            此時屬於使用者互動，
-            瀏覽器通常允許播放。
-        */
-
         if (!muted) {
             await playMusic();
         }
@@ -1131,12 +1142,8 @@ function setupBackgroundMusic() {
             "click",
             async event => {
 
-                /*
-                    避免音樂按鈕的點擊
-                    被其他互動誤判。
-                */
-
                 event.preventDefault();
+
                 event.stopPropagation();
 
 
@@ -1400,11 +1407,6 @@ function setupInvitationGate(
     }
 
 
-    /*
-        信封開啟動畫尚未結束時，
-        再次點擊信封即可立即進入主頁。
-    */
-
     function skipOpeningAnimation() {
 
         if (!isOpening) {
@@ -1440,11 +1442,6 @@ function setupInvitationGate(
 
     async function openInvitation() {
 
-        /*
-            第二次點擊：
-            不再等待 5 秒。
-        */
-
         if (isOpening) {
 
             skipOpeningAnimation();
@@ -1477,11 +1474,6 @@ function setupInvitationGate(
         }
 
 
-        /*
-            第一次點擊信封，
-            同時開始播放背景音樂。
-        */
-
         if (
             musicController &&
             typeof musicController.play ===
@@ -1500,11 +1492,6 @@ function setupInvitationGate(
 
         setInstructionToSkip();
 
-
-        /*
-            使用者系統設定減少動畫時，
-            直接快速完成。
-        */
 
         if (reducedMotion) {
 
@@ -1532,28 +1519,6 @@ function setupInvitationGate(
 
         }
 
-
-        /*
-            正常流程：
-
-            0 秒：
-            點擊信封、開始開啟。
-
-            約 1 秒：
-            邀請卡升起。
-
-            約 1～4.8 秒：
-            邀請卡停留。
-
-            期間再次點擊信封：
-            立即進入主頁。
-
-            4.8 秒：
-            自動淡出。
-
-            5.5 秒：
-            正式進入主頁。
-        */
 
         fadeTimer =
             window.setTimeout(
@@ -2052,7 +2017,7 @@ function renderNotice(
 
 
 /* =========================================================
-   Countdown Image
+   Wedding Day Image
 ========================================================= */
 
 function renderCountdownImage(
@@ -2936,7 +2901,7 @@ function buildRsvpData(
 
 
         formVersion:
-            "20260823-01"
+            "20260823-02"
 
     };
 
@@ -3292,10 +3257,8 @@ async function submitToGoogleForm(
 
 
     return {
-
         success:
             true
-
     };
 
 }
