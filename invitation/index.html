@@ -17,6 +17,13 @@
     <title>Wedding Invitation</title>
 
     <link
+        rel="preload"
+        as="image"
+        href="./images/hero-cover.jpg"
+        fetchpriority="high"
+    >
+
+    <link
         rel="preconnect"
         href="https://fonts.googleapis.com"
     >
@@ -63,7 +70,7 @@
 
     <link
         rel="stylesheet"
-        href="./style.css?v=20260823-02"
+        href="./style.css?v=20261007-01"
     >
 </head>
 
@@ -77,7 +84,7 @@
     <audio
         id="bg-music"
         loop
-        preload="auto"
+        preload="metadata"
     >
         <source
             src="./InvitationMusic.mp3"
@@ -493,6 +500,9 @@
                 class="countdown-image"
                 src=""
                 alt="Wedding Day"
+                loading="lazy"
+                decoding="async"
+                fetchpriority="low"
             >
 
             <p
@@ -589,27 +599,6 @@
 
             </div>
 
-
-            <div class="editorial-image-frame">
-
-                <img
-                    id="event-image"
-                    class="event-image"
-                    src=""
-                    alt="婚禮資訊 Wedding Event Information"
-                >
-
-                <p
-                    id="event-image-error"
-                    class="image-error-message"
-                    hidden
-                >
-                    婚禮資訊圖片尚未上傳。
-                </p>
-
-            </div>
-
-
             <div class="detail-grid">
 
                 <article class="detail-item">
@@ -682,6 +671,43 @@
                     ></div>
 
                 </article>
+
+            </div>
+
+
+            <!-- =================================================
+                 婚禮資訊照片序列
+                 既有圖片：6.jpg / 7.jpg / 8.jpg
+            ================================================== -->
+
+            <div
+                class="event-photo-sequence"
+                aria-label="Wedding photo sequence"
+            >
+
+                <img
+                    src="./images/6.jpg"
+                    alt="Wedding Photo 1"
+                    loading="lazy"
+                    decoding="async"
+                    fetchpriority="low"
+                >
+
+                <img
+                    src="./images/7.jpg"
+                    alt="Wedding Photo 2"
+                    loading="lazy"
+                    decoding="async"
+                    fetchpriority="low"
+                >
+
+                <img
+                    src="./images/8.jpg"
+                    alt="Wedding Photo 3"
+                    loading="lazy"
+                    decoding="async"
+                    fetchpriority="low"
+                >
 
             </div>
 
@@ -1007,7 +1033,7 @@
 
 
             <div
-                class="photo-grid"
+                class="moments-collage"
                 id="photo-grid"
             ></div>
 
@@ -1306,6 +1332,39 @@
                                 <p class="field-help highlighted-help">
                                     請包含您本人、其他成人與所有兒童。<br>
                                     Please include yourself, all adults and all children.
+                                </p>
+
+                            </div>
+
+
+                            <div
+                                id="field-companion-names"
+                                class="form-group"
+                                hidden
+                            >
+
+                                <label for="companion-names">
+
+                                    <span>
+                                        Accompanying Guest Names
+                                    </span>
+
+                                    其他一同參與人員姓名
+
+                                </label>
+
+                                <input
+                                    id="companion-names"
+                                    type="text"
+                                    name="companionNames"
+                                    maxlength="200"
+                                    autocomplete="off"
+                                    placeholder="例如：王小明、陳小華"
+                                >
+
+                                <p class="field-help">
+                                    總出席人數大於 1 人時可填寫，非必填；多位姓名請以頓號「、」分隔。<br>
+                                    Optional. Please separate multiple names with 「、」.
                                 </p>
 
                             </div>
@@ -1629,7 +1688,7 @@
     ></script>
 
     <script
-        src="./app.js?v=20260823-02"
+        src="./app.js?v=20261007-01"
     ></script>
 
 </body>

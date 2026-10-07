@@ -4083,3 +4083,429 @@ html.show-invitation-gate
     }
 
 }
+
+/* =========================================================
+   2026-10-07 Collage / Compact Layout
+========================================================= */
+
+/* 整體段落改為更緊湊的 editorial 節奏 */
+
+.countdown-section,
+.content-section,
+.moments-section,
+.rsvp-section {
+    padding-top: 72px;
+    padding-bottom: 72px;
+}
+
+
+.section-heading {
+    margin-bottom: 28px;
+}
+
+
+.section-note {
+    margin-top: 8px;
+    line-height: 1.55;
+}
+
+
+.wedding-day-heading {
+    margin-bottom: 28px;
+}
+
+
+.hero-invitation-zh {
+    line-height: 1.72;
+}
+
+
+.hero-invitation-en {
+    margin-top: 6px;
+    line-height: 1.42;
+}
+
+
+.detail-item {
+    padding-top: 18px;
+    padding-bottom: 22px;
+}
+
+
+.detail-item-wide {
+    padding-top: 28px;
+}
+
+
+.detail-item h3 {
+    margin-top: 2px;
+    margin-bottom: 10px;
+}
+
+
+.detail-secondary {
+    margin-top: 3px;
+    line-height: 1.45;
+}
+
+
+.venue-detail {
+    margin-top: 8px;
+}
+
+
+.venue-detail p {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    line-height: 1.55;
+}
+
+
+.dress-code-section {
+    margin-top: 48px;
+    padding-top: 36px;
+}
+
+
+.dress-code-introduction {
+    margin-top: 13px;
+    line-height: 1.72;
+}
+
+
+.dress-code-guidance {
+    margin-top: 16px;
+    padding-top: 14px;
+}
+
+
+.dress-code-guidance p {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    line-height: 1.55;
+}
+
+
+.dress-code-palette {
+    margin-top: 24px;
+}
+
+
+.timeline-board-title {
+    margin-bottom: 18px;
+}
+
+
+.timeline-item {
+    padding-top: 8px;
+    padding-bottom: 18px;
+}
+
+
+.information-item h3 {
+    margin-bottom: 12px;
+}
+
+
+.information-content p {
+    margin-bottom: 12px;
+    line-height: 1.7;
+}
+
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+
+.form-group label {
+    margin-bottom: 5px;
+}
+
+
+.field-help {
+    margin-top: 4px;
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   婚禮資訊後三張連續照片
+========================================================= */
+
+.event-photo-sequence {
+    width: min(820px, 100%);
+    margin: 28px auto 48px;
+    overflow: hidden;
+    background: transparent;
+}
+
+
+.event-photo-sequence img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    object-fit: contain;
+    background: transparent;
+}
+
+
+/* =========================================================
+   Our Moments Editorial Collage
+========================================================= */
+
+.moments-collage {
+    position: relative;
+    width: min(900px, 100%);
+    margin: 0 auto;
+    padding: 26px 34px 38px;
+}
+
+
+.moments-collage::before,
+.moments-collage::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    content: "";
+    background: rgba(86, 87, 71, 0.42);
+}
+
+
+.moments-collage::before {
+    left: 0;
+}
+
+
+.moments-collage::after {
+    right: 0;
+}
+
+
+.moment-photo {
+    display: block;
+    background: #EEEAE3;
+    object-fit: cover;
+    cursor: zoom-in;
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+}
+
+
+.moment-photo:hover {
+    transform: translateY(-3px);
+}
+
+
+.moment-photo.is-missing {
+    display: none;
+}
+
+
+.moment-wide {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+}
+
+
+.moment-quote {
+    margin: 20px 5% 28px;
+    color: var(--text-soft);
+    font-family:
+        "GenWanMin2Wedding",
+        "Noto Serif TC",
+        serif;
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-align: right;
+}
+
+
+.moment-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 26px;
+    align-items: start;
+}
+
+
+.moment-small {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+}
+
+
+.moment-small-right {
+    margin-top: 22px;
+}
+
+
+.moment-hearts {
+    margin: 18px 0 20px 12px;
+    color: var(--sage);
+    font-family:
+        "Cormorant Garamond",
+        serif;
+    font-size: 25px;
+    letter-spacing: 0.18em;
+}
+
+
+.moment-portrait-wrap {
+    position: relative;
+    width: 68%;
+    margin: 38px 2% 0 auto;
+}
+
+
+.moment-portrait {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+}
+
+
+.moment-script {
+    position: absolute;
+    z-index: 2;
+    left: -150px;
+    bottom: 7%;
+    width: 210px;
+    color: var(--primary);
+    font-family:
+        "Allura",
+        cursive;
+    font-size: clamp(42px, 6vw, 70px);
+    line-height: 0.9;
+    transform: rotate(-7deg);
+    pointer-events: none;
+}
+
+
+.moment-script span {
+    color: var(--accent);
+}
+
+
+/* 讓下方區塊延後實際繪製，降低首屏負擔 */
+
+.event-section,
+.timeline-section,
+.venue-section,
+.moments-section,
+.rsvp-section {
+    content-visibility: auto;
+    contain-intrinsic-size: 800px;
+}
+
+
+/* =========================================================
+   Mobile Compact / Collage
+========================================================= */
+
+@media (max-width: 500px) {
+
+    .countdown-section,
+    .content-section,
+    .moments-section,
+    .rsvp-section {
+        padding-top: 52px;
+        padding-bottom: 52px;
+    }
+
+
+    .section-heading {
+        margin-bottom: 22px;
+    }
+
+
+    .wedding-day-heading {
+        margin-bottom: 22px;
+    }
+
+
+    .event-photo-sequence {
+        width: calc(100% + 40px);
+        margin:
+            20px
+            -20px
+            38px;
+    }
+
+
+    .dress-code-section {
+        margin-top: 36px;
+        padding-top: 30px;
+    }
+
+
+    .moments-collage {
+        width: 100%;
+        padding:
+            18px
+            16px
+            26px;
+    }
+
+
+    .moment-quote {
+        margin:
+            14px
+            2%
+            20px;
+        font-size: 13px;
+        letter-spacing: 0.08em;
+    }
+
+
+    .moment-pair {
+        gap: 12px;
+    }
+
+
+    .moment-small-right {
+        margin-top: 14px;
+    }
+
+
+    .moment-hearts {
+        margin:
+            12px
+            0
+            14px
+            5px;
+        font-size: 21px;
+    }
+
+
+    .moment-portrait-wrap {
+        width: 76%;
+        margin:
+            30px
+            0
+            0
+            auto;
+    }
+
+
+    .moment-script {
+        left: -78px;
+        bottom: 6%;
+        width: 130px;
+        font-size: 42px;
+    }
+
+
+    .information-content p {
+        line-height: 1.62;
+    }
+
+
+    .form-group {
+        margin-bottom: 21px;
+    }
+
+}

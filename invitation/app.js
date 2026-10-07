@@ -267,17 +267,7 @@ const weddingConfig = {
 
             noticeEn:
                 "",
-
-
-            eventImage:
-                "./images/event-tainan.jpg",
-
-
-            eventImageAlt:
-                "台南婚禮資訊",
-
-
-            timelineItems: [
+timelineItems: [
 
                 {
                     time:
@@ -532,17 +522,7 @@ const weddingConfig = {
 
             noticeEn:
                 "No gifts or cash gifts, please. Your presence is the greatest blessing to us.",
-
-
-            eventImage:
-                "./images/event-nantou.jpg",
-
-
-            eventImageAlt:
-                "南投婚禮資訊",
-
-
-            timelineItems: [
+timelineItems: [
 
                 {
                     time:
@@ -1948,13 +1928,7 @@ function renderPage(
         config
     );
 
-
-    renderEventImage(
-        config
-    );
-
-
-    renderTimelineItems(
+renderTimelineItems(
         config
     );
 
@@ -2081,70 +2055,6 @@ function renderCountdownImage(
 
 
 /* =========================================================
-   Event Image
-========================================================= */
-
-function renderEventImage(
-    config
-) {
-
-    const image =
-        getElement(
-            "event-image"
-        );
-
-
-    const error =
-        getElement(
-            "event-image-error"
-        );
-
-
-    if (
-        !image ||
-        !error
-    ) {
-        return;
-    }
-
-
-    image.alt =
-        config.eventImageAlt;
-
-
-    image.onload =
-        () => {
-
-            image.hidden =
-                false;
-
-
-            error.hidden =
-                true;
-
-        };
-
-
-    image.onerror =
-        () => {
-
-            image.hidden =
-                true;
-
-
-            error.hidden =
-                false;
-
-        };
-
-
-    image.src =
-        config.eventImage;
-
-}
-
-
-/* =========================================================
    Timeline
 ========================================================= */
 
@@ -2260,10 +2170,11 @@ function renderMoments(
         "";
 
 
-    sharedImages.moments.forEach(
+    const createMomentImage =
         (
             source,
-            index
+            alt,
+            className
         ) => {
 
             const image =
@@ -2277,15 +2188,25 @@ function renderMoments(
 
 
             image.alt =
-                `Wedding Moment ${index + 1}`;
+                alt;
 
 
             image.className =
-                "photo-item";
+                `moment-photo ${className}`;
 
 
             image.loading =
                 "lazy";
+
+
+            image.decoding =
+                "async";
+
+
+            image.setAttribute(
+                "fetchpriority",
+                "low"
+            );
 
 
             image.addEventListener(
@@ -2312,17 +2233,149 @@ function renderMoments(
                 "error",
                 () => {
 
-                    image.remove();
+                    image.classList.add(
+                        "is-missing"
+                    );
 
                 }
             );
 
 
-            grid.appendChild(
-                image
-            );
+            return image;
 
-        }
+        };
+
+
+    const wide =
+        createMomentImage(
+            sharedImages.moments[0],
+            "Our Moment 1",
+            "moment-wide"
+        );
+
+
+    const quote =
+        document.createElement(
+            "p"
+        );
+
+
+    quote.className =
+        "moment-quote";
+
+
+    quote.innerHTML =
+        "“ 在你身邊・日日又年年 ”";
+
+
+    const pair =
+        document.createElement(
+            "div"
+        );
+
+
+    pair.className =
+        "moment-pair";
+
+
+    pair.appendChild(
+        createMomentImage(
+            sharedImages.moments[1],
+            "Our Moment 2",
+            "moment-small moment-small-left"
+        )
+    );
+
+
+    pair.appendChild(
+        createMomentImage(
+            sharedImages.moments[2],
+            "Our Moment 3",
+            "moment-small moment-small-right"
+        )
+    );
+
+
+    const hearts =
+        document.createElement(
+            "div"
+        );
+
+
+    hearts.className =
+        "moment-hearts";
+
+
+    hearts.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+
+    hearts.textContent =
+        "♡ ♡ ♡";
+
+
+    const portraitWrap =
+        document.createElement(
+            "div"
+        );
+
+
+    portraitWrap.className =
+        "moment-portrait-wrap";
+
+
+    const script =
+        document.createElement(
+            "div"
+        );
+
+
+    script.className =
+        "moment-script";
+
+
+    script.innerHTML =
+        'Coco <span>&amp;</span> Kevin';
+
+
+    portraitWrap.appendChild(
+        script
+    );
+
+
+    portraitWrap.appendChild(
+        createMomentImage(
+            sharedImages.moments[3],
+            "Our Moment 4",
+            "moment-portrait"
+        )
+    );
+
+
+    grid.appendChild(
+        wide
+    );
+
+
+    grid.appendChild(
+        quote
+    );
+
+
+    grid.appendChild(
+        pair
+    );
+
+
+    grid.appendChild(
+        hearts
+    );
+
+
+    grid.appendChild(
+        portraitWrap
     );
 
 }
@@ -2331,6 +2384,7 @@ function renderMoments(
 /* =========================================================
    RSVP Deadline
 ========================================================= */
+
 
 function setupRsvpDeadline(
     config
@@ -2488,6 +2542,24 @@ function prepareFormControls(
         );
 
 
+    const attendCount =
+        getElement(
+            "attend-count"
+        );
+
+
+    const companionField =
+        getElement(
+            "field-companion-names"
+        );
+
+
+    const companionNames =
+        getElement(
+            "companion-names"
+        );
+
+
     const dietary =
         getElement(
             "dietary-type"
@@ -2523,6 +2595,9 @@ function prepareFormControls(
         !attendance ||
         !details ||
         !ceremony ||
+        !attendCount ||
+        !companionField ||
+        !companionNames ||
         !dietary ||
         !vegField ||
         !vegCount ||
@@ -2556,6 +2631,41 @@ function prepareFormControls(
 
             }
         );
+
+
+    function updateCompanionNames() {
+
+        const attending =
+            attendance.value ===
+            "yes";
+
+
+        const count =
+            Number(
+                attendCount.value ||
+                0
+            );
+
+
+        const visible =
+            attending &&
+            count > 1;
+
+
+        setFieldVisibility(
+            companionField,
+            visible
+        );
+
+
+        if (!visible) {
+
+            companionNames.value =
+                "";
+
+        }
+
+    }
 
 
     function updateDietary() {
@@ -2630,6 +2740,9 @@ function prepareFormControls(
         }
 
 
+        updateCompanionNames();
+
+
         updateDietary();
 
     }
@@ -2649,6 +2762,31 @@ function prepareFormControls(
 
         attendance.dataset
             .listenerBound =
+            "true";
+
+    }
+
+
+    if (
+        attendCount.dataset
+            .companionListenerBound !==
+        "true"
+    ) {
+
+        attendCount.addEventListener(
+            "input",
+            updateCompanionNames
+        );
+
+
+        attendCount.addEventListener(
+            "change",
+            updateCompanionNames
+        );
+
+
+        attendCount.dataset
+            .companionListenerBound =
             "true";
 
     }
@@ -2681,6 +2819,7 @@ function prepareFormControls(
 /* =========================================================
    Dietary Label
 ========================================================= */
+
 
 function getDietaryTypeLabel(
     type
@@ -2733,6 +2872,19 @@ function buildRsvpData(
             "isAttending"
         ) ===
         "yes";
+
+
+    const attendCount =
+        attending
+            ?
+            Number(
+                formData.get(
+                    "attendCount"
+                ) ||
+                0
+            )
+            :
+            0;
 
 
     const dietaryType =
@@ -2818,16 +2970,21 @@ function buildRsvpData(
 
 
         attendCount:
-            attending
+            attendCount,
+
+
+        companionNames:
+            attending &&
+            attendCount > 1
                 ?
-                Number(
+                String(
                     formData.get(
-                        "attendCount"
+                        "companionNames"
                     ) ||
-                    0
-                )
+                    ""
+                ).trim()
                 :
-                0,
+                "",
 
 
         childSetCount:
@@ -2901,7 +3058,7 @@ function buildRsvpData(
 
 
         formVersion:
-            "20260823-02"
+            "20261007-01"
 
     };
 
@@ -2911,6 +3068,7 @@ function buildRsvpData(
 /* =========================================================
    Validate RSVP
 ========================================================= */
+
 
 function validateRsvpData(
     data
@@ -3218,10 +3376,34 @@ async function submitToGoogleForm(
     );
 
 
+    const googleMessage =
+        [
+
+            data.companionNames
+                ?
+                `同行賓客 / Accompanying Guests: ${data.companionNames}`
+                :
+                "",
+
+            data.message
+                ?
+                `新人留言 / Message: ${data.message}`
+                :
+                ""
+
+        ]
+        .filter(
+            Boolean
+        )
+        .join(
+            "\n"
+        );
+
+
     params.append(
         GOOGLE_FORM_ENTRY
             .message,
-        data.message
+        googleMessage
     );
 
 
@@ -3267,6 +3449,7 @@ async function submitToGoogleForm(
 /* =========================================================
    Submit Both
 ========================================================= */
+
 
 async function submitRsvpData(
     data
