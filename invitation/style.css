@@ -5,9 +5,7 @@
 @font-face {
     font-family: "GenWanMin2Wedding";
 
-    src:
-        url("./fonts/GenWanMin2-L.ttc") format("collection"),
-        url("./fonts/GenWanMin2-L.ttc");
+    src: url("./fonts/GenWanMin2-L-subset.woff2") format("woff2");
 
     font-weight: 300;
     font-style: normal;
