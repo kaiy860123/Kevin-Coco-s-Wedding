@@ -4509,3 +4509,543 @@ html.show-invitation-gate
     }
 
 }
+
+
+
+/* =========================================================
+   2026-10-07 FINAL SPACING REFINEMENT
+   Mobile-first compact editorial rhythm
+========================================================= */
+
+/*
+   移除 content-visibility 的預留高度。
+   先前 contain-intrinsic-size: 800px 在手機捲動時可能形成
+   過大的暫時空白與版面跳動；圖片仍保留 lazy loading。
+*/
+.event-section,
+.timeline-section,
+.venue-section,
+.moments-section,
+.rsvp-section {
+    content-visibility: visible !important;
+    contain-intrinsic-size: auto !important;
+}
+
+
+/* =========================================================
+   Countdown：只保留圖片，緊接首圖與婚禮資訊
+========================================================= */
+
+.countdown-section {
+    padding: 10px 18px 8px !important;
+    margin: 0 !important;
+}
+
+.countdown-frame {
+    width: min(720px, 100%) !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+}
+
+.countdown-image {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    object-fit: contain !important;
+}
+
+
+/* =========================================================
+   全站標題節奏
+========================================================= */
+
+.section-heading {
+    margin-bottom: 18px !important;
+}
+
+.eyebrow {
+    margin-bottom: 4px !important;
+    line-height: 1.25 !important;
+}
+
+.section-heading h2 {
+    line-height: 1.3 !important;
+}
+
+.section-note {
+    margin-top: 7px !important;
+    line-height: 1.5 !important;
+}
+
+.section-divider {
+    margin: 12px auto 14px !important;
+}
+
+
+/* =========================================================
+   婚禮資訊
+========================================================= */
+
+.event-section {
+    padding-top: 28px !important;
+    padding-bottom: 34px !important;
+}
+
+.detail-grid {
+    gap: 0 42px !important;
+}
+
+.detail-item {
+    padding: 12px 8px 16px !important;
+}
+
+.detail-item-wide {
+    padding-top: 20px !important;
+}
+
+.detail-label {
+    line-height: 1.25 !important;
+}
+
+.detail-item h3 {
+    margin: 2px 0 7px !important;
+    line-height: 1.35 !important;
+}
+
+.detail-main {
+    line-height: 1.5 !important;
+}
+
+.detail-secondary {
+    margin-top: 2px !important;
+    line-height: 1.45 !important;
+}
+
+.venue-detail {
+    margin-top: 7px !important;
+}
+
+.venue-detail p {
+    margin: 2px 0 !important;
+    line-height: 1.5 !important;
+}
+
+
+/* =========================================================
+   地點下方三張連續照片
+========================================================= */
+
+.event-photo-sequence {
+    margin: 20px auto 26px !important;
+}
+
+.event-photo-sequence img {
+    margin: 0 !important;
+}
+
+
+/* =========================================================
+   Dress Code
+========================================================= */
+
+.dress-code-section {
+    margin-top: 24px !important;
+    padding-top: 22px !important;
+}
+
+.dress-code-heading h3 {
+    line-height: 1.4 !important;
+}
+
+.dress-code-introduction {
+    margin-top: 10px !important;
+    line-height: 1.65 !important;
+}
+
+.dress-code-guidance {
+    margin-top: 12px !important;
+    padding-top: 11px !important;
+}
+
+.dress-code-guidance p {
+    margin: 3px 0 !important;
+    line-height: 1.5 !important;
+}
+
+.dress-code-palette {
+    margin-top: 18px !important;
+}
+
+
+/* =========================================================
+   婚禮時程
+========================================================= */
+
+.timeline-section {
+    padding-top: 40px !important;
+    padding-bottom: 38px !important;
+}
+
+.timeline-board-title {
+    margin-bottom: 14px !important;
+    padding-bottom: 12px !important;
+}
+
+.timeline-item {
+    padding-top: 7px !important;
+    padding-bottom: 15px !important;
+}
+
+.timeline-title,
+.timeline-subtitle,
+.timeline-note {
+    line-height: 1.45 !important;
+}
+
+
+/* =========================================================
+   地點 / 交通 / 停車
+========================================================= */
+
+.venue-section {
+    padding-top: 40px !important;
+    padding-bottom: 22px !important;
+}
+
+.map-actions {
+    margin-bottom: 20px !important;
+}
+
+.map-container {
+    margin-bottom: 34px !important;
+}
+
+.information-grid {
+    gap: 34px !important;
+}
+
+.information-item {
+    padding: 4px 0 !important;
+}
+
+.information-item h3 {
+    margin: 2px 0 10px !important;
+}
+
+.information-content p {
+    margin: 0 0 10px !important;
+    line-height: 1.6 !important;
+}
+
+.information-content .en-line {
+    margin-top: 3px !important;
+    line-height: 1.45 !important;
+}
+
+
+/* =========================================================
+   Our Moments
+========================================================= */
+
+.moments-section {
+    padding-top: 26px !important;
+    padding-bottom: 24px !important;
+}
+
+.moments-section .section-heading {
+    margin-bottom: 12px !important;
+}
+
+.moments-section .section-divider {
+    margin: 10px auto 12px !important;
+}
+
+.moments-collage {
+    margin-top: 0 !important;
+    padding: 12px 28px 20px !important;
+}
+
+.moment-quote {
+    margin: 14px 4% 20px !important;
+    line-height: 1.45 !important;
+}
+
+.moment-pair {
+    gap: 18px !important;
+}
+
+.moment-small-right {
+    margin-top: 14px !important;
+}
+
+.moment-hearts {
+    margin: 12px 0 14px 10px !important;
+}
+
+.moment-portrait-wrap {
+    margin-top: 28px !important;
+}
+
+
+/* =========================================================
+   RSVP
+========================================================= */
+
+.rsvp-section {
+    padding-top: 26px !important;
+    padding-bottom: 54px !important;
+}
+
+.rsvp-inner {
+    padding-top: 6px !important;
+}
+
+.rsvp-section .section-heading {
+    margin-bottom: 14px !important;
+}
+
+.rsvp-couple-signature {
+    margin: 16px 0 10px !important;
+}
+
+.rsvp-couple-chinese {
+    margin: 4px 0 18px !important;
+}
+
+.rsvp-section .section-note {
+    margin-top: 6px !important;
+}
+
+.rsvp-section .section-divider {
+    margin: 11px auto 14px !important;
+}
+
+.deadline-display {
+    margin-top: 10px !important;
+    line-height: 1.55 !important;
+}
+
+.form-group {
+    margin-bottom: 21px !important;
+}
+
+.form-group label {
+    margin-bottom: 4px !important;
+    line-height: 1.45 !important;
+}
+
+.field-help {
+    margin-top: 4px !important;
+    line-height: 1.5 !important;
+}
+
+
+/* =========================================================
+   Tablet / Mobile
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .information-grid {
+        gap: 22px !important;
+    }
+
+    .information-item:first-child {
+        padding-bottom: 22px !important;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    /*
+       首圖 → countdown → Event Details
+       三個區塊連續閱讀，不再保留大片空白。
+    */
+    .countdown-section {
+        padding: 6px 12px 5px !important;
+    }
+
+    .event-section {
+        padding-top: 20px !important;
+        padding-bottom: 28px !important;
+    }
+
+    .timeline-section {
+        padding-top: 30px !important;
+        padding-bottom: 28px !important;
+    }
+
+    .venue-section {
+        padding-top: 30px !important;
+        padding-bottom: 14px !important;
+    }
+
+    .moments-section {
+        padding-top: 20px !important;
+        padding-bottom: 18px !important;
+    }
+
+    .rsvp-section {
+        padding-top: 20px !important;
+        padding-bottom: 44px !important;
+    }
+
+
+    .section-heading {
+        margin-bottom: 12px !important;
+    }
+
+    .section-note {
+        margin-top: 5px !important;
+        line-height: 1.42 !important;
+    }
+
+    .section-divider {
+        margin: 9px auto 11px !important;
+    }
+
+
+    .detail-item {
+        padding: 9px 4px 12px !important;
+    }
+
+    .detail-item-wide {
+        padding-top: 15px !important;
+    }
+
+    .detail-item h3 {
+        margin-bottom: 5px !important;
+    }
+
+
+    /*
+       三張連續照片在手機採 full-bleed，
+       與 Dress Code 之間只留小段呼吸空間。
+    */
+    .event-photo-sequence {
+        width: calc(100% + 40px) !important;
+        margin: 14px -20px 20px !important;
+    }
+
+    .dress-code-section {
+        margin-top: 18px !important;
+        padding-top: 17px !important;
+    }
+
+    .dress-code-introduction {
+        margin-top: 8px !important;
+        line-height: 1.58 !important;
+    }
+
+    .dress-code-guidance {
+        margin-top: 9px !important;
+        padding-top: 9px !important;
+    }
+
+    .dress-code-guidance p {
+        margin: 3px 0 !important;
+        line-height: 1.5 !important;
+    }
+
+    .dress-code-palette {
+        margin-top: 15px !important;
+    }
+
+
+    .map-actions {
+        margin-bottom: 16px !important;
+    }
+
+    .map-container {
+        margin-bottom: 24px !important;
+    }
+
+    .information-grid {
+        gap: 18px !important;
+    }
+
+    .information-item:first-child {
+        padding-bottom: 18px !important;
+    }
+
+    .information-content p {
+        margin-bottom: 9px !important;
+        line-height: 1.55 !important;
+    }
+
+    .information-content .en-line {
+        line-height: 1.42 !important;
+    }
+
+
+    /*
+       Parking → Our Moments
+    */
+    .moments-section .section-heading {
+        margin-bottom: 9px !important;
+    }
+
+    .moments-section .section-divider {
+        margin: 8px auto 10px !important;
+    }
+
+    .moments-collage {
+        padding: 9px 14px 14px !important;
+    }
+
+    .moment-quote {
+        margin: 10px 2% 15px !important;
+    }
+
+    .moment-pair {
+        gap: 10px !important;
+    }
+
+    .moment-small-right {
+        margin-top: 10px !important;
+    }
+
+    .moment-hearts {
+        margin: 9px 0 10px 5px !important;
+    }
+
+    .moment-portrait-wrap {
+        margin-top: 21px !important;
+    }
+
+
+    /*
+       Our Moments → RSVP
+    */
+    .rsvp-inner {
+        padding-top: 0 !important;
+    }
+
+    .rsvp-section .section-heading {
+        margin-bottom: 10px !important;
+    }
+
+    .rsvp-couple-signature {
+        margin: 12px 0 8px !important;
+    }
+
+    .rsvp-couple-chinese {
+        margin: 3px 0 14px !important;
+    }
+
+    .rsvp-section .section-divider {
+        margin: 9px auto 11px !important;
+    }
+
+    .deadline-display {
+        margin-top: 8px !important;
+    }
+
+    .form-group {
+        margin-bottom: 18px !important;
+    }
+
+}
