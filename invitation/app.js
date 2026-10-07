@@ -125,6 +125,9 @@ const GOOGLE_FORM_ENTRY = {
     message:
         "entry.666038148",
 
+    companionNames:
+        "entry.237250157",
+
     formVersion:
         "entry.365524471"
 
@@ -3058,7 +3061,7 @@ function buildRsvpData(
 
 
         formVersion:
-            "20261007-01"
+            "20261007-02"
 
     };
 
@@ -3376,34 +3379,17 @@ async function submitToGoogleForm(
     );
 
 
-    const googleMessage =
-        [
-
-            data.companionNames
-                ?
-                `同行賓客 / Accompanying Guests: ${data.companionNames}`
-                :
-                "",
-
-            data.message
-                ?
-                `新人留言 / Message: ${data.message}`
-                :
-                ""
-
-        ]
-        .filter(
-            Boolean
-        )
-        .join(
-            "\n"
-        );
+    params.append(
+        GOOGLE_FORM_ENTRY
+            .companionNames,
+        data.companionNames
+    );
 
 
     params.append(
         GOOGLE_FORM_ENTRY
             .message,
-        googleMessage
+        data.message
     );
 
 
