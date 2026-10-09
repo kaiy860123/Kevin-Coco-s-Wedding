@@ -527,41 +527,20 @@ timelineItems: [
 
             venueDetail: `
 
-                <p>
-
-                    <strong>
-                        證婚地點：
-                    </strong>
-
-                    8F 星光露台
-
+                <p class="venue-main-line">
+                    證婚地點：8F 星光露台
                 </p>
 
-
-                <p class="en-line">
-
-                    Ceremony:
-                    8F Starlight Terrace
-
+                <p class="venue-english-line">
+                    Ceremony: 8F Starlight Terrace
                 </p>
 
-
-                <p>
-
-                    <strong>
-                        用餐地點：
-                    </strong>
-
-                    7F 湖光軒
-
+                <p class="venue-main-line">
+                    用餐地點：7F 湖光軒
                 </p>
 
-
-                <p class="en-line">
-
-                    Luncheon:
-                    7F Lakeview Pavilion
-
+                <p class="venue-english-line">
+                    Luncheon: 7F Lakeview Pavilion
                 </p>
 
             `,
