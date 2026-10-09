@@ -1249,6 +1249,21 @@ function setupInvitationGate(
         !envelopeButton
     ) {
 
+        if (
+            window.__invitationGateFailsafeTimer
+        ) {
+
+            window.clearTimeout(
+                window.__invitationGateFailsafeTimer
+            );
+
+
+            window.__invitationGateFailsafeTimer =
+                null;
+
+        }
+
+
         document.documentElement
             .classList
             .remove(
@@ -1263,6 +1278,10 @@ function setupInvitationGate(
 
     const sessionKey =
         `weddingInvitationOpened:${currentLocation}`;
+
+
+    const AUTO_OPEN_DELAY_MS =
+        10000;
 
 
     let isOpening =
@@ -1281,13 +1300,17 @@ function setupInvitationGate(
         null;
 
 
+    let autoOpenTimer =
+        null;
+
+
     const reducedMotion =
         window.matchMedia(
             "(prefers-reduced-motion: reduce)"
         ).matches;
 
 
-    function clearOpeningTimers() {
+    function clearTransitionTimers() {
 
         if (fadeTimer !== null) {
 
@@ -1320,6 +1343,38 @@ function setupInvitationGate(
             );
 
             skipFinishTimer =
+                null;
+
+        }
+
+    }
+
+
+    function clearAutoOpenTimer() {
+
+        if (autoOpenTimer !== null) {
+
+            window.clearTimeout(
+                autoOpenTimer
+            );
+
+
+            autoOpenTimer =
+                null;
+
+        }
+
+
+        if (
+            window.__invitationGateFailsafeTimer
+        ) {
+
+            window.clearTimeout(
+                window.__invitationGateFailsafeTimer
+            );
+
+
+            window.__invitationGateFailsafeTimer =
                 null;
 
         }
@@ -1373,7 +1428,10 @@ function setupInvitationGate(
 
     function resetGateVisual() {
 
-        clearOpeningTimers();
+        clearTransitionTimers();
+
+
+        clearAutoOpenTimer();
 
 
         isOpening =
@@ -1397,7 +1455,10 @@ function setupInvitationGate(
 
     function finishOpening() {
 
-        clearOpeningTimers();
+        clearTransitionTimers();
+
+
+        clearAutoOpenTimer();
 
 
         isOpening =
@@ -1438,6 +1499,17 @@ function setupInvitationGate(
 
         });
 
+
+        if (
+            musicController &&
+            typeof musicController.tryAutoPlay ===
+                "function"
+        ) {
+
+            musicController.tryAutoPlay();
+
+        }
+
     }
 
 
@@ -1457,7 +1529,7 @@ function setupInvitationGate(
         }
 
 
-        clearOpeningTimers();
+        clearTransitionTimers();
 
 
         gate.classList.add(
@@ -1468,13 +1540,16 @@ function setupInvitationGate(
         skipFinishTimer =
             window.setTimeout(
                 finishOpening,
-                220
+                180
             );
 
     }
 
 
     async function openInvitation() {
+
+        clearAutoOpenTimer();
+
 
         if (isOpening) {
 
@@ -1538,14 +1613,14 @@ function setupInvitationGate(
                         );
 
                     },
-                    250
+                    120
                 );
 
 
             finishTimer =
                 window.setTimeout(
                     finishOpening,
-                    650
+                    320
                 );
 
 
@@ -1553,6 +1628,12 @@ function setupInvitationGate(
 
         }
 
+
+        /*
+           原本約 5.5 秒，縮短為約 1.8 秒。
+           信封翻蓋與邀請卡升起仍可完整看見，
+           但不再讓來賓等待過久。
+        */
 
         fadeTimer =
             window.setTimeout(
@@ -1563,14 +1644,62 @@ function setupInvitationGate(
                     );
 
                 },
-                4800
+                1250
             );
 
 
         finishTimer =
             window.setTimeout(
                 finishOpening,
-                5500
+                1800
+            );
+
+    }
+
+
+    function scheduleAutoOpen() {
+
+        clearAutoOpenTimer();
+
+
+        const shownAt =
+            Number(
+                window.__invitationGateShownAt
+            ) ||
+            Date.now();
+
+
+        const elapsed =
+            Math.max(
+                0,
+                Date.now() - shownAt
+            );
+
+
+        const remaining =
+            Math.max(
+                0,
+                AUTO_OPEN_DELAY_MS - elapsed
+            );
+
+
+        autoOpenTimer =
+            window.setTimeout(
+                () => {
+
+                    if (
+                        document.documentElement.classList.contains(
+                            "show-invitation-gate"
+                        ) &&
+                        !isOpening
+                    ) {
+
+                        openInvitation();
+
+                    }
+
+                },
+                remaining
             );
 
     }
@@ -1596,6 +1725,10 @@ function setupInvitationGate(
             .add(
                 "show-invitation-gate"
             );
+
+
+        window.__invitationGateShownAt =
+            Date.now();
 
 
         window.scrollTo({
@@ -1628,7 +1761,14 @@ function setupInvitationGate(
 
         }
 
+
+        scheduleAutoOpen();
+
     }
+
+
+    window.__openWeddingInvitation =
+        openInvitation;
 
 
     envelopeButton.addEventListener(
@@ -1685,8 +1825,14 @@ function setupInvitationGate(
             "false"
         );
 
+
+        scheduleAutoOpen();
+
     }
     else {
+
+        clearAutoOpenTimer();
+
 
         gate.hidden =
             true;

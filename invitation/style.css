@@ -5465,3 +5465,46 @@ html.show-invitation-gate
     }
 
 }
+
+
+
+/* =========================================================
+   2026-10-09 GATE FAILSAFE AND FAST OPEN
+========================================================= */
+
+/*
+   信封開啟動畫縮短。
+   JS 約 1.8 秒後進入正文，CSS 動畫控制在 1 秒內完成。
+*/
+.envelope-flap {
+    transition-duration: 0.55s !important;
+}
+
+.envelope-card {
+    transition-duration: 0.82s !important;
+}
+
+.invitation-gate {
+    transition-duration: 0.45s !important;
+}
+
+
+/*
+   Logo 已內嵌於 HTML，不需再等待網路圖片請求。
+   即使影像解碼較慢，也不阻擋整個信封按鈕的點擊。
+*/
+.monogram-logo img,
+.envelope-front-logo img {
+    pointer-events: none !important;
+}
+
+
+/*
+   開啟中的信封保持可再點一次，
+   讓使用者可立即跳過剩餘動畫。
+*/
+.invitation-gate.is-opening
+.envelope-button {
+    pointer-events: auto !important;
+}
+
