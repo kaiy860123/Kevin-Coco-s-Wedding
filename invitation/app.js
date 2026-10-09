@@ -138,16 +138,47 @@ const GOOGLE_FORM_ENTRY = {
    Shared Images
 ========================================================= */
 
+const ASSET_VERSION =
+    "20261009-opt2";
+
+
+function assetUrl(
+    path
+) {
+
+    const separator =
+        path.includes("?")
+            ?
+            "&"
+            :
+            "?";
+
+
+    return `${path}${separator}v=${ASSET_VERSION}`;
+
+}
+
+
 const sharedImages = {
 
     hero:
-        "./images/hero-cover.jpg",
+        assetUrl(
+            "./images/hero-cover.jpg"
+        ),
 
     moments: [
-        "./images/moment-01.jpg",
-        "./images/moment-02.jpg",
-        "./images/moment-03.jpg",
-        "./images/moment-04.jpg"
+        assetUrl(
+            "./images/moment-01.jpg"
+        ),
+        assetUrl(
+            "./images/moment-02.jpg"
+        ),
+        assetUrl(
+            "./images/moment-03.jpg"
+        ),
+        assetUrl(
+            "./images/moment-04.jpg"
+        )
     ]
 
 };
@@ -219,7 +250,9 @@ const weddingConfig = {
 
 
             countdownImage:
-                "./images/countdown-tainan.jpg",
+                assetUrl(
+                    "./images/countdown-tainan.jpg"
+                ),
 
 
             countdownImageAlt:
@@ -463,7 +496,9 @@ timelineItems: [
 
 
             countdownImage:
-                "./images/countdown-nantou.jpg",
+                assetUrl(
+                    "./images/countdown-nantou.jpg"
+                ),
 
 
             countdownImageAlt:
@@ -2417,6 +2452,95 @@ function renderMoments(
 
 
 /* =========================================================
+   Warm Image Cache
+========================================================= */
+
+function warmImageCache(
+    config
+) {
+
+    const sources =
+        [
+
+            config.countdownImage,
+
+            assetUrl(
+                "./images/6.jpg"
+            ),
+
+            assetUrl(
+                "./images/7.jpg"
+            ),
+
+            assetUrl(
+                "./images/8.jpg"
+            ),
+
+            ...sharedImages.moments
+
+        ]
+        .filter(
+            Boolean
+        );
+
+
+    const uniqueSources =
+        [
+            ...new Set(
+                sources
+            )
+        ];
+
+
+    const preload =
+        () => {
+
+            uniqueSources.forEach(
+                source => {
+
+                    const image =
+                        new Image();
+
+
+                    image.decoding =
+                        "async";
+
+
+                    image.src =
+                        source;
+
+                }
+            );
+
+        };
+
+
+    if (
+        "requestIdleCallback" in window
+    ) {
+
+        window.requestIdleCallback(
+            preload,
+            {
+                timeout:
+                    2200
+            }
+        );
+
+    }
+    else {
+
+        window.setTimeout(
+            preload,
+            1200
+        );
+
+    }
+
+}
+
+
+/* =========================================================
    RSVP Deadline
 ========================================================= */
 
@@ -3807,6 +3931,11 @@ document.addEventListener(
             config,
             currentLocation,
             lightboxController
+        );
+
+
+        warmImageCache(
+            config
         );
 
 
