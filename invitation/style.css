@@ -5143,3 +5143,262 @@ html.show-invitation-gate
     }
 
 }
+
+
+
+/* =========================================================
+   2026-10-09 ENVELOPE CTA RIPPLE REFINEMENT
+========================================================= */
+
+/*
+   入口上方文字放大一個層級，
+   保留原本細緻、留白與精品邀請函感。
+*/
+.gate-title {
+    font-size: clamp(17px, 2.2vw, 20px) !important;
+}
+
+.gate-monogram-row p {
+    font-size: clamp(13px, 1.9vw, 16px) !important;
+}
+
+.gate-main-invitation {
+    font-size: clamp(14px, 2vw, 18px) !important;
+}
+
+.gate-english-invitation {
+    font-size: clamp(12px, 1.8vw, 15px) !important;
+}
+
+
+/*
+   信封本身仍是按鈕，增加兩層玫瑰粉擴散波紋。
+   波紋中心位於目前 KC Logo 附近，讓使用者自然理解可點擊。
+*/
+.envelope-button {
+    position: relative !important;
+    isolation: isolate;
+    overflow: visible !important;
+}
+
+.envelope-button::before,
+.envelope-button::after {
+    position: absolute;
+    z-index: 8;
+
+    left: 50%;
+    top: 79%;
+
+    width: 76px;
+    height: 76px;
+
+    content: "";
+
+    border:
+        1.5px
+        solid
+        rgba(201, 124, 124, 0.62);
+
+    border-radius: 50%;
+
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0.72);
+
+    pointer-events: none;
+
+    animation:
+        envelopeTapRipple
+        2.35s
+        ease-out
+        infinite;
+}
+
+.envelope-button::after {
+    animation-delay: 1.15s;
+}
+
+@keyframes envelopeTapRipple {
+
+    0% {
+        opacity: 0;
+        transform:
+            translate(-50%, -50%)
+            scale(0.72);
+    }
+
+    18% {
+        opacity: 0.58;
+    }
+
+    72% {
+        opacity: 0.12;
+    }
+
+    100% {
+        opacity: 0;
+        transform:
+            translate(-50%, -50%)
+            scale(1.95);
+    }
+
+}
+
+
+/*
+   開啟後立即停止提示動畫，避免干擾邀請卡升起動畫。
+*/
+.invitation-gate.is-opening
+.envelope-button::before,
+.invitation-gate.is-opening
+.envelope-button::after {
+    animation: none !important;
+    opacity: 0 !important;
+}
+
+
+/*
+   強化下方操作提示，但仍維持目前婚禮主視覺。
+*/
+.gate-instruction {
+    margin-top: clamp(19px, 3vh, 32px) !important;
+
+    padding:
+        8px
+        14px
+        7px;
+
+    border-radius: 999px;
+
+    cursor: pointer;
+
+    -webkit-tap-highlight-color: transparent;
+
+    animation:
+        gateInstructionBreath
+        2.8s
+        ease-in-out
+        infinite;
+}
+
+.gate-instruction p {
+    color: var(--primary) !important;
+
+    font-size: 16px !important;
+
+    font-weight: 600 !important;
+
+    letter-spacing: 0.25em !important;
+
+    line-height: 1.35 !important;
+}
+
+.gate-instruction span {
+    margin-top: 5px !important;
+
+    color: var(--accent) !important;
+
+    font-size: 13px !important;
+
+    font-weight: 500 !important;
+
+    letter-spacing: 0.2em !important;
+
+    line-height: 1.45 !important;
+}
+
+.gate-instruction:focus-visible {
+    outline:
+        1px
+        solid
+        rgba(201, 124, 124, 0.75);
+
+    outline-offset: 5px;
+}
+
+@keyframes gateInstructionBreath {
+
+    0%,
+    100% {
+        opacity: 0.88;
+        transform: translateY(0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(-2px);
+    }
+
+}
+
+.invitation-gate.is-opening
+.gate-instruction {
+    animation: none !important;
+}
+
+
+/* 手機：上方文字同樣比現在大一號，避免再次被舊 media rule 縮小 */
+@media (max-width: 500px) {
+
+    .gate-title {
+        font-size: 18px !important;
+    }
+
+    .gate-monogram-row p {
+        font-size: 12px !important;
+        letter-spacing: 0.2em !important;
+    }
+
+    .gate-main-invitation {
+        font-size: 13px !important;
+        letter-spacing: 0.14em !important;
+    }
+
+    .gate-english-invitation {
+        font-size: 11px !important;
+        letter-spacing: 0.21em !important;
+    }
+
+    .envelope-button::before,
+    .envelope-button::after {
+        top: 78%;
+
+        width: 58px;
+        height: 58px;
+
+        border-width: 1.4px;
+    }
+
+    .gate-instruction {
+        margin-top: 20px !important;
+        padding:
+            7px
+            10px
+            6px;
+    }
+
+    .gate-instruction p {
+        font-size: 14px !important;
+        letter-spacing: 0.18em !important;
+    }
+
+    .gate-instruction span {
+        font-size: 12px !important;
+        letter-spacing: 0.14em !important;
+    }
+
+}
+
+
+/* 無動畫偏好者不顯示持續波紋 */
+@media (prefers-reduced-motion: reduce) {
+
+    .envelope-button::before,
+    .envelope-button::after,
+    .gate-instruction {
+        animation: none !important;
+    }
+
+}

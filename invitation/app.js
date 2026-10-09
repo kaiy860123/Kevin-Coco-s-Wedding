@@ -1229,6 +1229,12 @@ function setupInvitationGate(
         );
 
 
+    const gateInstruction =
+        getElement(
+            "gate-instruction"
+        );
+
+
     const instructionMain =
         getElement(
             "gate-instruction-main"
@@ -1328,13 +1334,13 @@ function setupInvitationGate(
 
         if (instructionMain) {
             instructionMain.textContent =
-                "TAP TO OPEN";
+                "TAP THE ENVELOPE TO OPEN";
         }
 
 
         if (instructionSub) {
             instructionSub.textContent =
-                "輕觸開啟";
+                "輕觸信封開啟邀請函";
         }
 
 
@@ -1632,6 +1638,35 @@ function setupInvitationGate(
         "click",
         openInvitation
     );
+
+
+    if (gateInstruction) {
+
+        gateInstruction.addEventListener(
+            "click",
+            openInvitation
+        );
+
+
+        gateInstruction.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "Enter" ||
+                    event.key === " "
+                ) {
+
+                    event.preventDefault();
+
+                    openInvitation();
+
+                }
+
+            }
+        );
+
+    }
 
 
     const shouldShow =
