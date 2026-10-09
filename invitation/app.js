@@ -243,22 +243,17 @@ const weddingConfig = {
 
 
             venueAddress:
-                "台南市中西區和意路 1 號",
+                "",
 
 
             venueDetail: `
 
-                <p>
-                    <strong>
-                        宴會廳：
-                    </strong>
-
-                    2F 明倫＋仁德廳
+                <p class="venue-main-line">
+                    宴會廳：2F 明倫＋仁德廳
                 </p>
 
-                <p class="en-line">
-                    Ballroom:
-                    2F Minglun & Rende Ballroom
+                <p class="venue-english-line">
+                    Ballroom: 2F Minglun & Rende Ballroom
                 </p>
 
             `,
@@ -318,6 +313,24 @@ timelineItems: [
 
 
             trafficInfo: `
+
+                <p class="transport-address">
+
+                    <strong>
+                        地址：
+                    </strong>
+
+                    台南市中西區和意路 1 號
+
+                    <span class="en-line">
+                        Address:
+                        No. 1, Heyi Rd.,
+                        West Central Dist.,
+                        Tainan City
+                    </span>
+
+                </p>
+
 
                 <p>
 
@@ -1836,10 +1849,29 @@ function renderPage(
     );
 
 
-    setText(
-        "venue-address",
-        config.venueAddress
-    );
+    const venueAddressElement =
+        getElement(
+            "venue-address"
+        );
+
+
+    if (venueAddressElement) {
+
+        const venueAddressText =
+            String(
+                config.venueAddress ||
+                ""
+            ).trim();
+
+
+        venueAddressElement.textContent =
+            venueAddressText;
+
+
+        venueAddressElement.hidden =
+            venueAddressText.length === 0;
+
+    }
 
 
     setHtml(

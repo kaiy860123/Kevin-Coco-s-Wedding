@@ -5047,3 +5047,99 @@ html.show-invitation-gate
     }
 
 }
+
+
+
+/* =========================================================
+   2026-10-09 VENUE TYPOGRAPHY REFINEMENT
+   Tainan venue information visual hierarchy
+========================================================= */
+
+/*
+   飯店名稱與宴會廳名稱視為同一層級：
+   同字型、同字重、同顏色、同字級。
+*/
+#venue-name,
+.venue-detail .venue-main-line {
+    margin: 0 !important;
+
+    color: var(--text) !important;
+
+    font-family:
+        "Noto Serif TC",
+        serif !important;
+
+    font-size: 17px !important;
+
+    font-weight: 400 !important;
+
+    font-style: normal !important;
+
+    letter-spacing: normal !important;
+
+    line-height: 1.5 !important;
+}
+
+
+/*
+   宴會廳英文與日期下方英文資訊使用相同視覺語言：
+   Cormorant Garamond、柔和灰色、14px。
+*/
+.venue-detail .venue-english-line {
+    margin: 2px 0 0 !important;
+
+    color: var(--text-soft) !important;
+
+    font-family:
+        "Cormorant Garamond",
+        "Noto Serif TC",
+        serif !important;
+
+    font-size: 14px !important;
+
+    font-weight: 400 !important;
+
+    font-style: normal !important;
+
+    letter-spacing: normal !important;
+
+    line-height: 1.45 !important;
+}
+
+
+/* Venue 主資訊之間只保留小幅留白 */
+.venue-detail {
+    margin-top: 6px !important;
+}
+
+
+/* 地址移至交通資訊，維持交通資訊既有排版 */
+.information-content .transport-address {
+    margin-bottom: 14px !important;
+}
+
+
+/* 空白地址不應占據任何版面 */
+#venue-address[hidden] {
+    display: none !important;
+}
+
+
+@media (max-width: 500px) {
+
+    #venue-name,
+    .venue-detail .venue-main-line {
+        font-size: 17px !important;
+        line-height: 1.48 !important;
+    }
+
+    .venue-detail .venue-english-line {
+        font-size: 14px !important;
+        line-height: 1.42 !important;
+    }
+
+    .venue-detail {
+        margin-top: 5px !important;
+    }
+
+}
