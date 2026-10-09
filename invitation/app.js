@@ -522,7 +522,7 @@ timelineItems: [
 
 
             venueAddress:
-                "南投縣魚池鄉中興路 142 號",
+                "",
 
 
             venueDetail: `
@@ -638,6 +638,24 @@ timelineItems: [
 
 
             trafficInfo: `
+
+                <p class="transport-address">
+
+                    <strong>
+                        地址：
+                    </strong>
+
+                    南投縣魚池鄉中興路 142 號
+
+                    <span class="en-line">
+                        Address:
+                        No. 142, Zhongxing Rd.,
+                        Yuchi Township,
+                        Nantou County
+                    </span>
+
+                </p>
+
 
                 <p>
 
