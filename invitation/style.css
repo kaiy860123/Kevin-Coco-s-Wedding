@@ -5508,3 +5508,38 @@ html.show-invitation-gate
     pointer-events: auto !important;
 }
 
+
+
+
+/* =========================================================
+   2026-10-10 NANTOU CEREMONY TIME
+========================================================= */
+
+.event-time-block {
+    margin: 0;
+}
+
+.event-time-block-ceremony {
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom:
+        1px solid
+        rgba(111, 124, 62, 0.18);
+}
+
+.event-time-block .detail-main {
+    margin: 0 !important;
+}
+
+.event-time-block .detail-secondary {
+    margin-top: 2px !important;
+}
+
+@media (max-width: 500px) {
+
+    .event-time-block-ceremony {
+        margin-bottom: 11px;
+        padding-bottom: 11px;
+    }
+
+}

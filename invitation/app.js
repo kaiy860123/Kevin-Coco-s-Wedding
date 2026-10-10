@@ -517,6 +517,14 @@ timelineItems: [
                 "November 30, 2026 at 11:59 PM",
 
 
+            eventCeremonyTime:
+                "10:30",
+
+
+            eventCeremonyLabel:
+                "Wedding Ceremony · 證婚儀式",
+
+
             venueName:
                 "日月潭涵碧樓",
 
@@ -2054,6 +2062,59 @@ function renderPage(
         "event-date-en",
         config.dateEn
     );
+
+
+    const ceremonyTimeBlock =
+        getElement(
+            "event-ceremony-time-block"
+        );
+
+
+    if (ceremonyTimeBlock) {
+
+        const ceremonyTime =
+            String(
+                config.eventCeremonyTime ||
+                ""
+            ).trim();
+
+
+        const ceremonyLabel =
+            String(
+                config.eventCeremonyLabel ||
+                ""
+            ).trim();
+
+
+        if (
+            ceremonyTime &&
+            ceremonyLabel
+        ) {
+
+            setText(
+                "event-ceremony-time",
+                ceremonyTime
+            );
+
+
+            setText(
+                "event-ceremony-label",
+                ceremonyLabel
+            );
+
+
+            ceremonyTimeBlock.hidden =
+                false;
+
+        }
+        else {
+
+            ceremonyTimeBlock.hidden =
+                true;
+
+        }
+
+    }
 
 
     setText(
