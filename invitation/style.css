@@ -5521,10 +5521,8 @@ html.show-invitation-gate
 
 .event-time-block-ceremony {
     margin-bottom: 14px;
-    padding-bottom: 14px;
-    border-bottom:
-        1px solid
-        rgba(111, 124, 62, 0.18);
+    padding-bottom: 0;
+    border-bottom: none;
 }
 
 .event-time-block .detail-main {
